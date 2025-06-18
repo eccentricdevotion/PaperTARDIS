@@ -1,0 +1,50 @@
+# must use single quotes to wrap regular expressions
+enabled: true
+prefix: '^(?:hey,?\s+)?handles(?:[,!:\s]|\.\.\.+)'
+reminders:
+  enabled: true
+  schedule: 1200
+core-commands:
+  craft: '\b(?:craft|build|make|create)\b.*\b(\w+)\s+(tardis\b)?(\b.*\b)'
+  remind: '\bremind\s*(?:me\s+to)?\s+(.+)\s+.+(\d+)'
+  say: '\bsay\s+(.+)'
+  name: '\bname\b'
+  time: '\btime\b'
+  call: '\bcall\b'
+  takeoff: '\btake\s*off\b'
+  land: '\bland\b'
+  hide: '\bhide\b'
+  rebuild: '\brebuild\b'
+  direction: '\b(?:fac(?:ing|e)|direction)\s+(\w+)'
+  lights: '\b(?:lights\b.*\b(off|on)|(off|on)\b.*\blights)\b'
+  power: '\b(?:power\b.*\b(off|on)|(off|on)\b.*\bpower)\b'
+  brake: '\b(?:(?:hand)*brake|park)\b'
+  travel:
+    save: '\b(?:travel|go)\s+(?:to\s+)?.*?(?:saved?(?:\s+(?:location|destination|place|point))?|destination)\s+(\w+)'
+    home: '\b(?:travel|go)\s+(?:to\s+)?.*?home\b'
+    random: '\b(?:(?:travel|go)\s+(?:to\s+)?.*?|find\b.+)\brandom\b'
+    player: '\b(?:travel|go)\s+(?:to\s+)?.*?player\s+(\w+)'
+    area: '\b(?:travel|go)\s+(?:to\s+)?.*?(?:\b(\w+)\s+area|area\s+(\w+))\s*?$'
+    biome: '\b(?:(?:travel|go)\s+(?:to\s+)?.*?|find\b.+)(?:\b([\w:]+)\s+biome|biome\s+(\w+))\s*?$'
+    cave: '\b(?:(?:travel|go)\s+(?:to\s+)?.*?|find\b.+)\bcave\b'
+    village: '\b(?:(?:travel|go)\s+(?:to\s+)?.*?|find\b.+)\bvillage\b'
+  door:
+    open: '\b(?:open\b.*\bdoor|door\b.*\bopen(?:ed)?)\b'
+    close: '\b(?:close\b.*\bdoor|door\b.*\bclosed?)\b'
+    lock: '\b(?:lock\b.*\bdoor|door\b.*\block(?:ed)?)\b'
+    unlock: '\b(?:unlock\b.*\bdoor|door\b.*\bunlock(?:ed)?)\b'
+  scan: '\bscan\b'
+  teleport: '\bteleport\b'
+  transmat: '\btransmat\s+(?:(?:me\s+)?to\s+(?:the\s+)?)?(.+)'
+custom-commands:
+  weird:
+    regex: '\bblah\b'
+    permission: tardis.handles.use
+    commands:
+      - handles tell %player_name% I'm sorry %player_displayname%, I'm afraid I can't do that
+      - handles weird
+  console:
+    regex: '\bconsole\s+(\w+)'
+    permission: tardis.admin
+    commands:
+      - ^tadmin list $1

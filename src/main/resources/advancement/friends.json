@@ -1,0 +1,17 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:red_tulip",
+      "count": 1
+    },
+    "title": "The host with the most",
+    "description": "Add companions to your TARDIS"
+  },
+  "parent": "tardis:tardis",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "sends_telemetry_event": false
+}

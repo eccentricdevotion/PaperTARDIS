@@ -1,0 +1,129 @@
+switch_resource_packs: false
+set_pack_on_join: true
+default_resource_pack: 'https://www.dropbox.com/s/utka3zxmer7f19g/Default.zip?dl=1'
+colour_skies: true
+planets:
+  TARDIS_TimeVortex:
+    enabled: true
+    resource_pack: default
+    gamemode: SURVIVAL
+    time_travel: false
+    world_type: FLAT
+    environment: NORMAL
+    void: true
+    generator: TARDIS:void
+    gamerules:
+      doWeatherCycle: false
+      doDaylightCycle: false
+      doWardenSpawning: false
+    spawn_chunk_radius: 0
+    allow_portals: false
+    alias: TimeVortex
+    icon: CRYING_OBSIDIAN
+    helmic_regulator_order: -1
+  TARDIS_Zero_Room:
+    enabled: false
+    resource_pack: default
+    gamemode: SURVIVAL
+    time_travel: false
+    world_type: FLAT
+    environment: NORMAL
+    void: true
+    generator: TARDIS:void
+    gamerules:
+      doWeatherCycle: false
+      doDaylightCycle: false
+      announceAdvancements: false
+      doWardenSpawning: false
+    spawn_chunk_radius: 0
+    allow_portals: false
+    alias: ZeroRoom
+    icon: PINK_WOOL
+    helmic_regulator_order: -1
+  skaro:
+    enabled: false
+    resource_pack: default
+    acid: true
+    acid_damage: 5
+    acid_potions:
+      - WEAKNESS
+      - POISON
+    rust: true
+    flying_daleks: true
+    gamemode: SURVIVAL
+    time_travel: true
+    world_type: NORMAL
+    environment: NORMAL
+    generator: TARDIS:skaro
+    spawn_chunk_radius: 0
+    spawn_other_mobs: true
+    gamerules:
+      doTraderSpawning: false
+      doPatrolSpawning: false
+    allow_portals: false
+    alias: Skaro
+    icon: FIRE_CORAL_BLOCK
+    helmic_regulator_order: -1
+  siluria:
+    enabled: false
+    resource_pack: default
+    gamemode: SURVIVAL
+    time_travel: true
+    world_type: NORMAL
+    environment: NORMAL
+    generator: TARDIS:siluria
+    spawn_chunk_radius: 0
+    spawn_other_mobs: true
+    gamerules:
+      doTraderSpawning: false
+      doPatrolSpawning: false
+    allow_portals: false
+    alias: Siluria
+    icon: BAMBOO_MOSAIC
+    helmic_regulator_order: -1
+  gallifrey:
+    enabled: false
+    resource_pack: default
+    gamemode: SURVIVAL
+    time_travel: true
+    world_type: NORMAL
+    environment: NORMAL
+    generator: TARDIS:gallifrey
+    spawn_chunk_radius: 0
+    spawn_other_mobs: true
+    gamerules:
+      doTraderSpawning: false
+      doPatrolSpawning: false
+    allow_portals: false
+    alias: Gallifrey
+    icon: RED_SAND
+    villager_blueprints:
+      enabled: true
+      # max usage is 16
+      uses: 1
+      chance: 20
+    helmic_regulator_order: -1
+  rooms:
+    enabled: false
+    resource_pack: default
+    gamemode: SURVIVAL
+    time_travel: false
+    world_type: FLAT
+    environment: NORMAL
+    generator: TARDIS:rooms
+    spawn_chunk_radius: 0
+    spawn_other_mobs: false
+    gamerules:
+      doWeatherCycle: false
+      doDaylightCycle: false
+      doMobSpawning: false
+      doTraderSpawning: false
+      doPatrolSpawning: false
+      doWardenSpawning: false
+    allow_portals: false
+    alias: Roomy
+    icon: BOOKSHELF
+    transmat_location:
+      x: 8.5
+      y: 68.0
+      z: 2.5

@@ -1,0 +1,17 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:wheat",
+      "count": 1
+    },
+    "title": "Old MacDonald had a farm",
+    "description": "Farm all allowed animal types"
+  },
+  "parent": "tardis:tardis",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "sends_telemetry_event": false
+}
