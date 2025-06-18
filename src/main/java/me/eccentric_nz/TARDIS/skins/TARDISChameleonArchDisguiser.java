@@ -40,7 +40,7 @@ public class TARDISChameleonArchDisguiser {
         this.plugin = plugin;
         this.player = player;
         try {
-            gpField = net.minecraft.world.entity.player.Player.class.getDeclaredField("cy"); // cy = GameProfile
+            gpField = net.minecraft.world.entity.player.Player.class.getDeclaredField("gameProfile"); // cy = gameProfile
         } catch (NoSuchFieldException e) {
             throw new RuntimeException(e);
         }

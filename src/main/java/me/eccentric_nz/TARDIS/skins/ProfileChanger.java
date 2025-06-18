@@ -70,7 +70,7 @@ public class ProfileChanger {
     private static void setGameProfile(ServerPlayer player, GameProfile profile) {
         try {
             // set GameProfile accessible
-            Field gpField = net.minecraft.world.entity.player.Player.class.getDeclaredField("cV"); // cy = GameProfile
+            Field gpField = net.minecraft.world.entity.player.Player.class.getDeclaredField("gameProfile"); // cy = gameProfile
             gpField.setAccessible(true);
             gpField.set(player, profile);
             gpField.setAccessible(false);

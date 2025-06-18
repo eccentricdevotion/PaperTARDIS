@@ -70,14 +70,14 @@ public class NPCConnection extends Connection {
     @Override
     public void setListenerForServerboundHandshake(PacketListener pl) {
         try {
-            Field field = Connection.class.getDeclaredField("q");
+            Field field = Connection.class.getDeclaredField("packetListener");
             field.setAccessible(true);
             field.set(this, pl);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             TARDIS.plugin.getLogger().warning("Could not set packetListener for NPCConnection: " + e.getMessage());
         }
         try {
-            Field field = Connection.class.getDeclaredField("p");
+            Field field = Connection.class.getDeclaredField("disconnectListener");
             field.setAccessible(true);
             field.set(this, null);
         } catch (NoSuchFieldException | IllegalAccessException e) {

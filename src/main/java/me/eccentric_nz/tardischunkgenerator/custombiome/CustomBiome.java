@@ -81,11 +81,11 @@ public class CustomBiome {
             TARDISHelper.biomeMap.put(data.customName(), biome);
             // inject into the biome registry
             // unfreeze Biome Registry
-            Field frozen = MappedRegistry.class.getDeclaredField("l");
+            Field frozen = MappedRegistry.class.getDeclaredField("frozen");
             frozen.setAccessible(true);
             frozen.set(registrywritable, false);
             // inject unregisteredIntrusiveHolders with a new map to allow intrusive holders
-            Field unregisteredIntrusiveHolders = MappedRegistry.class.getDeclaredField("m");
+            Field unregisteredIntrusiveHolders = MappedRegistry.class.getDeclaredField("unregisteredIntrusiveHolders");
             unregisteredIntrusiveHolders.setAccessible(true);
             unregisteredIntrusiveHolders.set(registrywritable, new IdentityHashMap<>());
             registrywritable.createIntrusiveHolder(biome);
@@ -97,7 +97,7 @@ public class CustomBiome {
             Holder<Biome> minecraftHolder = Holder.direct(minecraftbiome);
             minecraftHolder.tags().forEach(tags::add);
             // Holder.Reference.bindTags
-            Method bindTags = Holder.Reference.class.getDeclaredMethod("a", Collection.class);
+            Method bindTags = Holder.Reference.class.getDeclaredMethod("bindTags", Collection.class);
             bindTags.setAccessible(true);
             bindTags.invoke(holder, tags);
 

@@ -27,10 +27,10 @@ import java.util.IdentityHashMap;
 public class EntityRegistry {
 
     public static void unfreeze() throws NoSuchFieldException, IllegalAccessException {
-        Field unregisteredIntrusiveHolders = MappedRegistry.class.getDeclaredField("m");
+        Field unregisteredIntrusiveHolders = MappedRegistry.class.getDeclaredField("unregisteredIntrusiveHolders");
         unregisteredIntrusiveHolders.setAccessible(true);
         unregisteredIntrusiveHolders.set(BuiltInRegistries.ENTITY_TYPE, new IdentityHashMap<EntityType<?>, Holder.Reference<EntityType<?>>>());
-        Field frozen = MappedRegistry.class.getDeclaredField("l");
+        Field frozen = MappedRegistry.class.getDeclaredField("frozen");
         frozen.setAccessible(true);
         frozen.set(BuiltInRegistries.ENTITY_TYPE, false);
     }
