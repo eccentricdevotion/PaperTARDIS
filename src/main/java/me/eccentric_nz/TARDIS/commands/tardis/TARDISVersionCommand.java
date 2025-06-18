@@ -18,7 +18,6 @@ package me.eccentric_nz.TARDIS.commands.tardis;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISUpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -52,11 +51,6 @@ class TARDISVersionCommand {
             if (hooks.contains(name)) {
                 plugin.getMessenger().sendWithColours(sender, TardisModule.TARDIS, name + " version: ", "#FFFFFF", version, "#55FFFF");
             }
-        }
-        // check for new TARDIS build
-        if (sender.isOp()) {
-            plugin.getMessenger().message(sender, TardisModule.TARDIS, "Checking for new TARDIS builds...");
-            plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new TARDISUpdateChecker(plugin, sender));
         }
         return true;
     }

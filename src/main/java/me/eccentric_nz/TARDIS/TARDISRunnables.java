@@ -32,8 +32,6 @@ import me.eccentric_nz.TARDIS.move.TARDISSpectaclesRunnable;
 import me.eccentric_nz.TARDIS.rooms.TARDISZeroRoomRunnable;
 import me.eccentric_nz.TARDIS.siegemode.TARDISSiegeRunnable;
 import me.eccentric_nz.TARDIS.utility.TARDISHumSounds;
-import me.eccentric_nz.TARDIS.utility.TARDISSpigotChecker;
-import me.eccentric_nz.TARDIS.utility.TARDISUpdateChecker;
 import me.eccentric_nz.TARDIS.utility.TARDISVaultChecker;
 
 public class TARDISRunnables {
@@ -112,12 +110,6 @@ public class TARDISRunnables {
                 plugin.getMessenger().message(plugin.getConsole(), TardisModule.TARDIS, plugin.getLanguage().getString("ADVANCEMENT_RELOAD"));
             }
         }, 199);
-        // check TARDIS build
-        if (plugin.getConfig().getBoolean("preferences.update.notify")) {
-            plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new TARDISUpdateChecker(plugin, null));
-        }
-        // check Spigot build
-        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new TARDISSpigotChecker(plugin));
         /*
          * Starts a repeating task that removes Artron Energy from the TARDIS while it is in standby mode (ie not
          * travelling). Only runs if `standby_time` in artron.yml is greater than 0 (the default is 6000 or every 5

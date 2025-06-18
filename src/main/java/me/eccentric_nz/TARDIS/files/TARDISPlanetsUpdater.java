@@ -347,7 +347,7 @@ public class TARDISPlanetsUpdater {
             is.close();
             return props.getProperty("level-name");
         } catch (IOException e) {
-            return "world"; // minecraft / spigot default
+            return "world"; // minecraft / paper default
         }
     }
 
@@ -359,7 +359,7 @@ public class TARDISPlanetsUpdater {
             is.close();
             return props.getProperty("difficulty").toUpperCase(Locale.ROOT);
         } catch (IOException e) {
-            return "EASY"; // minecraft / spigot default
+            return "EASY"; // minecraft / paper default
         }
     }
 

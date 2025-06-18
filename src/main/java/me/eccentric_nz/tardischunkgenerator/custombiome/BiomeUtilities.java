@@ -38,7 +38,7 @@ public class BiomeUtilities {
             is.close();
             return props.getProperty("level-name");
         } catch (IOException e) {
-            return "world"; // minecraft / spigot default
+            return "world"; // minecraft / paper default
         }
     }
 
