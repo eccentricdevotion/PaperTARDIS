@@ -90,14 +90,11 @@ repositories {
 
 dependencies {
     paperweight.paperDevBundle("1.21.6-R0.1-SNAPSHOT")
-    compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.10-SNAPSHOT")
-    compileOnly("net.citizensnpcs:citizensapi:2.0.33-SNAPSHOT") {
+    compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.14-SNAPSHOT")
+    compileOnly("net.citizensnpcs:citizensapi:2.0.38-SNAPSHOT") {
         isTransitive = false
     }
     compileOnly("com.palmergames.bukkit.towny:towny:0.101.1.0") {
-        isTransitive = false
-    }
-    compileOnly("com.github.Brettflan:WorldBorder:44f388f3ba") {
         isTransitive = false
     }
     compileOnly("org.mvplugins.multiverse.core:multiverse-core:5.0.1-SNAPSHOT") {
@@ -122,7 +119,7 @@ dependencies {
     compileOnly("me.libraryaddict.disguises:libsdisguises:11.0.6") {
         isTransitive = false
     }
-    compileOnly("net.essentialsx:EssentialsX:2.21.0-SNAPSHOT") {
+    compileOnly("net.essentialsx:EssentialsX:2.21.1-SNAPSHOT") {
         isTransitive = false
     }
     compileOnly("me.clip:placeholderapi:2.11.6") {
@@ -137,10 +134,10 @@ dependencies {
     compileOnly("net.coreprotect:coreprotect:22.4") {
         isTransitive = false
     }
-    compileOnly("us.dynmap:dynmap-api:3.6") {
+    compileOnly("us.dynmap:dynmap-api:3.7-beta-6") {
         isTransitive = false
     }
-    compileOnly("us.dynmap:DynmapCoreAPI:3.7-SNAPSHOT") {
+    compileOnly("us.dynmap:DynmapCoreAPI:3.7-beta-6") {
         isTransitive = false
     }
     compileOnly("de.bluecolored.bluemap:BlueMapAPI:2.7.1")
@@ -148,7 +145,7 @@ dependencies {
         isTransitive = false
     }
     compileOnly(files("libs/VaultAPI.jar"))
-    compileOnly("org.geysermc.floodgate:api:2.2.3-SNAPSHOT")
+    compileOnly("org.geysermc.floodgate:api:2.2.4-SNAPSHOT")
     compileOnly("org.geysermc.geyser:api:2.7.0-SNAPSHOT")
     compileOnly("org.jsoup:jsoup:1.17.2") {
         isTransitive = false
@@ -159,7 +156,7 @@ dependencies {
     compileOnly("net.luckperms:api:5.5")
     compileOnly("org.apache.commons:commons-lang3:3.0")
     compileOnly(files("libs/TerraformGenerator.jar"))
-    compileOnly("com.formdev:flatlaf:3.4.1") {
+    compileOnly("com.formdev:flatlaf:3.5") {
         isTransitive = false
     }
     compileOnly("org.swinglabs:swing-layout:1.0.3") {
