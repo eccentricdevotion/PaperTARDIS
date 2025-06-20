@@ -83,7 +83,6 @@ public class TARDISStattenheimCircuitRecipe {
         CustomModelDataComponent lcomponent = lim.getCustomModelDataComponent();
         lcomponent.setFloats(CircuitVariant.LOCATOR.getFloats());
         lim.setCustomModelDataComponent(lcomponent);
-        lim.setItemModel(RecipeItem.TARDIS_LOCATOR_CIRCUIT.getModel());
         locator.setItemMeta(lim);
         r.shape("LRM", "QQQ");
         r.setIngredient('L', new RecipeChoice.ExactChoice(locator));

@@ -55,7 +55,6 @@ public class HandlesRecipe {
         ItemStack is = new ItemStack(Material.BIRCH_BUTTON, 1);
         ItemMeta im = is.getItemMeta();
         im.setDisplayName(ChatColor.WHITE + "Handles");
-        im.setItemModel(RecipeItem.HANDLES.getModel());
         im.setLore(List.of("Cyberhead from the", "Maldovar Market"));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "handles");
