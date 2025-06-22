@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.utility;
 
+import com.destroystokyo.paper.MaterialTags;
 import com.google.common.collect.Sets;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -32,15 +33,9 @@ import java.util.Set;
  */
 public class TARDISMaterials {
 
-    public static final List<Material> glass = List.of(Material.BLACK_STAINED_GLASS, Material.BLACK_STAINED_GLASS_PANE, Material.BLUE_STAINED_GLASS, Material.BLUE_STAINED_GLASS_PANE, Material.BROWN_STAINED_GLASS, Material.BROWN_STAINED_GLASS_PANE, Material.CYAN_STAINED_GLASS, Material.CYAN_STAINED_GLASS_PANE, Material.GLASS, Material.GLASS_PANE, Material.GRAY_STAINED_GLASS, Material.GRAY_STAINED_GLASS_PANE, Material.GREEN_STAINED_GLASS, Material.GREEN_STAINED_GLASS_PANE, Material.LIGHT_BLUE_STAINED_GLASS, Material.LIGHT_BLUE_STAINED_GLASS_PANE, Material.LIGHT_GRAY_STAINED_GLASS, Material.LIGHT_GRAY_STAINED_GLASS_PANE, Material.LIME_STAINED_GLASS, Material.LIME_STAINED_GLASS_PANE, Material.MAGENTA_STAINED_GLASS, Material.MAGENTA_STAINED_GLASS_PANE, Material.ORANGE_STAINED_GLASS, Material.ORANGE_STAINED_GLASS_PANE, Material.PINK_STAINED_GLASS, Material.PINK_STAINED_GLASS_PANE, Material.PURPLE_STAINED_GLASS, Material.PURPLE_STAINED_GLASS_PANE, Material.RED_STAINED_GLASS, Material.RED_STAINED_GLASS_PANE, Material.WHITE_STAINED_GLASS, Material.WHITE_STAINED_GLASS_PANE, Material.YELLOW_STAINED_GLASS, Material.YELLOW_STAINED_GLASS_PANE);
-
-    public static final List<Material> dyes = List.of(Material.WHITE_DYE, Material.GREEN_DYE, Material.BROWN_DYE, Material.CYAN_DYE, Material.YELLOW_DYE, Material.GRAY_DYE, Material.BLACK_DYE, Material.BLUE_DYE, Material.LIGHT_BLUE_DYE, Material.LIGHT_GRAY_DYE, Material.LIME_DYE, Material.MAGENTA_DYE, Material.ORANGE_DYE, Material.PINK_DYE, Material.PURPLE_DYE, Material.RED_DYE);
-
     public static final Set<Material> doors = Sets.union(Sets.union(Tag.DOORS.getValues(), Tag.TRAPDOORS.getValues()), Tag.BUTTONS.getValues());
 
-    public static final List<Material> plants = List.of(Material.ALLIUM, Material.AZURE_BLUET, Material.BLUE_ORCHID, Material.CACTUS, Material.DANDELION, Material.DEAD_BUSH, Material.FERN, Material.SHORT_GRASS, Material.LARGE_FERN, Material.LILAC, Material.ORANGE_TULIP, Material.OXEYE_DAISY, Material.PEONY, Material.PINK_TULIP, Material.POPPY, Material.RED_TULIP, Material.ROSE_BUSH, Material.SUNFLOWER, Material.TALL_GRASS, Material.WHITE_TULIP, Material.RED_MUSHROOM, Material.BROWN_MUSHROOM, Material.PINK_PETALS, Material.HANGING_ROOTS, Material.WARPED_ROOTS, Material.NETHER_SPROUTS, Material.CRIMSON_ROOTS);
-
-    public static final List<Material> infested = List.of(Material.INFESTED_CHISELED_STONE_BRICKS, Material.INFESTED_COBBLESTONE, Material.INFESTED_CRACKED_STONE_BRICKS, Material.INFESTED_MOSSY_STONE_BRICKS, Material.INFESTED_STONE, Material.INFESTED_STONE_BRICKS);
+    public static final List<Material> plants = List.of(Material.CACTUS, Material.DEAD_BUSH, Material.FERN, Material.SHORT_GRASS, Material.LARGE_FERN, Material.TALL_GRASS, Material.HANGING_ROOTS, Material.WARPED_ROOTS, Material.NETHER_SPROUTS, Material.CRIMSON_ROOTS);
 
     public static final List<Material> not_glass = new ArrayList<>() {
         {
@@ -77,17 +72,9 @@ public class TARDISMaterials {
             add(Material.RAW_GOLD_BLOCK);
             add(Material.RAW_IRON_BLOCK);
             add(Material.REDSTONE_BLOCK);
-            addAll(Tag.COAL_ORES.getValues());
-            addAll(Tag.COPPER_ORES.getValues());
-            addAll(Tag.DIAMOND_ORES.getValues());
-            addAll(Tag.EMERALD_ORES.getValues());
-            addAll(Tag.GOLD_ORES.getValues());
-            addAll(Tag.IRON_ORES.getValues());
-            addAll(Tag.LAPIS_ORES.getValues());
-            addAll(Tag.REDSTONE_ORES.getValues());
+            addAll(MaterialTags.ORES.getValues());
         }
     };
-
 
     public static final List<Material> crops = List.of(Material.SUGAR_CANE, Material.WHEAT, Material.CARROTS, Material.BEETROOTS, Material.MELON_STEM, Material.PUMPKIN_STEM, Material.NETHER_WART, Material.POTATOES, Material.COCOA, Material.CACTUS, Material.SWEET_BERRY_BUSH, Material.PITCHER_CROP, Material.TORCHFLOWER);
 

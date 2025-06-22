@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.desktop;
 
+import com.destroystokyo.paper.MaterialTags;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.papermc.paper.registry.RegistryAccess;
@@ -645,7 +646,7 @@ public class TARDISThemeRepairRunnable extends TARDISThemeRunnable {
                             }
                         }
                     }
-                } else if (TARDISMaterials.infested.contains(type)) {
+                } else if (MaterialTags.INFESTED_BLOCKS.isTagged(type)) {
                     // legacy monster egg stone for controls
                     TARDISBlockSetters.setBlock(world, x, y, z, Material.AIR);
                 } else if (type.equals(Material.ICE) && tud.getSchematic().getPermission().equals("cave")) {

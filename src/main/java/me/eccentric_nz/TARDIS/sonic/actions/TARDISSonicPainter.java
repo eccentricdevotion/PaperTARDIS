@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.sonic.actions;
 
+import com.destroystokyo.paper.MaterialTags;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItemUtils;
 import me.eccentric_nz.TARDIS.customblocks.TARDISTinter;
@@ -74,7 +75,7 @@ public class TARDISSonicPainter {
                 }
                 return;
             }
-            if (dye == null || !TARDISMaterials.dyes.contains(dye.getType())) {
+            if (dye == null || !MaterialTags.DYES.isTagged(dye.getType())) {
                 plugin.getMessenger().send(player, TardisModule.TARDIS, "SONIC_DYE");
                 return;
             }

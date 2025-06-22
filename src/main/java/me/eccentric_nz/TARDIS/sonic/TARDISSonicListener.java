@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.sonic;
 
+import com.destroystokyo.paper.MaterialTags;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.commands.preferences.TARDISPrefsMenuInventory;
@@ -65,7 +66,8 @@ public class TARDISSonicListener implements Listener {
         diamond.add(Material.IRON_BARS);
         diamond.add(Material.SNOW);
         diamond.add(Material.SNOW_BLOCK);
-        diamond.addAll(TARDISMaterials.glass);
+        diamond.addAll(MaterialTags.GLASS.getValues());
+        diamond.addAll(MaterialTags.GLASS_PANES.getValues());
         doors.addAll(Tag.DOORS.getValues());
         doors.addAll(Tag.TRAPDOORS.getValues());
         redstone.add(Material.DETECTOR_RAIL);

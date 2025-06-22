@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.desktop;
 
+import com.destroystokyo.paper.MaterialTags;
 import com.google.gson.*;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
@@ -920,7 +921,7 @@ public class TARDISFullThemeRunnable extends TARDISThemeRunnable {
                             }
                         }
                     }
-                } else if (TARDISMaterials.infested.contains(type)) {
+                } else if (MaterialTags.INFESTED_BLOCKS.isTagged(type)) {
                     // legacy monster egg stone for controls
                     TARDISBlockSetters.setBlock(world, x, y, z, Material.AIR);
                 } else if (type.equals(Material.MUSHROOM_STEM)) { // mushroom stem for repeaters

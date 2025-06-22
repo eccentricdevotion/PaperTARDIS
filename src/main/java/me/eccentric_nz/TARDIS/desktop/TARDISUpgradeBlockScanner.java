@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.desktop;
 
+import com.destroystokyo.paper.MaterialTags;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.eccentric_nz.TARDIS.TARDIS;
@@ -130,7 +131,7 @@ public class TARDISUpgradeBlockScanner {
                         if (type.equals(Material.MUSHROOM_STEM)) {
                             type = Material.REPEATER;
                         }
-                        if (TARDISMaterials.infested.contains(type)) {
+                        if (MaterialTags.INFESTED_BLOCKS.isTagged(type)) {
                             type = Material.AIR;
                         }
                         if (type.equals(Material.BEDROCK)) {

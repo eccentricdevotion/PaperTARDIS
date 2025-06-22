@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.mobfarming;
 
+import com.destroystokyo.paper.MaterialTags;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.achievement.TARDISAchievementFactory;
 import me.eccentric_nz.TARDIS.database.data.Farm;
@@ -593,7 +594,7 @@ public class TARDISFarmer {
                 }
                 if (farmPrefs.shouldFarmFish()) {
                     ItemStack fishBucket = p.getInventory().getItemInOffHand();
-                    if (fishBucket != null && TARDISMaterials.fish_buckets.contains(fishBucket.getType())) {
+                    if (fishBucket != null && MaterialTags.FISH_BUCKETS.isTagged(fishBucket.getType())) {
                         fish = new TARDISFish();
                         fish.setType(TARDISMaterials.fishMap.get(fishBucket.getType()));
                         if (fishBucket.getType().equals(Material.TROPICAL_FISH_BUCKET)) {

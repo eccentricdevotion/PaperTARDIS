@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.listeners;
 
+import com.destroystokyo.paper.MaterialTags;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.TARDISMaterials;
@@ -62,16 +63,16 @@ public class TARDISBeaconColouringListener implements Listener {
             return;
         }
         ItemStack dye = player.getInventory().getItemInMainHand();
-        if (!TARDISMaterials.dyes.contains(dye.getType())) {
+        if (!MaterialTags.DYES.isTagged(dye.getType())) {
             plugin.getMessenger().send(player, TardisModule.TARDIS, "COLOUR_DYE");
             return;
         }
-        if (!TARDISMaterials.glass.contains(event.getClickedBlock().getType())) {
+        Block b = event.getClickedBlock();
+        Material original = b != null ? b.getType() : Material.AIR;
+        if (!MaterialTags.GLASS.isTagged(original) && !MaterialTags.GLASS_PANES.isTagged(original)) {
             plugin.getMessenger().send(player, TardisModule.TARDIS, "COLOUR_GLASS");
             return;
         }
-        Block b = event.getClickedBlock();
-        Material original = b.getType();
         // check there is a beacon block below the clicked glass block
         boolean found = false;
         for (int i = 1; i < b.getLocation().getBlockY() - 63; i++) {

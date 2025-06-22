@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.listeners;
 
+import com.destroystokyo.paper.MaterialTags;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.advanced.TARDISCircuitChecker;
 import me.eccentric_nz.TARDIS.advanced.TARDISCircuitDamager;
@@ -78,6 +79,8 @@ public class TARDISStattenheimListener implements Listener {
         useless.add(Material.MOSS_CARPET);
         useless.addAll(Tag.WOOL_CARPETS.getValues());
         useless.addAll(TARDISMaterials.plants);
+        useless.addAll(Tag.FLOWERS.getValues());
+        useless.addAll(MaterialTags.MUSHROOMS.getValues());
         useless.addAll(Tag.SAPLINGS.getValues());
     }
 

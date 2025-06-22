@@ -926,7 +926,7 @@ public class TARDISTrackerInstanceKeeper {
     }
 
     /**
-     * Tracks TARDISes that have a mine cart entering the RAil room
+     * Tracks TARDISes that have a minecart entering the RAil room
      *
      * @return a collection of TARDIS ids
      */

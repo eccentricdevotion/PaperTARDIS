@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.doors.outer;
 
+import com.destroystokyo.paper.MaterialTags;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
@@ -179,14 +180,14 @@ public class OuterDisplayDoorAction extends TARDISDoorListener {
                                                 }
                                             }
                                             TARDISSounds.playDoorSound(true, location);
-                                        } else if (TARDISStaticUtils.isSonic(hand) && TARDISMaterials.dyes.contains(dye.getType()) && tardis.getUuid().equals(uuid)) {
+                                        } else if (TARDISStaticUtils.isSonic(hand) && MaterialTags.DYES.isTagged(dye.getType()) && tardis.getUuid().equals(uuid)) {
                                             ItemMeta im = hand.getItemMeta();
                                             List<String> lore = im.getLore();
                                             if (TARDISPermission.hasPermission(player, "tardis.sonic.paint") && lore != null && lore.contains("Painter Upgrade")) {
                                                 // check for dye in slot
                                                 PlayerInventory inv = player.getInventory();
                                                 ItemStack colour = inv.getItem(8);
-                                                if (colour == null || !TARDISMaterials.dyes.contains(colour.getType())) {
+                                                if (colour == null || !MaterialTags.DYES.isTagged(colour.getType())) {
                                                     plugin.getMessenger().send(player, TardisModule.TARDIS, "SONIC_DYE");
                                                     return;
                                                 }

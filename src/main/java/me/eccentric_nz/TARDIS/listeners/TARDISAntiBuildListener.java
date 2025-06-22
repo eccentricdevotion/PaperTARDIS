@@ -16,6 +16,9 @@
  */
 package me.eccentric_nz.TARDIS.listeners;
 
+import com.destroystokyo.paper.MaterialTags;
+import io.papermc.paper.event.player.PlayerFlowerPotManipulateEvent;
+import io.papermc.paper.tag.EntityTags;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetAntiBuild;
@@ -26,6 +29,7 @@ import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event.Result;
 import org.bukkit.event.EventHandler;
@@ -52,100 +56,21 @@ public class TARDISAntiBuildListener implements Listener {
     private final TARDIS plugin;
     private final List<Material> no_place = new ArrayList<>();
     private final List<Material> allow_interact = new ArrayList<>();
-    private final List<Material> no_flower_pot = new ArrayList<>();
 
     public TARDISAntiBuildListener(TARDIS plugin) {
         this.plugin = plugin;
-        no_place.add(Material.ALLAY_SPAWN_EGG);
-        no_place.add(Material.AXOLOTL_SPAWN_EGG);
-        no_place.add(Material.BAT_SPAWN_EGG);
-        no_place.add(Material.BEE_SPAWN_EGG);
-        no_place.add(Material.BLAZE_SPAWN_EGG);
-        no_place.add(Material.BUCKET);
-        no_place.add(Material.CAMEL_SPAWN_EGG);
-        no_place.add(Material.CAT_SPAWN_EGG);
-        no_place.add(Material.CAVE_SPIDER_SPAWN_EGG);
         no_place.add(Material.CHEST_MINECART);
-        no_place.add(Material.CHICKEN_SPAWN_EGG);
-        no_place.add(Material.COD_SPAWN_EGG);
-        no_place.add(Material.COW_SPAWN_EGG);
-        no_place.add(Material.CREEPER_SPAWN_EGG);
-        no_place.add(Material.DOLPHIN_SPAWN_EGG);
-        no_place.add(Material.DONKEY_SPAWN_EGG);
-        no_place.add(Material.DROWNED_SPAWN_EGG);
         no_place.add(Material.EGG);
-        no_place.add(Material.ELDER_GUARDIAN_SPAWN_EGG);
-        no_place.add(Material.ENDER_DRAGON_SPAWN_EGG);
-        no_place.add(Material.ENDERMAN_SPAWN_EGG);
-        no_place.add(Material.ENDERMITE_SPAWN_EGG);
-        no_place.add(Material.EVOKER_SPAWN_EGG);
         no_place.add(Material.FLINT_AND_STEEL);
-        no_place.add(Material.FOX_SPAWN_EGG);
-        no_place.add(Material.FROG_SPAWN_EGG);
         no_place.add(Material.FURNACE_MINECART);
-        no_place.add(Material.GHAST_SPAWN_EGG);
-        no_place.add(Material.GLOW_SQUID_SPAWN_EGG);
-        no_place.add(Material.GOAT_SPAWN_EGG);
-        no_place.add(Material.GUARDIAN_SPAWN_EGG);
-        no_place.add(Material.HOGLIN_SPAWN_EGG);
         no_place.add(Material.HOPPER_MINECART);
-        no_place.add(Material.HORSE_SPAWN_EGG);
-        no_place.add(Material.HUSK_SPAWN_EGG);
-        no_place.add(Material.IRON_GOLEM_SPAWN_EGG);
         no_place.add(Material.ITEM_FRAME);
-        no_place.add(Material.LAVA_BUCKET);
-        no_place.add(Material.LLAMA_SPAWN_EGG);
-        no_place.add(Material.MAGMA_CUBE_SPAWN_EGG);
         no_place.add(Material.MINECART);
-        no_place.add(Material.MOOSHROOM_SPAWN_EGG);
-        no_place.add(Material.MULE_SPAWN_EGG);
-        no_place.add(Material.OCELOT_SPAWN_EGG);
         no_place.add(Material.PAINTING);
-        no_place.add(Material.PANDA_SPAWN_EGG);
-        no_place.add(Material.PARROT_SPAWN_EGG);
-        no_place.add(Material.PHANTOM_SPAWN_EGG);
-        no_place.add(Material.PIG_SPAWN_EGG);
-        no_place.add(Material.PIGLIN_BRUTE_SPAWN_EGG);
-        no_place.add(Material.PIGLIN_SPAWN_EGG);
-        no_place.add(Material.PILLAGER_SPAWN_EGG);
-        no_place.add(Material.POLAR_BEAR_SPAWN_EGG);
-        no_place.add(Material.PUFFERFISH_SPAWN_EGG);
-        no_place.add(Material.RABBIT_SPAWN_EGG);
-        no_place.add(Material.RAVAGER_SPAWN_EGG);
-        no_place.add(Material.SALMON_SPAWN_EGG);
         no_place.add(Material.SHEARS);
-        no_place.add(Material.SHEEP_SPAWN_EGG);
-        no_place.add(Material.SHULKER_SPAWN_EGG);
-        no_place.add(Material.SILVERFISH_SPAWN_EGG);
-        no_place.add(Material.SKELETON_HORSE_SPAWN_EGG);
-        no_place.add(Material.SKELETON_SPAWN_EGG);
-        no_place.add(Material.SLIME_SPAWN_EGG);
-        no_place.add(Material.SNIFFER_SPAWN_EGG);
-        no_place.add(Material.SNOW_GOLEM_SPAWN_EGG);
-        no_place.add(Material.SPIDER_SPAWN_EGG);
-        no_place.add(Material.SQUID_SPAWN_EGG);
-        no_place.add(Material.STRAY_SPAWN_EGG);
-        no_place.add(Material.STRIDER_SPAWN_EGG);
-        no_place.add(Material.TADPOLE_SPAWN_EGG);
         no_place.add(Material.TNT_MINECART);
-        no_place.add(Material.TRADER_LLAMA_SPAWN_EGG);
-        no_place.add(Material.TROPICAL_FISH_SPAWN_EGG);
-        no_place.add(Material.TURTLE_SPAWN_EGG);
-        no_place.add(Material.VEX_SPAWN_EGG);
-        no_place.add(Material.VILLAGER_SPAWN_EGG);
-        no_place.add(Material.VINDICATOR_SPAWN_EGG);
-        no_place.add(Material.WANDERING_TRADER_SPAWN_EGG);
-        no_place.add(Material.WARDEN_SPAWN_EGG);
-        no_place.add(Material.WATER_BUCKET);
-        no_place.add(Material.WITCH_SPAWN_EGG);
-        no_place.add(Material.WITHER_SKELETON_SPAWN_EGG);
-        no_place.add(Material.WITHER_SPAWN_EGG);
-        no_place.add(Material.WOLF_SPAWN_EGG);
-        no_place.add(Material.ZOGLIN_SPAWN_EGG);
-        no_place.add(Material.ZOMBIE_HORSE_SPAWN_EGG);
-        no_place.add(Material.ZOMBIE_SPAWN_EGG);
-        no_place.add(Material.ZOMBIE_VILLAGER_SPAWN_EGG);
-        no_place.add(Material.ZOMBIFIED_PIGLIN_SPAWN_EGG);
+        no_place.addAll(MaterialTags.BUCKETS.getValues());
+        no_place.addAll(MaterialTags.SPAWN_EGGS.getValues());
         no_place.addAll(Tag.ITEMS_BOATS.getValues());
         allow_interact.add(Material.COMPARATOR);
         allow_interact.add(Material.LEVER);
@@ -155,8 +80,20 @@ public class TARDISAntiBuildListener implements Listener {
         allow_interact.addAll(Tag.FENCE_GATES.getValues());
         allow_interact.addAll(Tag.PRESSURE_PLATES.getValues());
         allow_interact.addAll(Tag.TRAPDOORS.getValues());
-        no_flower_pot.addAll(TARDISMaterials.plants);
-        no_flower_pot.addAll(Tag.SAPLINGS.getValues());
+    }
+
+    @EventHandler
+    public void onFlowerPotInteract(PlayerFlowerPotManipulateEvent event) {
+        Player p = event.getPlayer();
+        if (!plugin.getUtils().inTARDISWorld(p)) {
+            return;
+        }
+        ResultSetAntiBuild rs = new ResultSetAntiBuild(plugin, p.getUniqueId());
+        if (!rs.resultSet() || !plugin.getTrackerKeeper().getAntiBuild().containsKey(rs.getTardis_id())) {
+            return;
+        }
+        event.setCancelled(true);
+        plugin.getMessenger().send(p, TardisModule.TARDIS, "ANTIBUILD");
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -220,20 +157,20 @@ public class TARDISAntiBuildListener implements Listener {
             event.setCancelled(true);
             plugin.getMessenger().send(p, TardisModule.TARDIS, "ANTIBUILD");
         }
-        if (event.getClickedBlock().getType().equals(Material.FLOWER_POT) && (hand.equals(EquipmentSlot.HAND) && no_flower_pot.contains(m)) || (hand.equals(EquipmentSlot.OFF_HAND) && no_flower_pot.contains(m))) {
-            event.setUseItemInHand(Result.DENY);
-            event.setCancelled(true);
-            Block b = event.getClickedBlock();
-            b.getState().update();
-            for (BlockFace f : plugin.getGeneralKeeper().getFaces()) {
-                if (b.getRelative(f).getType().isAir()) {
-                    b.getRelative(f).setBlockData(TARDISConstants.GLASS, true);
-                    b.getRelative(f).setBlockData(TARDISConstants.AIR, true);
-                    break;
-                }
-            }
-            plugin.getMessenger().send(p, TardisModule.TARDIS, "ANTIBUILD");
-        }
+//        if (event.getClickedBlock().getType().equals(Material.FLOWER_POT) && (hand.equals(EquipmentSlot.HAND) && no_flower_pot.contains(m)) || (hand.equals(EquipmentSlot.OFF_HAND) && no_flower_pot.contains(m))) {
+//            event.setUseItemInHand(Result.DENY);
+//            event.setCancelled(true);
+//            Block b = event.getClickedBlock();
+//            b.getState().update();
+//            for (BlockFace f : plugin.getGeneralKeeper().getFaces()) {
+//                if (b.getRelative(f).getType().isAir()) {
+//                    b.getRelative(f).setBlockData(TARDISConstants.GLASS, true);
+//                    b.getRelative(f).setBlockData(TARDISConstants.AIR, true);
+//                    break;
+//                }
+//            }
+//            plugin.getMessenger().send(p, TardisModule.TARDIS, "ANTIBUILD");
+//        }
     }
 
     @EventHandler(ignoreCancelled = true)
