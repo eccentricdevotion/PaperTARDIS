@@ -19,12 +19,16 @@ package me.eccentric_nz.tardischunkgenerator.helpers;
 import io.netty.channel.*;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.info.TARDISInformationSystemProcessor;
 import me.eccentric_nz.TARDIS.lazarus.disguise.TARDISDisguiseTracker;
 import me.eccentric_nz.TARDIS.lazarus.disguise.TARDISDisguiser;
 import me.eccentric_nz.tardischunkgenerator.TARDISHelper;
 import me.eccentric_nz.tardischunkgenerator.custombiome.BiomeHelper;
 import net.minecraft.core.Registry;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.common.ServerboundCustomClickActionPacket;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket;
 import net.minecraft.server.network.ServerCommonPacketListenerImpl;
@@ -109,6 +113,19 @@ public class TARDISPacketListener {
                     }
                 }
                 super.write(channelHandlerContext, packet, channelPromise);
+            }
+
+            @Override
+            public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+                if (msg instanceof Packet<?> packet && packet instanceof ServerboundCustomClickActionPacket dialogPacket) {
+                    if (dialogPacket.id().getNamespace().equals("tardis")) {
+                        dialogPacket.payload().ifPresent(value -> {
+                            CompoundTag data = (CompoundTag) value;
+                            new TARDISInformationSystemProcessor(TARDIS.plugin, player).process(data);
+                        });
+                    }
+                }
+                super.channelRead(ctx, msg);
             }
         };
         Connection connection = getConnection(((CraftPlayer) player).getHandle().connection);

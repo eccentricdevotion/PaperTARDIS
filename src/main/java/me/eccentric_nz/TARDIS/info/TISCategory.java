@@ -58,6 +58,7 @@ public enum TISCategory {
     public String getLore() {
         return lore;
     }
+
     public boolean isFirstLevel() {
         return firstLevel;
     }

@@ -24,8 +24,8 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.achievement.TARDISAchievementFactory;
 import me.eccentric_nz.TARDIS.bStats.ARSRoomCounts;
 import me.eccentric_nz.TARDIS.commands.TARDISCommandHelper;
-//import me.eccentric_nz.TARDIS.dialog.TARDISDialog;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.info.dialog.CategoryDialog;
 import me.eccentric_nz.TARDIS.lazarus.disguise.ArmourTrim;
 import me.eccentric_nz.TARDIS.monitor.MonitorSnapshot;
 import me.eccentric_nz.TARDIS.move.TARDISTeleportLocation;
@@ -38,7 +38,9 @@ import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.tardisregeneration.Regenerator;
 import me.eccentric_nz.tardisweepingangels.equip.MonsterArmour;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
-//import net.md_5.bungee.api.dialog.Dialog;
+import net.minecraft.core.Holder;
+import net.minecraft.server.dialog.Dialog;
+import net.minecraft.server.level.ServerPlayer;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BrushableBlock;
@@ -46,6 +48,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
@@ -145,13 +148,14 @@ public class TARDISDevCommand implements CommandExecutor {
                                 skeleton.addPotionEffect(resistance);
                             }
                         }
-//                        case "dialog" -> {
-//                            if (sender instanceof Player player) {
-//                                Dialog dialog = new TARDISDialog().createCategoryDialog();
-//                                player.showDialog(dialog);
-//                            }
-//                            return true;
-//                        }
+                        case "dialog" -> {
+                            if (sender instanceof Player p) {
+                                Dialog dialog = new CategoryDialog().create();
+                                ServerPlayer player = ((CraftPlayer) p).getHandle();
+                                player.openDialog(Holder.direct(dialog));
+                            }
+                            return true;
+                        }
                         case "furnace" -> {
                             return new TARDISFurnaceCommand(plugin).list();
                         }
