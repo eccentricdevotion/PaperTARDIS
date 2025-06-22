@@ -150,8 +150,8 @@ dependencies {
     compileOnly("org.jsoup:jsoup:1.17.2") {
         isTransitive = false
     }
-    compileOnly("org.popcraft:chunky-common:1.3.38")
-    compileOnly("org.popcraft:chunky-bukkit:1.3.38")
+    compileOnly("org.popcraft:chunky-common:1.4.40")
+    compileOnly("org.popcraft:chunky-bukkit:1.4.40")
     compileOnly("org.popcraft:chunkyborder-common:1.2.26")
     compileOnly("net.luckperms:api:5.5")
     compileOnly("org.apache.commons:commons-lang3:3.0")
