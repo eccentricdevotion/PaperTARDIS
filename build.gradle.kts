@@ -132,7 +132,7 @@ dependencies {
     }
     compileOnly(files("libs/dynmap-api-3.7-beta-9.jar"))
     compileOnly(files("libs/DynmapCoreAPI-3.7-beta-9.jar"))
-    compileOnly("de.bluecolored.bluemap:BlueMapAPI:2.7.1")
+    compileOnly("de.bluecolored:bluemap-api:2.7.4")
     compileOnly("xyz.jpenilla:squaremap-api:1.2.1") {
         isTransitive = false
     }
