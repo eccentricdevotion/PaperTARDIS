@@ -63,10 +63,6 @@ repositories {
         url = uri("https://maven.playpro.com")
     }
     maven {
-        name = "dynmap"
-        url = uri("https://repo.mikeprimm.com/")
-    }
-    maven {
         name = "citizens"
         url = uri("https://repo.citizensnpcs.co/")
     }
@@ -134,12 +130,8 @@ dependencies {
     compileOnly("net.coreprotect:coreprotect:22.4") {
         isTransitive = false
     }
-    compileOnly("us.dynmap:dynmap-api:3.7-beta-6") {
-        isTransitive = false
-    }
-    compileOnly("us.dynmap:DynmapCoreAPI:3.7-beta-6") {
-        isTransitive = false
-    }
+    compileOnly(files("libs/dynmap-api-3.7-beta-9.jar"))
+    compileOnly(files("libs/DynmapCoreAPI-3.7-beta-9.jar"))
     compileOnly("de.bluecolored.bluemap:BlueMapAPI:2.7.1")
     compileOnly("xyz.jpenilla:squaremap-api:1.2.1") {
         isTransitive = false
