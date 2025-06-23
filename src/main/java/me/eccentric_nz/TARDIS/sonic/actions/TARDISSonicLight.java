@@ -59,13 +59,13 @@ public class TARDISSonicLight {
             if (rsl.resultSet()) {
                 plugin.getMessenger().send(player, TardisModule.TARDIS, "LAMP_EXISTS");
             } else {
+                // add to lamps
                 HashMap<String, Object> set = new HashMap<>();
                 set.put("tardis_id", rs.getTardis_id());
                 set.put("location", location);
                 plugin.getQueryFactory().doInsert("lamps", set);
                 plugin.getMessenger().send(player, TardisModule.TARDIS, "LAMP_ADD", (x + ":" + y + ":" + z));
             }
-            // add to lamps
         } else {
             plugin.getMessenger().send(player, TardisModule.TARDIS, "UPDATE_IN_WORLD");
         }
