@@ -75,7 +75,7 @@ public class TARDISDisplayBlockRoomRemover implements Runnable {
             // we're finished
             plugin.getServer().getScheduler().cancelTask(taskId);
             taskId = 0;
-            plugin.getMessenger().message(owner, "Custom block display item removal complete");
+            plugin.getMessenger().message(owner, "Room display item removal complete");
         } else {
             // check a row of blocks
             for (int col = 0; col < c; col++) {
@@ -85,12 +85,13 @@ public class TARDISDisplayBlockRoomRemover implements Runnable {
                 Block block = world.getBlockAt(x, y, z);
                 if (block.getType() == Material.BARRIER) {
                     ItemDisplay display = TARDISDisplayItemUtils.getFromBoundingBox(block);
-                    if (display != null && display.getPersistentDataContainer().has(plugin.getCustomBlockKey(), PersistentDataType.INTEGER)) {
-                        // remove display
-                        display.remove();
-                        // set block type
-                        block.setBlockData(blockData);
+                    if (display == null) {
+                        continue;
                     }
+                    // remove display
+                    display.remove();
+                    // set block type
+                    block.setBlockData(blockData);
                 }
             }
             if (row < w) {
