@@ -20,9 +20,14 @@ import me.eccentric_nz.TARDIS.ARS.TARDISARSMethods;
 import me.eccentric_nz.TARDIS.ARS.TARDISARSSlot;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayBlockRoomConverter;
+import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayBlockRoomRemover;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetARS;
+import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
+import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import org.bukkit.Chunk;
+import org.bukkit.Material;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -58,6 +63,53 @@ public class TARDISUpdateBlocksCommand {
                                 slot.setX(row);
                                 slot.setZ(col);
                                 TARDISDisplayBlockRoomConverter roomConverter = new TARDISDisplayBlockRoomConverter(plugin, player, slot);
+                                int roomTaskId = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, roomConverter, 5, 1);
+                                roomConverter.setTaskId(roomTaskId);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean remove_displays(Player player) {
+        // find all room chunks and convert the item displays there to blocks based on the player's wall preference
+        // get players tardis_id
+        String uuid = player.getUniqueId().toString();
+        HashMap<String, Object> where = new HashMap<>();
+        where.put("uuid", uuid);
+        ResultSetTardis rst = new ResultSetTardis(plugin, where, "", false);
+        if (rst.resultSet()) {
+            // get player's wall preference
+            Material wall;
+            ResultSetPlayerPrefs rsp = new ResultSetPlayerPrefs(plugin, uuid);
+            if (rsp.resultSet()) {
+                wall = Material.valueOf(rsp.getWall());
+            } else {
+                wall = Material.ORANGE_WOOL;
+            }
+            BlockData blockData = wall.createBlockData();
+            int id = rst.getTardis().getTardisId();
+            String console = rst.getTardis().getSchematic().getSeedMaterial().toString();
+            HashMap<String, Object> whereid = new HashMap<>();
+            whereid.put("tardis_id", id);
+            ResultSetARS rsa = new ResultSetARS(plugin, whereid);
+            if (rsa.resultSet()) {
+                String[][][] json = TARDISARSMethods.getGridFromJSON(rsa.getJson());
+                Chunk c = plugin.getLocationUtils().getTARDISChunk(id);
+                for (int l = 0; l < 3; l++) {
+                    for (int row = 0; row < 9; row++) {
+                        for (int col = 0; col < 9; col++) {
+                            if (!json[l][row][col].equalsIgnoreCase("STONE") && !json[l][row][col].equalsIgnoreCase(console)) {
+                                // get ARS slot
+                                TARDISARSSlot slot = new TARDISARSSlot();
+                                slot.setChunk(c);
+                                slot.setY(l);
+                                slot.setX(row);
+                                slot.setZ(col);
+                                TARDISDisplayBlockRoomRemover roomConverter = new TARDISDisplayBlockRoomRemover(plugin, player, slot, blockData);
                                 int roomTaskId = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, roomConverter, 5, 1);
                                 roomConverter.setTaskId(roomTaskId);
                             }

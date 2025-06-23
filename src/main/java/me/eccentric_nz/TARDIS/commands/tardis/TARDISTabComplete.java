@@ -79,6 +79,7 @@ public class TARDISTabComplete extends TARDISCompleter implements TabCompleter {
             UPD_SUBS.add("blocks");
             UPD_SUBS.add("handles");
             UPD_SUBS.add("list");
+            UPD_SUBS.add("remove_displays");
         }
         SEC_SUBS.add("remove");
         TARDISWalls.BLOCKS.forEach((m) -> MAT_SUBS.add(m.toString()));
