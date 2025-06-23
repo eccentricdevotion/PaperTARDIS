@@ -594,14 +594,7 @@ public class TARDISRoomRunnable implements Runnable {
                 }
                 if (type.equals(Material.ORANGE_WOOL)) {
                     if (wall_type.equals(Material.ORANGE_WOOL) || ((room.equals("GRAVITY") || room.equals("ANTIGRAVITY")) && (wall_type.equals(Material.LIME_WOOL) || wall_type.equals(Material.PINK_WOOL)))) {
-                        if (ow.equals(Material.ORANGE_WOOL)) {
-                            if (!TARDISFloodgate.isFloodgateEnabled() || (player != null && !TARDISFloodgate.isBedrockPlayer(player.getUniqueId()))) {
-                                data = TARDISConstants.BARRIER;
-                                TARDISDisplayItemUtils.set(TARDISDisplayItem.HEXAGON, world, startx, starty, startz);
-                            }
-                        } else {
-                            data = ow.createBlockData();
-                        }
+                        data = ow.createBlockData();
                     } else {
                         data = wall_type.createBlockData();
                     }
