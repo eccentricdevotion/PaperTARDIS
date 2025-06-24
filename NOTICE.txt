@@ -1,0 +1,1 @@
+This product includes software for GZip archiving and extraction (https://rauschig.org/jarchivelib/).
