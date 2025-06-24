@@ -22,6 +22,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.info.TARDISInformationSystemProcessor;
 import me.eccentric_nz.TARDIS.lazarus.disguise.TARDISDisguiseTracker;
 import me.eccentric_nz.TARDIS.lazarus.disguise.TARDISDisguiser;
+import me.eccentric_nz.TARDIS.travel.dialog.TARDISTerminalDialogProcessor;
 import me.eccentric_nz.tardischunkgenerator.TARDISHelper;
 import me.eccentric_nz.tardischunkgenerator.custombiome.BiomeHelper;
 import net.minecraft.core.Registry;
@@ -121,7 +122,11 @@ public class TARDISPacketListener {
                     if (dialogPacket.id().getNamespace().equals("tardis")) {
                         dialogPacket.payload().ifPresent(value -> {
                             CompoundTag data = (CompoundTag) value;
-                            new TARDISInformationSystemProcessor(TARDIS.plugin, player).process(data);
+                            if (dialogPacket.id().getPath().equals("catergory")) {
+                                new TARDISInformationSystemProcessor(TARDIS.plugin, player).process(data);
+                            } else if (dialogPacket.id().getPath().equals("terminal")) {
+                                new TARDISTerminalDialogProcessor(TARDIS.plugin, player).process(data);
+                            }
                         });
                     }
                 }

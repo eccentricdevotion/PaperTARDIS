@@ -33,6 +33,7 @@ import me.eccentric_nz.TARDIS.skins.ArchSkins;
 import me.eccentric_nz.TARDIS.skins.DoctorSkins;
 import me.eccentric_nz.TARDIS.skins.Skin;
 import me.eccentric_nz.TARDIS.skins.tv.TVInventory;
+import me.eccentric_nz.TARDIS.travel.dialog.TerminalDialog;
 import me.eccentric_nz.TARDIS.utility.Pluraliser;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.tardisregeneration.Regenerator;
@@ -150,7 +151,7 @@ public class TARDISDevCommand implements CommandExecutor {
                         }
                         case "dialog" -> {
                             if (sender instanceof Player p) {
-                                Dialog dialog = new CategoryDialog().create();
+                                Dialog dialog = new TerminalDialog().create();
                                 ServerPlayer player = ((CraftPlayer) p).getHandle();
                                 player.openDialog(Holder.direct(dialog));
                             }
