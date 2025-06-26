@@ -106,7 +106,7 @@ public class EnvironmentBiomes {
 
     static {
         for (Biome biome : RegistryAccess.registryAccess().getRegistry(RegistryKey.BIOME)) {
-            if (!END.contains(biome) && !NETHER.contains(biome) && biome != Biome.THE_VOID) {
+            if (!END.contains(biome) && !NETHER.contains(biome) && biome != Biome.THE_VOID && !biome.getKey().getKey().equals("eye_of_harmony")) {
                 OVERWORLD.add(biome);
             }
         }
