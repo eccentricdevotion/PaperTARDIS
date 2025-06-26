@@ -20,10 +20,14 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.handles.TARDISHandlesWeirdness;
 import me.eccentric_nz.TARDIS.handles.wiki.HandlesWiki;
+import me.eccentric_nz.TARDIS.handles.wiki.SearchDialog;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerPlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -48,7 +52,8 @@ public class TARDISHandlesCommand implements CommandExecutor {
             switch (args[0]) {
                 case "wiki" -> {
                     if (args.length < 2) {
-                        plugin.getMessenger().send(player, TardisModule.HANDLES, "HANDLES_NO_COMMAND");
+                        ServerPlayer p = ((CraftPlayer) player).getHandle();
+                        p.openDialog(Holder.direct(new SearchDialog().create()));
                         return true;
                     }
                     new HandlesWiki(plugin).getLinks(args[1], player);

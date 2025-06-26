@@ -19,6 +19,7 @@ package me.eccentric_nz.tardischunkgenerator.helpers;
 import io.netty.channel.*;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.handles.wiki.HandlesWikiDialogProcessor;
 import me.eccentric_nz.TARDIS.info.TARDISInformationSystemProcessor;
 import me.eccentric_nz.TARDIS.lazarus.disguise.TARDISDisguiseTracker;
 import me.eccentric_nz.TARDIS.lazarus.disguise.TARDISDisguiser;
@@ -126,6 +127,8 @@ public class TARDISPacketListener {
                                 new TARDISInformationSystemProcessor(TARDIS.plugin, player).process(data);
                             } else if (dialogPacket.id().getPath().equals("terminal")) {
                                 new TARDISTerminalDialogProcessor(TARDIS.plugin, player).process(data);
+                            } else if (dialogPacket.id().getPath().equals("wiki")) {
+                                new HandlesWikiDialogProcessor(TARDIS.plugin).getLinks(data, player);
                             }
                         });
                     }
