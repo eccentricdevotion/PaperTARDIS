@@ -41,7 +41,7 @@ public enum TARDISDescription {
     SONIC_CONVERSION_INFO("The Conversion Sonic Screwdriver Upgrade can be used to sonically transform blocks from one state to another - you can turn concrete powder into concrete, dirt into mud, and mud into clay."),
     LOCATOR_INFO("The TARDIS Locator is a craftable compass that will point the way towards a Time Lord's TARDIS."),
     STATTENHEIM_REMOTE_INFO("The Stattenheim Remote is a craftable item used to summon a Time Lord's TARDIS."),
-    READER_INFO("The TARDIS Biome Reader is a craftable item used to quickly create Biome Storage Disks. It is only available in Medium and Easy difficulty modes."),
+    BIOME_READER_INFO("The TARDIS Biome Reader is a craftable item used to quickly create Biome Storage Disks. It is only available in Medium and Easy difficulty modes."),
     REMOTE_KEY_INFO("The TARDIS Remote Key is a craftable item used to deadlock and unlock the Police Box door (LEFT-click air), and also show and hide the TARDIS (RIGHT-click air)."),
     LOCATOR_CIRCUIT_INFO("The Locator Circuit is used in crafting the TARDIS Locator."),
     MATERIALISATION_CIRCUIT_INFO("The Materialisation Circuit enables a TARDIS to dematerialize. It is used in crafting a Stattenheim Circuit, and is a component of the TARDIS Advanced Console."),

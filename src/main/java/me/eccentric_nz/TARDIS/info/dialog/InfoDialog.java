@@ -11,6 +11,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.dialog.*;
 import net.minecraft.server.dialog.action.Action;
@@ -33,9 +34,9 @@ public class InfoDialog {
             if (ItemLookup.ITEMS.containsKey(tardisInfoMenu)) {
                 InfoIcon infoIcon = ItemLookup.ITEMS.get(tardisInfoMenu);
                 ItemStack icon = new ItemStack(Holder.direct(infoIcon.item()));
-//                icon.set(DataComponents.ITEM_MODEL, infoIcon.model());
+                icon.set(DataComponents.ITEM_MODEL, infoIcon.model());
                 // set custom name
-                icon.set(DataComponents.CUSTOM_NAME, Component.literal(infoIcon.name()).withStyle(ChatFormatting.WHITE));
+//                icon.set(DataComponents.CUSTOM_NAME, Component.literal("").append(Component.literal(infoIcon.name()).withStyle(ChatFormatting.WHITE)));
                 body.add(new ItemBody(icon, Optional.empty(), false, false, 16, 16));
             }
             String description = TARDISDescription.valueOf(tardisInfoMenu.toString()).getDesc();

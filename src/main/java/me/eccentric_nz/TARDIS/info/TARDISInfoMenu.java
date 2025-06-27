@@ -200,6 +200,7 @@ public enum TARDISInfoMenu {
     CAMERA("TIS|Manual|Time Travel|Camera", "TIME_TRAVEL", "C"),
     ALT_CONTROLS("TIS|Manual|Time Travel|Alternative Controls", "TIME_TRAVEL", "A"),
     MALFUNCTIONS("TIS|Manual|Time Travel|Malfunctions", "TIME_TRAVEL", "M"),
+    // consoles
     TYPES("TIS|TARDIS Types", "TIS", "T"),
     ARS("TIS|TARDIS Types|ARS", "TYPES", "A"),
     BIGGER("TIS|TARDIS Types|Bigger", "TYPES", "i"),
@@ -234,6 +235,7 @@ public enum TARDISInfoMenu {
     ORIGINAL("TIS|TARDIS Types|Original", "TYPES", "g"),
     ANCIENT("TIS|TARDIS Types|Ancient~", "TYPES", "~"),
     CUSTOM("TIS|TARDIS Types|Custom", "TYPES", "C"),
+    // rooms
     ROOMS("TIS|Rooms", "TIS", "R"),
     ROOMS_2("TIS|Rooms 2", "TIS", "2"),
     ALLAY("TIS|Rooms|Allay^", "ROOMS", "^"),
