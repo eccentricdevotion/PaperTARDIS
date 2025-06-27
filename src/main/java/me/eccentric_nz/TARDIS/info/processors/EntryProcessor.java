@@ -26,7 +26,6 @@ public class EntryProcessor {
             if (entry.endsWith("RECIPE")) {
                 new TISRecipe(plugin).show(player, tardisInfoMenu);
             } else {
-                plugin.debug(entry);
                 Dialog dialog = new InfoDialog().create(plugin, tardisInfoMenu);
                 if (dialog != null) {
                     ServerPlayer p = ((CraftPlayer) player).getHandle();

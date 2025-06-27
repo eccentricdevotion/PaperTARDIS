@@ -4,6 +4,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.info.TARDISInfoMenu;
 import me.eccentric_nz.TARDIS.info.TISCategory;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.CommonComponents;
@@ -22,10 +23,10 @@ public class RoomInfoDialog {
 
     public Dialog create(TARDIS plugin, TARDISInfoMenu tim) {
         String r = tim.toString();
-        Component seed = Component.literal("Seed Block: " + plugin.getRoomsConfig().getString("rooms." + r + ".seed"));
-        Component offset = Component.literal("Offset: " + plugin.getRoomsConfig().getString("rooms." + r + ".offset"));
-        Component cost = Component.literal("Cost: " + plugin.getRoomsConfig().getString("rooms." + r + ".cost"));
-        Component enabled = Component.literal("Enabled: " + plugin.getRoomsConfig().getString("rooms." + r + ".enabled"));
+        Component seed = Component.literal("Seed Block: ").withStyle(ChatFormatting.GOLD).append(Component.literal(plugin.getRoomsConfig().getString("rooms." + r + ".seed")).withStyle(ChatFormatting.RESET));
+        Component offset = Component.literal("Offset: ").withStyle(ChatFormatting.GOLD).append(Component.literal(plugin.getRoomsConfig().getString("rooms." + r + ".offset")).withStyle(ChatFormatting.RESET));
+        Component cost = Component.literal("Cost: ").withStyle(ChatFormatting.GOLD).append(Component.literal(plugin.getRoomsConfig().getString("rooms." + r + ".cost")).withStyle(ChatFormatting.RESET));
+        Component enabled = Component.literal("Enabled: ").withStyle(ChatFormatting.GOLD).append(Component.literal(plugin.getRoomsConfig().getString("rooms." + r + ".enabled")).withStyle(ChatFormatting.RESET));
         List<DialogBody> body = List.of(
                 new PlainMessage(seed, 200),
                 new PlainMessage(offset, 200),

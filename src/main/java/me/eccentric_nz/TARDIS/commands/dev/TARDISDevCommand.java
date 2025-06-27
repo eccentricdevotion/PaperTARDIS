@@ -24,6 +24,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.achievement.TARDISAchievementFactory;
 import me.eccentric_nz.TARDIS.bStats.ARSRoomCounts;
 import me.eccentric_nz.TARDIS.commands.TARDISCommandHelper;
+import me.eccentric_nz.TARDIS.commands.dev.wiki.ChoiceDialog;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.info.dialog.CategoryDialog;
 import me.eccentric_nz.TARDIS.lazarus.disguise.ArmourTrim;
@@ -151,7 +152,7 @@ public class TARDISDevCommand implements CommandExecutor {
                         }
                         case "dialog" -> {
                             if (sender instanceof Player p) {
-                                Dialog dialog = new TerminalDialog().create();
+                                Dialog dialog = new ChoiceDialog().create();
                                 ServerPlayer player = ((CraftPlayer) p).getHandle();
                                 player.openDialog(Holder.direct(dialog));
                             }

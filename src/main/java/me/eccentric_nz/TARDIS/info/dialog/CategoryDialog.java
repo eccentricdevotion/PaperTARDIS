@@ -27,10 +27,8 @@ public class CategoryDialog {
 
     public Dialog create() {
         ResourceLocation model = ResourceLocation.fromNamespaceAndPath("tardis", "chameleon_blue_closed");
-        DataComponentPatch patch = DataComponentPatch.builder()
-                .set(DataComponents.ITEM_MODEL, model)
-                .build();
-        ItemStack blue = new ItemStack(Holder.direct(Items.BLUE_DYE), 1, patch);
+        ItemStack blue = new ItemStack(Holder.direct(Items.BLUE_DYE));
+        blue.set(DataComponents.ITEM_MODEL, model);
         List<DialogBody> body = (List.of(new ItemBody(blue, Optional.empty(), false, false, 16, 16), new PlainMessage(Component.literal("Choose a category below:"), 150)));
         CommonDialogData dialogData = new CommonDialogData(Component.literal("TARDIS Information System"), Optional.empty(), true, true, DialogAction.CLOSE, body, List.of());
         List<ActionButton> actions = new ArrayList<>();

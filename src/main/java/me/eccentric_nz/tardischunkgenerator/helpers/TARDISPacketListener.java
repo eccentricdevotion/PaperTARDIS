@@ -123,12 +123,10 @@ public class TARDISPacketListener {
                     if (dialogPacket.id().getNamespace().equals("tardis")) {
                         dialogPacket.payload().ifPresent(value -> {
                             CompoundTag data = (CompoundTag) value;
-                            if (dialogPacket.id().getPath().equals("catergory")) {
-                                new TARDISInformationSystemProcessor(TARDIS.plugin, player).process(data);
-                            } else if (dialogPacket.id().getPath().equals("terminal")) {
-                                new TARDISTerminalDialogProcessor(TARDIS.plugin, player).process(data);
-                            } else if (dialogPacket.id().getPath().equals("wiki")) {
-                                new HandlesWikiDialogProcessor(TARDIS.plugin).getLinks(data, player);
+                            switch (dialogPacket.id().getPath()) {
+                                case "category", "entry", "section" -> new TARDISInformationSystemProcessor(TARDIS.plugin, player).process(data);
+                                case "terminal" -> new TARDISTerminalDialogProcessor(TARDIS.plugin, player).process(data);
+                                case "wiki" -> new HandlesWikiDialogProcessor(TARDIS.plugin).getLinks(data, player);
                             }
                         });
                     }

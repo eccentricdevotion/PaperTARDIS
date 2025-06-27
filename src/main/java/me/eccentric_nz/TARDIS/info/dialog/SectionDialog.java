@@ -65,7 +65,7 @@ public class SectionDialog {
     private ActionButton makeButton(TARDISInfoMenu tardisInfoMenu) {
         CompoundTag tag = new CompoundTag();
         tag.putString("e", tardisInfoMenu.toString());
-        ResourceLocation form = ResourceLocation.fromNamespaceAndPath("tardis", "entry");
+        ResourceLocation form = ResourceLocation.fromNamespaceAndPath("tardis", "section");
         CustomAll action = new CustomAll(form, Optional.of(tag));
         CommonButtonData buttonData = new CommonButtonData(Component.literal(TARDISStringUtils.capitalise(tardisInfoMenu.toString())), Optional.empty(), 150);
         return new ActionButton(buttonData, Optional.of(action));
