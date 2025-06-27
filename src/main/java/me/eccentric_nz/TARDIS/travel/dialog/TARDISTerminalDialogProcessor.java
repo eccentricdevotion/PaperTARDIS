@@ -2,10 +2,20 @@ package me.eccentric_nz.TARDIS.travel.dialog;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
+import me.eccentric_nz.TARDIS.advanced.TARDISCircuitChecker;
+import me.eccentric_nz.TARDIS.advanced.TARDISCircuitDamager;
+import me.eccentric_nz.TARDIS.api.Parameters;
+import me.eccentric_nz.TARDIS.api.event.TARDISTravelEvent;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetCurrentFromId;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTravellers;
+import me.eccentric_nz.TARDIS.enumeration.*;
+import me.eccentric_nz.TARDIS.flight.TARDISLand;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
+import me.eccentric_nz.TARDIS.travel.TARDISTimeTravel;
+import me.eccentric_nz.TARDIS.travel.TravelCostAndType;
+import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
+import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
 import net.minecraft.nbt.CompoundTag;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -42,34 +52,108 @@ public class TARDISTerminalDialogProcessor {
             ResultSetTravellers rst = new ResultSetTravellers(plugin, where, false);
             if (rst.resultSet()) {
                 int id = rst.getTardis_id();
-                Location location;
+                ResultSetCurrentFromId rsc = new ResultSetCurrentFromId(plugin, id);
+                rsc.resultSet();
+                Location location = null;
                 switch (environment) {
                     case "CURRENT" -> {
-                        ResultSetCurrentFromId rsc = new ResultSetCurrentFromId(plugin, id);
-                        if (rsc.resultSet()) {
-                            // add coords to current location
-                            location = rsc.getCurrent().location().clone().add(x * multiplier, 0, z * multiplier);
-                        }
+                        // add coords to current location
+                        location = rsc.getCurrent().location().clone().add(x * multiplier, 0, z * multiplier);
                     }
                     case "NETHER" -> {
                         // get a nether world
                         if (plugin.getConfig().getBoolean("travel.nether") || !plugin.getConfig().getBoolean("travel.terminal.redefine")) {
                             World nether = getWorld("NETHER", player);
-                            location =
+                            if (nether != null) {
+                                location = new Location(nether, x * multiplier, 64, z * multiplier);
+                            }
                         } else {
-                            lore = List.of(getWorld(plugin.getConfig().getString("travel.terminal.nether"), current, p));
+                            World alternate = plugin.getServer().getWorld(plugin.getConfig().getString("travel.terminal.nether", "world"));
+                            if (alternate != null) {
+                                location = new Location(alternate, x * multiplier, 64, z * multiplier);
+                            }
                         }
                     }
                     case "THE_END" -> {
                         // get an end world
+                        if (plugin.getConfig().getBoolean("travel.the_end") || !plugin.getConfig().getBoolean("travel.terminal.redefine")) {
+                            World the_end = getWorld("THE_END", player);
+                            if (the_end != null) {
+                                location = new Location(the_end, x * multiplier, 64, z * multiplier);
+                            }
+                        } else {
+                            World alternate = plugin.getServer().getWorld(plugin.getConfig().getString("travel.terminal.the_end", "world"));
+                            if (alternate != null) {
+                                location = new Location(alternate, x * multiplier, 64, z * multiplier);
+                            }
+                        }
                     }
                     // "NORMAL"
                     default -> {
                         // get an overworld
+                        World normal = getWorld("NORMAL", player);
+                        if (normal != null) {
+                            location = new Location(normal, x * multiplier, 64, z * multiplier);
+                        }
                     }
                 }
+                if (location == null) {
+                    // message
+                    plugin.getMessenger().send(player, "DEST_SET", !plugin.getTrackerKeeper().getDestinationVortex().containsKey(id));
+                    return;
+                }
+                // slightly randomise x & z
+                location.add(getRandomAddition(), 0, getRandomAddition());
+                // get highest Y
+                int y = location.getWorld().getHighestBlockYAt(location.getBlockX(), location.getBlockZ());
+                location.setY(y);
+                plugin.debug(location.toString());
+                // check location
+                Location finalLocation = location;
+                // need to run on main thread
+                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                    if (unsafe(finalLocation, rsc.getCurrent().direction(), submarine, player)) {
+                        // message
+                        plugin.getMessenger().send(player, "DEST_SET", !plugin.getTrackerKeeper().getDestinationVortex().containsKey(id));
+                        return;
+                    }
+                    HashMap<String, Object> set = new HashMap<>();
+                    String ww = (!plugin.getPlanetsConfig().getBoolean("planets." + finalLocation.getWorld().getName() + ".enabled") && plugin.getWorldManager().equals(WorldManager.MULTIVERSE)) ? plugin.getMVHelper().getWorld(finalLocation.getWorld().getName()).getName() : finalLocation.getWorld().getName();
+                    set.put("world", ww);
+                    set.put("x", finalLocation.getBlockX());
+                    set.put("y", finalLocation.getBlockY());
+                    set.put("z", finalLocation.getBlockZ());
+                    set.put("direction", rsc.getCurrent().direction());
+                    set.put("submarine", submarine ? 1 : 0);
+                    HashMap<String, Object> wheret = new HashMap<>();
+                    wheret.put("tardis_id", id);
+                    plugin.getQueryFactory().doSyncUpdate("next", set, wheret);
+                    plugin.getTrackerKeeper().getHasDestination().put(id, new TravelCostAndType(plugin.getArtronConfig().getInt("travel"), TravelType.TERMINAL));
+                    plugin.getTrackerKeeper().getRescue().remove(id);
+                    plugin.getMessenger().send(player, "DEST_SET", !plugin.getTrackerKeeper().getDestinationVortex().containsKey(id));
+                    if (plugin.getTrackerKeeper().getDestinationVortex().containsKey(id)) {
+                        new TARDISLand(plugin, id, player).exitVortex();
+                        plugin.getPM().callEvent(new TARDISTravelEvent(player, null, TravelType.TERMINAL, id));
+                    }
+                    // damage the circuit if configured
+                    if (plugin.getConfig().getBoolean("circuits.damage") && plugin.getConfig().getInt("circuits.uses.input") > 0) {
+                        TARDISCircuitChecker tcc = new TARDISCircuitChecker(plugin, id);
+                        tcc.getCircuits();
+                        // decrement uses
+                        int uses_left = tcc.getInputUses();
+                        new TARDISCircuitDamager(plugin, DiskCircuit.INPUT, uses_left, id, player).damage();
+                    }
+                });
             }
         }
+    }
+
+    private double getRandomAddition() {
+        double r = TARDISConstants.RANDOM.nextInt(50);
+        if (TARDISConstants.RANDOM.nextBoolean()) {
+            r = 0 - r;
+        }
+        return r;
     }
 
     private World getWorld(String environment, Player player) {
@@ -77,9 +161,6 @@ public class TARDISTerminalDialogProcessor {
         String world;
         Set<String> worldlist = plugin.getPlanetsConfig().getConfigurationSection("planets").getKeys(false);
         for (String o : worldlist) {
-//            if (!plugin.getPlanetsConfig().getBoolean("planets." + o + ".enabled")) {
-//                continue;
-//            }
             if (!plugin.getPlanetsConfig().getBoolean("planets." + o + ".time_travel")) {
                 continue;
             }
@@ -89,16 +170,93 @@ public class TARDISTerminalDialogProcessor {
             World ww = TARDISAliasResolver.getWorldFromAlias(o);
             if (ww != null) {
                 String env = ww.getEnvironment().toString();
-                if (env.equals(env)) {
+                if (env.equals(environment)) {
                     allowedWorlds.add(ww);
                 }
             }
         }
-        if (!allowedWorlds.isEmpty()) {
-            return allowedWorlds.get(TARDISConstants.RANDOM.nextInt(allowedWorlds.size()));
-        } else {
+        return !allowedWorlds.isEmpty() ?
+                allowedWorlds.get(TARDISConstants.RANDOM.nextInt(allowedWorlds.size()))
+                : null;
+    }
 
+    private boolean unsafe(Location location, COMPASS d, boolean submarine, Player p) {
+        World world = location.getWorld();
+        int blockX = location.getBlockX();
+        int blockZ = location.getBlockZ();
+//        String loc_str = world + ":" + blockX + ":" + blockZ;
+        TARDISTimeTravel tt = new TARDISTimeTravel(plugin);
+        switch (world.getEnvironment()) {
+            case THE_END -> {
+                int endy = TARDISStaticLocationGetters.getHighestYin3x3(world, blockX, blockZ);
+                if (endy > 40 && Math.abs(blockX) > 9 && Math.abs(blockZ) > 9) {
+                    Location loc = new Location(world, blockX, 0, blockZ);
+                    int[] estart = TARDISTimeTravel.getStartLocation(loc, d);
+                    int esafe = TARDISTimeTravel.safeLocation(estart[0], endy, estart[2], estart[1], estart[3], world, d);
+                    if (esafe == 0) {
+                        String save = world + ":" + blockX + ":" + endy + ":" + blockZ;
+                        if (plugin.getPluginRespect().getRespect(new Location(world, blockX, endy, blockZ), new Parameters(p, Flag.getNoMessageFlags()))) {
+//                            lore.add(save + "is a valid destination!");
+                            return true;
+                        } else {
+//                            lore.add(save + "is a protected location. Try again!");
+                            return false;
+                        }
+                    } else {
+//                        lore.add(loc_str + " is not safe!");
+                        return false;
+                    }
+                } else {
+//                    lore.add(loc_str + " is not safe!");
+                    return false;
+                }
+            }
+            case NETHER -> {
+                if (tt.safeNether(world, blockX, blockZ, d, p)) {
+                    String save = world + ":" + blockX + ":" + plugin.getUtils().getHighestNetherBlock(world, blockX, blockZ) + ":" + blockZ;
+//                    lore.add(save + " is a valid destination!");
+                    return true;
+                } else {
+//                    lore.add(loc_str + " is not safe!");
+                    return false;
+                }
+            }
+            default -> {
+                Location loc = new Location(world, blockX, 0, blockZ);
+                int[] start = TARDISTimeTravel.getStartLocation(loc, d);
+                int starty = TARDISStaticLocationGetters.getHighestYin3x3(world, blockX, blockZ);
+                // allow room for under door block
+                if (starty <= 0) {
+                    starty = 1;
+                }
+                int safe;
+                // check submarine
+                loc.setY(starty);
+                if (submarine && TARDISStaticUtils.isOceanBiome(loc.getBlock().getBiome())) {
+                    Location subloc = tt.submarine(loc.getBlock(), d);
+                    if (subloc != null) {
+                        safe = 0;
+                        starty = subloc.getBlockY();
+                    } else {
+                        safe = 1;
+                    }
+                } else {
+                    safe = TARDISTimeTravel.safeLocation(start[0], starty, start[2], start[1], start[3], world, d);
+                }
+                if (safe == 0) {
+                    String save = world + ":" + blockX + ":" + starty + ":" + blockZ;
+                    if (plugin.getPluginRespect().getRespect(new Location(world, blockX, starty, blockZ), new Parameters(p, Flag.getNoMessageFlags()))) {
+//                        lore.add(save + " is a valid destination!");
+                        return true;
+                    } else {
+//                        lore.add(save + " is a protected location. Try again!");
+                        return false;
+                    }
+                } else {
+//                    lore.add(loc_str + " is not safe!");
+                    return false;
+                }
+            }
         }
-        return null;
     }
 }
