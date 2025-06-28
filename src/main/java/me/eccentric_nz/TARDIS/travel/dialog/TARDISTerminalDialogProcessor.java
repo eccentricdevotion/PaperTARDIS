@@ -1,5 +1,6 @@
 package me.eccentric_nz.TARDIS.travel.dialog;
 
+import com.mojang.datafixers.util.Pair;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.advanced.TARDISCircuitChecker;
@@ -37,15 +38,10 @@ public class TARDISTerminalDialogProcessor {
         if (data != null && !data.isEmpty()) {
             // {environment:"the_end",multiplier:8.0f,submarine:0b,x:200.0f,z:300.0f}
             String environment = data.getStringOr("environment", "current");
-            TARDIS.plugin.debug("environment = " + environment);
             boolean submarine = data.getBooleanOr("submarine", false);
-            TARDIS.plugin.debug("submarine = " + submarine);
             float x = data.getFloatOr("x", 1.0f);
-            TARDIS.plugin.debug("x = " + x);
             float z = data.getFloatOr("z", 1.0f);
-            TARDIS.plugin.debug("z = " + z);
             float multiplier = data.getFloatOr("multiplier", 1.0f);
-            TARDIS.plugin.debug("multiplier = " + multiplier);
             UUID uuid = player.getUniqueId();
             HashMap<String, Object> where = new HashMap<>();
             where.put("uuid", uuid.toString());
@@ -112,36 +108,36 @@ public class TARDISTerminalDialogProcessor {
                 Location finalLocation = location;
                 // need to run on main thread
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    if (unsafe(finalLocation, rsc.getCurrent().direction(), submarine, player)) {
+                    Pair<Boolean, Integer> safe = safe(finalLocation, rsc.getCurrent().direction(), submarine, player);
+                    if (safe.getFirst()) {
+                        HashMap<String, Object> set = new HashMap<>();
+                        String ww = (!plugin.getPlanetsConfig().getBoolean("planets." + finalLocation.getWorld().getName() + ".enabled") && plugin.getWorldManager().equals(WorldManager.MULTIVERSE)) ? plugin.getMVHelper().getWorld(finalLocation.getWorld().getName()).getName() : finalLocation.getWorld().getName();
+                        set.put("world", ww);
+                        set.put("x", finalLocation.getBlockX());
+                        set.put("y", safe.getSecond());
+                        set.put("z", finalLocation.getBlockZ());
+                        set.put("direction", rsc.getCurrent().direction());
+                        set.put("submarine", submarine ? 1 : 0);
+                        HashMap<String, Object> wheret = new HashMap<>();
+                        wheret.put("tardis_id", id);
+                        plugin.getQueryFactory().doSyncUpdate("next", set, wheret);
+                        plugin.getTrackerKeeper().getHasDestination().put(id, new TravelCostAndType(plugin.getArtronConfig().getInt("travel"), TravelType.TERMINAL));
+                        plugin.getTrackerKeeper().getRescue().remove(id);
+                        plugin.getMessenger().send(player, "DEST_SET", !plugin.getTrackerKeeper().getDestinationVortex().containsKey(id));
+                        if (plugin.getTrackerKeeper().getDestinationVortex().containsKey(id)) {
+                            new TARDISLand(plugin, id, player).exitVortex();
+                            plugin.getPM().callEvent(new TARDISTravelEvent(player, null, TravelType.TERMINAL, id));
+                        }
+                        // damage the circuit if configured
+                        if (plugin.getConfig().getBoolean("circuits.damage") && plugin.getConfig().getInt("circuits.uses.input") > 0) {
+                            TARDISCircuitChecker tcc = new TARDISCircuitChecker(plugin, id);
+                            tcc.getCircuits();
+                            // decrement uses
+                            int uses_left = tcc.getInputUses();
+                            new TARDISCircuitDamager(plugin, DiskCircuit.INPUT, uses_left, id, player).damage();
+                        }
                         // message
                         plugin.getMessenger().send(player, "DEST_SET", !plugin.getTrackerKeeper().getDestinationVortex().containsKey(id));
-                        return;
-                    }
-                    HashMap<String, Object> set = new HashMap<>();
-                    String ww = (!plugin.getPlanetsConfig().getBoolean("planets." + finalLocation.getWorld().getName() + ".enabled") && plugin.getWorldManager().equals(WorldManager.MULTIVERSE)) ? plugin.getMVHelper().getWorld(finalLocation.getWorld().getName()).getName() : finalLocation.getWorld().getName();
-                    set.put("world", ww);
-                    set.put("x", finalLocation.getBlockX());
-                    set.put("y", finalLocation.getBlockY());
-                    set.put("z", finalLocation.getBlockZ());
-                    set.put("direction", rsc.getCurrent().direction());
-                    set.put("submarine", submarine ? 1 : 0);
-                    HashMap<String, Object> wheret = new HashMap<>();
-                    wheret.put("tardis_id", id);
-                    plugin.getQueryFactory().doSyncUpdate("next", set, wheret);
-                    plugin.getTrackerKeeper().getHasDestination().put(id, new TravelCostAndType(plugin.getArtronConfig().getInt("travel"), TravelType.TERMINAL));
-                    plugin.getTrackerKeeper().getRescue().remove(id);
-                    plugin.getMessenger().send(player, "DEST_SET", !plugin.getTrackerKeeper().getDestinationVortex().containsKey(id));
-                    if (plugin.getTrackerKeeper().getDestinationVortex().containsKey(id)) {
-                        new TARDISLand(plugin, id, player).exitVortex();
-                        plugin.getPM().callEvent(new TARDISTravelEvent(player, null, TravelType.TERMINAL, id));
-                    }
-                    // damage the circuit if configured
-                    if (plugin.getConfig().getBoolean("circuits.damage") && plugin.getConfig().getInt("circuits.uses.input") > 0) {
-                        TARDISCircuitChecker tcc = new TARDISCircuitChecker(plugin, id);
-                        tcc.getCircuits();
-                        // decrement uses
-                        int uses_left = tcc.getInputUses();
-                        new TARDISCircuitDamager(plugin, DiskCircuit.INPUT, uses_left, id, player).damage();
                     }
                 });
             }
@@ -180,11 +176,11 @@ public class TARDISTerminalDialogProcessor {
                 : null;
     }
 
-    private boolean unsafe(Location location, COMPASS d, boolean submarine, Player p) {
+    private Pair<Boolean, Integer> safe(Location location, COMPASS d, boolean submarine, Player p) {
         World world = location.getWorld();
         int blockX = location.getBlockX();
         int blockZ = location.getBlockZ();
-//        String loc_str = world + ":" + blockX + ":" + blockZ;
+        String loc_str = world.getName() + ":" + blockX + ":" + blockZ;
         TARDISTimeTravel tt = new TARDISTimeTravel(plugin);
         switch (world.getEnvironment()) {
             case THE_END -> {
@@ -194,31 +190,32 @@ public class TARDISTerminalDialogProcessor {
                     int[] estart = TARDISTimeTravel.getStartLocation(loc, d);
                     int esafe = TARDISTimeTravel.safeLocation(estart[0], endy, estart[2], estart[1], estart[3], world, d);
                     if (esafe == 0) {
-                        String save = world + ":" + blockX + ":" + endy + ":" + blockZ;
+                        String save = world.getName() + ":" + blockX + ":" + endy + ":" + blockZ;
                         if (plugin.getPluginRespect().getRespect(new Location(world, blockX, endy, blockZ), new Parameters(p, Flag.getNoMessageFlags()))) {
-//                            lore.add(save + "is a valid destination!");
-                            return true;
+                            plugin.getMessenger().send(player, TardisModule.TARDIS, "DEST_SET_TERMINAL", save);
+                            return new Pair<>(true, endy);
                         } else {
-//                            lore.add(save + "is a protected location. Try again!");
-                            return false;
+                            plugin.getMessenger().send(player, TardisModule.TARDIS,"DEST_PROTECTED", save);
+                            return new Pair<>(false, -1);
                         }
                     } else {
-//                        lore.add(loc_str + " is not safe!");
-                        return false;
+                        plugin.getMessenger().send(player, TardisModule.TARDIS, "DEST_NOT_SAFE", loc_str);
+                        return new Pair<>(false, -1);
                     }
                 } else {
-//                    lore.add(loc_str + " is not safe!");
-                    return false;
+                    plugin.getMessenger().send(player, TardisModule.TARDIS, "DEST_NOT_SAFE", loc_str);
+                    return new Pair<>(false, -1);
                 }
             }
             case NETHER -> {
                 if (tt.safeNether(world, blockX, blockZ, d, p)) {
-                    String save = world + ":" + blockX + ":" + plugin.getUtils().getHighestNetherBlock(world, blockX, blockZ) + ":" + blockZ;
-//                    lore.add(save + " is a valid destination!");
-                    return true;
+                    int nethery = plugin.getUtils().getHighestNetherBlock(world, blockX, blockZ);
+                    String save = world.getName() + ":" + blockX + ":" + nethery + ":" + blockZ;
+                    plugin.getMessenger().send(player, TardisModule.TARDIS, "DEST_SET_TERMINAL", save);
+                    return new Pair<>(true, nethery);
                 } else {
-//                    lore.add(loc_str + " is not safe!");
-                    return false;
+                    plugin.getMessenger().send(player, TardisModule.TARDIS, "DEST_NOT_SAFE", loc_str);
+                    return new Pair<>(false, -1);
                 }
             }
             default -> {
@@ -246,15 +243,15 @@ public class TARDISTerminalDialogProcessor {
                 if (safe == 0) {
                     String save = world + ":" + blockX + ":" + starty + ":" + blockZ;
                     if (plugin.getPluginRespect().getRespect(new Location(world, blockX, starty, blockZ), new Parameters(p, Flag.getNoMessageFlags()))) {
-//                        lore.add(save + " is a valid destination!");
-                        return true;
+                        plugin.getMessenger().send(player, TardisModule.TARDIS, "DEST_SET_TERMINAL", save);
+                        return new Pair<>(true, starty);
                     } else {
-//                        lore.add(save + " is a protected location. Try again!");
-                        return false;
+                        plugin.getMessenger().send(player, TardisModule.TARDIS,"DEST_PROTECTED", save);
+                        return new Pair<>(false, -1);
                     }
                 } else {
-//                    lore.add(loc_str + " is not safe!");
-                    return false;
+                    plugin.getMessenger().send(player, TardisModule.TARDIS, "DEST_NOT_SAFE", loc_str);
+                    return new Pair<>(false, -1);
                 }
             }
         }
