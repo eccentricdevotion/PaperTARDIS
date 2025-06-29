@@ -22,7 +22,10 @@ import me.eccentric_nz.TARDIS.custommodels.GUIChameleonPoliceBoxes;
 import me.eccentric_nz.TARDIS.custommodels.GUIUpgrade;
 import me.eccentric_nz.TARDIS.enumeration.Consoles;
 import me.eccentric_nz.TARDIS.enumeration.Schematic;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -39,7 +42,6 @@ import java.util.List;
  */
 public class TARDISCustomThemeInventory extends TARDISThemeInventory {
 
-    private final ItemStack[] menu;
     private final TARDIS plugin;
     private final Player player;
     private final String current_console;
@@ -50,7 +52,8 @@ public class TARDISCustomThemeInventory extends TARDISThemeInventory {
         this.player = player;
         this.current_console = current_console;
         this.level = level;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Upgrade Menu", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
     }
 
     /**
@@ -94,9 +97,5 @@ public class TARDISCustomThemeInventory extends TARDISThemeInventory {
         stack[GUIChameleonPoliceBoxes.CLOSE.slot()] = close;
 
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

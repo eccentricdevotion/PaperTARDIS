@@ -46,8 +46,7 @@ public class TARDISLazarusSkinsListener extends TARDISMenuListener {
 
     @EventHandler
     public void onSkinInventoryClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Genetic Skins")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISTelevisionInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -61,7 +60,7 @@ public class TARDISLazarusSkinsListener extends TARDISMenuListener {
         int max_slot = 47;
         if (slot >= 0 && slot <= max_slot) {
             // get selection
-            ItemStack is = view.getItem(slot);
+            ItemStack is = event.getView().getItem(slot);
             if (is != null) {
                 // remember selection
                 skins.put(uuid, slot);
@@ -71,23 +70,17 @@ public class TARDISLazarusSkinsListener extends TARDISMenuListener {
                 case 48 -> {
                     LazarusUtils.pagers.add(uuid);
                     // go to page one
-                    Inventory inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Genetic Manipulator");
-                    inv.setContents(new TARDISLazarusInventory(plugin).getPageOne());
-                    player.openInventory(inv);
+                    player.openInventory(new TARDISLazarusInventory(plugin).getInventory());
                 }
                 case 49 -> {
                     LazarusUtils.pagers.add(uuid);
                     // go to page two
-                    Inventory inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Genetic Manipulator");
-                    inv.setContents(new TARDISLazarusPageTwoInventory(plugin).getPageTwo());
-                    player.openInventory(inv);
+                    player.openInventory(new TARDISLazarusPageTwoInventory(plugin).getInventory());
                 }
                 case 50 -> {
                     LazarusUtils.pagers.add(uuid);
                     // go to monsters
-                    Inventory inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Genetic Manipulator");
-                    inv.setContents(new TARDISWeepingAngelsMonstersInventory(plugin).getMonsters());
-                    player.openInventory(inv);
+                    player.openInventory(new TARDISWeepingAngelsMonstersInventory(plugin).getInventory());
                 }
                 case 51 -> {
                     // remove disguise

@@ -22,6 +22,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 public class ReduceCommand {
@@ -38,10 +39,7 @@ public class ReduceCommand {
             return true;
         }
         // do stuff
-        ItemStack[] menu = new ReducerInventory(plugin).getMenu();
-        Inventory reductions = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "Material reducer");
-        reductions.setContents(menu);
-        player.openInventory(reductions);
+        player.openInventory(new ReducerInventory(plugin).getInventory());
         return true;
     }
 }

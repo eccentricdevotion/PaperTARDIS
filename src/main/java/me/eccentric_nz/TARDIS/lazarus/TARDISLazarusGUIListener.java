@@ -40,7 +40,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -97,8 +97,8 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onLazarusClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Genetic Manipulator")) {
+        InventoryHolder holder = event.getInventory().getHolder(false);
+        if (!(holder instanceof TARDISLazarusInventory) && !(holder instanceof TARDISLazarusPageTwoInventory) && !(holder instanceof TARDISWeepingAngelsMonstersInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -110,6 +110,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
             return;
         }
         int max_slot = 40;
+        InventoryView view = event.getView();
         if (slot >= 0 && slot <= max_slot) {
             // get selection
             ItemStack is = view.getItem(slot);
@@ -131,49 +132,43 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
                 disguises.put(uuid, "PLAYER");
             }
         } else {
+            InventoryHolder ih;
             switch (slot) {
                 case 42 -> {
                     LazarusUtils.pagers.add(uuid);
                     ItemStack pageButton = view.getItem(slot);
                     ItemMeta pageMeta = pageButton.getItemMeta();
                     // go to page one or two
-                    Inventory inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Genetic Manipulator");
                     if (pageMeta.getDisplayName().equals(plugin.getLanguage().getString("BUTTON_PAGE_1"))) {
-                        inv.setContents(new TARDISLazarusInventory(plugin).getPageOne());
+                        ih = new TARDISLazarusInventory(plugin);
                     } else {
-                        inv.setContents(new TARDISLazarusPageTwoInventory(plugin).getPageTwo());
+                        ih = new TARDISLazarusPageTwoInventory(plugin);
                     }
-                    player.openInventory(inv);
+                    player.openInventory(ih.getInventory());
                 }
                 case 43 -> {
                     LazarusUtils.pagers.add(uuid);
                     ItemStack skinsButton = view.getItem(slot);
                     ItemMeta skinsMeta = skinsButton.getItemMeta();
                     // go to skins or page two
-                    Inventory inv;
                     if (skinsMeta.getDisplayName().equals(plugin.getLanguage().getString("BUTTON_PAGE_2"))) {
-                        inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Genetic Manipulator");
-                        inv.setContents(new TARDISLazarusPageTwoInventory(plugin).getPageTwo());
+                        ih = new TARDISLazarusPageTwoInventory(plugin);
                     } else {
-                        inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Genetic Skins");
-                        inv.setContents(new TARDISTelevisionInventory(plugin).getSkins());
+                        ih = new TARDISTelevisionInventory(plugin);
                     }
-                    player.openInventory(inv);
+                    player.openInventory(ih.getInventory());
                 }
                 case 44 -> {
                     LazarusUtils.pagers.add(uuid);
                     ItemStack monstersButton = view.getItem(slot);
                     ItemMeta monstersMeta = monstersButton.getItemMeta();
                     // go to monsters or page two
-                    Inventory inv;
                     if (monstersMeta.getDisplayName().equals("TARDIS Television")) {
-                        inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Genetic Skins");
-                        inv.setContents(new TARDISTelevisionInventory(plugin).getSkins());
+                        ih = new TARDISTelevisionInventory(plugin);
                     } else {
-                        inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Genetic Manipulator");
-                        inv.setContents(new TARDISWeepingAngelsMonstersInventory(plugin).getMonsters());
+                        ih = new TARDISWeepingAngelsMonstersInventory(plugin);
                     }
-                    player.openInventory(inv);
+                    player.openInventory(ih.getInventory());
                 }
                 case 45 -> { // The Master Switch : ON | OFF
                     ItemStack masterButton = view.getItem(slot);
@@ -505,7 +500,10 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
     public void onLazarusClose(InventoryCloseEvent event) {
         String name = event.getView().getTitle();
         UUID uuid = event.getPlayer().getUniqueId();
-        if ((name.equals(ChatColor.DARK_RED + "Genetic Manipulator") || name.equals(ChatColor.DARK_RED + "Genetic Skins")) && !plugin.getTrackerKeeper().getGeneticManipulation().contains(uuid)) {
+        InventoryHolder holder = event.getInventory().getHolder(false);
+        if ((holder instanceof TARDISLazarusInventory || holder instanceof TARDISLazarusPageTwoInventory ||
+                holder instanceof TARDISWeepingAngelsMonstersInventory || holder instanceof TARDISTelevisionInventory)
+                && !plugin.getTrackerKeeper().getGeneticManipulation().contains(uuid)) {
             Block b = plugin.getTrackerKeeper().getLazarus().get(uuid);
             if (b != null && b.getRelative(BlockFace.SOUTH).getType().equals(Material.COBBLESTONE_WALL)) {
                 b.getRelative(BlockFace.SOUTH).setType(Material.AIR);

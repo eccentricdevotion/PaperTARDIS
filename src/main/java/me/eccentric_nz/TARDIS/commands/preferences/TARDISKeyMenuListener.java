@@ -17,6 +17,7 @@
 package me.eccentric_nz.TARDIS.commands.preferences;
 
 import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.TARDIS.chameleon.construct.TARDISChameleonConstructorGUI;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
 import org.bukkit.ChatColor;
@@ -78,8 +79,7 @@ public class TARDISKeyMenuListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPrefsMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Key Prefs Menu")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISKeyMenuInventory)) {
             return;
         }
         Player player = (Player) event.getWhoClicked();
@@ -91,6 +91,7 @@ public class TARDISKeyMenuListener extends TARDISMenuListener {
             }
             return;
         }
+        InventoryView view = event.getView();
         switch (slot) {
             case 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16 -> {
                 event.setCancelled(true);
@@ -173,10 +174,10 @@ public class TARDISKeyMenuListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onKeyMenuClose(InventoryCloseEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Key Prefs Menu")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISKeyMenuInventory)) {
             return;
         }
+        InventoryView view = event.getView();
         ItemStack key = view.getItem(18);
         if (key != null) {
             Player p = (Player) event.getPlayer();

@@ -84,10 +84,7 @@ public class TVMEquipListener implements Listener {
             if (rs.resultSet()) {
                 if (action.equals(Action.RIGHT_CLICK_AIR)) {
                     // open gui
-                    ItemStack[] gui = new TVMGUI(plugin, rs.getTachyonLevel()).getGUI();
-                    Inventory vmg = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Vortex Manipulator");
-                    vmg.setContents(gui);
-                    player.openInventory(vmg);
+                    player.openInventory(new TVMGUI(plugin, rs.getTachyonLevel()).getInventory());
                 } else if (plugin.getVortexConfig().getBoolean("allow.look_at_block") && TARDISPermission.hasPermission(player, "vm.lookatblock")) {
                     UUID uuid = player.getUniqueId();
                     int maxDistance = plugin.getVortexConfig().getInt("max_look_at_distance");

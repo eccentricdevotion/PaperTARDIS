@@ -18,13 +18,10 @@ package me.eccentric_nz.TARDIS.howto;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -44,8 +41,7 @@ public class TARDISSeedMenuListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onSeedMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Seeds Menu")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISSeedsInventory)) {
             return;
         }
         Player p = (Player) event.getWhoClicked();
@@ -57,7 +53,7 @@ public class TARDISSeedMenuListener extends TARDISMenuListener {
             }
             return;
         }
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is != null) {
             event.setCancelled(true);
             // close
@@ -65,12 +61,8 @@ public class TARDISSeedMenuListener extends TARDISMenuListener {
                 close(p);
                 return;
             }
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                ItemStack[] recipe = new TARDISSeedRecipeInventory(plugin, is.getType()).getMenu();
-                Inventory gui = plugin.getServer().createInventory(p, 27, ChatColor.DARK_RED + "TARDIS Seed Recipe");
-                gui.setContents(recipe);
-                p.openInventory(gui);
-            }, 2L);
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                    p.openInventory(new TARDISSeedRecipeInventory(plugin, is.getType()).getInventory()), 2L);
         }
     }
 

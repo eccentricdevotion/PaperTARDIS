@@ -22,18 +22,22 @@ import me.eccentric_nz.TARDIS.custommodels.GUIChameleonTemplate;
 import me.eccentric_nz.TARDIS.custommodels.GUILights;
 import me.eccentric_nz.TARDIS.custommodels.GUIParticle;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetAllLightLevels;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class TARDISLightLevelsInventory {
+public class TARDISLightLevelsInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] GUI;
     private String interior_level = "15";
     private String exterior_level = "15";
     private String console_level = "15";
+    private final Inventory inventory;
 
     public TARDISLightLevelsInventory(TARDIS plugin, int id) {
         this.plugin = plugin;
@@ -43,7 +47,13 @@ public class TARDISLightLevelsInventory {
             exterior_level = "" + LightLevel.exterior_level[rs.getExteriorLevel()];
             console_level = "" + LightLevel.interior_level[rs.getConsoleLevel()];
         }
-        this.GUI = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Light Levels", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -116,9 +126,5 @@ public class TARDISLightLevelsInventory {
                 null, null, null, null, null, null, null, null, null,
                 back, null, null, null, null, null, null, null, close
         };
-    }
-
-    public ItemStack[] getGUI() {
-        return GUI;
     }
 }

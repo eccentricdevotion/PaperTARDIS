@@ -25,7 +25,6 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.move.TARDISDoorListener;
 import me.eccentric_nz.TARDIS.travel.TARDISDoorLocation;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -67,7 +66,7 @@ public class TARDISARSMapListener extends TARDISARSMethods implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onARSMapClick(InventoryClickEvent event) {
         InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Map")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISARSMap)) {
             return;
         }
         event.setCancelled(true);

@@ -31,6 +31,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -77,10 +78,7 @@ public class MicroscopeItemFrameListener implements Listener {
                         MicroscopeUtils.reduceInHand(player);
                     } else {
                         // open the slide GUI
-                        ItemStack[] slides = new SlideInventory(plugin).getItems();
-                        Inventory inventory = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Slides");
-                        inventory.setContents(slides);
-                        player.openInventory(inventory);
+                        player.openInventory(new SlideInventory(plugin).getInventory());
                     }
                 }
                 case MICROSCOPE -> {
@@ -111,10 +109,7 @@ public class MicroscopeItemFrameListener implements Listener {
                         MicroscopeUtils.reduceInHand(player);
                     } else {
                         // open computer GUI
-                        ItemStack[] screens = new ComputerInventory(plugin).getItems();
-                        Inventory inventory = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Computer Storage");
-                        inventory.setContents(screens);
-                        player.openInventory(inventory);
+                        player.openInventory(new ComputerInventory(plugin).getInventory());
                     }
                 }
                 case ELECTRON_MICROSCOPE -> {
@@ -145,10 +140,7 @@ public class MicroscopeItemFrameListener implements Listener {
                         MicroscopeUtils.reduceInHand(player);
                     } else {
                         // open filing cabinet GUI
-                        ItemStack[] helmets = new FileCabinetInventory(plugin).getItems();
-                        Inventory inventory = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Map Cabinet");
-                        inventory.setContents(helmets);
-                        player.openInventory(inventory);
+                        player.openInventory(new FileCabinetInventory(plugin).getInventory());
                     }
                 }
                 default -> {

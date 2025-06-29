@@ -20,7 +20,11 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.GUIChameleonPresets;
 import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -33,16 +37,22 @@ import java.util.Locale;
  *
  * @author eccentric_nz
  */
-public class TARDISPresetInventory {
+public class TARDISPresetInventory implements InventoryHolder {
 
-    private final ItemStack[] terminal;
     private final TARDIS plugin;
     private final Player player;
+    private final Inventory inventory;
 
     public TARDISPresetInventory(TARDIS plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
-        terminal = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Chameleon Presets", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -83,9 +93,5 @@ public class TARDISPresetInventory {
         close.setItemMeta(can);
         stacks[GUIChameleonPresets.CLOSE.slot()] = close;
         return stacks;
-    }
-
-    public ItemStack[] getPresets() {
-        return terminal;
     }
 }

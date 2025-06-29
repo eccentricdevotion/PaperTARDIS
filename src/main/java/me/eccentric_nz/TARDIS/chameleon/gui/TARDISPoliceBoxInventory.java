@@ -21,9 +21,13 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.GUIChameleonPoliceBoxes;
 import me.eccentric_nz.TARDIS.custommodels.keys.ChameleonVariant;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -38,17 +42,23 @@ import java.util.Locale;
  *
  * @author eccentric_nz
  */
-public class TARDISPoliceBoxInventory {
+public class TARDISPoliceBoxInventory implements InventoryHolder {
 
     private final List<String> colours = List.of("Blue", "White", "Orange", "Magenta", "Light Blue", "Yellow", "Lime", "Pink", "Gray", "Light Gray", "Cyan", "Purple", "Brown", "Green", "Red", "Black");
-    private final ItemStack[] boxes;
     private final TARDIS plugin;
     private final Player player;
+    private final Inventory inventory;
 
     public TARDISPoliceBoxInventory(TARDIS plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
-        boxes = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Chameleon Police Boxes", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -167,10 +177,6 @@ public class TARDISPoliceBoxInventory {
         can.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
         close.setItemMeta(can);
         boxes[GUIChameleonPoliceBoxes.CLOSE.slot()] = close;
-        return boxes;
-    }
-
-    public ItemStack[] getBoxes() {
         return boxes;
     }
 }

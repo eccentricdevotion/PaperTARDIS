@@ -21,23 +21,36 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.GUIMap;
 import me.eccentric_nz.TARDIS.custommodels.keys.SwitchVariant;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class TARDISTelepathicInventory {
+public class TARDISTelepathicInventory implements InventoryHolder {
 
     private final TARDIS plugin;
     private final Player player;
+    private final Inventory inventory;
 
     public TARDISTelepathicInventory(TARDIS plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Telepathic Circuit", NamedTextColor.RED));
+        this.inventory.setContents(getButtons());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     public ItemStack[] getButtons() {

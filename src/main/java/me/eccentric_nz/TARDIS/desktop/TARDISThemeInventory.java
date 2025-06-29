@@ -22,6 +22,8 @@ import me.eccentric_nz.TARDIS.enumeration.Schematic;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -37,16 +39,23 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-public class TARDISThemeInventory {
+public class TARDISThemeInventory implements InventoryHolder {
+
+    protected Inventory inventory;
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
+    }
 
     /**
      * Constructs an item stack for the Desktop Theme GUI.
      *
-     * @param plugin an instance of the TARDIS plugin
-     * @param schematic the console schematic to get the item stack for
+     * @param plugin         an instance of the TARDIS plugin
+     * @param schematic      the console schematic to get the item stack for
      * @param currentConsole the players current console
-     * @param player the player using the GUI
-     * @param level the player's Artron level
+     * @param player         the player using the GUI
+     * @param level          the player's Artron level
      * @return an ItemStack with the console information
      */
     public ItemStack getConsoleStack(TARDIS plugin, Schematic schematic, String currentConsole, Player player, int level) {

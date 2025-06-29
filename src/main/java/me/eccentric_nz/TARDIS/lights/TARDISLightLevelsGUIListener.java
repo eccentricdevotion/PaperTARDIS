@@ -55,8 +55,7 @@ public class TARDISLightLevelsGUIListener extends TARDISMenuListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onLightLevelsMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Light Levels")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISLightLevelsInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -65,6 +64,7 @@ public class TARDISLightLevelsGUIListener extends TARDISMenuListener {
         UUID uuid = player.getUniqueId();
         if (slot >= 0 && slot < 54) {
             // get selection
+            InventoryView view = event.getView();
             ItemStack is = view.getItem(slot);
             if (is != null) {
                 // get TARDIS id
@@ -140,13 +140,7 @@ public class TARDISLightLevelsGUIListener extends TARDISMenuListener {
                             // TODO update control?
                         }
                     }
-                    case 45 -> {
-                        // back
-                        ItemStack[] lightStacks = new TARDISLightsInventory(plugin, id, uuid).getGUI();
-                        Inventory lightGUI = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Lights");
-                        lightGUI.setContents(lightStacks);
-                        player.openInventory(lightGUI);
-                    }
+                    case 45 -> player.openInventory(new TARDISLightsInventory(plugin, id, uuid).getInventory()); // back
                     case 53 -> close(player); // close
                 }
             }

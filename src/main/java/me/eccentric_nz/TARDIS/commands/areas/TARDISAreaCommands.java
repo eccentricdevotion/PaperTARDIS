@@ -347,10 +347,7 @@ public class TARDISAreaCommands implements CommandExecutor {
                     }
                     if (first.equals("edit")) {
                         // open edit gui to allow removal of added locations
-                        ItemStack[] locations = new TARDISEditAreasInventory(plugin, rsaId.getArea().areaId()).getLocations();
-                        Inventory inventory = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Area Locations");
-                        inventory.setContents(locations);
-                        player.openInventory(inventory);
+                        player.openInventory(new TARDISEditAreasInventory(plugin, rsaId.getArea().areaId()).getInventory());
                     } else {
                         // get player's location
                         Location location = player.getLocation();

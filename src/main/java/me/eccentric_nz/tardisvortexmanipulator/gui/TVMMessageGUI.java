@@ -6,7 +6,11 @@ package me.eccentric_nz.tardisvortexmanipulator.gui;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetInbox;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TVMMessage;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -15,19 +19,25 @@ import java.util.List;
 /**
  * @author eccentric_nz
  */
-public class TVMMessageGUI {
+public class TVMMessageGUI implements InventoryHolder {
 
     private final TARDIS plugin;
     private final int start, finish;
     private final String uuid;
-    private final ItemStack[] gui;
+    private final Inventory inventory;
 
     public TVMMessageGUI(TARDIS plugin, int start, int finish, String uuid) {
         this.plugin = plugin;
         this.start = start;
         this.finish = finish;
         this.uuid = uuid;
-        gui = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("VM Messages", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -104,9 +114,5 @@ public class TVMMessageGUI {
         stack[53] = del;
 
         return stack;
-    }
-
-    public ItemStack[] getGUI() {
-        return gui;
     }
 }

@@ -18,11 +18,16 @@ package me.eccentric_nz.TARDIS.companionGUI;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUICompanion;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -30,16 +35,22 @@ import java.util.UUID;
 /**
  * @author eccentric_nz
  */
-public class TARDISCompanionInventory {
+public class TARDISCompanionInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] skulls;
     private final String[] companionData;
+    private final Inventory inventory;
 
     public TARDISCompanionInventory(TARDIS plugin, String[] companionData) {
         this.plugin = plugin;
         this.companionData = companionData;
-        skulls = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Companions", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -93,9 +104,5 @@ public class TARDISCompanionInventory {
         heads[GUICompanion.BUTTON_CLOSE.slot()] = close;
 
         return heads;
-    }
-
-    public ItemStack[] getSkulls() {
-        return skulls;
     }
 }

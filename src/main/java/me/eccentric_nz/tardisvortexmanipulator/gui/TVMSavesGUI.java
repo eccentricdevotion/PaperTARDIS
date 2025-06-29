@@ -6,7 +6,11 @@ package me.eccentric_nz.tardisvortexmanipulator.gui;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetSaves;
 import me.eccentric_nz.tardisvortexmanipulator.storage.TVMSave;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -16,13 +20,13 @@ import java.util.List;
 /**
  * @author eccentric_nz
  */
-public class TVMSavesGUI {
+public class TVMSavesGUI implements InventoryHolder {
 
     private final TARDIS plugin;
     private final int start, finish;
     private final String uuid;
-    private final ItemStack[] gui;
     private final HashMap<String, Material> blocks = new HashMap<>();
+    private final Inventory inventory;
 
     public TVMSavesGUI(TARDIS plugin, int start, int finish, String uuid) {
         this.plugin = plugin;
@@ -32,7 +36,13 @@ public class TVMSavesGUI {
         blocks.put("NORMAL", Material.DIRT);
         blocks.put("NETHER", Material.NETHERRACK);
         blocks.put("THE_END", Material.END_STONE);
-        gui = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("VM Saves", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -103,10 +113,6 @@ public class TVMSavesGUI {
         stack[53] = warp;
 
         return stack;
-    }
-
-    public ItemStack[] getGUI() {
-        return gui;
     }
 
     private String oneDecimal(double d) {

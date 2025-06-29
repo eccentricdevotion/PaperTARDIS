@@ -29,7 +29,6 @@ import me.eccentric_nz.tardischemistry.element.ElementInventory;
 import me.eccentric_nz.tardischemistry.lab.LabInventory;
 import me.eccentric_nz.tardischemistry.product.ProductInventory;
 import me.eccentric_nz.tardischemistry.reducer.ReducerInventory;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -42,109 +41,108 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ChemistryBlockListener implements Listener {
 
     private final TARDIS plugin;
-    private final HashMap<Material, String> blocks = new HashMap<>();
+    private final Set<Material> blocks = new HashSet<>();
 
     public ChemistryBlockListener(TARDIS plugin) {
         this.plugin = plugin;
-        blocks.put(Material.LIGHT_GRAY_CONCRETE, "Atomic elements");
-        blocks.put(Material.ORANGE_CONCRETE, "Chemical compounds");
-        blocks.put(Material.MAGENTA_CONCRETE, "Material reducer");
-        blocks.put(Material.LIGHT_BLUE_CONCRETE, "Element constructor");
-        blocks.put(Material.YELLOW_CONCRETE, "Lab table");
-        blocks.put(Material.LIME_CONCRETE, "Product crafting");
+        blocks.add(Material.LIGHT_GRAY_CONCRETE);
+        blocks.add(Material.ORANGE_CONCRETE);
+        blocks.add(Material.MAGENTA_CONCRETE);
+        blocks.add(Material.LIGHT_BLUE_CONCRETE);
+        blocks.add(Material.YELLOW_CONCRETE);
+        blocks.add(Material.LIME_CONCRETE);
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onChemistryBlockInteract(PlayerInteractEvent event) {
-        if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && event.getHand().equals(EquipmentSlot.HAND)) {
+        if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && event.getHand() != null && event.getHand().equals(EquipmentSlot.HAND)) {
             Block block = event.getClickedBlock();
+            if (block == null) {
+                return;
+            }
             Material material = block.getType();
             if (!material.equals(Material.BARRIER)) {
                 return;
             }
             // get the display item entity
             ItemDisplay display = TARDISDisplayItemUtils.get(block);
-            if (display != null) {
-                ItemStack is = display.getItemStack();
-                if (is != null) {
-                    String name = blocks.get(is.getType());
-                    if (name == null) {
+            if (display == null) {
+                return;
+            }
+            ItemStack is = display.getItemStack();
+            if (!blocks.contains(is.getType())) {
+                return;
+            }
+            Player player = event.getPlayer();
+            InventoryHolder menu;
+            switch (is.getType()) {
+                case LIGHT_GRAY_CONCRETE -> {
+                    // atomic elements
+                    if (TARDISPermission.hasPermission(player, "tardis.chemistry.creative")) {
+                        menu = new ElementInventory(plugin);
+                    } else {
+                        plugin.getMessenger().send(player, TardisModule.TARDIS, "CHEMISTRY_SUB_PERM", "Atomic elements");
                         return;
                     }
-                    Player player = event.getPlayer();
-                    ItemStack[] menu;
-                    Inventory inventory;
-                    switch (is.getType()) {
-                        case LIGHT_GRAY_CONCRETE -> {
-                            // atomic elements
-                            if (TARDISPermission.hasPermission(player, "tardis.chemistry.creative")) {
-                                menu = new ElementInventory(plugin).getMenu();
-                            } else {
-                                plugin.getMessenger().send(player, TardisModule.TARDIS, "CHEMISTRY_SUB_PERM", "Atomic elements");
-                                return;
-                            }
-                        }
-                        case ORANGE_CONCRETE -> {
-                            // chemical compounds
-                            if (TARDISPermission.hasPermission(player, "tardis.compound.create")) {
-                                menu = new CompoundInventory(plugin).getMenu();
-                            } else {
-                                plugin.getMessenger().send(player, TardisModule.TARDIS, "CHEMISTRY_SUB_PERM", "Chemical compounds");
-                                return;
-                            }
-                        }
-                        case MAGENTA_CONCRETE -> {
-                            // reducer
-                            if (TARDISPermission.hasPermission(player, "tardis.reducer.use")) {
-                                menu = new ReducerInventory(plugin).getMenu();
-                            } else {
-                                plugin.getMessenger().send(player, TardisModule.TARDIS, "CHEMISTRY_SUB_PERM", "Material reducer");
-                                return;
-                            }
-                        }
-                        case LIGHT_BLUE_CONCRETE -> {
-                            // constructor
-                            if (TARDISPermission.hasPermission(player, "tardis.construct.build")) {
-                                menu = new ConstructorInventory().getMenu();
-                            } else {
-                                plugin.getMessenger().send(player, TardisModule.TARDIS, "CHEMISTRY_SUB_PERM", "Element constructor");
-                                return;
-                            }
-                        }
-                        case YELLOW_CONCRETE -> {
-                            // lab
-                            if (TARDISPermission.hasPermission(player, "tardis.lab.combine")) {
-                                menu = new LabInventory(plugin).getMenu();
-                            } else {
-                                plugin.getMessenger().send(player, TardisModule.TARDIS, "CHEMISTRY_SUB_PERM", "Lab table");
-                                return;
-                            }
-                        }
-                        default -> { // Product crafting
-                            // product
-                            if (TARDISPermission.hasPermission(player, "tardis.products.craft")) {
-                                menu = new ProductInventory(plugin).getMenu();
-                            } else {
-                                plugin.getMessenger().send(player, TardisModule.TARDIS, "CHEMISTRY_SUB_PERM", "Product crafting");
-                                return;
-                            }
-                        }
+                }
+                case ORANGE_CONCRETE -> {
+                    // chemical compounds
+                    if (TARDISPermission.hasPermission(player, "tardis.compound.create")) {
+                        menu = new CompoundInventory(plugin);
+                    } else {
+                        plugin.getMessenger().send(player, TardisModule.TARDIS, "CHEMISTRY_SUB_PERM", "Chemical compounds");
+                        return;
                     }
-                    inventory = plugin.getServer().createInventory(player, (is.getType().equals(Material.LIGHT_GRAY_CONCRETE) ? 54 : 27), ChatColor.DARK_RED + name);
-                    inventory.setContents(menu);
-                    player.openInventory(inventory);
+                }
+                case MAGENTA_CONCRETE -> {
+                    // reducer
+                    if (TARDISPermission.hasPermission(player, "tardis.reducer.use")) {
+                        menu = new ReducerInventory(plugin);
+                    } else {
+                        plugin.getMessenger().send(player, TardisModule.TARDIS, "CHEMISTRY_SUB_PERM", "Material reducer");
+                        return;
+                    }
+                }
+                case LIGHT_BLUE_CONCRETE -> {
+                    // constructor
+                    if (TARDISPermission.hasPermission(player, "tardis.construct.build")) {
+                        menu = new ConstructorInventory(plugin);
+                    } else {
+                        plugin.getMessenger().send(player, TardisModule.TARDIS, "CHEMISTRY_SUB_PERM", "Element constructor");
+                        return;
+                    }
+                }
+                case YELLOW_CONCRETE -> {
+                    // lab
+                    if (TARDISPermission.hasPermission(player, "tardis.lab.combine")) {
+                        menu = new LabInventory(plugin);
+                    } else {
+                        plugin.getMessenger().send(player, TardisModule.TARDIS, "CHEMISTRY_SUB_PERM", "Lab table");
+                        return;
+                    }
+                }
+                default -> { // Product crafting
+                    // product
+                    if (TARDISPermission.hasPermission(player, "tardis.products.craft")) {
+                        menu = new ProductInventory(plugin);
+                    } else {
+                        plugin.getMessenger().send(player, TardisModule.TARDIS, "CHEMISTRY_SUB_PERM", "Product crafting");
+                        return;
+                    }
                 }
             }
+            player.openInventory(menu.getInventory());
         }
     }
 

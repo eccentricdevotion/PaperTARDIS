@@ -39,7 +39,7 @@ public class TARDISLibraryListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void onLibraryDropChestClose(InventoryCloseEvent event) {
         Inventory inv = event.getInventory();
-        InventoryHolder holder = inv.getHolder();
+        InventoryHolder holder = inv.getHolder(false);
         if (holder instanceof Chest chest) {
             Location loc = chest.getLocation();
             // check is drop chest

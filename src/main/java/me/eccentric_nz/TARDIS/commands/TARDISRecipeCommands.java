@@ -159,10 +159,7 @@ public class TARDISRecipeCommands implements CommandExecutor {
             }
             if (args.length == 0) {
                 // open recipe GUI
-                ItemStack[] emenu = new TARDISRecipeCategoryInventory().getMenu();
-                Inventory categories = plugin.getServer().createInventory(player, 36, ChatColor.DARK_RED + "Recipe Categories");
-                categories.setContents(emenu);
-                player.openInventory(categories);
+                player.openInventory(new TARDISRecipeCategoryInventory(plugin).getInventory());
                 return true;
             }
             String which = args[0].toLowerCase(Locale.ROOT);

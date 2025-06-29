@@ -25,7 +25,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -55,8 +54,7 @@ public class TARDISHandlesSavedListener extends TARDISMenuListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onHandlesGUIClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Saved Programs")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISHandlesSavedInventory)) {
             return;
         }
         Player player = (Player) event.getWhoClicked();
@@ -65,6 +63,7 @@ public class TARDISHandlesSavedListener extends TARDISMenuListener {
         if (slot < 54) {
             event.setCancelled(true);
         }
+        InventoryView view = event.getView();
         if (slot < 36) {
             ItemStack record = player.getItemOnCursor();
             if (!record.getType().isAir()) {
@@ -94,13 +93,8 @@ public class TARDISHandlesSavedListener extends TARDISMenuListener {
         }
         if (slot == 45) {
             // back to editor
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                TARDISHandlesProgramInventory thi = new TARDISHandlesProgramInventory(plugin, 0);
-                ItemStack[] items = thi.getHandles();
-                Inventory chaminv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Handles Program");
-                chaminv.setContents(items);
-                player.openInventory(chaminv);
-            }, 2L);
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                    player.openInventory(new TARDISHandlesProgramInventory(plugin, 0).getInventory()), 2L);
         }
         if (slot == 47) {
             // load program
@@ -108,13 +102,8 @@ public class TARDISHandlesSavedListener extends TARDISMenuListener {
                 ItemStack is = view.getItem(selectedSlot.get(uuid));
                 int pid = TARDISNumberParsers.parseInt(is.getItemMeta().getLore().get(1));
                 selectedSlot.put(uuid, null);
-                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    TARDISHandlesProgramInventory thi = new TARDISHandlesProgramInventory(plugin, pid);
-                    ItemStack[] items = thi.getHandles();
-                    Inventory handlesinv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Handles Program");
-                    handlesinv.setContents(items);
-                    player.openInventory(handlesinv);
-                }, 2L);
+                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                        player.openInventory(new TARDISHandlesProgramInventory(plugin, pid).getInventory()), 2L);
             } else {
                 plugin.getMessenger().send(player, TardisModule.TARDIS, "HANDLES_SELECT");
             }

@@ -48,8 +48,7 @@ public class TARDISSystemTreeListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onSystemInventoryClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS System Upgrades")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISSystemTreeGUI)) {
             return;
         }
         event.setCancelled(true);
@@ -57,6 +56,7 @@ public class TARDISSystemTreeListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             return;
         }
+        InventoryView view = event.getView();
         ItemStack is = view.getItem(slot);
         if (is == null) {
             return;

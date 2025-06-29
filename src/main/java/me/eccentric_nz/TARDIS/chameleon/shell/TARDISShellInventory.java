@@ -22,9 +22,13 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIChameleonPresets;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetShells;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -43,17 +47,22 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-public class TARDISShellInventory {
+public class TARDISShellInventory implements InventoryHolder {
 
-    private final ItemStack[] shells;
     private final TARDIS plugin;
     private final int id;
-
+    private final Inventory inventory;
 
     public TARDISShellInventory(TARDIS plugin, int id) {
         this.plugin = plugin;
         this.id = id;
-        shells = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Shells", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -154,9 +163,5 @@ public class TARDISShellInventory {
         stacks[GUIChameleonPresets.CLOSE.slot()] = close;
 
         return stacks;
-    }
-
-    public ItemStack[] getPlayerShells() {
-        return shells;
     }
 }

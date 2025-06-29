@@ -14,7 +14,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -37,8 +36,7 @@ public class TVMMessageGUIListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onMessageGUIClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "VM Messages")) {
+        if (!(event.getInventory().getHolder(false) instanceof TVMMessageGUI)) {
             return;
         }
         event.setCancelled(true);
@@ -47,8 +45,9 @@ public class TVMMessageGUIListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             return;
         }
+        InventoryView view = event.getView();
         switch (slot) {
-            case 45 -> {}
+            case 45 -> { }
             case 46 -> close(player); // close
             case 48 -> doPrev(view, player); // previous page
             case 49 -> doNext(view, player); // next page
@@ -63,13 +62,8 @@ public class TVMMessageGUIListener extends TARDISMenuListener {
         if (page > 1) {
             int start = (page * 44) - 44;
             close(player);
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, player.getUniqueId().toString());
-                ItemStack[] gui = tvmm.getGUI();
-                Inventory vmg = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "VM Messages");
-                vmg.setContents(gui);
-                player.openInventory(vmg);
-            }, 2L);
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                    player.openInventory(new TVMMessageGUI(plugin, start, start + 44, player.getUniqueId().toString()).getInventory()), 2L);
         }
     }
 
@@ -77,13 +71,8 @@ public class TVMMessageGUIListener extends TARDISMenuListener {
         int page = getPageNumber(view);
         int start = (page * 44) + 44;
         close(player);
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            TVMMessageGUI tvmm = new TVMMessageGUI(plugin, start, start + 44, player.getUniqueId().toString());
-            ItemStack[] gui = tvmm.getGUI();
-            Inventory vmg = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "VM Messages");
-            vmg.setContents(gui);
-            player.openInventory(vmg);
-        }, 2L);
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                player.openInventory(new TVMMessageGUI(plugin, start, start + 44, player.getUniqueId().toString()).getInventory()), 2L);
     }
 
     private void doRead(InventoryView view, Player player) {

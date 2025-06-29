@@ -6,7 +6,11 @@ package me.eccentric_nz.tardisvortexmanipulator.gui;
 import com.google.common.collect.Multimaps;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.VortexManipulatorVariant;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
@@ -19,16 +23,22 @@ import java.util.Map;
 /**
  * @author eccentric_nz
  */
-public class TVMGUI {
+public class TVMGUI implements InventoryHolder {
 
     private final TARDIS plugin;
     private final int tachyonLevel;
-    private final ItemStack[] gui;
+    private final Inventory inventory;
 
     public TVMGUI(TARDIS plugin, int tachyonLevel) {
         this.plugin = plugin;
         this.tachyonLevel = tachyonLevel;
-        gui = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Vortex Manipulator", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -233,9 +243,5 @@ public class TVMGUI {
                 null, null, z, star, zero, hash, null, bea, null,
                 close, null, null, prev, null, next, null, null, warp
         };
-    }
-
-    public ItemStack[] getGUI() {
-        return gui;
     }
 }

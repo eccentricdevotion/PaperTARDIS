@@ -66,8 +66,7 @@ public class TARDISShellLoaderListener extends TARDISMenuListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onShellLoaderClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Shell Loader")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISShellPresetInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -76,7 +75,7 @@ public class TARDISShellLoaderListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             return;
         }
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is == null) {
             return;
         }

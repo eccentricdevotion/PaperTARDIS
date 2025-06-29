@@ -19,23 +19,34 @@ package me.eccentric_nz.TARDIS.handles;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.data.Program;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetProgram;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author eccentric_nz
  */
-public class TARDISHandlesProgramInventory {
+public class TARDISHandlesProgramInventory implements InventoryHolder {
 
     private final TARDIS plugin;
     private final int program_id;
-    private final ItemStack[] handles;
+    private final Inventory inventory;
 
     public TARDISHandlesProgramInventory(TARDIS plugin, int program_id) {
         this.plugin = plugin;
         this.program_id = program_id;
-        handles = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Handles Program", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -87,9 +98,5 @@ public class TARDISHandlesProgramInventory {
             }
         }
         return stack;
-    }
-
-    public ItemStack[] getHandles() {
-        return handles;
     }
 }

@@ -18,20 +18,30 @@ package me.eccentric_nz.tardischemistry.product;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIChemistry;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class ProductInventory {
+public class ProductInventory implements InventoryHolder {
 
-    private final ItemStack[] menu;
     private final TARDIS plugin;
+    private final Inventory inventory;
 
     public ProductInventory(TARDIS plugin) {
         this.plugin = plugin;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("Product crafting", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -59,9 +69,5 @@ public class ProductInventory {
         close.setItemMeta(close_im);
         stack[GUIChemistry.CLOSE.slot()] = close;
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

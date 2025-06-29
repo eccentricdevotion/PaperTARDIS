@@ -18,8 +18,6 @@ package me.eccentric_nz.TARDIS.flight;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * While phoning Amy and Rory about his adventures without them, the Eleventh Doctor mentioned how he should be
@@ -41,11 +39,7 @@ class TARDISRegulatorStarter implements Runnable {
 
     @Override
     public void run() {
-        TARDISRegulatorInventory reg = new TARDISRegulatorInventory();
-        ItemStack[] items = reg.getRegulator();
-        Inventory inv = plugin.getServer().createInventory(player, 54, "Helmic Regulator");
-        inv.setContents(items);
-        player.openInventory(inv);
+        player.openInventory(new TARDISRegulatorInventory(plugin).getInventory());
         // play inflight sound
         if (!plugin.getTrackerKeeper().getDestinationVortex().containsKey(id)) {
             plugin.getServer().getScheduler().runTask(plugin, new TARDISLoopingFlightSound(plugin, player.getLocation(), id));

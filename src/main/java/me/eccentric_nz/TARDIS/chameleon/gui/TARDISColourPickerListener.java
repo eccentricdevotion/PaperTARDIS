@@ -48,8 +48,7 @@ public class TARDISColourPickerListener extends TARDISMenuListener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onInteract(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Colour Picker")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISColourPickerGUI)) {
             return;
         }
         event.setCancelled(true);
@@ -58,6 +57,7 @@ public class TARDISColourPickerListener extends TARDISMenuListener {
         if (slot < 18 || slot > 53) {
             return;
         }
+        InventoryView view = event.getView();
         switch (slot) {
             case 20 -> {
                 // red less

@@ -44,8 +44,7 @@ public class TARDISRecipeMenuListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onSeedMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Seed Recipe")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISSeedRecipeInventory)) {
             return;
         }
         Player p = (Player) event.getWhoClicked();
@@ -57,7 +56,7 @@ public class TARDISRecipeMenuListener extends TARDISMenuListener {
             }
             return;
         }
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is == null) {
             return;
         }
@@ -66,22 +65,14 @@ public class TARDISRecipeMenuListener extends TARDISMenuListener {
             case 8 -> {
                 // back to seeds
                 close(p);
-                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    ItemStack[] seeds = new TARDISSeedsInventory(plugin, p).getMenu();
-                    Inventory gui = plugin.getServer().createInventory(p, 45, ChatColor.DARK_RED + "TARDIS Seeds Menu");
-                    gui.setContents(seeds);
-                    p.openInventory(gui);
-                }, 2L);
+                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                        p.openInventory(new TARDISSeedsInventory(plugin, p).getInventory()), 2L);
             }
             case 11, 20 -> {
                 // wall & floor
                 close(p);
-                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    ItemStack[] recipe = new TARDISHowtoWallsInventory(plugin).getMenu();
-                    Inventory gui = plugin.getServer().createInventory(p, 54, ChatColor.DARK_RED + "TARDIS Wall & Floor Menu");
-                    gui.setContents(recipe);
-                    p.openInventory(gui);
-                }, 2L);
+                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                        p.openInventory(new TARDISHowtoWallsInventory(plugin).getInventory()), 2L);
             }
             case 26 -> close(p); // close
             default -> {

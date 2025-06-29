@@ -88,8 +88,7 @@ public class TARDISCompanionGUIListener extends TARDISMenuListener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onCompanionGUIClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Companions")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISCompanionInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -99,22 +98,18 @@ public class TARDISCompanionGUIListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             return;
         }
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is == null) {
             return;
         }
         switch (slot) {
-            case 45 -> { // info
-            }
-            case 48 -> // add
-                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                        ItemStack[] items = new TARDISCompanionAddInventory(plugin, player).getPlayers();
-                        Inventory presetinv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Add Companion");
-                        presetinv.setContents(items);
-                        player.openInventory(presetinv);
-                    }, 2L);
+            // info
+            case 45 -> { }
+            // add
+            case 48 -> plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                    player.openInventory(new TARDISCompanionAddInventory(plugin, player).getInventory()), 2L);
+            // delete
             case 51 -> {
-                // delete
                 if (selected_head.containsKey(uuid)) {
                     HashMap<String, Object> where = new HashMap<>();
                     where.put("uuid", uuid.toString());
@@ -123,7 +118,7 @@ public class TARDISCompanionGUIListener extends TARDISMenuListener {
                         Tardis tardis = rs.getTardis();
                         int id = tardis.getTardisId();
                         String comps = tardis.getCompanions();
-                        ItemStack h = view.getItem(selected_head.get(uuid));
+                        ItemStack h = event.getView().getItem(selected_head.get(uuid));
                         ItemMeta m = h.getItemMeta();
                         List<String> l = m.getLore();
                         String u = l.getFirst();

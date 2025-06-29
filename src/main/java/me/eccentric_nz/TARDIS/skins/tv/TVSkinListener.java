@@ -84,13 +84,7 @@ public class TVSkinListener extends TARDISMenuListener {
                 SkinUtils.removeExtras(player, skin);
                 SkinUtils.SKINNED.remove(uuid);
             }
-            case 33 -> {
-                // back
-                ItemStack[] items = new TVInventory().getMenu();
-                Inventory tvinv = plugin.getServer().createInventory(player, 36, ChatColor.DARK_RED + "TARDIS Television");
-                tvinv.setContents(items);
-                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.openInventory(tvinv), 2L);
-            }
+            case 33 -> plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.openInventory(new TVInventory(plugin).getInventory()), 2L); // back
             case 35 -> close(player); // close
             default -> {
                 if (SkinUtils.SKINNED.containsKey(uuid)) {

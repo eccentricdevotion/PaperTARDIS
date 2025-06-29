@@ -18,6 +18,10 @@ package me.eccentric_nz.TARDIS.chameleon.gui;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIChameleonHelp;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -26,14 +30,20 @@ import java.util.List;
 /**
  * @author eccentric_nz
  */
-public class TARDISChameleonHelpGUI {
+public class TARDISChameleonHelpGUI implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] help;
+    private final Inventory inventory;
 
     public TARDISChameleonHelpGUI(TARDIS plugin) {
         this.plugin = plugin;
-        help = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Chameleon Help", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -147,10 +157,13 @@ public class TARDISChameleonHelpGUI {
         ou.setDisplayName("4");
         f.setItemMeta(ou);
 
-        return new ItemStack[]{back, null, null, info, info2, null, null, null, null, null, null, null, null, null, null, null, column, null, null, grid, null, null, null, null, null, f, null, three, four, five, null, null, null, null, t, null, two, nine, six, null, example, null, null, w, null, one, eight, seven, null, null, null, null, o, null};
-    }
-
-    public ItemStack[] getHelp() {
-        return help;
+        return new ItemStack[]{
+                back, null, null, info, info2, null, null, null, null,
+                null, null, null, null, null, null, null, column, null,
+                null, grid, null, null, null, null, null, f, null,
+                three, four, five, null, null, null, null, t, null,
+                two, nine, six, null, example, null, null, w, null,
+                one, eight, seven, null, null, null, null, o, null
+        };
     }
 }

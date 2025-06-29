@@ -43,8 +43,7 @@ public class ProductGUIListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onProductMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Product crafting")) {
+        if (!(event.getInventory().getHolder(false) instanceof ProductInventory)) {
             return;
         }
         Player player = (Player) event.getWhoClicked();

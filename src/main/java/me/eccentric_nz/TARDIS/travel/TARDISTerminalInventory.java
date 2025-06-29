@@ -17,7 +17,11 @@
 package me.eccentric_nz.TARDIS.travel;
 
 import me.eccentric_nz.TARDIS.TARDIS;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -29,14 +33,20 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-public class TARDISTerminalInventory {
+public class TARDISTerminalInventory implements InventoryHolder {
 
-    private final ItemStack[] terminal;
     private final TARDIS plugin;
+    private final Inventory inventory;
 
     public TARDISTerminalInventory(TARDIS plugin) {
         this.plugin = plugin;
-        terminal = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Destination Terminal", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -161,9 +171,5 @@ public class TARDISTerminalInventory {
                 u, null, w, null, r, null, e, null, sub,
                 null, t, null, null, s, null, null, c, null
         };
-    }
-
-    public ItemStack[] getTerminal() {
-        return terminal;
     }
 }

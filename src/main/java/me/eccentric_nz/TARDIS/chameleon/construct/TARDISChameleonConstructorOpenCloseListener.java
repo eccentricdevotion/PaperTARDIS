@@ -40,8 +40,7 @@ public final class TARDISChameleonConstructorOpenCloseListener implements Listen
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onChameleonConstructorOpen(InventoryOpenEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Chameleon Construction")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISChameleonConstructorGUI)) {
             return;
         }
         Player player = ((Player) event.getPlayer());
@@ -50,8 +49,7 @@ public final class TARDISChameleonConstructorOpenCloseListener implements Listen
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onChameleonConstructorClose(InventoryCloseEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Chameleon Construction")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISChameleonConstructorGUI)) {
             return;
         }
         Player player = ((Player) event.getPlayer());
@@ -60,6 +58,7 @@ public final class TARDISChameleonConstructorOpenCloseListener implements Listen
         }
         // abort
         // drop any user placed items in the inventory
+        InventoryView view = event.getView();
         for (int s = 18; s < 54; s++) {
             if (s != 26 && s != 43 && s != 52) {
                 ItemStack userStack = view.getItem(s);

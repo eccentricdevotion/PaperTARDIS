@@ -63,8 +63,7 @@ public class TARDISChameleonListener extends TARDISMenuListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onChameleonMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Chameleon Circuit")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISChameleonInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -73,6 +72,7 @@ public class TARDISChameleonListener extends TARDISMenuListener {
         if (slot < 0 || slot > 26) {
             return;
         }
+        InventoryView view = event.getView();
         ItemStack is = view.getItem(slot);
         if (is == null) {
             return;
@@ -222,24 +222,12 @@ public class TARDISChameleonListener extends TARDISMenuListener {
                     setDefault(view, player, chameleon);
                 }
             }
-            case 14 ->
-                // presets
-                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                        TARDISPresetInventory tpi = new TARDISPresetInventory(plugin, player);
-                        ItemStack[] items = tpi.getPresets();
-                        Inventory presetinv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Chameleon Presets");
-                        presetinv.setContents(items);
-                        player.openInventory(presetinv);
-                    }, 2L);
-            case 15 ->
-                // constructor GUI
-                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                        TARDISChameleonConstructorGUI tci = new TARDISChameleonConstructorGUI(plugin);
-                        ItemStack[] items = tci.getConstruct();
-                        Inventory chamcon = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Chameleon Construction");
-                        chamcon.setContents(items);
-                        player.openInventory(chamcon);
-                    }, 2L);
+            // presets
+            case 14 -> plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                    player.openInventory(new TARDISPresetInventory(plugin, player).getInventory()), 2L);
+            // constructor GUI
+            case 15 -> plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                    player.openInventory(new TARDISChameleonConstructorGUI(plugin).getInventory()), 2L);
             case 3 -> {
                 // set the current adaptive preset as shorted out - this
                 // will allow locking in a usually unavailable biome preset

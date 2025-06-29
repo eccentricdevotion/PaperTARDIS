@@ -58,8 +58,7 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onThemeMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Archive")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISArchiveInventory)) {
             return;
         }
         Player p = (Player) event.getWhoClicked();
@@ -72,6 +71,7 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
             return;
         }
         event.setCancelled(true);
+        InventoryView view = event.getView();
         switch (slot) {
             case 17 -> {
                 // back

@@ -18,8 +18,12 @@ package me.eccentric_nz.TARDIS.sonic;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUISonicPreferences;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
@@ -32,14 +36,20 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-public class TARDISSonicMenuInventory {
+public class TARDISSonicMenuInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] menu;
+    private final Inventory inventory;
 
     public TARDISSonicMenuInventory(TARDIS plugin) {
         this.plugin = plugin;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Sonic Prefs Menu", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -95,9 +105,5 @@ public class TARDISSonicMenuInventory {
         stack[35] = close;
 
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

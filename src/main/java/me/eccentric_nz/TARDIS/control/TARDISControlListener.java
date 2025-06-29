@@ -231,8 +231,7 @@ public class TARDISControlListener implements Listener {
                                     new EyeOfHarmonyAction(plugin).openGUI(id, player);
                                 }
                                 case 55 -> new TelevisionAction(plugin).openGUI(player);
-                                default -> {
-                                }
+                                default -> { }
                             }
                         } else if (action.equals(Action.PHYSICAL)) {
                             switch (type) {

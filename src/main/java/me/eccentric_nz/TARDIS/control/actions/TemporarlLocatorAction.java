@@ -51,10 +51,7 @@ public class TemporarlLocatorAction {
         if (TARDISFloodgate.isFloodgateEnabled() && TARDISFloodgate.isBedrockPlayer(playerUUID)) {
             new FloodgateTemporalForm(plugin, playerUUID).send();
         } else {
-            ItemStack[] clocks = new TARDISTemporalLocatorInventory(plugin).getTemporal();
-            Inventory tmpl = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "Temporal Locator");
-            tmpl.setContents(clocks);
-            player.openInventory(tmpl);
+            player.openInventory(new TARDISTemporalLocatorInventory(plugin).getInventory());
         }
     }
 }

@@ -25,9 +25,7 @@ import me.eccentric_nz.TARDIS.travel.save.TARDISSavesPlanetInventory;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -83,18 +81,10 @@ class TARDISSaveSign {
                     plugin.getTrackerKeeper().getHasDestination().put(id, new TravelCostAndType(plugin.getArtronConfig().getInt("travel"), TravelType.SAVE));
                 }
             } else {
-                TARDISSavesPlanetInventory sst = new TARDISSavesPlanetInventory(plugin, id, player);
-                ItemStack[] items = sst.getPlanets();
-                Inventory inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Dimension Map");
-                inv.setContents(items);
-                player.openInventory(inv);
+                player.openInventory(new TARDISSavesPlanetInventory(plugin, id, player).getInventory());
             }
         } else {
-            TARDISSavesPlanetInventory sst = new TARDISSavesPlanetInventory(plugin, id, player);
-            ItemStack[] items = sst.getPlanets();
-            Inventory inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Dimension Map");
-            inv.setContents(items);
-            player.openInventory(inv);
+            player.openInventory(new TARDISSavesPlanetInventory(plugin, id, player).getInventory());
         }
     }
 }

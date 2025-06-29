@@ -104,18 +104,12 @@ public class TARDISPrefsCommands implements CommandExecutor {
                 }
                 if (pref.equals("sonic")) {
                     // open sonic prefs menu
-                    ItemStack[] sonics = new TARDISSonicMenuInventory(plugin).getMenu();
-                    Inventory sim = plugin.getServer().createInventory(player, 36, ChatColor.DARK_RED + "Sonic Prefs Menu");
-                    sim.setContents(sonics);
-                    player.openInventory(sim);
+                    player.openInventory(new TARDISSonicMenuInventory(plugin).getInventory());
                     return true;
                 }
                 if (pref.equals("key_menu")) {
                     // open key prefs menu
-                    ItemStack[] keys = new TARDISKeyMenuInventory().getMenu();
-                    Inventory sim = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "TARDIS Key Prefs Menu");
-                    sim.setContents(keys);
-                    player.openInventory(sim);
+                    player.openInventory(new TARDISKeyMenuInventory(plugin).getInventory());
                     return true;
                 }
                 String uuid = player.getUniqueId().toString();

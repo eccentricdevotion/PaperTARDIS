@@ -19,7 +19,11 @@ package me.eccentric_nz.TARDIS.desktop;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIWallFloor;
 import me.eccentric_nz.TARDIS.rooms.TARDISWalls;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -31,14 +35,22 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @author eccentric_nz
  */
-public class TARDISWallsInventory {
+public class TARDISWallsInventory implements InventoryHolder {
 
-    private final ItemStack[] menu;
     private final TARDIS plugin;
+    private final String title;
+    private final Inventory inventory;
 
-    public TARDISWallsInventory(TARDIS plugin) {
+    public TARDISWallsInventory(TARDIS plugin, String title) {
         this.plugin = plugin;
-        menu = getItemStack();
+        this.title = title;
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text(title, NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -97,7 +109,7 @@ public class TARDISWallsInventory {
         return stack;
     }
 
-    public ItemStack[] getMenu() {
-        return menu;
+    public String getTitle() {
+        return title;
     }
 }

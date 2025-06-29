@@ -32,7 +32,6 @@ import me.eccentric_nz.TARDIS.flight.TARDISLand;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -79,8 +78,7 @@ public class TARDISTerminalListener implements Listener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onDestTerminalClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Destination Terminal")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISTerminalInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -97,6 +95,7 @@ public class TARDISTerminalListener implements Listener {
         if (!rst.resultSet()) {
             return;
         }
+        InventoryView view = event.getView();
         switch (slot) {
             case 1 -> terminalStep.put(uuid, 10);
             case 3 -> terminalStep.put(uuid, 25);
@@ -183,9 +182,9 @@ public class TARDISTerminalListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onOpenTerminal(InventoryOpenEvent event) {
         Inventory inv = event.getInventory();
-        InventoryView view = event.getView();
-        InventoryHolder holder = inv.getHolder();
-        if (holder instanceof Player player && view.getTitle().equals(ChatColor.DARK_RED + "Destination Terminal")) {
+        InventoryHolder holder = inv.getHolder(false);
+        if (holder instanceof TARDISTerminalInventory) {
+            Player player = (Player) event.getPlayer();
             UUID uuid = player.getUniqueId();
             HashMap<String, Object> where = new HashMap<>();
             where.put("uuid", uuid.toString());

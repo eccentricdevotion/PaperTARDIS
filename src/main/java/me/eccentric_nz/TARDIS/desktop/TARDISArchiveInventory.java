@@ -21,8 +21,12 @@ import me.eccentric_nz.TARDIS.custommodels.GUIArchive;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisSize;
 import me.eccentric_nz.TARDIS.enumeration.ConsoleSize;
 import me.eccentric_nz.TARDIS.schematic.ResultSetArchiveButtons;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -36,16 +40,22 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-class TARDISArchiveInventory {
+class TARDISArchiveInventory implements InventoryHolder {
 
-    private final ItemStack[] menu;
     private final TARDIS plugin;
     private final Player player;
+    private final Inventory inventory;
 
     TARDISArchiveInventory(TARDIS plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Archive", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -120,9 +130,5 @@ class TARDISArchiveInventory {
         stack[GUIArchive.CLOSE.slot()] = close;
 
         return stack;
-    }
-
-    ItemStack[] getArchives() {
-        return menu;
     }
 }

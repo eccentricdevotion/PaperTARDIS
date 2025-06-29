@@ -18,13 +18,10 @@ package me.eccentric_nz.TARDIS.info;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
 
@@ -54,12 +51,8 @@ public class TARDISInformationSystemCommand implements CommandExecutor {
             }
         } else if (args.length > 0 && args[0].equalsIgnoreCase("test")) {
             // open TIS GUI
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                ItemStack[] cats = new TARDISIndexFileInventory(plugin).getMenu();
-                Inventory gui = plugin.getServer().createInventory(p, 27, ChatColor.DARK_RED + "TARDIS Index File");
-                gui.setContents(cats);
-                p.openInventory(gui);
-            }, 2L);
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                    p.openInventory(new TARDISIndexFileInventory(plugin).getInventory()), 2L);
         }
         return true;
     }

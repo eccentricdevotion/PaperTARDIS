@@ -76,7 +76,7 @@ public class TARDISCondenserListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onCondenserClose(InventoryCloseEvent event) {
         InventoryView view = event.getView();
-        InventoryHolder holder = event.getInventory().getHolder();
+        InventoryHolder holder = event.getInventory().getHolder(false);
         String title = view.getTitle();
         if (holder instanceof Chest chest) {
             if (!title.equals(ChatColor.DARK_RED + "Artron Condenser") && !title.equals(ChatColor.DARK_RED + "Server Condenser")) {

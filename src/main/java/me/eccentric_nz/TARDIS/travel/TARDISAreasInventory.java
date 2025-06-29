@@ -21,10 +21,15 @@ import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.database.data.Area;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetAreas;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,16 +40,22 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-public class TARDISAreasInventory {
+public class TARDISAreasInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] terminal;
     private final Player p;
+    private final Inventory inventory;
 
     public TARDISAreasInventory(TARDIS plugin, Player p) {
         this.plugin = plugin;
         this.p = p;
-        terminal = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS areas", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -96,9 +107,5 @@ public class TARDISAreasInventory {
             }
         }
         return stack;
-    }
-
-    public ItemStack[] getTerminal() {
-        return terminal;
     }
 }

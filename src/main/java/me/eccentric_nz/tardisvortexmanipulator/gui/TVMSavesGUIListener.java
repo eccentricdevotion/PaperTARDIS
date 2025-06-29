@@ -39,7 +39,7 @@ public class TVMSavesGUIListener extends TARDISMenuListener {
     @EventHandler(ignoreCancelled = true)
     public void onGUIClick(InventoryClickEvent event) {
         InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "VM Saves")) {
+        if (!(event.getInventory().getHolder(false) instanceof TVMSavesGUI)) {
             return;
         }
         event.setCancelled(true);
@@ -68,13 +68,8 @@ public class TVMSavesGUIListener extends TARDISMenuListener {
         if (page > 1) {
             int start = (page * 44) - 44;
             close(player);
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                TVMSavesGUI tvms = new TVMSavesGUI(plugin, start, start + 44, player.getUniqueId().toString());
-                ItemStack[] gui = tvms.getGUI();
-                Inventory vmg = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "VM Saves");
-                vmg.setContents(gui);
-                player.openInventory(vmg);
-            }, 2L);
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                    player.openInventory(new TVMSavesGUI(plugin, start, start + 44, player.getUniqueId().toString()).getInventory()), 2L);
         }
     }
 
@@ -82,13 +77,8 @@ public class TVMSavesGUIListener extends TARDISMenuListener {
         int page = getPageNumber(view);
         int start = (page * 44) + 44;
         close(player);
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            TVMSavesGUI tvms = new TVMSavesGUI(plugin, start, start + 44, player.getUniqueId().toString());
-            ItemStack[] gui = tvms.getGUI();
-            Inventory vmg = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "VM Saves");
-            vmg.setContents(gui);
-            player.openInventory(vmg);
-        }, 2L);
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                player.openInventory(new TVMSavesGUI(plugin, start, start + 44, player.getUniqueId().toString()).getInventory()), 2L);
     }
 
     private void delete(InventoryView view, Player player) {

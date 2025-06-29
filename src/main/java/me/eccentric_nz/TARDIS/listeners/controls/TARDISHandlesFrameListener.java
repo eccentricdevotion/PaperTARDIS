@@ -97,10 +97,7 @@ public class TARDISHandlesFrameListener implements Listener {
                     }
                     if (player.isSneaking()) {
                         // open programming GUI
-                        ItemStack[] handles = new TARDISHandlesProgramInventory(plugin, 0).getHandles();
-                        Inventory hgui = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Handles Program");
-                        hgui.setContents(handles);
-                        player.openInventory(hgui);
+                        player.openInventory(new TARDISHandlesProgramInventory(plugin, 0).getInventory());
                     } else {
                         // check if item in hand is a Handles program disk
                         ItemStack disk = player.getInventory().getItemInMainHand();

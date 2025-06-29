@@ -12,7 +12,6 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -25,7 +24,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -77,8 +75,7 @@ public class TVMGUIListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onGUIClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Vortex Manipulator")) {
+        if (!(event.getInventory().getHolder(false) instanceof TVMGUI)) {
             return;
         }
         event.setCancelled(true);
@@ -87,6 +84,7 @@ public class TVMGUIListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             return;
         }
+        InventoryView view = event.getView();
         switch (slot) {
             case 6 -> usePredictive(view); // predictive world
             case 11 -> {
@@ -452,13 +450,8 @@ public class TVMGUIListener extends TARDISMenuListener {
 
     private void loadSaves(Player player) {
         close(player);
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            TVMSavesGUI tvms = new TVMSavesGUI(plugin, 0, 44, player.getUniqueId().toString());
-            ItemStack[] gui = tvms.getGUI();
-            Inventory vmg = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "VM Saves");
-            vmg.setContents(gui);
-            player.openInventory(vmg);
-        }, 2L);
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                player.openInventory(new TVMSavesGUI(plugin, 0, 44, player.getUniqueId().toString()).getInventory()), 2L);
     }
 
     private void message(Player player) {
@@ -467,13 +460,8 @@ public class TVMGUIListener extends TARDISMenuListener {
             plugin.getMessenger().send(player, TardisModule.VORTEX_MANIPULATOR, "VM_PERM_MSGS");
             return;
         }
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            TVMMessageGUI tvmm = new TVMMessageGUI(plugin, 0, 44, player.getUniqueId().toString());
-            ItemStack[] gui = tvmm.getGUI();
-            Inventory vmg = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "VM Messages");
-            vmg.setContents(gui);
-            player.openInventory(vmg);
-        }, 2L);
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                player.openInventory(new TVMMessageGUI(plugin, 0, 44, player.getUniqueId().toString()).getInventory()), 2L);
     }
 
     private void setBeacon(Player player) {

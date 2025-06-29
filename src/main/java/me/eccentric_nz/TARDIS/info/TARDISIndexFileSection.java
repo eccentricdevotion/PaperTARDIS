@@ -19,20 +19,30 @@ package me.eccentric_nz.TARDIS.info;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIChameleonPoliceBoxes;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class TARDISIndexFileSection {
+public class TARDISIndexFileSection implements InventoryHolder {
 
     private final TARDIS plugin;
     private final TISCategory category;
-    private final ItemStack[] menu;
+    private final Inventory inventory;
 
     public TARDISIndexFileSection(TARDIS plugin, TISCategory category) {
         this.plugin = plugin;
         this.category = category;
-        this.menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Info Category", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -104,9 +114,5 @@ public class TARDISIndexFileSection {
         im.setDisplayName(TARDISStringUtils.capitalise(tim.toString()));
         is.setItemMeta(im);
         return is;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

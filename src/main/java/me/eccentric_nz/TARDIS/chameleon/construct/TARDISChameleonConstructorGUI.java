@@ -18,21 +18,31 @@ package me.eccentric_nz.TARDIS.chameleon.construct;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIChameleonConstructor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * @author eccentric_nz
  */
-public class TARDISChameleonConstructorGUI {
+public class TARDISChameleonConstructorGUI implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] construct;
+    private final Inventory inventory;
 
     public TARDISChameleonConstructorGUI(TARDIS plugin) {
         this.plugin = plugin;
-        construct = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Chameleon Construction", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -85,9 +95,5 @@ public class TARDISChameleonConstructorGUI {
         is[52] = door;
 
         return is;
-    }
-
-    public ItemStack[] getConstruct() {
-        return construct;
     }
 }

@@ -18,7 +18,11 @@ package me.eccentric_nz.TARDIS.chameleon.gui;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIChameleonTemplate;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -27,14 +31,20 @@ import java.util.List;
 /**
  * @author eccentric_nz
  */
-class TARDISChameleonTemplateGUI {
+class TARDISChameleonTemplateGUI implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] template;
+    private final Inventory inventory;
 
     TARDISChameleonTemplateGUI(TARDIS plugin) {
         this.plugin = plugin;
-        template = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Chameleon Template", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -147,9 +157,5 @@ class TARDISChameleonTemplateGUI {
                 blue, blue, blue, blue, blue, blue, blue, door, null,
                 blue, blue, blue, blue, blue, blue, blue, door, null
         };
-    }
-
-    public ItemStack[] getTemplate() {
-        return template;
     }
 }

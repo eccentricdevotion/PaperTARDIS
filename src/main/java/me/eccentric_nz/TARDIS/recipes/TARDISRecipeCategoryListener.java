@@ -26,6 +26,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -41,8 +42,7 @@ public class TARDISRecipeCategoryListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onRecipeCategoryClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Recipe Categories")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISRecipeCategoryInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -51,24 +51,19 @@ public class TARDISRecipeCategoryListener extends TARDISMenuListener {
         if (slot < 2 || slot > 35) {
             return;
         }
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is != null) {
             ItemMeta im = is.getItemMeta();
             String cat = TARDISStringUtils.toEnumUppercase(im.getDisplayName());
             RecipeCategory category = RecipeCategory.valueOf(cat);
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                Inventory recipes;
-                ItemStack[] items;
+                InventoryHolder recipes;
                 if (category == RecipeCategory.SEED_BLOCKS) {
-                    items = new TARDISSeedsInventory(plugin, player).getMenu();
-                    recipes = plugin.getServer().createInventory(player, 45, ChatColor.DARK_RED + "TARDIS Seeds Menu");
-                    recipes.setContents(items);
+                    recipes = new TARDISSeedsInventory(plugin, player);
                 } else {
-                    items = new TARDISRecipeInventory(plugin, category).getMenu();
-                    recipes = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "TARDIS Recipes");
-                    recipes.setContents(items);
+                    recipes = new TARDISRecipeInventory(plugin, category);
                 }
-                player.openInventory(recipes);
+                player.openInventory(recipes.getInventory());
             }, 2L);
         }
     }

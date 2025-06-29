@@ -17,20 +17,30 @@
 package me.eccentric_nz.TARDIS.info;
 
 import me.eccentric_nz.TARDIS.TARDIS;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class TARDISIndexFileInventory {
+public class TARDISIndexFileInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] menu;
+    private final Inventory inventory;
 
     public TARDISIndexFileInventory(TARDIS plugin) {
         this.plugin = plugin;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Index File", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -58,9 +68,5 @@ public class TARDISIndexFileInventory {
         close.setItemMeta(close_im);
         stack[26] = close;
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

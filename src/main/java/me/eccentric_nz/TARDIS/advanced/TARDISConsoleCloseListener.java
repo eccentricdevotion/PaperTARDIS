@@ -68,9 +68,7 @@ public class TARDISConsoleCloseListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onInventoryClose(InventoryCloseEvent event) {
-        InventoryView view = event.getView();
-        String inv_name = view.getTitle();
-        if (!inv_name.equals(ChatColor.DARK_RED + "TARDIS Console")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISAdvancedConsoleInventory)) {
             return;
         }
         Player p = ((Player) event.getPlayer());
@@ -83,6 +81,7 @@ public class TARDISConsoleCloseListener implements Listener {
             return;
         }
         int id = rst.getTardis_id();
+        InventoryView view = event.getView();
         // loop through inventory contents and remove any items that are not disks or circuits
         for (int i = 0; i < 18; i++) {
             ItemStack is = view.getItem(i);

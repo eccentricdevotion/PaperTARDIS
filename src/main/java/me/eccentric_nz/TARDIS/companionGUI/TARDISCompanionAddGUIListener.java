@@ -29,6 +29,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -76,8 +77,7 @@ public class TARDISCompanionAddGUIListener extends TARDISMenuListener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onCompanionAddGUIClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Add Companion")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISCompanionAddInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -86,7 +86,7 @@ public class TARDISCompanionAddGUIListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             return;
         }
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is == null) {
             return;
         }
@@ -144,15 +144,13 @@ public class TARDISCompanionAddGUIListener extends TARDISMenuListener {
             ResultSetTardisCompanions rs = new ResultSetTardisCompanions(plugin);
             if (rs.fromUUID(player.getUniqueId().toString())) {
                 String comps = rs.getCompanions();
-                ItemStack[] items;
+                InventoryHolder items;
                 if (comps.equalsIgnoreCase("everyone")) {
-                    items = new TARDISEveryoneCompanionInventory(plugin, player).getSkulls();
+                    items = new TARDISEveryoneCompanionInventory(plugin, player);
                 } else {
-                    items = new TARDISCompanionInventory(plugin, comps.split(":")).getSkulls();
+                    items = new TARDISCompanionInventory(plugin, comps.split(":"));
                 }
-                Inventory cominv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Companions");
-                cominv.setContents(items);
-                player.openInventory(cominv);
+                player.openInventory(items.getInventory());
             }
         }, 5L);
     }

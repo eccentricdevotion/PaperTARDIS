@@ -22,8 +22,12 @@ import me.eccentric_nz.TARDIS.custommodels.keys.SwitchVariant;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetAutonomousSave;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
@@ -32,12 +36,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class TARDISAutonomousInventory {
+public class TARDISAutonomousInventory implements InventoryHolder {
 
     private final TARDIS plugin;
     private final UUID uuid;
-    private final ItemStack[] gui;
     private final ItemStack off;
+    private final Inventory inventory;
 
     public TARDISAutonomousInventory(TARDIS plugin, UUID uuid) {
         this.plugin = plugin;
@@ -46,7 +50,13 @@ public class TARDISAutonomousInventory {
         ItemMeta offMeta = off.getItemMeta();
         offMeta.setDisplayName(ChatColor.RED + plugin.getLanguage().getString("SET_OFF"));
         off.setItemMeta(offMeta);
-        gui = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("TARDIS Autonomous Menu", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -109,9 +119,5 @@ public class TARDISAutonomousInventory {
         }
         // couldn't get preference so return close slot which will be overwritten
         return 35;
-    }
-
-    public ItemStack[] getGui() {
-        return gui;
     }
 }

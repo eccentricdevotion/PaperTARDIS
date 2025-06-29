@@ -16,7 +16,12 @@
  */
 package me.eccentric_nz.TARDIS.flight;
 
+import me.eccentric_nz.TARDIS.TARDIS;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -27,12 +32,18 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @author eccentric_nz
  */
-class TARDISRegulatorInventory {
+class TARDISRegulatorInventory implements InventoryHolder {
 
-    private final ItemStack[] regulator;
+    private final Inventory inventory;
 
-    TARDISRegulatorInventory() {
-        regulator = getItemStack();
+    TARDISRegulatorInventory(TARDIS plugin) {
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Helmic Regulator", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -77,9 +88,5 @@ class TARDISRegulatorInventory {
         is[34] = pad_down;
 
         return is;
-    }
-
-    public ItemStack[] getRegulator() {
-        return regulator;
     }
 }

@@ -37,8 +37,7 @@ public class TARDISRecipeInventoryListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onRecipeInventoryClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Recipes")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISRecipeInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -47,19 +46,15 @@ public class TARDISRecipeInventoryListener extends TARDISMenuListener {
         if (slot < 0 || slot >= 27) {
             return;
         }
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is == null) {
             return;
         }
         switch (slot) {
             case 0 ->
                 // back
-                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    ItemStack[] emenu = new TARDISRecipeCategoryInventory().getMenu();
-                    Inventory categories = plugin.getServer().createInventory(player, 36, ChatColor.DARK_RED + "Recipe Categories");
-                    categories.setContents(emenu);
-                    player.openInventory(categories);
-                }, 2L);
+                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                        player.openInventory(new TARDISRecipeCategoryInventory(plugin).getInventory()), 2L);
             case 4 -> { } // info
             case 8 -> close(player); // close
             default -> {

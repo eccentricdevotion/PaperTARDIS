@@ -39,8 +39,7 @@ public class ConstructorGUIListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onElementMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Element constructor")) {
+        if (!(event.getInventory().getHolder(false) instanceof ConstructorInventory)) {
             return;
         }
         Player p = (Player) event.getWhoClicked();
@@ -52,6 +51,7 @@ public class ConstructorGUIListener extends TARDISMenuListener {
             }
             return;
         }
+        InventoryView view = event.getView();
         switch (slot) {
             case 5 -> {
                 event.setCancelled(true);

@@ -19,11 +19,16 @@ package me.eccentric_nz.TARDIS.ARS;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.GUIArs;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,14 +41,20 @@ import java.util.Locale;
  *
  * @author eccentric_nz
  */
-public class TARDISARSInventory {
+public class TARDISARSInventory implements InventoryHolder {
 
-    private final ItemStack[] ars;
     private final TARDIS plugin;
+    private final Inventory inventory;
 
-    public TARDISARSInventory(TARDIS plugin, Player p) {
+    public TARDISARSInventory(TARDIS plugin, Player player) {
         this.plugin = plugin;
-        ars = getItemStack(p);
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Architectural Reconfiguration", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack(player));
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -163,9 +174,5 @@ public class TARDISARSInventory {
             }
         }
         return is;
-    }
-
-    public ItemStack[] getARS() {
-        return ars;
     }
 }

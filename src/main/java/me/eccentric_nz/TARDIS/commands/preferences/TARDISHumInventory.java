@@ -19,9 +19,14 @@ package me.eccentric_nz.TARDIS.commands.preferences;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIInteriorSounds;
 import me.eccentric_nz.TARDIS.enumeration.Hum;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +36,20 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-class TARDISHumInventory {
+class TARDISHumInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] sounds;
+    private final Inventory inventory;
 
     TARDISHumInventory(TARDIS plugin) {
         this.plugin = plugin;
-        sounds = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 18, Component.text("TARDIS Interior Sounds", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -81,9 +92,5 @@ class TARDISHumInventory {
         stack[GUIInteriorSounds.CLOSE.slot()] = close;
 
         return stack;
-    }
-
-    public ItemStack[] getSounds() {
-        return sounds;
     }
 }

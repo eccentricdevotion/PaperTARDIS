@@ -38,6 +38,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -71,8 +72,7 @@ public class TARDISConsoleSwitchListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onConsoleInventoryClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Console")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISAdvancedConsoleInventory)) {
             return;
         }
         Player player = (Player) event.getWhoClicked();
@@ -93,7 +93,7 @@ public class TARDISConsoleSwitchListener implements Listener {
         if (slot < 0 || slot >= 18) {
             return;
         }
-        ItemStack item = view.getItem(slot);
+        ItemStack item = event.getView().getItem(slot);
         if (item == null || !item.getType().equals(Material.GLOWSTONE_DUST) || !item.hasItemMeta()) {
             return;
         }
@@ -114,27 +114,22 @@ public class TARDISConsoleSwitchListener implements Listener {
         }
         Tardis tardis = rs.getTardis();
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            ItemStack[] stack = null;
-            Inventory new_inv = null;
+            InventoryHolder holder = null;
             // Chameleon circuit
             if (dn.contains("Chameleon")) {
-                new_inv = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "Chameleon Circuit");
-                stack = new TARDISChameleonInventory(plugin, tardis.getAdaption(), tardis.getPreset(), tardis.getItemPreset()).getMenu();
+                holder = new TARDISChameleonInventory(plugin, tardis.getAdaption(), tardis.getPreset(), tardis.getItemPreset());
             }
             // ARS circuit
             if (dn.contains("ARS")) {
-                new_inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Architectural Reconfiguration");
-                stack = new TARDISARSInventory(plugin, player).getARS();
+                holder = new TARDISARSInventory(plugin, player);
             }
             // Telepathic circuit
             if (dn.contains("Telepathic")) {
-                new_inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Telepathic Circuit");
-                stack = new TARDISTelepathicInventory(plugin, player).getButtons();
+                holder = new TARDISTelepathicInventory(plugin, player);
             }
             // Temporal circuit
             if (dn.contains("Temporal")) {
-                new_inv = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "Temporal Locator");
-                stack = new TARDISTemporalLocatorInventory(plugin).getTemporal();
+                holder = new TARDISTemporalLocatorInventory(plugin);
             }
             // Memory circuit (saves/areas)
             if (dn.contains("Memory")) {
@@ -142,13 +137,11 @@ public class TARDISConsoleSwitchListener implements Listener {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "SYS_NEED", "Saves");
                     return;
                 }
-                new_inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Dimension Map");
-                stack = new TARDISSavesPlanetInventory(plugin, tardis.getTardisId(), player).getPlanets();
+                holder = new TARDISSavesPlanetInventory(plugin, tardis.getTardisId(), player);
             }
             // Input circuit (terminal)
             if (dn.contains("Input")) {
-                new_inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Destination Terminal");
-                stack = new TARDISTerminalInventory(plugin).getTerminal();
+                holder = new TARDISTerminalInventory(plugin);
             }
             // scanner circuit
             else {
@@ -156,10 +149,9 @@ public class TARDISConsoleSwitchListener implements Listener {
             }
             // close inventory
             player.closeInventory();
-            if (new_inv != null && stack != null) {
+            if (holder != null) {
                 // open new inventory
-                new_inv.setContents(stack);
-                player.openInventory(new_inv);
+                player.openInventory(holder.getInventory());
             }
         }, 1L);
     }

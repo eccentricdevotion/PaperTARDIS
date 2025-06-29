@@ -39,8 +39,7 @@ public class TARDISIndexFileListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onIndexFileClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Index File")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISIndexFileInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -50,7 +49,7 @@ public class TARDISIndexFileListener extends TARDISMenuListener {
             return;
         }
         event.setCancelled(true);
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is == null) {
             return;
         }
@@ -62,12 +61,8 @@ public class TARDISIndexFileListener extends TARDISMenuListener {
             try {
                 TISCategory category = TISCategory.valueOf(name);
                 plugin.getTrackerKeeper().getInfoGUI().put(p.getUniqueId(), category);
-                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    ItemStack[] entries = new TARDISIndexFileSection(plugin, category).getMenu();
-                    Inventory gui = plugin.getServer().createInventory(p, 54, ChatColor.DARK_RED + "TARDIS Info Category");
-                    gui.setContents(entries);
-                    p.openInventory(gui);
-                }, 2L);
+                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                        p.openInventory(new TARDISIndexFileSection(plugin, category).getInventory()), 2L);
             } catch (IllegalArgumentException ignored) {
             }
         }

@@ -22,7 +22,6 @@ import me.eccentric_nz.TARDIS.commands.sudo.TARDISSudoTracker;
 import me.eccentric_nz.TARDIS.custommodels.keys.RoomVariant;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -61,8 +60,7 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onARSTerminalClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Architectural Reconfiguration")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISARSInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -79,6 +77,7 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
         if (slot < 0 || slot > 53) {
             return;
         }
+        InventoryView view = event.getView();
         switch (slot) {
             case 1, 9, 11, 19 ->
                 // up, left, right, down

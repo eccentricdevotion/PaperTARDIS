@@ -16,18 +16,29 @@
  */
 package me.eccentric_nz.TARDIS.sonic;
 
+import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUISonicConfigurator;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class TARDISSonicConfiguratorInventory {
+public class TARDISSonicConfiguratorInventory implements InventoryHolder {
 
-    private final ItemStack[] configurator;
+    private final Inventory inventory;
 
-    public TARDISSonicConfiguratorInventory() {
-        configurator = getItemStack();
+    public TARDISSonicConfiguratorInventory(TARDIS plugin) {
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Sonic Configurator", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -64,9 +75,5 @@ public class TARDISSonicConfiguratorInventory {
         place.setItemMeta(pim);
         stack[36] = place;
         return stack;
-    }
-
-    public ItemStack[] getConfigurator() {
-        return configurator;
     }
 }

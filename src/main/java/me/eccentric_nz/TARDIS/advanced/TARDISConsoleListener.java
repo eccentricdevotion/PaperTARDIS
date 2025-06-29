@@ -120,42 +120,42 @@ public class TARDISConsoleListener implements Listener {
                 plugin.getMessenger().send(p, TardisModule.TARDIS, "POWER_DOWN");
                 return;
             }
-            Inventory inv = plugin.getServer().createInventory(p, 18, ChatColor.DARK_RED + "TARDIS Console");
-            HashMap<String, Object> where = new HashMap<>();
-            where.put("uuid", uuid.toString());
-            ResultSetDiskStorage rsds = new ResultSetDiskStorage(plugin, where);
-            if (rsds.resultSet()) {
-                String console = rsds.getConsole();
-                if (!console.isEmpty()) {
-                    try {
-                        ItemStack[] stack = TARDISSerializeInventory.itemStacksFromString(console);
-                        for (ItemStack circuit : stack) {
-                            if (circuit != null && circuit.hasItemMeta()) {
-                                ItemMeta cm = circuit.getItemMeta();
-                                if (circuit.getType().equals(Material.FILLED_MAP)) {
-                                    if (cm.hasDisplayName()) {
-                                        GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(cm.getDisplayName());
-                                        if (glowstone != null) {
-                                            circuit.setType(Material.GLOWSTONE_DUST);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        inv.setContents(stack);
-                    } catch (IOException ex) {
-                        plugin.debug("Could not read console from database!");
-                    }
-                }
-            } else {
-                // create new storage record
-                HashMap<String, Object> setstore = new HashMap<>();
-                setstore.put("uuid", uuid.toString());
-                setstore.put("tardis_id", id);
-                plugin.getQueryFactory().doInsert("storage", setstore);
-            }
+//            Inventory inv = plugin.getServer().createInventory(p, 18, ChatColor.DARK_RED + "TARDIS Console");
+//            HashMap<String, Object> where = new HashMap<>();
+//            where.put("uuid", uuid.toString());
+//            ResultSetDiskStorage rsds = new ResultSetDiskStorage(plugin, where);
+//            if (rsds.resultSet()) {
+//                String console = rsds.getConsole();
+//                if (!console.isEmpty()) {
+//                    try {
+//                        ItemStack[] stack = TARDISSerializeInventory.itemStacksFromString(console);
+//                        for (ItemStack circuit : stack) {
+//                            if (circuit != null && circuit.hasItemMeta()) {
+//                                ItemMeta cm = circuit.getItemMeta();
+//                                if (circuit.getType().equals(Material.FILLED_MAP)) {
+//                                    if (cm.hasDisplayName()) {
+//                                        GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(cm.getDisplayName());
+//                                        if (glowstone != null) {
+//                                            circuit.setType(Material.GLOWSTONE_DUST);
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        inv.setContents(stack);
+//                    } catch (IOException ex) {
+//                        plugin.debug("Could not read console from database!");
+//                    }
+//                }
+//            } else {
+//                // create new storage record
+//                HashMap<String, Object> setstore = new HashMap<>();
+//                setstore.put("uuid", uuid.toString());
+//                setstore.put("tardis_id", id);
+//                plugin.getQueryFactory().doInsert("storage", setstore);
+//            }
             // open gui
-            p.openInventory(inv);
+            p.openInventory(new TARDISAdvancedConsoleInventory(plugin, uuid.toString(), id).getInventory());
         } else if (disk.getType().equals(Material.MUSIC_DISC_FAR)) {
             ItemMeta im = disk.getItemMeta();
             if (im.hasDisplayName() && im.getDisplayName().endsWith("Authorised Control Disk")) {

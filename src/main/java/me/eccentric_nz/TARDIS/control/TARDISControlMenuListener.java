@@ -79,8 +79,9 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onControlMenuInteract(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Control Menu")) {
+        Inventory inventory = event.getInventory();
+        if (!(inventory.getHolder(false) instanceof TARDISControlInventory)) {
+            // it's not a control menu inventory, ignore it.
             return;
         }
         event.setCancelled(true);
@@ -89,6 +90,7 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             return;
         }
+        InventoryView view = event.getView();
         ItemStack is = view.getItem(slot);
         if (is == null) {
             return;
@@ -176,10 +178,7 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "ARS_MISSING");
                     return;
                 }
-                ItemStack[] tars = new TARDISARSInventory(plugin, player).getARS();
-                Inventory ars = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Architectural Reconfiguration");
-                ars.setContents(tars);
-                player.openInventory(ars);
+                player.openInventory(new TARDISARSInventory(plugin, player).getInventory());
             }
             case 4 -> {
                 // chameleon circuit
@@ -200,10 +199,7 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                     return;
                 }
                 // open Chameleon Circuit GUI
-                ItemStack[] cc = new TARDISChameleonInventory(plugin, tardis.getAdaption(), tardis.getPreset(), tardis.getItemPreset()).getMenu();
-                Inventory cc_gui = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "Chameleon Circuit");
-                cc_gui.setContents(cc);
-                player.openInventory(cc_gui);
+                player.openInventory(new TARDISChameleonInventory(plugin, tardis.getAdaption(), tardis.getPreset(), tardis.getItemPreset()).getInventory());
             }
             case 6 -> {
                 // artron level
@@ -264,11 +260,7 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "NO_MEM_CIRCUIT");
                     return;
                 }
-                TARDISSavesPlanetInventory tssi = new TARDISSavesPlanetInventory(plugin, whichId, player);
-                ItemStack[] saves = tssi.getPlanets();
-                Inventory saved = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Dimension Map");
-                saved.setContents(saves);
-                player.openInventory(saved);
+                player.openInventory(new TARDISSavesPlanetInventory(plugin, whichId, player).getInventory());
             }
             case 11 -> {
                 // desktop theme
@@ -296,12 +288,8 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                 close(player, false);
                 new TARDISScanner(plugin).scan(id, player, tardis.getRenderer(), level);
             }
-            case 17 -> {
-                //player prefs
-                Inventory ppm = plugin.getServer().createInventory(player, 36, ChatColor.DARK_RED + "Player Prefs Menu");
-                ppm.setContents(new TARDISPrefsMenuInventory(plugin, uuid).getMenu());
-                player.openInventory(ppm);
-            }
+            //player prefs
+            case 17 -> player.openInventory(new TARDISPrefsMenuInventory(plugin, uuid).getInventory());
             case 20 -> {
                 // power up/down
                 if (plugin.getConfig().getBoolean("allow.power_down")) {
@@ -335,19 +323,12 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                 if (comps == null || comps.isEmpty()) {
                     close(player, true);
                     // open the add companions inventory
-                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                        ItemStack[] items = new TARDISCompanionAddInventory(plugin, player).getPlayers();
-                        Inventory presetinv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Add Companion");
-                        presetinv.setContents(items);
-                        player.openInventory(presetinv);
-                    }, 2L);
+                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                            player.openInventory(new TARDISCompanionAddInventory(plugin, player).getInventory()), 2L);
                     return;
                 }
                 String[] companionData = comps.split(":");
-                ItemStack[] heads = new TARDISCompanionInventory(plugin, companionData).getSkulls();
-                Inventory companions = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Companions");
-                companions.setContents(heads);
-                player.openInventory(companions);
+                player.openInventory(new TARDISCompanionInventory(plugin, companionData).getInventory());
             }
             case 27 -> {
                 // fast return
@@ -362,12 +343,7 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                 close(player, false);
                 new FastReturnAction(plugin).clickButton(player, id, tardis);
             }
-            case 29 -> {
-                ItemStack[] lightStacks = new TARDISLightsInventory(plugin, id, player.getUniqueId()).getGUI();
-                Inventory lightGUI = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Lights");
-                lightGUI.setContents(lightStacks);
-                player.openInventory(lightGUI);
-            }
+            case 29 -> player.openInventory(new TARDISLightsInventory(plugin, id, player.getUniqueId()).getInventory());
             case 31 -> {
                 // rebuild
                 close(player, true);
@@ -377,13 +353,8 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                 }
                 new TARDISRebuildCommand(plugin).rebuildPreset(player);
             }
-            case 33 -> {
-                // transmat
-                ItemStack[] tran = new TARDISTransmatInventory(plugin, id, player).getMenu();
-                Inventory smat = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS transmats");
-                smat.setContents(tran);
-                player.openInventory(smat);
-            }
+            // transmat
+            case 33 -> player.openInventory(new TARDISTransmatInventory(plugin, id, player).getInventory());
             case 35 -> new SystemTreeCommand(plugin).open(player); // system upgrades
             case 36 -> {
                 // areas
@@ -395,11 +366,7 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "NO_MEM_CIRCUIT");
                     return;
                 }
-                TARDISAreasInventory tai = new TARDISAreasInventory(plugin, player);
-                ItemStack[] areas = tai.getTerminal();
-                Inventory areainv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS areas");
-                areainv.setContents(areas);
-                player.openInventory(areainv);
+                player.openInventory(new TARDISAreasInventory(plugin, player).getInventory());
             }
             case 38 -> {
                 // toggle wool
@@ -435,18 +402,10 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "INPUT_MISSING");
                     return;
                 }
-                ItemStack[] items = new TARDISTerminalInventory(plugin).getTerminal();
-                Inventory aec = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Destination Terminal");
-                aec.setContents(items);
-                player.openInventory(aec);
+                player.openInventory(new TARDISTerminalInventory(plugin).getInventory());
             }
-            case 47 -> {
-                // tardis map
-                Inventory new_inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Map");
-                // open new inventory
-                new_inv.setContents(new TARDISARSMap(plugin).getMap());
-                player.openInventory(new_inv);
-            }
+            // tardis map
+            case 47 -> player.openInventory(new TARDISARSMap(plugin).getInventory());
             case 49 -> {
                 // temporal
                 if (!TARDISPermission.hasPermission(player, "tardis.temporal")) {
@@ -457,10 +416,7 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "TEMP_MISSING");
                     return;
                 }
-                ItemStack[] clocks = new TARDISTemporalLocatorInventory(plugin).getTemporal();
-                Inventory tmpl = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "Temporal Locator");
-                tmpl.setContents(clocks);
-                player.openInventory(tmpl);
+                player.openInventory(new TARDISTemporalLocatorInventory(plugin).getInventory());
             }
             case 51 -> {
                 // space-time throttle

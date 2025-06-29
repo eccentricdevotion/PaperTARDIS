@@ -26,12 +26,10 @@ import me.eccentric_nz.TARDIS.enumeration.TardisLight;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -56,8 +54,7 @@ public class TARDISLightsGUIListener extends TARDISMenuListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onLightMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Lights")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISLightsInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -65,6 +62,7 @@ public class TARDISLightsGUIListener extends TARDISMenuListener {
         Player player = (Player) event.getWhoClicked();
         if (slot >= 0 && slot < 54) {
             // get selection
+            InventoryView view = event.getView();
             ItemStack is = view.getItem(slot);
             if (is != null) {
                 // get TARDIS data
@@ -74,15 +72,10 @@ public class TARDISLightsGUIListener extends TARDISMenuListener {
                 if (rs.resultSet()) {
                     Tardis tardis = rs.getTardis();
                     switch (slot) {
-                        case 0, 27, 29, 34, 41, 43 -> {
-                        }
+                        case 0, 27, 29, 34, 41, 43 -> { }
                         // variable block menu
-                        case 28 -> {
-                            ItemStack[] blocks = new TARDISWallsInventory(plugin).getMenu();
-                            Inventory variableBlocks = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Variable Light Blocks");
-                            variableBlocks.setContents(blocks);
-                            player.openInventory(variableBlocks);
-                        }
+                        case 28 ->
+                                player.openInventory(new TARDISWallsInventory(plugin, "Variable Light Blocks").getInventory());
                         // change the lights
                         case 35 -> {
                             if (!plugin.getTrackerKeeper().getLightChangers().contains(player.getUniqueId())) {
@@ -100,12 +93,7 @@ public class TARDISLightsGUIListener extends TARDISMenuListener {
                             close(player);
                         }
                         // select light emitting block
-                        case 42 -> {
-                            ItemStack[] emitting = new TARDISLightEmittingInventory(plugin).getGUI();
-                            Inventory emittingGUI = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "Light Emitting Blocks");
-                            emittingGUI.setContents(emitting);
-                            player.openInventory(emittingGUI);
-                        }
+                        case 42 -> player.openInventory(new TARDISLightEmittingInventory(plugin).getInventory());
                         // convert lights
                         case 44 -> {
                             if (!plugin.getTrackerKeeper().getLightChangers().contains(player.getUniqueId())) {
@@ -136,12 +124,7 @@ public class TARDISLightsGUIListener extends TARDISMenuListener {
                             new LightSwitchAction(plugin, tardis.getTardisId(), tardis.isLightsOn(), player, tardis.getSchematic().getLights()).flickSwitch();
                         }
                         // light levels
-                        case 47 -> {
-                            ItemStack[] levels = new TARDISLightLevelsInventory(plugin, tardis.getTardisId()).getGUI();
-                            Inventory levelsGUI = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Light Levels");
-                            levelsGUI.setContents(levels);
-                            player.openInventory(levelsGUI);
-                        }
+                        case 47 -> player.openInventory(new TARDISLightLevelsInventory(plugin, tardis.getTardisId()).getInventory());
                         // play animated light sequence
                         case 49 -> {
                             if (!plugin.getTrackerKeeper().getLightChangers().contains(player.getUniqueId())) {
@@ -152,12 +135,7 @@ public class TARDISLightsGUIListener extends TARDISMenuListener {
                             close(player);
                         }
                         // edit sequence
-                        case 51 -> {
-                            ItemStack[] edits = new TARDISLightSequenceInventory(plugin, tardis.getTardisId()).getGUI();
-                            Inventory sequence = plugin.getServer().createInventory(player, 45, ChatColor.DARK_RED + "TARDIS Light Sequence");
-                            sequence.setContents(edits);
-                            player.openInventory(sequence);
-                        }
+                        case 51 -> player.openInventory(new TARDISLightSequenceInventory(plugin, tardis.getTardisId()).getInventory());
                         // close the GUI
                         case 53 -> close(player);
                         // select and save light type

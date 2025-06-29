@@ -19,23 +19,33 @@ package me.eccentric_nz.TARDIS.info;
 import com.google.common.collect.Multimaps;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Map;
 
-public class TARDISIndexFileEntry {
+public class TARDISIndexFileEntry implements InventoryHolder {
 
     private final TARDIS plugin;
     private final TARDISInfoMenu tardisInfoMenu;
-    private final ItemStack[] menu;
+    private final Inventory inventory;
 
     public TARDISIndexFileEntry(TARDIS plugin, TARDISInfoMenu tardisInfoMenu) {
         this.plugin = plugin;
         this.tardisInfoMenu = tardisInfoMenu;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Info Entry", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -53,7 +63,7 @@ public class TARDISIndexFileEntry {
             ItemMeta im = is.getItemMeta();
             im.setDisplayName(key);
             is.setItemMeta(im);
-            stack[i]=is;
+            stack[i] = is;
             i++;
         }
         // close
@@ -63,9 +73,5 @@ public class TARDISIndexFileEntry {
         close.setItemMeta(close_im);
         stack[26] = close;
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

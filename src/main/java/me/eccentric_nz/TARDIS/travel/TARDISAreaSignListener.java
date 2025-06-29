@@ -56,8 +56,7 @@ public class TARDISAreaSignListener extends TARDISMenuListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onAreaTerminalClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS areas")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISAreasInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -72,7 +71,7 @@ public class TARDISAreaSignListener extends TARDISMenuListener {
             if (!rst.resultSet()) {
                 return;
             }
-            ItemStack is = view.getItem(slot);
+            ItemStack is = event.getView().getItem(slot);
             if (is == null) {
                 return;
             }
@@ -115,11 +114,7 @@ public class TARDISAreaSignListener extends TARDISMenuListener {
                 wheres.put("uuid", uuid);
                 ResultSetTravellers rs = new ResultSetTravellers(plugin, wheres, false);
                 if (rs.resultSet()) {
-                    TARDISSavesPlanetInventory sst = new TARDISSavesPlanetInventory(plugin, rs.getTardis_id(), player);
-                    ItemStack[] items = sst.getPlanets();
-                    Inventory saveinv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Dimension Map");
-                    saveinv.setContents(items);
-                    player.openInventory(saveinv);
+                    player.openInventory(new TARDISSavesPlanetInventory(plugin, rs.getTardis_id(), player).getInventory());
                 }
             }, 2L);
         }

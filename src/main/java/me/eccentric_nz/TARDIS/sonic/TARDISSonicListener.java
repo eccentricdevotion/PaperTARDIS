@@ -23,8 +23,6 @@ import me.eccentric_nz.TARDIS.commands.preferences.TARDISPrefsMenuInventory;
 import me.eccentric_nz.TARDIS.custommodels.keys.SonicVariant;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.sonic.actions.*;
-import me.eccentric_nz.TARDIS.utility.TARDISMaterials;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -38,7 +36,6 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
@@ -190,9 +187,7 @@ public class TARDISSonicListener implements Listener {
                     }
                 }
                 if (action.equals(Action.RIGHT_CLICK_AIR) && player.isSneaking() && TARDISPermission.hasPermission(player, "tardis.sonic.standard")) {
-                    Inventory ppm = plugin.getServer().createInventory(player, 36, ChatColor.DARK_RED + "Player Prefs Menu");
-                    ppm.setContents(new TARDISPrefsMenuInventory(plugin, player.getUniqueId()).getMenu());
-                    player.openInventory(ppm);
+                    player.openInventory(new TARDISPrefsMenuInventory(plugin, player.getUniqueId()).getInventory());
                     return;
                 }
                 if (action.equals(Action.RIGHT_CLICK_BLOCK)) {

@@ -23,26 +23,37 @@ import me.eccentric_nz.TARDIS.database.data.Planet;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetDeathLocation;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetHomeLocation;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlanets;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class TARDISSavesPlanetInventory {
+public class TARDISSavesPlanetInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] planets;
     private final int id;
     private final Player player;
+    private final Inventory inventory;
 
     public TARDISSavesPlanetInventory(TARDIS plugin, int id, Player player) {
         this.plugin = plugin;
         this.id = id;
         this.player = player;
-        this.planets = getWorlds();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Dimension Map", NamedTextColor.RED));
+        this.inventory.setContents(getWorlds());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getWorlds() {
@@ -106,9 +117,5 @@ public class TARDISSavesPlanetInventory {
             }
         }
         return stack;
-    }
-
-    public ItemStack[] getPlanets() {
-        return planets;
     }
 }

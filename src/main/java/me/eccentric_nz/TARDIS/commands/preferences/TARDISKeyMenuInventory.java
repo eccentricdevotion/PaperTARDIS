@@ -19,11 +19,16 @@ package me.eccentric_nz.TARDIS.commands.preferences;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIKeyPreferences;
 import me.eccentric_nz.TARDIS.custommodels.keys.KeyVariant;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -33,12 +38,18 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-class TARDISKeyMenuInventory {
+class TARDISKeyMenuInventory implements InventoryHolder {
 
-    private final ItemStack[] menu;
+    private final Inventory inventory;
 
-    TARDISKeyMenuInventory() {
-        menu = getItemStack();
+    TARDISKeyMenuInventory(TARDIS plugin) {
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Key Prefs Menu", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -86,9 +97,5 @@ class TARDISKeyMenuInventory {
         }
 
         return itemStacks;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

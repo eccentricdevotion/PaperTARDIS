@@ -58,15 +58,14 @@ public class TARDISFarmingMenuListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onFarmingMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Farming Menu")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISFarmingInventory)) {
             return;
         }
         Player player = (Player) event.getWhoClicked();
         int slot = event.getRawSlot();
         event.setCancelled(true);
         switch (slot) {
-            case 9, 10, 11, 12, 13, 14, 15, 16, 17, 27, 28, 29, 30, 31, 32, 33 -> toggleOption(player.getUniqueId(), view, slot); // toggle option enabled / disabled
+            case 9, 10, 11, 12, 13, 14, 15, 16, 17, 27, 28, 29, 30, 31, 32, 33 -> toggleOption(player.getUniqueId(), event.getView(), slot); // toggle option enabled / disabled
             case 35 -> close(player);
             default -> event.setCancelled(true);
         }

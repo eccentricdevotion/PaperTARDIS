@@ -43,10 +43,8 @@ public class ControlMenuAction {
             if (TARDISFloodgate.isFloodgateEnabled() && TARDISFloodgate.isBedrockPlayer(playerUUID)) {
                 TARDISFloodgate.sendControlForm(playerUUID);
             } else {
-                ItemStack[] controls = new TARDISControlInventory(plugin, id).getControls();
-                Inventory cgui = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Control Menu");
-                cgui.setContents(controls);
-                player.openInventory(cgui);
+                TARDISControlInventory controls = new TARDISControlInventory(plugin, id);
+                player.openInventory(controls.getInventory());
             }
         }
     }

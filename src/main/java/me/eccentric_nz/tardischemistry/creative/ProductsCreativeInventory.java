@@ -22,17 +22,27 @@ import me.eccentric_nz.tardischemistry.lab.Lab;
 import me.eccentric_nz.tardischemistry.lab.LabBuilder;
 import me.eccentric_nz.tardischemistry.product.Product;
 import me.eccentric_nz.tardischemistry.product.ProductBuilder;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class ProductsCreativeInventory {
+public class ProductsCreativeInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] menu;
+    private final Inventory inventory;
 
     public ProductsCreativeInventory(TARDIS plugin) {
         this.plugin = plugin;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Products", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -84,9 +94,5 @@ public class ProductsCreativeInventory {
         close.setItemMeta(close_im);
         stack[53] = close;
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

@@ -39,8 +39,7 @@ public class CompoundGUIListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onCompoundMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Chemical compounds")) {
+        if (!(event.getInventory().getHolder(false) instanceof CompoundInventory)) {
             return;
         }
         Player player = (Player) event.getWhoClicked();

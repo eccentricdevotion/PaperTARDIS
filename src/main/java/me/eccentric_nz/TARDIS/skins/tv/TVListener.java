@@ -17,6 +17,7 @@
 package me.eccentric_nz.TARDIS.skins.tv;
 
 import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.TARDIS.lazarus.TARDISTelevisionInventory;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.skins.Skin;
 import me.eccentric_nz.TARDIS.skins.SkinUtils;
@@ -47,8 +48,7 @@ public class TVListener extends TARDISMenuListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onTelevisionMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Television")) {
+        if (!(event.getInventory().getHolder(false) instanceof TVInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -57,7 +57,7 @@ public class TVListener extends TARDISMenuListener {
             return;
         }
         Player player = (Player) event.getWhoClicked();
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is == null) {
             return;
         }

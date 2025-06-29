@@ -21,26 +21,37 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.GUITransmat;
 import me.eccentric_nz.TARDIS.database.data.Transmat;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTransmatList;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TARDISTransmatInventory {
+public class TARDISTransmatInventory implements InventoryHolder {
 
-    private final ItemStack[] menu;
     private final TARDIS plugin;
     private final int id;
     private final Player player;
+    private final Inventory inventory;
 
     public TARDISTransmatInventory(TARDIS plugin, int id, Player player) {
         this.plugin = plugin;
         this.id = id;
         this.player = player;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS transmats", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -111,9 +122,5 @@ public class TARDISTransmatInventory {
         stack[GUITransmat.CLOSE.slot()] = close;
 
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

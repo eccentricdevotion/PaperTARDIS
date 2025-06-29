@@ -92,8 +92,7 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPrefsMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Player Prefs Menu")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISPrefsMenuInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -101,7 +100,7 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
         if (slot < 0 || slot > 35) {
             return;
         }
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is == null) {
             return;
         }
@@ -166,12 +165,10 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
         if (slot == GUIPlayerPreferences.INTERIOR_HUM_SOUND.getSlot() && im.getDisplayName().equals("Interior Hum Sound")) {
             // close this gui and load the sounds GUI
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                Inventory hum_inv = plugin.getServer().createInventory(p, 18, ChatColor.DARK_RED + "TARDIS Interior Sounds");
                 // close inventory
                 p.closeInventory();
                 // open new inventory
-                hum_inv.setContents(new TARDISHumInventory(plugin).getSounds());
-                p.openInventory(hum_inv);
+                p.openInventory(new TARDISHumInventory(plugin).getInventory());
             }, 1L);
             return;
         }
@@ -238,12 +235,10 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
                     if (TARDISFloodgate.isFloodgateEnabled() && TARDISFloodgate.isBedrockPlayer(uuid)) {
                         new FloodgateMapForm(plugin, uuid, rs.getTardis_id()).send();
                     } else {
-                        Inventory new_inv = plugin.getServer().createInventory(p, 54, ChatColor.DARK_RED + "TARDIS Map");
                         // close inventory
                         p.closeInventory();
                         // open new inventory
-                        new_inv.setContents(new TARDISARSMap(plugin).getMap());
-                        p.openInventory(new_inv);
+                        p.openInventory(new TARDISARSMap(plugin).getInventory());
                     }
                 }, 1L);
             } else {
@@ -254,58 +249,47 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
         if (slot == GUIPlayerPreferences.AUTONOMOUS_PREFERENCES.getSlot() && im.getDisplayName().equals("Autonomous Preferences")) {
             // close this gui and load the TARDIS Autonomous Menu
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                Inventory auto_inv = plugin.getServer().createInventory(p, 36, ChatColor.DARK_RED + "TARDIS Autonomous Menu");
                 // close inventory
                 p.closeInventory();
                 // open new inventory
-                auto_inv.setContents(new TARDISAutonomousInventory(plugin, uuid).getGui());
-                p.openInventory(auto_inv);
+                p.openInventory(new TARDISAutonomousInventory(plugin, uuid).getInventory());
             }, 1L);
             return;
         }
         if (slot == GUIPlayerPreferences.FARMING_PREFERENCES.getSlot() && im.getDisplayName().equals("Farming Preferences")) {
             // close this gui and load the TARDIS Farming Menu
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                Inventory farm_inv = plugin.getServer().createInventory(p, 36, ChatColor.DARK_RED + "TARDIS Farming Menu");
                 // close inventory
                 p.closeInventory();
                 // open new inventory
-                farm_inv.setContents(new TARDISFarmingInventory(plugin, uuid).getGui());
-                p.openInventory(farm_inv);
+                p.openInventory(new TARDISFarmingInventory(plugin, uuid).getInventory());
             }, 1L);
             return;
         }
         if (slot == GUIPlayerPreferences.SONIC_CONFIGURATOR.getSlot() && im.getDisplayName().equals("Sonic Configurator")) {
             // close this gui and load the Sonic Configurator
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                Inventory sonic_inv = plugin.getServer().createInventory(p, 54, ChatColor.DARK_RED + "Sonic Configurator");
                 // close inventory
                 p.closeInventory();
                 // open new inventory
-                sonic_inv.setContents(new TARDISSonicConfiguratorInventory().getConfigurator());
-                p.openInventory(sonic_inv);
+                p.openInventory(new TARDISSonicConfiguratorInventory(plugin).getInventory());
             }, 1L);
             return;
         }
         if (slot == GUIPlayerPreferences.PARTICLES.getSlot() && im.getDisplayName().equals("Materialisation Particles")) {
             // close this gui and load the Particle Preferences
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                Inventory particle_inv = plugin.getServer().createInventory(p, 54, ChatColor.DARK_RED + "Particle Preferences");
                 // close inventory
                 p.closeInventory();
                 // open new inventory
-                particle_inv.setContents(new TARDISParticleInventory(plugin, uuid.toString()).getGUI());
-                p.openInventory(particle_inv);
+                p.openInventory(new TARDISParticleInventory(plugin, uuid.toString()).getInventory());
             }, 1L);
             return;
         }
         if (slot == GUIPlayerPreferences.ADMIN_MENU.getSlot() && im.getDisplayName().equals("Admin Config Menu")) {
             // close this gui and load the Admin Menu
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                Inventory menu = plugin.getServer().createInventory(p, 54, ChatColor.DARK_RED + "Admin Config Menu");
-                menu.setContents(new TARDISConfigMenuInventory(plugin).getMenu());
-                p.openInventory(menu);
-            }, 1L);
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                    p.openInventory(new TARDISConfigMenuInventory(plugin).getInventory()), 1L);
             return;
         }
         List<String> lore = im.getLore();

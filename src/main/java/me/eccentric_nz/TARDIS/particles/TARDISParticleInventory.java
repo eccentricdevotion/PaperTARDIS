@@ -22,11 +22,16 @@ import me.eccentric_nz.TARDIS.custommodels.keys.SwitchVariant;
 import me.eccentric_nz.TARDIS.database.data.ParticleData;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetParticlePrefs;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,16 +43,22 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-public class TARDISParticleInventory {
+public class TARDISParticleInventory implements InventoryHolder {
 
-    private final ItemStack[] GUI;
     private final TARDIS plugin;
     private final String uuid;
+    private final Inventory inventory;
 
     public TARDISParticleInventory(TARDIS plugin, String uuid) {
         this.plugin = plugin;
         this.uuid = uuid;
-        GUI = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Particle Preferences", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -203,9 +214,5 @@ public class TARDISParticleInventory {
         close.setItemMeta(clim);
         stacks[GUIParticle.CLOSE.slot()] = close;
         return stacks;
-    }
-
-    public ItemStack[] getGUI() {
-        return GUI;
     }
 }

@@ -19,8 +19,12 @@ package me.eccentric_nz.TARDIS.sonic;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUISonicGenerator;
 import me.eccentric_nz.TARDIS.database.data.Sonic;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
@@ -31,16 +35,22 @@ import java.util.List;
 /**
  * @author eccentric_nz
  */
-class TARDISSonicGeneratorInventory {
+class TARDISSonicGeneratorInventory implements InventoryHolder {
 
     private final TARDIS plugin;
     private final Sonic data;
-    private final ItemStack[] generator;
+    private final Inventory inventory;
 
     public TARDISSonicGeneratorInventory(TARDIS plugin, Sonic data) {
         this.plugin = plugin;
         this.data = data;
-        generator = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Sonic Generator", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -63,7 +73,7 @@ class TARDISSonicGeneratorInventory {
                 is.setItemMeta(im);
                 stack[sonic.getSlot()] = is;
             }
-            if (sonic.getMaterial() == Material.BOWL && sonic.getSlot()!= 45) {
+            if (sonic.getMaterial() == Material.BOWL && sonic.getSlot() != 45) {
                 ItemStack is = new ItemStack(Material.BOWL, 1);
                 ItemMeta im = is.getItemMeta();
                 im.setDisplayName(sonic.getName());
@@ -166,9 +176,5 @@ class TARDISSonicGeneratorInventory {
         stack[49] = sonic;
 
         return stack;
-    }
-
-    public ItemStack[] getGenerator() {
-        return generator;
     }
 }

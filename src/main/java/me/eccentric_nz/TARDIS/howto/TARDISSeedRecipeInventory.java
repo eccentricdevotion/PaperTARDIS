@@ -17,8 +17,12 @@
 package me.eccentric_nz.TARDIS.howto;
 
 import me.eccentric_nz.TARDIS.TARDIS;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -32,16 +36,22 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-class TARDISSeedRecipeInventory {
+class TARDISSeedRecipeInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] menu;
     private final Material block;
+    private final Inventory inventory;
 
     TARDISSeedRecipeInventory(TARDIS plugin, Material block) {
         this.plugin = plugin;
         this.block = block;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Seed Recipe", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -102,9 +112,5 @@ class TARDISSeedRecipeInventory {
         stack[8] = back;
 
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

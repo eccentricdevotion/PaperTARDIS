@@ -38,8 +38,7 @@ public class TARDISIndexFileEntryListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onIndexFileEntryClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Info Entry")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISIndexFileEntry)) {
             return;
         }
         event.setCancelled(true);
@@ -49,6 +48,7 @@ public class TARDISIndexFileEntryListener extends TARDISMenuListener {
             return;
         }
         event.setCancelled(true);
+        InventoryView view = event.getView();
         ItemStack is = view.getItem(slot);
         if (is == null) {
             return;

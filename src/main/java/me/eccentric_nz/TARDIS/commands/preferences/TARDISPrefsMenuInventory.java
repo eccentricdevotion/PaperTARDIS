@@ -24,8 +24,12 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.enumeration.FlightMode;
 import me.eccentric_nz.TARDIS.enumeration.HADS;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
@@ -40,16 +44,22 @@ import java.util.UUID;
  *
  * @author eccentric_nz
  */
-public class TARDISPrefsMenuInventory {
+public class TARDISPrefsMenuInventory implements InventoryHolder {
 
     private final TARDIS plugin;
     private final UUID uuid;
-    private final ItemStack[] menu;
+    private final Inventory inventory;
 
     public TARDISPrefsMenuInventory(TARDIS plugin, UUID uuid) {
         this.plugin = plugin;
         this.uuid = uuid;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Player Prefs Menu", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -213,9 +223,5 @@ public class TARDISPrefsMenuInventory {
             stack[GUIPlayerPreferences.ADMIN_MENU.getSlot()] = ad;
         }
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

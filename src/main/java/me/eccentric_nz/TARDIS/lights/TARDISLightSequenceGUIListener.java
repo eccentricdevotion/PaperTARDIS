@@ -58,7 +58,7 @@ public class TARDISLightSequenceGUIListener extends TARDISMenuListener {
     @EventHandler(ignoreCancelled = true)
     public void onLightMenuClick(InventoryClickEvent event) {
         InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Light Sequence")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISLightSequenceInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -73,8 +73,7 @@ public class TARDISLightSequenceGUIListener extends TARDISMenuListener {
                     // cycle through colours
                     case 9, 10, 11, 12, 13, 14, 15, 16, 17 -> setColour(view, slot);
                     // cycle through delays
-                    case 18, 19, 20, 21, 22, 23, 24, 25, 26 ->
-                            setDelay(view, slot, clicks.contains(event.getClick()));
+                    case 18, 19, 20, 21, 22, 23, 24, 25, 26 -> setDelay(view, slot, clicks.contains(event.getClick()));
                     // cycle through levels
                     case 27, 28, 29, 30, 31, 32, 33, 34, 35 -> setLevel(view, slot, clicks.contains(event.getClick()));
                     // cycle through presets
@@ -85,10 +84,7 @@ public class TARDISLightSequenceGUIListener extends TARDISMenuListener {
                     case 42 -> {
                         ResultSetTardisID rst = new ResultSetTardisID(plugin);
                         if (rst.fromUUID(uuid.toString())) {
-                            ItemStack[] lightStacks = new TARDISLightsInventory(plugin, rst.getTardisId(), uuid).getGUI();
-                            Inventory lightGUI = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Lights");
-                            lightGUI.setContents(lightStacks);
-                            player.openInventory(lightGUI);
+                            player.openInventory(new TARDISLightsInventory(plugin, rst.getTardisId(), uuid).getInventory());
                         }
                     }
                     // close

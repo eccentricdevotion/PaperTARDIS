@@ -57,7 +57,7 @@ public class TARDISVaultListener implements Listener {
 
     public void onVaultDropChestClose(InventoryCloseEvent event) {
         Inventory inv = event.getInventory();
-        InventoryHolder holder = inv.getHolder();
+        InventoryHolder holder = inv.getHolder(false);
         if (holder instanceof Container container) {
             Location l = container.getLocation();
             if (!plugin.getUtils().inTARDISWorld(l)) {

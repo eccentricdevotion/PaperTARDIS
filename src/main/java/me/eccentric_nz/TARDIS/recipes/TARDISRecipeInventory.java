@@ -21,27 +21,25 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.RecipeCategory;
 import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.inventory.ShapelessRecipe;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TARDISRecipeInventory {
+public class TARDISRecipeInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] menu;
     private final RecipeCategory category;
     private final HashMap<String, String> recipeItems = new HashMap<>();
+    private final Inventory inventory;
 
     TARDISRecipeInventory(TARDIS plugin, RecipeCategory category) {
-
         for (RecipeItem recipeItem : RecipeItem.values()) {
             if (recipeItem.getCategory() != RecipeCategory.UNUSED && recipeItem.getCategory() != RecipeCategory.UNCRAFTABLE) {
                 recipeItems.put(recipeItem.toString(), recipeItem.toTabCompletionString());
@@ -49,7 +47,13 @@ public class TARDISRecipeInventory {
         }
         this.plugin = plugin;
         this.category = category;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Recipes", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -109,10 +113,6 @@ public class TARDISRecipeInventory {
             }
         }
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 
     private boolean isShapeless(String s) {

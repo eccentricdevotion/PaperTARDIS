@@ -40,7 +40,7 @@ public class TARDISSmelterListener implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void onSmelterDropChestClose(InventoryCloseEvent event) {
         Inventory inv = event.getInventory();
-        InventoryHolder holder = inv.getHolder();
+        InventoryHolder holder = inv.getHolder(false);
         if (holder instanceof Chest chest) {
             String loc = chest.getLocation().toString();
             // check is drop chest

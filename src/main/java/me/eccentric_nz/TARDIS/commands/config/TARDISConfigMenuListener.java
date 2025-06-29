@@ -19,12 +19,10 @@ package me.eccentric_nz.TARDIS.commands.config;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.commands.preferences.TARDISPrefsMenuInventory;
 import me.eccentric_nz.TARDIS.custommodels.GUIConfiguration;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -51,8 +49,7 @@ public class TARDISConfigMenuListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onAdminMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Admin Config Menu")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISConfigMenuInventory) && !(event.getInventory().getHolder(false) instanceof TARDISConfigPageTwoInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -60,33 +57,25 @@ public class TARDISConfigMenuListener implements Listener {
         if (slot < 0 || slot > 53) {
             return;
         }
+        InventoryView view = event.getView();
         String option = getDisplay(view, slot);
         if (slot == 52) {
             Player p = (Player) event.getWhoClicked();
             // close this gui and load the previous / next page
             if (option.equals("Previous page")) {
-                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    Inventory ppm = plugin.getServer().createInventory(p, 54, ChatColor.DARK_RED + "Admin Config Menu");
-                    ppm.setContents(new TARDISConfigMenuInventory(plugin).getMenu());
-                    p.openInventory(ppm);
-                }, 1L);
+                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                        p.openInventory(new TARDISConfigMenuInventory(plugin).getInventory()), 1L);
             } else {
-                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    Inventory ppm = plugin.getServer().createInventory(p, 54, ChatColor.DARK_RED + "Admin Config Menu");
-                    ppm.setContents(new TARDISConfigPageTwoInventory(plugin).getMenu());
-                    p.openInventory(ppm);
-                }, 1L);
+                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                        p.openInventory(new TARDISConfigPageTwoInventory(plugin).getInventory()), 1L);
             }
             return;
         }
         if (slot == 53 && option.equals("Player Preferences")) {
             Player p = (Player) event.getWhoClicked();
             // close this gui and load the Player Prefs Menu
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                Inventory ppm = plugin.getServer().createInventory(p, 36, ChatColor.DARK_RED + "Player Prefs Menu");
-                ppm.setContents(new TARDISPrefsMenuInventory(plugin, p.getUniqueId()).getMenu());
-                p.openInventory(ppm);
-            }, 1L);
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                    p.openInventory(new TARDISPrefsMenuInventory(plugin, p.getUniqueId()).getInventory()), 1L);
             return;
         }
         if (!option.isEmpty()) {

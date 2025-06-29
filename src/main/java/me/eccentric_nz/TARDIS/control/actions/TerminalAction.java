@@ -58,10 +58,7 @@ public class TerminalAction {
         if (TARDISFloodgate.isFloodgateEnabled() && TARDISFloodgate.isBedrockPlayer(playerUUID)) {
             new FloodgateDestinationTerminalForm(plugin, playerUUID).send();
         } else {
-            ItemStack[] items = new TARDISTerminalInventory(plugin).getTerminal();
-            Inventory aec = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Destination Terminal");
-            aec.setContents(items);
-            player.openInventory(aec);
+            player.openInventory(new TARDISTerminalInventory(plugin).getInventory());
         }
     }
 }

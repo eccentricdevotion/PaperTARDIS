@@ -86,9 +86,7 @@ public class TARDISLazarusListener implements Listener {
                     if (TARDISFloodgate.isFloodgateEnabled() && TARDISFloodgate.isBedrockPlayer(uuid)) {
                         new FloodgateGeneticManipulatorForm(plugin, uuid, b).send();
                     } else {
-                        Inventory inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Genetic Manipulator");
-                        inv.setContents(new TARDISLazarusInventory(plugin).getPageOne());
-                        player.openInventory(inv);
+                        player.openInventory(new TARDISLazarusInventory(plugin).getInventory());
                     }
                 }
             }

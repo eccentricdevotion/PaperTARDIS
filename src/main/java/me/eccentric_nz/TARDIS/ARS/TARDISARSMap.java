@@ -18,6 +18,10 @@ package me.eccentric_nz.TARDIS.ARS;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIMap;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -27,14 +31,20 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @author eccentric_nz
  */
-public class TARDISARSMap {
+public class TARDISARSMap implements InventoryHolder {
 
-    private final ItemStack[] map;
     private final TARDIS plugin;
+    private final Inventory inventory;
 
     public TARDISARSMap(TARDIS plugin) {
         this.plugin = plugin;
-        map = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Map", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -113,9 +123,5 @@ public class TARDISARSMap {
                 null, null, null, null, black, black, black, black, black,
                 close, tran, where, null, null, null, null, null, null
         };
-    }
-
-    public ItemStack[] getMap() {
-        return map;
     }
 }

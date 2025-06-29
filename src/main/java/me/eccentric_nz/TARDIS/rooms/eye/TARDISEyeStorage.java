@@ -19,22 +19,34 @@ package me.eccentric_nz.TARDIS.rooms.eye;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIArtronStorage;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetArtronStorage;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class TARDISEyeStorage {
+public class TARDISEyeStorage implements InventoryHolder {
 
     private final TARDIS plugin;
+    private final Inventory inventory;
 
-    public TARDISEyeStorage(TARDIS plugin) {
+    public TARDISEyeStorage(TARDIS plugin, int id) {
         this.plugin = plugin;
+        this.inventory = plugin.getServer().createInventory(this, 9, Component.text("Artron Capacitor Storage", NamedTextColor.RED));
+        this.inventory.setContents(getGUI(id));
     }
 
-    public ItemStack[] getGUI(int id) {
+    @Override
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    private ItemStack[] getGUI(int id) {
         ItemStack[] stacks = new ItemStack[9];
         // info
         ItemStack info = new ItemStack(GUIArtronStorage.INFO.material(), 1);

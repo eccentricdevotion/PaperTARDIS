@@ -26,10 +26,7 @@ import me.eccentric_nz.TARDIS.floodgate.FloodgateDestinationTerminalForm;
 import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
 
@@ -87,10 +84,7 @@ public class TARDISThemeButton {
         if (TARDISFloodgate.isFloodgateEnabled() && TARDISFloodgate.isBedrockPlayer(uuid)) {
             new FloodgateDestinationTerminalForm(plugin, uuid).send();
         } else {
-            ItemStack[] consoles = new TARDISPluginThemeInventory(plugin, player, current_console.getPermission(), level).getMenu();
-            Inventory upg = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Upgrade Menu");
-            upg.setContents(consoles);
-            player.openInventory(upg);
+            player.openInventory(new TARDISPluginThemeInventory(plugin, player, current_console.getPermission(), level).getInventory());
         }
     }
 }

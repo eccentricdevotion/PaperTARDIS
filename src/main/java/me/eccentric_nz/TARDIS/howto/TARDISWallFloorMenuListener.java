@@ -17,6 +17,7 @@
 package me.eccentric_nz.TARDIS.howto;
 
 import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.TARDIS.desktop.TARDISWallsInventory;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.rooms.TARDISWalls;
 import org.bukkit.ChatColor;
@@ -58,7 +59,7 @@ public class TARDISWallFloorMenuListener extends TARDISMenuListener {
 
     @EventHandler
     public void onWallFloorMenuOpen(InventoryOpenEvent event) {
-        if (event.getView().getTitle().equals(ChatColor.DARK_RED + "TARDIS Wall & Floor Menu")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISHowtoWallsInventory)) {
             Player p = (Player) event.getPlayer();
             scroll.put(p.getUniqueId(), 0);
         }
@@ -67,7 +68,7 @@ public class TARDISWallFloorMenuListener extends TARDISMenuListener {
     @EventHandler(ignoreCancelled = true)
     public void onWallFloorMenuClick(InventoryClickEvent event) {
         InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Wall & Floor Menu")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISHowtoWallsInventory)) {
             return;
         }
         Player p = (Player) event.getWhoClicked();
@@ -119,12 +120,8 @@ public class TARDISWallFloorMenuListener extends TARDISMenuListener {
      */
     private void back(Player p) {
         close(p);
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            ItemStack[] seeds = new TARDISSeedsInventory(plugin, p).getMenu();
-            Inventory gui = plugin.getServer().createInventory(p, 45, ChatColor.DARK_RED + "TARDIS Seeds Menu");
-            gui.setContents(seeds);
-            p.openInventory(gui);
-        }, 2L);
+        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                p.openInventory(new TARDISSeedsInventory(plugin, p).getInventory()), 2L);
     }
 
     private void scroll(InventoryView view, int row, boolean up, UUID uuid) {

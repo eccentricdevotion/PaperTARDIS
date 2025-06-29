@@ -25,8 +25,12 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.enumeration.SpaceTimeThrottle;
 import me.eccentric_nz.TARDIS.move.TARDISBlackWoolToggler;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
@@ -37,16 +41,22 @@ import java.util.List;
 /**
  * @author eccentric_nz
  */
-public class TARDISControlInventory {
+public class TARDISControlInventory implements InventoryHolder {
 
     private final TARDIS plugin;
     private final int id;
-    private final ItemStack[] controls;
+    private final Inventory inventory;
 
     public TARDISControlInventory(TARDIS plugin, int id) {
         this.plugin = plugin;
         this.id = id;
-        controls = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Control Menu", NamedTextColor.RED));
+        this.inventory.setContents(getControls());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -54,16 +64,16 @@ public class TARDISControlInventory {
      *
      * @return an Array of itemStacks (an inventory)
      */
-    private ItemStack[] getItemStack() {
+    private ItemStack[] getControls() {
 
         // get tardis options
         HashMap<String, Object> where = new HashMap<>();
         where.put("tardis_id", id);
         ResultSetTardis rs = new ResultSetTardis(plugin, where, "", false);
-        String siege_onoff = "" ;
-        String toggle_openclosed = "" ;
-        String power_onoff = "" ;
-        String direction = "" ;
+        String siege_onoff = "";
+        String toggle_openclosed = "";
+        String power_onoff = "";
+        String direction = "";
         String off = plugin.getLanguage().getString("SET_OFF");
         String on = plugin.getLanguage().getString("SET_ON");
         int delay = 1;
@@ -80,7 +90,7 @@ public class TARDISControlInventory {
             if (rsc.resultSet()) {
                 direction = rsc.getCurrent().direction().toString();
             }
-            ResultSetPlayerPrefs rsp = new ResultSetPlayerPrefs(plugin,tardis.getUuid().toString());
+            ResultSetPlayerPrefs rsp = new ResultSetPlayerPrefs(plugin, tardis.getUuid().toString());
             if (rsp.resultSet()) {
                 delay = rsp.getThrottle();
             }
@@ -183,7 +193,7 @@ public class TARDISControlInventory {
         mode.setDisplayName(plugin.getLanguage().getString("BUTTON_SIEGE"));
         mode.setLore(List.of(siege_onoff));
         CustomModelDataComponent smcomponent = mode.getCustomModelDataComponent();
-        smcomponent.setFloats(siege_onoff.equals(off)? SwitchVariant.SIEGE_OFF.getFloats(): SwitchVariant.SIEGE_ON.getFloats());
+        smcomponent.setFloats(siege_onoff.equals(off) ? SwitchVariant.SIEGE_OFF.getFloats() : SwitchVariant.SIEGE_ON.getFloats());
         mode.setCustomModelDataComponent(smcomponent);
         siege.setItemMeta(mode);
         // hide
@@ -270,9 +280,5 @@ public class TARDISControlInventory {
                 area, null, tog, null, dir, null, null, null, null,
                 ter, null, map, null, temp, null, thro, null, close
         };
-    }
-
-    public ItemStack[] getControls() {
-        return controls;
     }
 }

@@ -36,6 +36,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
@@ -60,8 +61,7 @@ public class TARDISThemeMenuListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onThemeMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Upgrade Menu")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISPluginThemeInventory) && !(event.getInventory().getHolder(false) instanceof TARDISCustomThemeInventory)) {
             return;
         }
         Player player = (Player) event.getWhoClicked();
@@ -73,7 +73,7 @@ public class TARDISThemeMenuListener extends TARDISMenuListener {
             }
             return;
         }
-        ItemStack choice = view.getItem(slot);
+        ItemStack choice = event.getView().getItem(slot);
         event.setCancelled(true);
         switch (slot) {
             case 45 -> {
@@ -99,18 +99,16 @@ public class TARDISThemeMenuListener extends TARDISMenuListener {
             case 51 -> {
                 // get player upgrade data
                 TARDISUpgradeData tud = plugin.getTrackerKeeper().getUpgrades().get(player.getUniqueId());
-                ItemStack[] consoles;
+                InventoryHolder consoles;
                 // switch page
                 if (GUIChameleonPresets.GO_TO_PAGE_2.name().equals(choice.getItemMeta().getDisplayName())) {
                     // page 2
-                    consoles = new TARDISCustomThemeInventory(plugin, player, tud.getPrevious().getPermission(), tud.getLevel()).getMenu();
+                    consoles = new TARDISCustomThemeInventory(plugin, player, tud.getPrevious().getPermission(), tud.getLevel());
                 } else {
                     // page 1
-                    consoles = new TARDISPluginThemeInventory(plugin, player, tud.getPrevious().getPermission(), tud.getLevel()).getMenu();
+                    consoles = new TARDISPluginThemeInventory(plugin, player, tud.getPrevious().getPermission(), tud.getLevel());
                 }
-                Inventory upg = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Upgrade Menu");
-                upg.setContents(consoles);
-                player.openInventory(upg);
+                player.openInventory(consoles.getInventory());
             }
             case 53 -> close(player); // close
             default -> {
@@ -187,10 +185,7 @@ public class TARDISThemeMenuListener extends TARDISMenuListener {
     private void wall(Player p) {
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             p.closeInventory();
-            ItemStack[] wall_blocks = new TARDISWallsInventory(plugin).getMenu();
-            Inventory wall = plugin.getServer().createInventory(p, 54, ChatColor.DARK_RED + "TARDIS Wall Menu");
-            wall.setContents(wall_blocks);
-            p.openInventory(wall);
+            p.openInventory(new TARDISWallsInventory(plugin, "TARDIS Wall Menu").getInventory());
         }, 1L);
     }
 
@@ -202,10 +197,7 @@ public class TARDISThemeMenuListener extends TARDISMenuListener {
     private void archive(Player p) {
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             p.closeInventory();
-            ItemStack[] archive = new TARDISArchiveInventory(plugin, p).getArchives();
-            Inventory menu = plugin.getServer().createInventory(p, 27, ChatColor.DARK_RED + "TARDIS Archive");
-            menu.setContents(archive);
-            p.openInventory(menu);
+            p.openInventory(new TARDISArchiveInventory(plugin, p).getInventory());
         }, 1L);
     }
 

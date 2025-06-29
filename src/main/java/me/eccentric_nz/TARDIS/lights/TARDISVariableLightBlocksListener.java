@@ -20,13 +20,12 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetLightPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.desktop.TARDISWallListener;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.desktop.TARDISWallsInventory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
@@ -44,7 +43,10 @@ public class TARDISVariableLightBlocksListener extends TARDISWallListener {
 
     @EventHandler
     public void onVariableLightBlockMenuOpen(InventoryOpenEvent event) {
-        if (event.getView().getTitle().equals(ChatColor.DARK_RED + "Variable Light Blocks")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISWallsInventory lights)) {
+            return;
+        }
+        if (lights.getTitle().equals("Variable Light Blocks")) {
             Player player = (Player) event.getPlayer();
             scroll.put(player.getUniqueId(), 0);
         }
@@ -52,14 +54,16 @@ public class TARDISVariableLightBlocksListener extends TARDISWallListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onVariableLightBlockClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        String name = view.getTitle();
-        if (!name.equals(ChatColor.DARK_RED + "Variable Light Blocks")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISWallsInventory lights)) {
+            return;
+        }
+        if (!lights.getTitle().equals("Variable Light Blocks")) {
             return;
         }
         Player player = (Player) event.getWhoClicked();
         UUID uuid = player.getUniqueId();
         int slot = event.getRawSlot();
+        InventoryView view = event.getView();
         if (slot < 0 || slot > 53) {
             ClickType click = event.getClick();
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
@@ -122,10 +126,7 @@ public class TARDISVariableLightBlocksListener extends TARDISWallListener {
             }
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                 // go back to Lights GUI
-                ItemStack[] lightStacks = new TARDISLightsInventory(plugin, id, uuid).getGUI();
-                Inventory lightGUI = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Lights");
-                lightGUI.setContents(lightStacks);
-                player.openInventory(lightGUI);
+                player.openInventory(new TARDISLightsInventory(plugin, id, uuid).getInventory());
             }, 5L);
         }
     }

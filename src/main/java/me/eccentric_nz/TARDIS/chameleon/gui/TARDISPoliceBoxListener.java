@@ -60,8 +60,7 @@ public class TARDISPoliceBoxListener extends TARDISMenuListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onChameleonPoliceBoxClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Chameleon Police Boxes")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISPoliceBoxInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -70,7 +69,7 @@ public class TARDISPoliceBoxListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             return;
         }
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is == null) {
             return;
         }
@@ -116,33 +115,17 @@ public class TARDISPoliceBoxListener extends TARDISMenuListener {
                 /* colour picker police boxes broken in 1.21.4
                 if (slot == 19) {
                     // any colour - open the colour picker
-                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                        TARDISColourPickerGUI picker = new TARDISColourPickerGUI(plugin);
-                        ItemStack[] items = picker.getGUI();
-                        Inventory pickerinv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Colour Picker");
-                        pickerinv.setContents(items);
-                        player.openInventory(pickerinv);
-                    }, 2L);
+                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                            player.openInventory(new TARDISColourPickerGUI(plugin).getInventory()), 2L);
                 }
                  */
             }
-            case 51 ->
-                // go to page one (regular presets)
-                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                        TARDISPresetInventory tpi = new TARDISPresetInventory(plugin, player);
-                        ItemStack[] items = tpi.getPresets();
-                        Inventory presetinv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Chameleon Presets");
-                        presetinv.setContents(items);
-                        player.openInventory(presetinv);
-                    }, 2L);
-            case 52 ->
-                // return to Chameleon Circuit GUI
-                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                        ItemStack[] stacks = new TARDISChameleonInventory(plugin, tardis.getAdaption(), tardis.getPreset(), tardis.getItemPreset()).getMenu();
-                        Inventory gui = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "Chameleon Circuit");
-                        gui.setContents(stacks);
-                        player.openInventory(gui);
-                    }, 2L);
+            // go to page one (regular presets)
+            case 51 -> plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                    player.openInventory(new TARDISPresetInventory(plugin, player).getInventory()), 2L);
+            // return to Chameleon Circuit GUI
+            case 52 -> plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                    player.openInventory(new TARDISChameleonInventory(plugin, tardis.getAdaption(), tardis.getPreset(), tardis.getItemPreset()).getInventory()), 2L);
             case 53 -> close(player);
             default -> {
                 // custom model exterior

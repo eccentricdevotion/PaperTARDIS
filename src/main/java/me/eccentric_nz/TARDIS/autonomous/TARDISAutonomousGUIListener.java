@@ -62,8 +62,7 @@ public class TARDISAutonomousGUIListener extends TARDISMenuListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onChameleonMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Autonomous Menu")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISAutonomousInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -72,6 +71,7 @@ public class TARDISAutonomousGUIListener extends TARDISMenuListener {
         if (slot < 0 || slot > 35) {
             return;
         }
+        InventoryView view = event.getView();
         ItemStack is = view.getItem(slot);
         if (is == null) {
             return;

@@ -46,8 +46,7 @@ public class TARDISWeatherListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onWeatherMenuInteract(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Weather Menu")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISWeatherInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -61,7 +60,7 @@ public class TARDISWeatherListener extends TARDISMenuListener {
         if (slot < 0 || slot > 8) {
             return;
         }
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is == null) {
             return;
         }

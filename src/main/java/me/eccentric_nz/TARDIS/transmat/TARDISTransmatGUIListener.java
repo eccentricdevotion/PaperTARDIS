@@ -53,8 +53,7 @@ public class TARDISTransmatGUIListener extends TARDISMenuListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onTransmatMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS transmats")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISTransmatInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -63,7 +62,7 @@ public class TARDISTransmatGUIListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             return;
         }
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is == null) {
             return;
         }

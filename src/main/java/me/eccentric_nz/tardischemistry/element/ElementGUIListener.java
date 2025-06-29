@@ -27,6 +27,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
@@ -60,8 +61,7 @@ public class ElementGUIListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onElementMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Atomic elements")) {
+        if (!(event.getInventory().getHolder(false) instanceof ElementInventory)) {
             return;
         }
         Player p = (Player) event.getWhoClicked();
@@ -74,6 +74,7 @@ public class ElementGUIListener implements Listener {
             }
             return;
         }
+        InventoryView view = event.getView();
         switch (slot) {
             case 8 -> {
                 // scroll up
@@ -97,10 +98,8 @@ public class ElementGUIListener implements Listener {
                 // switch to compounds
                 close(p);
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    ItemStack[] cmenu = new CompoundsCreativeInventory(plugin).getMenu();
-                    Inventory compounds = plugin.getServer().createInventory(p, 54, ChatColor.DARK_RED + "Molecular compounds");
-                    compounds.setContents(cmenu);
-                    p.openInventory(compounds);
+                    InventoryHolder compounds = new CompoundsCreativeInventory(plugin);
+                    p.openInventory(compounds.getInventory());
                 }, 2L);
             }
             case 44 -> {
@@ -108,10 +107,8 @@ public class ElementGUIListener implements Listener {
                 // switch to products
                 close(p);
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    ItemStack[] lmenu = new ProductsCreativeInventory(plugin).getMenu();
-                    Inventory lab = plugin.getServer().createInventory(p, 54, ChatColor.DARK_RED + "Products");
-                    lab.setContents(lmenu);
-                    p.openInventory(lab);
+                    InventoryHolder lab = new ProductsCreativeInventory(plugin);
+                    p.openInventory(lab.getInventory());
                 }, 2L);
             }
             case 53 -> {

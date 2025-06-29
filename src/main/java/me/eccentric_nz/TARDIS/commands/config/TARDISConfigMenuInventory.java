@@ -18,7 +18,11 @@ package me.eccentric_nz.TARDIS.commands.config;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIConfiguration;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
@@ -30,14 +34,20 @@ import java.util.*;
  *
  * @author eccentric_nz
  */
-public class TARDISConfigMenuInventory {
+public class TARDISConfigMenuInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] menu;
+    private final Inventory inventory;
 
     public TARDISConfigMenuInventory(TARDIS plugin) {
         this.plugin = plugin;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Admin Config Menu", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -105,9 +115,5 @@ public class TARDISConfigMenuInventory {
         play.setItemMeta(prefs);
         stack[53] = play;
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

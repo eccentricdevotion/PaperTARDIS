@@ -99,11 +99,7 @@ public class TARDISTelepathicListener implements Listener {
                         new FloodgateTelepathicForm(plugin, uuid, id).send();
                     } else {
                         // open the Telepathic GUI
-                        TARDISTelepathicInventory tti = new TARDISTelepathicInventory(plugin, player);
-                        ItemStack[] gui = tti.getButtons();
-                        Inventory telepathic = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Telepathic Circuit");
-                        telepathic.setContents(gui);
-                        player.openInventory(telepathic);
+                        player.openInventory(new TARDISTelepathicInventory(plugin, player).getInventory());
                     }
                 }
             }

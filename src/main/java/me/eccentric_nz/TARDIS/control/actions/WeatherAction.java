@@ -40,10 +40,7 @@ public class WeatherAction {
         if (TARDISFloodgate.isFloodgateEnabled() && TARDISFloodgate.isBedrockPlayer(playerUUID)) {
             new FloodgateWeatherForm(plugin, playerUUID).send();
         } else {
-            ItemStack[] weather = new TARDISWeatherInventory(plugin).getWeatherButtons();
-            Inventory forecast = plugin.getServer().createInventory(player, 9, ChatColor.DARK_RED + "TARDIS Weather Menu");
-            forecast.setContents(weather);
-            player.openInventory(forecast);
+            player.openInventory(new TARDISWeatherInventory(plugin).getInventory());
         }
     }
 }

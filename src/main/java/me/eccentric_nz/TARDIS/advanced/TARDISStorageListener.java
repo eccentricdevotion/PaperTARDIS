@@ -22,6 +22,7 @@ import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
 import me.eccentric_nz.TARDIS.enumeration.GlowstoneCircuit;
 import me.eccentric_nz.TARDIS.enumeration.Storage;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.handles.TARDISHandlesProgramInventory;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -81,7 +82,8 @@ public class TARDISStorageListener extends TARDISMenuListener {
             }
             Storage store = Storage.valueOf(tmp);
             saveCurrentStorage(event.getInventory(), store.getTable(), (Player) event.getPlayer());
-        } else if (!title.equals(ChatColor.DARK_RED + "TARDIS Console") && !title.equals(ChatColor.DARK_RED + "Handles Program")) {
+        } else if (!(event.getInventory().getHolder(false) instanceof TARDISAdvancedConsoleInventory)
+                && !(event.getInventory().getHolder(false) instanceof TARDISHandlesProgramInventory)) {
             // scan the inventory for area disks and spit them out
             for (int i = 0; i < event.getInventory().getSize(); i++) {
                 ItemStack stack = view.getItem(i);

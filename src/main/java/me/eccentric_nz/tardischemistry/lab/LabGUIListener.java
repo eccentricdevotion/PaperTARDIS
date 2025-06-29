@@ -43,8 +43,7 @@ public class LabGUIListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onLabMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Lab table")) {
+        if (!(event.getInventory().getHolder(false) instanceof LabInventory)) {
             return;
         }
         Player player = (Player) event.getWhoClicked();

@@ -20,17 +20,27 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIChemistry;
 import me.eccentric_nz.tardischemistry.compound.Compound;
 import me.eccentric_nz.tardischemistry.compound.CompoundBuilder;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class CompoundsCreativeInventory {
+public class CompoundsCreativeInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] menu;
+    private final Inventory inventory;
 
     public CompoundsCreativeInventory(TARDIS plugin) {
         this.plugin = plugin;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Molecular compounds", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -70,9 +80,5 @@ public class CompoundsCreativeInventory {
         close.setItemMeta(close_im);
         stack[53] = close;
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

@@ -23,6 +23,7 @@ import me.eccentric_nz.tardischemistry.element.ElementInventory;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Locale;
@@ -49,24 +50,15 @@ public class CreativeCommand {
         // do stuff
         switch (creative) {
             case elements -> {
-                ItemStack[] emenu = new ElementInventory(plugin).getMenu();
-                Inventory elements = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Atomic elements");
-                elements.setContents(emenu);
-                player.openInventory(elements);
+                player.openInventory(new ElementInventory(plugin).getInventory());
                 return true;
             }
             case compounds -> {
-                ItemStack[] cmenu = new CompoundsCreativeInventory(plugin).getMenu();
-                Inventory compounds = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Molecular compounds");
-                compounds.setContents(cmenu);
-                player.openInventory(compounds);
+                player.openInventory(new CompoundsCreativeInventory(plugin).getInventory());
                 return true;
             }
             default -> { // lab & products
-                ItemStack[] lmenu = new ProductsCreativeInventory(plugin).getMenu();
-                Inventory lab = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Products");
-                lab.setContents(lmenu);
-                player.openInventory(lab);
+                player.openInventory(new ProductsCreativeInventory(plugin).getInventory());
                 return true;
             }
         }

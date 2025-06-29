@@ -132,12 +132,8 @@ public class TARDISChatListener implements Listener {
         if (howToPattern.matcher(message).matches()) {
             plugin.getTrackerKeeper().getHowTo().add(p.getUniqueId());
             // open how to GUI
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                ItemStack[] seeds = new TARDISSeedsInventory(plugin, p).getMenu();
-                Inventory wall = plugin.getServer().createInventory(p, 45, ChatColor.DARK_RED + "TARDIS Seeds Menu");
-                wall.setContents(seeds);
-                p.openInventory(wall);
-            }, 1L);
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                    p.openInventory(new TARDISSeedsInventory(plugin, p).getInventory()), 1L);
         }
     }
 }

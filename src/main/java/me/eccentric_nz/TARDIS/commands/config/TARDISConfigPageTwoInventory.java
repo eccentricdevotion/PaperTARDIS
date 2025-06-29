@@ -18,7 +18,11 @@ package me.eccentric_nz.TARDIS.commands.config;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIConfiguration;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
@@ -30,14 +34,20 @@ import java.util.*;
  *
  * @author eccentric_nz
  */
-class TARDISConfigPageTwoInventory {
+class TARDISConfigPageTwoInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] menu;
+    private final Inventory inventory;
 
     TARDISConfigPageTwoInventory(TARDIS plugin) {
         this.plugin = plugin;
-        menu = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Admin Config Menu", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -52,18 +62,18 @@ class TARDISConfigPageTwoInventory {
             String value = plugin.getConfig().getString(c);
             if ((value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) && (
                     c.startsWith("arch") ||
-                    c.startsWith("circuits") ||
-                    c.startsWith("creation") ||
-                    c.startsWith("debug") ||
-                    c.startsWith("desktop") ||
-                    c.startsWith("difficulty") ||
-                    c.startsWith("eye_of_harmony") ||
-                    c.startsWith("junk") ||
-                    c.startsWith("siege") ||
-                    c.startsWith("sonic") ||
-                    c.startsWith("travel") ||
-                    c.startsWith("abandon") ||
-                    c.startsWith("blueprints"))
+                            c.startsWith("circuits") ||
+                            c.startsWith("creation") ||
+                            c.startsWith("debug") ||
+                            c.startsWith("desktop") ||
+                            c.startsWith("difficulty") ||
+                            c.startsWith("eye_of_harmony") ||
+                            c.startsWith("junk") ||
+                            c.startsWith("siege") ||
+                            c.startsWith("sonic") ||
+                            c.startsWith("travel") ||
+                            c.startsWith("abandon") ||
+                            c.startsWith("blueprints"))
             ) {
                 ItemStack is = new ItemStack(Material.REPEATER, 1);
                 ItemMeta im = is.getItemMeta();
@@ -98,9 +108,5 @@ class TARDISConfigPageTwoInventory {
         play.setItemMeta(prefs);
         stack[53] = play;
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

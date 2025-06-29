@@ -20,6 +20,10 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIFarming;
 import me.eccentric_nz.TARDIS.database.data.FarmPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetFarmingPrefs;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -27,13 +31,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-public class TARDISFarmingInventory {
+public class TARDISFarmingInventory implements InventoryHolder {
 
     private final TARDIS plugin;
     private final UUID uuid;
-    private final ItemStack[] gui;
     private final ItemStack on;
     private final ItemStack off;
+    private final Inventory inventory;
 
     public TARDISFarmingInventory(TARDIS plugin, UUID uuid) {
         this.plugin = plugin;
@@ -46,7 +50,13 @@ public class TARDISFarmingInventory {
         ItemMeta onMeta = on.getItemMeta();
         onMeta.setDisplayName("Enabled");
         on.setItemMeta(onMeta);
-        gui = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("TARDIS Farming Menu", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -115,9 +125,5 @@ public class TARDISFarmingInventory {
             }
         }
         return stack;
-    }
-
-    public ItemStack[] getGui() {
-        return gui;
     }
 }

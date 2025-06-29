@@ -18,7 +18,11 @@ package me.eccentric_nz.TARDIS.upgrades;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.data.SystemUpgrade;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -26,16 +30,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class TARDISSystemTreeGUI {
+public class TARDISSystemTreeGUI implements InventoryHolder {
 
     private final TARDIS plugin;
     private final SystemUpgrade sysData;
-    private final ItemStack[] inventory;
+    private final Inventory inventory;
 
     public TARDISSystemTreeGUI(TARDIS plugin, SystemUpgrade sysData) {
         this.plugin = plugin;
         this.sysData = sysData;
-        inventory = getItemStacks();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS System Upgrades", NamedTextColor.RED));
+        this.inventory.setContents(getItemStacks());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -130,9 +140,5 @@ public class TARDISSystemTreeGUI {
         close.setItemMeta(close_im);
         stacks[45] = close;
         return stacks;
-    }
-
-    public ItemStack[] getInventory() {
-        return inventory;
     }
 }

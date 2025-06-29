@@ -41,10 +41,7 @@ public class TVMCommandGUI {
         TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, player.getUniqueId().toString());
         if (rs.resultSet()) {
             // open gui
-            ItemStack[] gui = new TVMGUI(plugin, rs.getTachyonLevel()).getGUI();
-            Inventory vmg = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Vortex Manipulator");
-            vmg.setContents(gui);
-            player.openInventory(vmg);
+            player.openInventory(new TVMGUI(plugin, rs.getTachyonLevel()).getInventory());
         }
         return true;
     }

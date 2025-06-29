@@ -232,12 +232,7 @@ public class FloodgateControlForm {
                             return;
                         }
                         plugin.getMessenger().send(player, TardisModule.TARDIS, "ARS_USE_CMD");
-                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                            ItemStack[] tars = new TARDISARSInventory(plugin, player).getARS();
-                            Inventory ars = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Architectural Reconfiguration");
-                            ars.setContents(tars);
-                            player.openInventory(ars);
-                        }, 100);
+                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.openInventory(new TARDISARSInventory(plugin, player).getInventory()), 100);
                     }
                     case 6 -> { // desktop theme
                         if (plugin.getConfig().getBoolean("difficulty.system_upgrades") && !new SystemUpgradeChecker(plugin).has(uuid.toString(), SystemTree.DESKTOP_THEME)) {

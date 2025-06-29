@@ -49,12 +49,8 @@ public class TARDISInfoMenuButton {
             if (TARDISFloodgate.isFloodgateEnabled() && TARDISFloodgate.isBedrockPlayer(player.getUniqueId())) {
                 new FloodgateIndexFileForm(plugin, player.getUniqueId()).send();
             } else {
-                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    ItemStack[] cats = new TARDISIndexFileInventory(plugin).getMenu();
-                    Inventory gui = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "TARDIS Index File");
-                    gui.setContents(cats);
-                    player.openInventory(gui);
-                }, 2L);
+                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                        player.openInventory(new TARDISIndexFileInventory(plugin).getInventory()), 2L);
             }
         } else {
             plugin.getTrackerKeeper().getInfoMenu().put(player.getUniqueId(), TARDISInfoMenu.TIS);

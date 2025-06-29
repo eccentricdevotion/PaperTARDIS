@@ -39,8 +39,7 @@ public class TARDISIndexFileSectionListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onIndexFileSectionClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "TARDIS Info Category")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISIndexFileSection)) {
             return;
         }
         event.setCancelled(true);
@@ -50,19 +49,15 @@ public class TARDISIndexFileSectionListener extends TARDISMenuListener {
             return;
         }
         event.setCancelled(true);
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is == null) {
             return;
         }
         switch (slot) {
             case 45 -> {
                 Player player = (Player) event.getWhoClicked();
-                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    ItemStack[] cats = new TARDISIndexFileInventory(plugin).getMenu();
-                    Inventory gui = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "TARDIS Index File");
-                    gui.setContents(cats);
-                    player.openInventory(gui);
-                }, 2L);
+                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                        player.openInventory(new TARDISIndexFileInventory(plugin).getInventory()), 2L);
             }
             case 53 -> close(p);
             default -> {
@@ -78,12 +73,8 @@ public class TARDISIndexFileSectionListener extends TARDISMenuListener {
                         new TISInfo(plugin).show(p, tim);
                         close(p);
                     } else {
-                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                            ItemStack[] entries = new TARDISIndexFileEntry(plugin, tim).getMenu();
-                            Inventory gui = plugin.getServer().createInventory(p, 27, ChatColor.DARK_RED + "TARDIS Info Entry");
-                            gui.setContents(entries);
-                            p.openInventory(gui);
-                        }, 2L);
+                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
+                                p.openInventory(new TARDISIndexFileEntry(plugin, tim).getInventory()), 2L);
                     }
                 } catch (IllegalArgumentException ignored) {
                 }

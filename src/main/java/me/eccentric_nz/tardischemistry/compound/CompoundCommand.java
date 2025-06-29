@@ -22,6 +22,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 public class CompoundCommand {
@@ -38,10 +39,7 @@ public class CompoundCommand {
             return true;
         }
         // do stuff
-        ItemStack[] menu = new CompoundInventory(plugin).getMenu();
-        Inventory compounds = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "Chemical compounds");
-        compounds.setContents(menu);
-        player.openInventory(compounds);
+        player.openInventory(new CompoundInventory(plugin).getInventory());
         return true;
     }
 }

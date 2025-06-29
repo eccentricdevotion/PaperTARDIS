@@ -20,8 +20,12 @@ import com.google.common.collect.Multimaps;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.data.Program;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPrograms;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -32,16 +36,22 @@ import java.util.Map;
 /**
  * @author eccentric_nz
  */
-class TARDISHandlesSavedInventory {
+class TARDISHandlesSavedInventory implements InventoryHolder {
 
     private final TARDIS plugin;
     private final String uuid;
-    private final ItemStack[] programs;
+    private final Inventory inventory;
 
     TARDISHandlesSavedInventory(TARDIS plugin, String uuid) {
         this.plugin = plugin;
         this.uuid = uuid;
-        programs = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Saved Programs", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -114,9 +124,5 @@ class TARDISHandlesSavedInventory {
         close.setItemMeta(cm);
         stack[53] = close;
         return stack;
-    }
-
-    public ItemStack[] getPrograms() {
-        return programs;
     }
 }

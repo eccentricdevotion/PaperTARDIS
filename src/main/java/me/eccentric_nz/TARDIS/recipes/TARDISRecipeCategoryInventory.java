@@ -17,10 +17,15 @@
 package me.eccentric_nz.TARDIS.recipes;
 
 import com.google.common.collect.Multimaps;
+import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.KeyVariant;
 import me.eccentric_nz.TARDIS.custommodels.keys.SonicVariant;
 import me.eccentric_nz.TARDIS.enumeration.RecipeCategory;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -29,12 +34,18 @@ import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 import java.util.List;
 import java.util.Map;
 
-public class TARDISRecipeCategoryInventory {
+public class TARDISRecipeCategoryInventory implements InventoryHolder {
 
-    private final ItemStack[] menu;
+    private final Inventory inventory;
 
-    public TARDISRecipeCategoryInventory() {
-        menu = getItemStack();
+    public TARDISRecipeCategoryInventory(TARDIS plugin) {
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Recipe Categories", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -86,9 +97,5 @@ public class TARDISRecipeCategoryInventory {
             }
         }
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

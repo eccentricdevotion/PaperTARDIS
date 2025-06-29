@@ -21,20 +21,30 @@ import me.eccentric_nz.TARDIS.custommodels.GUIChameleonPoliceBoxes;
 import me.eccentric_nz.TARDIS.custommodels.GUIChameleonPresets;
 import me.eccentric_nz.TARDIS.custommodels.GUIGeneticManipulator;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 
 import java.util.List;
 
-public class TARDISWeepingAngelsMonstersInventory {
+public class TARDISWeepingAngelsMonstersInventory implements InventoryHolder {
 
-    private final ItemStack[] monsters;
     private final TARDIS plugin;
+    private final Inventory inventory;
 
     public TARDISWeepingAngelsMonstersInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.monsters = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Genetic Manipulator", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -101,9 +111,5 @@ public class TARDISWeepingAngelsMonstersInventory {
         stacks[GUIGeneticManipulator.BUTTON_CANCEL.slot()] = can;
 
         return stacks;
-    }
-
-    public ItemStack[] getMonsters() {
-        return monsters;
     }
 }

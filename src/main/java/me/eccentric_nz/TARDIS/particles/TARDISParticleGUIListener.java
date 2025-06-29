@@ -61,8 +61,7 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onParticleClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Particle Preferences")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISParticleInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -70,6 +69,7 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
         Player player = (Player) event.getWhoClicked();
         UUID uuid = player.getUniqueId();
         if (slot >= 0 && slot < 54) {
+            InventoryView view = event.getView();
             // get selection
             ItemStack is = view.getItem(slot);
             if (is != null) {

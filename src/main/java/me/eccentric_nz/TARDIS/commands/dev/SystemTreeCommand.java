@@ -64,10 +64,7 @@ public class SystemTreeCommand {
             return true;
         }
         SystemUpgrade current = rsp.getData();
-        ItemStack[] menu = new TARDISSystemTreeGUI(plugin, current).getInventory();
-        Inventory upgrades = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS System Upgrades");
-        upgrades.setContents(menu);
-        player.openInventory(upgrades);
+        player.openInventory(new TARDISSystemTreeGUI(plugin, current).getInventory());
         return true;
     }
 }

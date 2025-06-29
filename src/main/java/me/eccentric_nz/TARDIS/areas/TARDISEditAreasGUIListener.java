@@ -19,13 +19,11 @@ package me.eccentric_nz.TARDIS.areas;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -65,8 +63,7 @@ public class TARDISEditAreasGUIListener extends TARDISMenuListener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onCompanionGUIClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Area Locations")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISEditAreasInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -76,7 +73,7 @@ public class TARDISEditAreasGUIListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             return;
         }
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is == null) {
             return;
         }
@@ -101,7 +98,7 @@ public class TARDISEditAreasGUIListener extends TARDISMenuListener {
             case 50 -> {
                 // delete
                 if (selected.containsKey(uuid)) {
-                    ItemStack map = view.getItem(selected.get(uuid));
+                    ItemStack map = event.getView().getItem(selected.get(uuid));
                     ItemMeta meta = map.getItemMeta();
                     List<String> lore = meta.getLore();
                     removeLocation(lore);

@@ -29,9 +29,13 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetLightPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.enumeration.TardisLight;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ItemDisplay;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
@@ -40,18 +44,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-public class TARDISLightsInventory {
+public class TARDISLightsInventory implements InventoryHolder {
 
     private final TARDIS plugin;
     private final int id;
     private final UUID uuid;
-    private final ItemStack[] GUI;
+    private final Inventory inventory;
 
     public TARDISLightsInventory(TARDIS plugin, int id, UUID uuid) {
         this.plugin = plugin;
         this.id = id;
         this.uuid = uuid;
-        this.GUI = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Lights", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -236,9 +246,5 @@ public class TARDISLightsInventory {
             }
         }
         return TardisLight.TENTH;
-    }
-
-    public ItemStack[] getGUI() {
-        return GUI;
     }
 }

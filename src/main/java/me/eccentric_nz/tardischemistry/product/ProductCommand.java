@@ -22,6 +22,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 public class ProductCommand {
@@ -38,10 +39,7 @@ public class ProductCommand {
             return true;
         }
         // do stuff
-        ItemStack[] menu = new ProductInventory(plugin).getMenu();
-        Inventory products = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "Product crafting");
-        products.setContents(menu);
-        player.openInventory(products);
+        player.openInventory(new ProductInventory(plugin).getInventory());
         return true;
     }
 }

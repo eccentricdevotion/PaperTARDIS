@@ -22,22 +22,33 @@ import me.eccentric_nz.TARDIS.custommodels.GUIChameleonPresets;
 import me.eccentric_nz.TARDIS.custommodels.GUIGeneticManipulator;
 import me.eccentric_nz.TARDIS.skins.*;
 import me.eccentric_nz.TARDIS.skins.tv.PlayerHeadCache;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.profile.PlayerProfile;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class TARDISTelevisionInventory {
+public class TARDISTelevisionInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] skins;
+    private final Inventory inventory;
 
     public TARDISTelevisionInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.skins = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Genetic Skins", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -142,9 +153,5 @@ public class TARDISTelevisionInventory {
         can.setItemMeta(cel);
         stacks[GUIGeneticManipulator.BUTTON_CANCEL.slot()] = can;
         return stacks;
-    }
-
-    public ItemStack[] getSkins() {
-        return skins;
     }
 }

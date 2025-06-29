@@ -73,10 +73,7 @@ public class ARSAction {
                 plugin.getMessenger().send(player, TardisModule.TARDIS, "ARS_MISSING");
                 return;
             }
-            ItemStack[] tars = new TARDISARSInventory(plugin, player).getARS();
-            Inventory ars = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Architectural Reconfiguration");
-            ars.setContents(tars);
-            player.openInventory(ars);
+            player.openInventory(new TARDISARSInventory(plugin, player).getInventory());
         }
     }
 }

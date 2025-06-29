@@ -47,8 +47,7 @@ public class TARDISSonicMenuListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onSonicMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Sonic Prefs Menu")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISSonicMenuInventory)) {
             return;
         }
         Player p = (Player) event.getWhoClicked();
@@ -60,6 +59,7 @@ public class TARDISSonicMenuListener extends TARDISMenuListener {
             }
             return;
         }
+        InventoryView view = event.getView();
         switch (slot) {
             case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 -> {
                 event.setCancelled(true);
@@ -132,10 +132,10 @@ public class TARDISSonicMenuListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onSonicMenuClose(InventoryCloseEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Sonic Prefs Menu")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISSonicMenuInventory)) {
             return;
         }
+        InventoryView view = event.getView();
         ItemStack sonic = view.getItem(27);
         if (sonic == null) {
             return;

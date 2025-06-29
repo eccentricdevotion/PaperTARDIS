@@ -21,6 +21,7 @@ import me.eccentric_nz.TARDIS.advanced.TARDISCircuitChecker;
 import me.eccentric_nz.TARDIS.advanced.TARDISCircuitDamager;
 import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.travel.TARDISTemporalLocatorInventory;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -52,8 +53,7 @@ public class TARDISTemporalLocatorListener extends TARDISMenuListener {
      */
     @EventHandler(ignoreCancelled = true)
     public void onTemporalTerminalClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Temporal Locator")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISTemporalLocatorInventory)) {
             return;
         }
         event.setCancelled(true);
@@ -62,7 +62,7 @@ public class TARDISTemporalLocatorListener extends TARDISMenuListener {
         if (slot < 0 || slot > 26) {
             return;
         }
-        ItemStack is = view.getItem(slot);
+        ItemStack is = event.getView().getItem(slot);
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
             List<String> lore = im.getLore();

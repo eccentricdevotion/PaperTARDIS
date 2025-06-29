@@ -19,8 +19,12 @@ package me.eccentric_nz.TARDIS.lazarus;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIChameleonPresets;
 import me.eccentric_nz.TARDIS.custommodels.GUIGeneticManipulator;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
@@ -36,11 +40,11 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-class TARDISLazarusInventory {
+class TARDISLazarusInventory implements InventoryHolder {
 
-    private final ItemStack[] pageOne;
     private final TARDIS plugin;
     private final List<Material> disguises = new ArrayList<>();
+    private final Inventory inventory;
 
     TARDISLazarusInventory(TARDIS plugin) {
         this.plugin = plugin;
@@ -90,7 +94,13 @@ class TARDISLazarusInventory {
         disguises.add(Material.PIGLIN_SPAWN_EGG);
         disguises.add(Material.POLAR_BEAR_SPAWN_EGG);
 
-        pageOne = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Genetic Manipulator", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -189,9 +199,5 @@ class TARDISLazarusInventory {
         stacks[GUIGeneticManipulator.BUTTON_CANCEL.slot()] = can;
 
         return stacks;
-    }
-
-    public ItemStack[] getPageOne() {
-        return pageOne;
     }
 }

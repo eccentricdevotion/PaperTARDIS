@@ -16,19 +16,31 @@
  */
 package me.eccentric_nz.TARDIS.skins.tv;
 
+import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIData;
 import me.eccentric_nz.TARDIS.custommodels.GUITelevision;
 import me.eccentric_nz.TARDIS.custommodels.keys.SwitchVariant;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
+import org.jetbrains.annotations.NotNull;
 
-public class TVInventory {
+public class TVInventory implements InventoryHolder {
 
-    private final ItemStack[] menu;
+    private final Inventory inventory;
 
-    public TVInventory() {
-        menu = getItemStack();
+    public TVInventory(TARDIS plugin) {
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("TARDIS Television", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -58,9 +70,5 @@ public class TVInventory {
             stack[tv.slot()] = is;
         }
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

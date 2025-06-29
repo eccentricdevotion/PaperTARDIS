@@ -389,10 +389,7 @@ public class TARDISDevCommand implements CommandExecutor {
                                 }
                                 plugin.getSkinChanger().set(player, which);
                             } else {
-                                ItemStack[] items = new TVInventory().getMenu();
-                                Inventory tvinv = plugin.getServer().createInventory(player, 36, ChatColor.DARK_RED + "TARDIS Television");
-                                tvinv.setContents(items);
-                                player.openInventory(tvinv);
+                                player.openInventory(new TVInventory(plugin).getInventory());
                             }
                         }
                         return true;

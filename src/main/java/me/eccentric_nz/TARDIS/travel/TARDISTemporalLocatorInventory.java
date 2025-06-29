@@ -18,8 +18,13 @@ package me.eccentric_nz.TARDIS.travel;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUITemporalLocator;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -30,14 +35,20 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-public class TARDISTemporalLocatorInventory {
+public class TARDISTemporalLocatorInventory implements InventoryHolder {
 
-    private final ItemStack[] temporal;
     private final TARDIS plugin;
+    private final Inventory inventory;
 
     public TARDISTemporalLocatorInventory(TARDIS plugin) {
         this.plugin = plugin;
-        temporal = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("Temporal Locator", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -65,9 +76,5 @@ public class TARDISTemporalLocatorInventory {
             clocks[clock.getSlot()] = is;
         }
         return clocks;
-    }
-
-    public ItemStack[] getTemporal() {
-        return temporal;
     }
 }

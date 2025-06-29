@@ -19,25 +19,37 @@ package me.eccentric_nz.TARDIS.areas;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIMap;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetAreaLocations;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TARDISEditAreasInventory {
+public class TARDISEditAreasInventory implements InventoryHolder {
 
     private final TARDIS plugin;
     private final int area_id;
+    private final Inventory inventory;
 
     public TARDISEditAreasInventory(TARDIS plugin, int area_id) {
         this.plugin = plugin;
         this.area_id = area_id;
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Area Locations", NamedTextColor.RED));
+        this.inventory.setContents(getLocations());
     }
 
-    public ItemStack[] getLocations() {
+    @Override
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    private ItemStack[] getLocations() {
         ItemStack[] stacks = new ItemStack[54];
         ResultSetAreaLocations rs = new ResultSetAreaLocations(plugin, area_id);
         if (rs.resultSet()) {

@@ -25,6 +25,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
@@ -39,8 +40,8 @@ public class CreativeGUIListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onCreativeMenuClick(InventoryClickEvent event) {
         InventoryView view = event.getView();
-        String name = view.getTitle();
-        if (!name.equals(ChatColor.DARK_RED + "Molecular compounds") && !name.equals(ChatColor.DARK_RED + "Products")) {
+        InventoryHolder holder = event.getInventory().getHolder(false);
+        if (!(holder instanceof ProductsCreativeInventory) && !(holder instanceof CompoundsCreativeInventory)) {
             return;
         }
         Player p = (Player) event.getWhoClicked();
@@ -58,22 +59,17 @@ public class CreativeGUIListener implements Listener {
                 // switch to elements
                 close(p);
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    ItemStack[] emenu = new ElementInventory(plugin).getMenu();
-                    Inventory elements = plugin.getServer().createInventory(p, 54, ChatColor.DARK_RED + "Atomic elements");
-                    elements.setContents(emenu);
-                    p.openInventory(elements);
+                    p.openInventory(new ElementInventory(plugin).getInventory());
                 }, 2L);
             }
             case 44 -> {
                 event.setCancelled(true);
-                boolean molecular = (name.equals(ChatColor.DARK_RED + "Molecular compounds"));
+                boolean molecular = holder instanceof CompoundsCreativeInventory;
                 close(p);
                 // switch to compounds or products
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                    ItemStack[] stacks = (molecular) ? new ProductsCreativeInventory(plugin).getMenu() : new CompoundsCreativeInventory(plugin).getMenu();
-                    Inventory inventory = plugin.getServer().createInventory(p, 54, ChatColor.DARK_RED + (molecular ? "Products" : "Molecular compounds"));
-                    inventory.setContents(stacks);
-                    p.openInventory(inventory);
+                    InventoryHolder stacks = (molecular) ? new ProductsCreativeInventory(plugin) : new CompoundsCreativeInventory(plugin);
+                    p.openInventory(stacks.getInventory());
                 }, 2L);
             }
             case 53 -> {

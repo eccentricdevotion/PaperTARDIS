@@ -142,11 +142,7 @@ public class TARDISLister {
                     String comps = tardis.getCompanions();
                     if (comps != null && !comps.isEmpty()) {
                         String[] companionData = comps.split(":");
-                        ItemStack[] heads = new TARDISCompanionInventory(plugin, companionData).getSkulls();
-                        // open the GUI
-                        Inventory inv = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Companions");
-                        inv.setContents(heads);
-                        player.openInventory(inv);
+                        player.openInventory(new TARDISCompanionInventory(plugin, companionData).getInventory());
                     } else {
                         plugin.getMessenger().send(player, TardisModule.TARDIS, "COMPANIONS_NONE");
                     }

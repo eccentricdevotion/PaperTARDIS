@@ -19,17 +19,30 @@ package me.eccentric_nz.tardischemistry.microscope;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.ChemistryEquipment;
 import me.eccentric_nz.TARDIS.custommodels.keys.GuiVariant;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
-class FileCabinetInventory {
+class FileCabinetInventory implements InventoryHolder {
 
     private final TARDIS plugin;
+    private final Inventory inventory;
 
     FileCabinetInventory(TARDIS plugin) {
         this.plugin = plugin;
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Map Cabinet", NamedTextColor.RED));
+        this.inventory.setContents(getItems());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     ItemStack[] getItems() {

@@ -22,22 +22,33 @@ import me.eccentric_nz.TARDIS.custommodels.GUIChameleonTemplate;
 import me.eccentric_nz.TARDIS.custommodels.GUILights;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetLightPrefs;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class TARDISLightSequenceInventory {
+public class TARDISLightSequenceInventory implements InventoryHolder {
 
     private final TARDIS plugin;
     private final int id;
-    private final ItemStack[] GUI;
+    private final Inventory inventory;
 
     public TARDISLightSequenceInventory(TARDIS plugin, int id) {
         this.plugin = plugin;
         this.id = id;
-        this.GUI = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 45, Component.text("TARDIS Light Sequence", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -119,9 +130,5 @@ public class TARDISLightSequenceInventory {
         close.setItemMeta(clim);
         stacks[44] = close;
         return stacks;
-    }
-
-    public ItemStack[] getGUI() {
-        return GUI;
     }
 }

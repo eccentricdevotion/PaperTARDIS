@@ -20,8 +20,12 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIChameleon;
 import me.eccentric_nz.TARDIS.enumeration.Adaption;
 import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -41,10 +45,10 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-public class TARDISChameleonInventory {
+public class TARDISChameleonInventory implements InventoryHolder {
 
-    private final ItemStack[] terminal;
     private final TARDIS plugin;
+    private final Inventory inventory;
     private final Adaption adapt;
     private final ChameleonPreset preset;
     private final String model;
@@ -58,7 +62,13 @@ public class TARDISChameleonInventory {
         this.model = model;
         on = new ItemStack(Material.LIME_WOOL, 1);
         off = new ItemStack(Material.LIGHT_GRAY_CARPET, 1);
-        terminal = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("Chameleon Circuit", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -170,10 +180,10 @@ public class TARDISChameleonInventory {
         can.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
         close.setItemMeta(can);
 
-        return new ItemStack[]{apply, null, null, lock, null, null, null, null, null, null, null, dis, adap, invis, shor, cons, null, null, null, null, fac, biome, not, pre, bui, null, close};
-    }
-
-    public ItemStack[] getMenu() {
-        return terminal;
+        return new ItemStack[]{
+                apply, null, null, lock, null, null, null, null, null,
+                null, null, dis, adap, invis, shor, cons, null, null,
+                null, null, fac, biome, not, pre, bui, null, close
+        };
     }
 }

@@ -55,17 +55,11 @@ public class ShellRoomAction {
             if (TARDISFloodgate.isFloodgateEnabled() && TARDISFloodgate.isBedrockPlayer(playerUUID)) {
                 new FloodgateShellLoaderForm(plugin, playerUUID).send();
             } else {
-                ItemStack[] shells = new TARDISShellPresetInventory(plugin, player, id).getShells();
-                Inventory sgui = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Shell Loader");
-                sgui.setContents(shells);
-                player.openInventory(sgui);
+                player.openInventory(new TARDISShellPresetInventory(plugin, player, id).getInventory());
             }
         } else {
             // load player shells GUI
-            ItemStack[] shellStacks = new TARDISShellInventory(plugin, id).getPlayerShells();
-            Inventory playerShells = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Shells");
-            playerShells.setContents(shellStacks);
-            player.openInventory(playerShells);
+            player.openInventory(new TARDISShellInventory(plugin, id).getInventory());
         }
     }
 }

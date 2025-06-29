@@ -19,7 +19,11 @@ package me.eccentric_nz.TARDIS.sonic;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUISonicActivator;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -29,14 +33,20 @@ import java.util.List;
 /**
  * @author eccentric_nz
  */
-class TARDISSonicActivatorInventory {
+class TARDISSonicActivatorInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] activator;
+    private final Inventory inventory;
 
     TARDISSonicActivatorInventory(TARDIS plugin) {
         this.plugin = plugin;
-        activator = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 9, Component.text("Sonic Activator", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -74,9 +84,5 @@ class TARDISSonicActivatorInventory {
         close.setItemMeta(close_im);
 
         return new ItemStack[]{null, null, null, null, null, null, null, info, close};
-    }
-
-    public ItemStack[] getActivator() {
-        return activator;
     }
 }

@@ -128,7 +128,7 @@ public class TARDISArtronFurnaceListener implements Listener {
         if (!(event.getInventory() instanceof FurnaceInventory)) {
             return;
         }
-        Furnace furnace = (Furnace) event.getInventory().getHolder();
+        Furnace furnace = (Furnace) event.getInventory().getHolder(false);
         // setting cookTime when the furnace is empty but already burning
         if (plugin.getTardisHelper().isArtronFurnace(furnace.getBlock())
                 && plugin.getTrackerKeeper().getArtronFurnaces().contains(furnace.getLocation().toString())

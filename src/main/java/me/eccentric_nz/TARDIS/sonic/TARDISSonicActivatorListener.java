@@ -64,8 +64,7 @@ public class TARDISSonicActivatorListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onActivatorMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        if (!view.getTitle().equals(ChatColor.DARK_RED + "Sonic Activator")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISSonicActivatorInventory)) {
             return;
         }
         Player p = (Player) event.getWhoClicked();
@@ -76,7 +75,7 @@ public class TARDISSonicActivatorListener extends TARDISMenuListener {
                 case 8 -> {
                     event.setCancelled(true);
                     // close
-                    save(p, view);
+                    save(p, event.getView());
                 }
                 default -> {
                 }

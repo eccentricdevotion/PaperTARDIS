@@ -24,7 +24,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
@@ -63,10 +62,7 @@ public class TARDISLightEmittingListener extends TARDISMenuListener {
                 ResultSetTardisID rst = new ResultSetTardisID(plugin);
                 // get TARDIS id
                 if (rst.fromUUID(uuid.toString())) {
-                    ItemStack[] lightStacks = new TARDISLightsInventory(plugin, rst.getTardisId(), uuid).getGUI();
-                    Inventory lightGUI = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Lights");
-                    lightGUI.setContents(lightStacks);
-                    player.openInventory(lightGUI);
+                    player.openInventory(new TARDISLightsInventory(plugin, rst.getTardisId(), uuid).getInventory());
                 }
             }
             case 26 -> close(player); // close
@@ -87,10 +83,7 @@ public class TARDISLightEmittingListener extends TARDISMenuListener {
         if (rst.fromUUID(uuid.toString())) {
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                 // go back to Lights GUI
-                ItemStack[] lightStacks = new TARDISLightsInventory(plugin, rst.getTardisId(), uuid).getGUI();
-                Inventory lightGUI = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "TARDIS Lights");
-                lightGUI.setContents(lightStacks);
-                player.openInventory(lightGUI);
+                player.openInventory(new TARDISLightsInventory(plugin, rst.getTardisId(), uuid).getInventory());
             }, 5L);
         }
     }

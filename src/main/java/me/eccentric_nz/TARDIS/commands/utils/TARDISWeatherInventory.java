@@ -19,17 +19,28 @@ package me.eccentric_nz.TARDIS.commands.utils;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIWeather;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
-public class TARDISWeatherInventory {
+public class TARDISWeatherInventory  implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] weather;
+    private final Inventory inventory;
 
     public TARDISWeatherInventory(TARDIS plugin) {
         this.plugin = plugin;
-        weather = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Weather Menu", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -72,9 +83,5 @@ public class TARDISWeatherInventory {
         stack[GUIWeather.CLOSE.slot()] = close;
 
         return stack;
-    }
-
-    public ItemStack[] getWeatherButtons() {
-        return weather;
     }
 }

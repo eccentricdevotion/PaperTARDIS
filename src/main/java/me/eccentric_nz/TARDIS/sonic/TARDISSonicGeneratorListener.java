@@ -92,12 +92,9 @@ public class TARDISSonicGeneratorListener implements Listener {
                         // generate sonic
                         generate(player, block.getLocation(), s);
                     } else {
-                        // open GUI
-                        ItemStack[] items = new TARDISSonicGeneratorInventory(plugin, s).getGenerator();
-                        Inventory sgc = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Sonic Generator");
-                        sgc.setContents(items);
                         plugin.getTrackerKeeper().getSonicGenerators().put(uuid, block.getLocation());
-                        player.openInventory(sgc);
+                        // open GUI
+                        player.openInventory(new TARDISSonicGeneratorInventory(plugin, s).getInventory());
                     }
                 } else {
                     openActivate(player);
@@ -186,10 +183,7 @@ public class TARDISSonicGeneratorListener implements Listener {
     }
 
     private void openActivate(Player p) {
-        ItemStack[] items = new TARDISSonicActivatorInventory(plugin).getActivator();
-        Inventory sgc = plugin.getServer().createInventory(p, 9, ChatColor.DARK_RED + "Sonic Activator");
-        sgc.setContents(items);
-        p.openInventory(sgc);
+        p.openInventory(new TARDISSonicActivatorInventory(plugin).getInventory());
     }
 
     @EventHandler(ignoreCancelled = true)

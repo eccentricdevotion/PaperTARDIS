@@ -19,17 +19,27 @@ package me.eccentric_nz.TARDIS.lights;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIChameleonTemplate;
 import me.eccentric_nz.TARDIS.custommodels.GUILights;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class TARDISLightEmittingInventory {
+public class TARDISLightEmittingInventory implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] GUI;
+    private final Inventory inventory;
 
     public TARDISLightEmittingInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.GUI = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("Light Emitting Blocks", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     /**
@@ -57,9 +67,5 @@ public class TARDISLightEmittingInventory {
         close.setItemMeta(clim);
         stacks[26] = close;
         return stacks;
-    }
-
-    public ItemStack[] getGUI() {
-        return GUI;
     }
 }

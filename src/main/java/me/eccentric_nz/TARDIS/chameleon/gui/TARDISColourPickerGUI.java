@@ -19,8 +19,12 @@ package me.eccentric_nz.TARDIS.chameleon.gui;
 import com.google.common.collect.Multimaps;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.ColouredVariant;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -29,14 +33,20 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import java.util.List;
 import java.util.Map;
 
-public class TARDISColourPickerGUI {
+public class TARDISColourPickerGUI implements InventoryHolder {
 
     private final TARDIS plugin;
-    private final ItemStack[] gui;
+    private final Inventory inventory;
 
     public TARDISColourPickerGUI(TARDIS plugin) {
         this.plugin = plugin;
-        gui = getItemStack();
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Colour Picker", NamedTextColor.RED));
+        this.inventory.setContents(getItemStack());
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     private ItemStack[] getItemStack() {
@@ -120,9 +130,5 @@ public class TARDISColourPickerGUI {
                 blue, null, less, null, bluetint, null, more, null, null,
                 null, null, null, null, null, null, null, null, close
         };
-    }
-
-    public ItemStack[] getGUI() {
-        return gui;
     }
 }
