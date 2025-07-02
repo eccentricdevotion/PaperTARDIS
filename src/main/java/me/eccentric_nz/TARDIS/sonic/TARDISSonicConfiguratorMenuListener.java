@@ -22,7 +22,8 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetConfiguredSonic;
 import me.eccentric_nz.TARDIS.enumeration.SonicConfig;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -60,6 +61,7 @@ public class TARDISSonicConfiguratorMenuListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             ClickType click = event.getClick();
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
+                plugin.debug("TARDISSonicConfiguratorMenuListener");
                 event.setCancelled(true);
             }
             return;
@@ -103,52 +105,52 @@ public class TARDISSonicConfiguratorMenuListener extends TARDISMenuListener {
         ItemStack bio = view.getItem(9);
         bio.setType(configuredSonic.getBio().getMaterial());
         ItemMeta bim = bio.getItemMeta();
-        bim.setDisplayName(configuredSonic.getBio().getName());
+        bim.displayName(Component.text(configuredSonic.getBio().getName()));
         bio.setItemMeta(bim);
         ItemStack dia = view.getItem(10);
         dia.setType(configuredSonic.getDiamond().getMaterial());
         ItemMeta dim = dia.getItemMeta();
-        dim.setDisplayName(configuredSonic.getDiamond().getName());
+        dim.displayName(Component.text(configuredSonic.getDiamond().getName()));
         dia.setItemMeta(dim);
         ItemStack eme = view.getItem(11);
         eme.setType(configuredSonic.getEmerald().getMaterial());
         ItemMeta eim = eme.getItemMeta();
-        eim.setDisplayName(configuredSonic.getEmerald().getName());
+        eim.displayName(Component.text(configuredSonic.getEmerald().getName()));
         eme.setItemMeta(eim);
         ItemStack red = view.getItem(12);
         red.setType(configuredSonic.getRedstone().getMaterial());
         ItemMeta rim = red.getItemMeta();
-        rim.setDisplayName(configuredSonic.getRedstone().getName());
+        rim.displayName(Component.text(configuredSonic.getRedstone().getName()));
         red.setItemMeta(rim);
         ItemStack pai = view.getItem(13);
         pai.setType(configuredSonic.getPainter().getMaterial());
         ItemMeta pim = pai.getItemMeta();
-        pim.setDisplayName(configuredSonic.getPainter().getName());
+        pim.displayName(Component.text(configuredSonic.getPainter().getName()));
         pai.setItemMeta(pim);
         ItemStack ign = view.getItem(14);
         ign.setType(configuredSonic.getIgnite().getMaterial());
         ItemMeta iim = ign.getItemMeta();
-        iim.setDisplayName(configuredSonic.getIgnite().getName());
+        iim.displayName(Component.text(configuredSonic.getIgnite().getName()));
         ign.setItemMeta(iim);
         ItemStack arr = view.getItem(15);
         arr.setType(configuredSonic.getArrow().getMaterial());
         ItemMeta aim = arr.getItemMeta();
-        aim.setDisplayName(configuredSonic.getArrow().getName());
+        aim.displayName(Component.text(configuredSonic.getArrow().getName()));
         arr.setItemMeta(aim);
         ItemStack kno = view.getItem(16);
         kno.setType(configuredSonic.getKnockback().getMaterial());
         ItemMeta kim = kno.getItemMeta();
-        kim.setDisplayName(configuredSonic.getKnockback().getName());
+        kim.displayName(Component.text(configuredSonic.getKnockback().getName()));
         kno.setItemMeta(kim);
         ItemStack bru = view.getItem(17);
         bru.setType(configuredSonic.getBrush().getMaterial());
         ItemMeta sh = bru.getItemMeta();
-        sh.setDisplayName(configuredSonic.getBrush().getName());
+        sh.displayName(Component.text(configuredSonic.getBrush().getName()));
         bru.setItemMeta(sh);
         ItemStack con = view.getItem(27);
         con.setType(configuredSonic.getConversion().getMaterial());
         ItemMeta ver = con.getItemMeta();
-        ver.setDisplayName(configuredSonic.getConversion().getName());
+        ver.displayName(Component.text(configuredSonic.getConversion().getName()));
         con.setItemMeta(ver);
     }
 
@@ -158,12 +160,12 @@ public class TARDISSonicConfiguratorMenuListener extends TARDISMenuListener {
         switch (cmd) {
             case LIME_WOOL -> {
                 // disable
-                im.setDisplayName("Disabled");
+                im.displayName(Component.text("Disabled"));
                 option.setType(Material.RED_WOOL);
             }
             case RED_WOOL -> {
                 // enable
-                im.setDisplayName("Enabled");
+                im.displayName(Component.text("Enabled"));
                 option.setType(Material.LIME_WOOL);
             }
             default -> {
@@ -178,10 +180,10 @@ public class TARDISSonicConfiguratorMenuListener extends TARDISMenuListener {
         if (rscs.resultSet()) {
             ConfiguredSonic configuredSonic = rscs.getConfiguredSonic();
             // check if there are any new upgrades
-            List<String> lore = im.getLore();
+            List<Component> lore = im.lore();
             if (lore != null) {
                 for (int i = 1; i < lore.size(); i++) {
-                    String upgrade = lore.get(i);
+                    String upgrade = TARDISStringUtils.stripColour(lore.get(i));
                     switch (upgrade) {
                         case "Bio-scanner Upgrade" -> configuredSonic.setBio(SonicConfig.ENABLED);
                         case "Diamond Upgrade" -> configuredSonic.setDiamond(SonicConfig.ENABLED);
@@ -193,8 +195,7 @@ public class TARDISSonicConfiguratorMenuListener extends TARDISMenuListener {
                         case "Knockback Upgrade" -> configuredSonic.setKnockback(SonicConfig.ENABLED);
                         case "Brush Upgrade" -> configuredSonic.setBrush(SonicConfig.ENABLED);
                         case "Conversion Upgrade" -> configuredSonic.setConversion(SonicConfig.ENABLED);
-                        default -> {
-                        }
+                        default -> { }
                     }
                 }
             }
@@ -204,8 +205,8 @@ public class TARDISSonicConfiguratorMenuListener extends TARDISMenuListener {
     }
 
     private void saveConfiguredSonic(Player player, InventoryView view) {
-        List<String> upgrades = new ArrayList<>();
-        upgrades.add("Upgrades:");
+        List<Component> upgrades = new ArrayList<>();
+        upgrades.add(Component.text("Upgrades:"));
         //update configured sonic
         ConfiguredSonic configuredSonic = sonics.get(player.getUniqueId());
         if (configuredSonic == null) {
@@ -213,52 +214,52 @@ public class TARDISSonicConfiguratorMenuListener extends TARDISMenuListener {
         }
         int bio = getSonicConfig(9, view);
         if (bio == 1) {
-            upgrades.add("Bio-scanner Upgrade");
+            upgrades.add(Component.text("Bio-scanner Upgrade"));
         }
         configuredSonic.setBio(SonicConfig.values()[bio]);
         int dia = getSonicConfig(10, view);
         if (dia == 1) {
-            upgrades.add("Diamond Upgrade");
+            upgrades.add(Component.text("Diamond Upgrade"));
         }
         configuredSonic.setDiamond(SonicConfig.values()[dia]);
         int eme = getSonicConfig(11, view);
         if (eme == 1) {
-            upgrades.add("Emerald Upgrade");
+            upgrades.add(Component.text("Emerald Upgrade"));
         }
         configuredSonic.setEmerald(SonicConfig.values()[eme]);
         int red = getSonicConfig(12, view);
         if (red == 1) {
-            upgrades.add("Redstone Upgrade");
+            upgrades.add(Component.text("Redstone Upgrade"));
         }
         configuredSonic.setRedstone(SonicConfig.values()[red]);
         int pai = getSonicConfig(13, view);
         if (pai == 1) {
-            upgrades.add("Painter Upgrade");
+            upgrades.add(Component.text("Painter Upgrade"));
         }
         configuredSonic.setPainter(SonicConfig.values()[pai]);
         int ign = getSonicConfig(14, view);
         if (ign == 1) {
-            upgrades.add("Ignite Upgrade");
+            upgrades.add(Component.text("Ignite Upgrade"));
         }
         configuredSonic.setIgnite(SonicConfig.values()[ign]);
         int arr = getSonicConfig(15, view);
         if (arr == 1) {
-            upgrades.add("Pickup Arrows Upgrade");
+            upgrades.add(Component.text("Pickup Arrows Upgrade"));
         }
         configuredSonic.setArrow(SonicConfig.values()[arr]);
         int kno = getSonicConfig(16, view);
         if (kno == 1) {
-            upgrades.add("Knockback Upgrade");
+            upgrades.add(Component.text("Knockback Upgrade"));
         }
         configuredSonic.setKnockback(SonicConfig.values()[kno]);
         int bru = getSonicConfig(17, view);
         if (bru == 1) {
-            upgrades.add("Brush Upgrade");
+            upgrades.add(Component.text("Brush Upgrade"));
         }
         configuredSonic.setBrush(SonicConfig.values()[bru]);
         int con = getSonicConfig(27, view);
         if (con == 1) {
-            upgrades.add("Conversion Upgrade");
+            upgrades.add(Component.text("Conversion Upgrade"));
         }
         configuredSonic.setBrush(SonicConfig.values()[bru]);
         sonics.put(player.getUniqueId(), configuredSonic);
@@ -281,9 +282,9 @@ public class TARDISSonicConfiguratorMenuListener extends TARDISMenuListener {
         if (TARDISStaticUtils.isSonic(sonic)) {
             ItemMeta im = sonic.getItemMeta();
             if (upgrades.size() > 1) {
-                im.setLore(upgrades);
+                im.lore(upgrades);
             } else {
-                im.setLore(null);
+                im.lore(null);
             }
             sonic.setItemMeta(im);
         }
@@ -304,18 +305,18 @@ public class TARDISSonicConfiguratorMenuListener extends TARDISMenuListener {
         if (TARDISStaticUtils.isSonic(is)) {
             ItemMeta im = is.getItemMeta();
             // get the upgrades from the lore
-            List<String> lore = im.getLore();
+            List<Component> lore = im.lore();
             UUID uuid = player.getUniqueId();
-            int bio = lore != null && lore.contains("Bio-scanner Upgrade") ? 1 : 0;
-            int diamond = lore != null && lore.contains("Diamond Upgrade") ? 1 : 0;
-            int emerald = lore != null && lore.contains("Emerald Upgrade") ? 1 : 0;
-            int redstone = lore != null && lore.contains("Redstone Upgrade") ? 1 : 0;
-            int painter = lore != null && lore.contains("Painter Upgrade") ? 1 : 0;
-            int ignite = lore != null && lore.contains("Ignite Upgrade") ? 1 : 0;
-            int arrow = lore != null && lore.contains("Pickup Arrows Upgrade") ? 1 : 0;
-            int knockback = lore != null && lore.contains("Knockback Upgrade") ? 1 : 0;
-            int brush = lore != null && lore.contains("Brush Upgrade") ? 1 : 0;
-            int conversion = lore != null && lore.contains("Conversion Upgrade") ? 1 : 0;
+            int bio = lore != null && lore.contains(Component.text("Bio-scanner Upgrade")) ? 1 : 0;
+            int diamond = lore != null && lore.contains(Component.text("Diamond Upgrade")) ? 1 : 0;
+            int emerald = lore != null && lore.contains(Component.text("Emerald Upgrade")) ? 1 : 0;
+            int redstone = lore != null && lore.contains(Component.text("Redstone Upgrade")) ? 1 : 0;
+            int painter = lore != null && lore.contains(Component.text("Painter Upgrade")) ? 1 : 0;
+            int ignite = lore != null && lore.contains(Component.text("Ignite Upgrade")) ? 1 : 0;
+            int arrow = lore != null && lore.contains(Component.text("Pickup Arrows Upgrade")) ? 1 : 0;
+            int knockback = lore != null && lore.contains(Component.text("Knockback Upgrade")) ? 1 : 0;
+            int brush = lore != null && lore.contains(Component.text("Brush Upgrade")) ? 1 : 0;
+            int conversion = lore != null && lore.contains(Component.text("Conversion Upgrade")) ? 1 : 0;
             // create a new UUID
             UUID sonic_uuid = UUID.randomUUID();
             // set the UUID to the sonic

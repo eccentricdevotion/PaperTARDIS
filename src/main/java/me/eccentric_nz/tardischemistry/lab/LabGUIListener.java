@@ -18,7 +18,6 @@ package me.eccentric_nz.tardischemistry.lab;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -26,7 +25,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -51,6 +49,7 @@ public class LabGUIListener extends TARDISMenuListener {
         if (slot < 0 || slot > 26) {
             ClickType click = event.getClick();
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
+                TARDIS.plugin.debug("LabGUIListener");
                 event.setCancelled(true);
             }
             return;
@@ -80,7 +79,7 @@ public class LabGUIListener extends TARDISMenuListener {
                 if ((material.equals(Material.GLASS_BOTTLE) || material.equals(Material.FEATHER)) && is.hasItemMeta()) {
                     ItemMeta im = is.getItemMeta();
                     if (im.hasDisplayName()) {
-                        builder.append(im.getDisplayName()).append(",");
+                        builder.append(im.displayName()).append(",");
                     }
                 } else {
                     builder.append(is.getType()).append(",");

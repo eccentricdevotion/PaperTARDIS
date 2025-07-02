@@ -17,7 +17,9 @@
 package me.eccentric_nz.TARDIS.recipes.shapeless;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -44,8 +46,8 @@ public class PlayerStorageDiskRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.MUSIC_DISC_WAIT, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Player Storage Disk");
-        im.setLore(List.of("Blank"));
+        im.displayName(Component.text("Player Storage Disk", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.lore(List.of(Component.text("Blank")));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "player_storage_disk");
         ShapelessRecipe r = new ShapelessRecipe(key, is);

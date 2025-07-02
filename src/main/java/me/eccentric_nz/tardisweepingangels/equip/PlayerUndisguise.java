@@ -18,6 +18,7 @@ package me.eccentric_nz.tardisweepingangels.equip;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -30,7 +31,6 @@ import org.bukkit.persistence.PersistentDataType;
 
 public class PlayerUndisguise implements Listener {
 
-
     @EventHandler(priority = EventPriority.NORMAL)
     public void onManualUndisguise(InventoryClickEvent event) {
         if (event.getSlotType().equals(SlotType.ARMOR)) {
@@ -42,40 +42,40 @@ public class PlayerUndisguise implements Listener {
                         ItemMeta im = is.getItemMeta();
                         if (!im.getPersistentDataContainer().has(TARDISWeepingAngels.MONSTER_HEAD, PersistentDataType.INTEGER)) {
                             if (im.hasDisplayName() && (
-                                    im.getDisplayName().startsWith("Weeping Angel")
-                                    || im.getDisplayName().startsWith("Angel Of Liberty")
-                                    || im.getDisplayName().startsWith("Clockwork Droid")
-                                    || im.getDisplayName().startsWith("Cyberman")
-                                    || im.getDisplayName().startsWith("Cybershade")
-                                    || im.getDisplayName().startsWith("Dalek Sec")
-                                    || im.getDisplayName().startsWith("Dalek")
-                                    || im.getDisplayName().startsWith("Davros")
-                                    || im.getDisplayName().startsWith("Empty Child")
-                                    || im.getDisplayName().startsWith("Hath")
-                                    || im.getDisplayName().startsWith("Headless Monk")
-                                    || im.getDisplayName().startsWith("Ice Warrior")
-                                    || im.getDisplayName().startsWith("Judoon")
-                                    || im.getDisplayName().startsWith("K9")
-                                    || im.getDisplayName().startsWith("Mire")
-                                    || im.getDisplayName().startsWith("Omega")
-                                    || im.getDisplayName().startsWith("Ood")
-                                    || im.getDisplayName().startsWith("Ossified")
-                                    || im.getDisplayName().startsWith("Racnoss")
-                                    || im.getDisplayName().startsWith("Scarecrow")
-                                    || im.getDisplayName().startsWith("Sea Devil")
-                                    || im.getDisplayName().startsWith("Silent")
-                                    || im.getDisplayName().startsWith("Silurian")
-                                    || im.getDisplayName().startsWith("Slitheen")
-                                    || im.getDisplayName().startsWith("Smiler")
-                                    || im.getDisplayName().startsWith("Sontaran")
-                                    || im.getDisplayName().startsWith("Strax")
-                                    || im.getDisplayName().startsWith("Sutekh")
-                                    || im.getDisplayName().startsWith("Sycorax")
-                                    || im.getDisplayName().startsWith("The Beast")
-                                    || im.getDisplayName().startsWith("Toclafane")
-                                    || im.getDisplayName().startsWith("Vampire")
-                                    || im.getDisplayName().startsWith("Vashta")
-                                    || im.getDisplayName().startsWith("Zygon")
+                                    TARDISStringUtils.startsWith(im.displayName(), "Weeping Angel")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Angel Of Liberty")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Clockwork Droid")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Cyberman")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Cybershade")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Dalek Sec")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Dalek")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Davros")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Empty Child")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Hath")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Headless Monk")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Ice Warrior")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Judoon")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "K9")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Mire")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Omega")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Ood")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Ossified")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Racnoss")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Scarecrow")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Sea Devil")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Silent")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Silurian")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Slitheen")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Smiler")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Sontaran")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Strax")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Sutekh")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Sycorax")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "The Beast")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Toclafane")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Vampire")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Vashta")
+                                    || TARDISStringUtils.startsWith(im.displayName(), "Zygon")
                             )) {
                                 event.setCancelled(true);
                                 TARDIS.plugin.getMessenger().send(event.getWhoClicked(), TardisModule.MONSTERS, "WA_OFF");

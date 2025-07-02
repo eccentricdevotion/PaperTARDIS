@@ -18,10 +18,10 @@ package me.eccentric_nz.tardischemistry.reducer;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardischemistry.compound.Compound;
 import me.eccentric_nz.tardischemistry.element.Element;
 import me.eccentric_nz.tardischemistry.element.ElementBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -29,7 +29,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -49,6 +48,7 @@ public class ReducerGUIListener extends TARDISMenuListener {
         if (slot < 0 || slot > 26) {
             ClickType click = event.getClick();
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
+                TARDIS.plugin.debug("ReducerGUIListener");
                 event.setCancelled(true);
             }
             return;
@@ -76,7 +76,7 @@ public class ReducerGUIListener extends TARDISMenuListener {
             if (material.equals(Material.GLASS_BOTTLE) && is.hasItemMeta()) {
                 ItemMeta im = is.getItemMeta();
                 if (im.hasDisplayName()) {
-                    String c = im.getDisplayName().replace(" ", "_");
+                    String c = TARDISStringUtils.stripColour(im.displayName()).replace(" ", "_");
                     for (Compound compound : Compound.values()) {
                         if (compound.toString().equals(c)) {
                             reduce(compound.getFormula(), inventory, player);

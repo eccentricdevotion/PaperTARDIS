@@ -24,6 +24,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetDoors;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisModel;
 import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.inventory.EntityEquipment;
@@ -169,8 +170,9 @@ public class TARDISBuilderUtility {
                 default -> pb = "Police Box";
             }
             String name = bd.getPlayer().getName() + "'s " + pb;
-            im.setDisplayName(name);
-            stand.setCustomName(name);
+            Component custom = Component.text(name);
+            im.displayName(custom);
+            stand.customName(custom);
             stand.setCustomNameVisible(true);
         }
         if (preset == ChameleonPreset.COLOURED) {

@@ -20,7 +20,9 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.custommodels.keys.SonicVariant;
 import me.eccentric_nz.TARDIS.recipes.shaped.SonicScrewdriverRecipe;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -49,7 +51,7 @@ public class AdminUpgradeRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.BLAZE_ROD, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Admin Upgrade");
+        im.displayName(Component.text("Admin Upgrade", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         List<Float> sonicModel = SonicScrewdriverRecipe.sonicModelLookup.getOrDefault(plugin.getConfig().getString("sonic.default_model").toLowerCase(Locale.ROOT), SonicVariant.ELEVENTH.getFloats());
         CustomModelDataComponent component = im.getCustomModelDataComponent();
         component.setFloats(sonicModel);
@@ -60,7 +62,7 @@ public class AdminUpgradeRecipe {
         r.addIngredient(Material.BLAZE_ROD);
         ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta em = exact.getItemMeta();
-        em.setDisplayName(ChatColor.WHITE + "Server Admin Circuit");
+        em.displayName(Component.text("Server Admin Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         CustomModelDataComponent ecomponent = em.getCustomModelDataComponent();
         ecomponent.setFloats(CircuitVariant.ADMIN.getFloats());
         em.setCustomModelDataComponent(ecomponent);

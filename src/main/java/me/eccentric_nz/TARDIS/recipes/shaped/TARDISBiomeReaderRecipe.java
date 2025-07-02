@@ -19,7 +19,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -57,13 +59,13 @@ public class TARDISBiomeReaderRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.BRICK, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "TARDIS Biome Reader");
+        im.displayName(Component.text("TARDIS Biome Reader", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "tardis_biome_reader");
         ShapedRecipe r = new ShapedRecipe(key, is);
         ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta em = exact.getItemMeta();
-        em.setDisplayName(ChatColor.WHITE + "Emerald Environment Circuit");
+        em.displayName(Component.text("Emerald Environment Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         CustomModelDataComponent ecomponent = em.getCustomModelDataComponent();
         ecomponent.setFloats(CircuitVariant.EMERALD.getFloats());
         em.setCustomModelDataComponent(ecomponent);

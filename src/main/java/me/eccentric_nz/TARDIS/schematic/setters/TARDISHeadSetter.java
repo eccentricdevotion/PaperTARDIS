@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.schematic.setters;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
 import com.google.gson.JsonObject;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.desktop.TARDISRandomArchiveName;
@@ -24,7 +25,6 @@ import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.block.Block;
 import org.bukkit.block.Skull;
-import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
 
 import java.net.MalformedURLException;
@@ -48,14 +48,14 @@ public class TARDISHeadSetter {
             } else {
                 name = TARDISStringUtils.toLowercaseDashed(TARDISRandomArchiveName.getRandomName()).substring(0, 15);
             }
-            PlayerProfile profile = plugin.getServer().createPlayerProfile(uuid, name);
+            PlayerProfile profile = plugin.getServer().createProfile(uuid, name);
             PlayerTextures textures = profile.getTextures();
             URL url = URI.create(head.get("texture").getAsString()).toURL();
             textures.setSkin(url);
             profile.setTextures(textures);
             Skull skull = (Skull) block.getState();
             if (profile.isComplete()) {
-                skull.setOwnerProfile(profile);
+                skull.setPlayerProfile(profile);
             } else {
                 TARDIS.plugin.debug("Head texture could not be set due to incomplete player profile!");
             }

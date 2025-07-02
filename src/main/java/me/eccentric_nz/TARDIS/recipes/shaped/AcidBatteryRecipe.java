@@ -18,7 +18,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -48,13 +50,13 @@ public class AcidBatteryRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.NETHER_BRICK, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Acid Battery");
+        im.displayName(Component.text("Acid Battery", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "acid_battery");
         ShapedRecipe r = new ShapedRecipe(key, is);
         ItemStack exact = new ItemStack(Material.WATER_BUCKET, 1);
         ItemMeta em = exact.getItemMeta();
-        em.setDisplayName(ChatColor.WHITE + "Acid Bucket");
+        em.displayName(Component.text("Acid Bucket", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         exact.setItemMeta(em);
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
             r.shape(" A ", "ARA", " A ");

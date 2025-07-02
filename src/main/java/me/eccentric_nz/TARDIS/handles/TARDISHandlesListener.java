@@ -21,6 +21,8 @@ import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.custommodels.keys.Whoniverse;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetControls;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -65,8 +67,8 @@ public class TARDISHandlesListener implements Listener {
         // drop a custom BIRCH_BUTTON
         ItemStack is = new ItemStack(Material.BIRCH_BUTTON, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName("Handles");
-        im.setLore(List.of("Cyberhead from the", "Maldovar Market"));
+        im.displayName(Component.text("Handles"));
+        im.lore(List.of(Component.text("Cyberhead from the"), Component.text("Maldovar Market")));
         im.setItemModel(Whoniverse.HANDLES_OFF.getKey());
         im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.INTEGER, 1);
         is.setItemMeta(im);
@@ -84,7 +86,7 @@ public class TARDISHandlesListener implements Listener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (im.hasDisplayName() && im.getDisplayName().endsWith("Handles")) {
+        if (im.hasDisplayName() && TARDISStringUtils.stripColour(im.displayName()).endsWith("Handles")) {
             // can only be placed in an item frame
             event.setCancelled(true);
             plugin.getMessenger().send(event.getPlayer(), TardisModule.TARDIS, "HANDLES_FRAME");

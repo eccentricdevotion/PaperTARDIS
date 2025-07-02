@@ -21,14 +21,12 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.GUIArs;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +46,7 @@ public class TARDISARSInventory implements InventoryHolder {
 
     public TARDISARSInventory(TARDIS plugin, Player player) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Architectural Reconfiguration", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Architectural Reconfiguration", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack(player));
     }
 
@@ -68,13 +66,13 @@ public class TARDISARSInventory implements InventoryHolder {
         // direction pad up
         ItemStack pad_up = new ItemStack(GUIArs.BUTTON_UP.material(), 1);
         ItemMeta up = pad_up.getItemMeta();
-        up.setDisplayName(plugin.getLanguage().getString("BUTTON_UP"));
+        up.displayName(Component.text(plugin.getLanguage().getString("BUTTON_UP", "Up")));
         pad_up.setItemMeta(up);
         is[GUIArs.BUTTON_UP.slot()] = pad_up;
         // black wool
         ItemStack black = new ItemStack(GUIArs.BUTTON_MAP_ON.material(), 1);
         ItemMeta wool = black.getItemMeta();
-        wool.setDisplayName(plugin.getLanguage().getString("BUTTON_MAP_NO"));
+        wool.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MAP_NO")));
         black.setItemMeta(wool);
         for (int j = 0; j < 37; j += 9) {
             for (int k = 0; k < 5; k++) {
@@ -85,73 +83,73 @@ public class TARDISARSInventory implements InventoryHolder {
         // direction pad left
         ItemStack pad_left = new ItemStack(GUIArs.BUTTON_LEFT.material(), 1);
         ItemMeta left = pad_left.getItemMeta();
-        left.setDisplayName(plugin.getLanguage().getString("BUTTON_LEFT"));
+        left.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEFT", "Left")));
         pad_left.setItemMeta(left);
         is[GUIArs.BUTTON_LEFT.slot()] = pad_left;
         // load map
         ItemStack map = new ItemStack(GUIArs.BUTTON_MAP.material(), 1);
         ItemMeta load = map.getItemMeta();
-        load.setDisplayName(plugin.getLanguage().getString("BUTTON_MAP"));
+        load.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MAP")));
         map.setItemMeta(load);
         is[GUIArs.BUTTON_MAP.slot()] = map;
         // direction pad right
         ItemStack pad_right = new ItemStack(GUIArs.BUTTON_RIGHT.material(), 1);
         ItemMeta right = pad_right.getItemMeta();
-        right.setDisplayName(plugin.getLanguage().getString("BUTTON_RIGHT"));
+        right.displayName(Component.text(plugin.getLanguage().getString("BUTTON_RIGHT", "Right")));
         pad_right.setItemMeta(right);
         is[GUIArs.BUTTON_RIGHT.slot()] = pad_right;
         // set
         ItemStack s = new ItemStack(GUIArs.BUTTON_RECON.material(), 1);
         ItemMeta sim = s.getItemMeta();
-        sim.setDisplayName(plugin.getLanguage().getString("BUTTON_RECON"));
+        sim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_RECON")));
         s.setItemMeta(sim);
         is[GUIArs.BUTTON_RECON.slot()] = s;
         // direction pad down
         ItemStack pad_down = new ItemStack(GUIArs.BUTTON_DOWN.material(), 1);
         ItemMeta down = pad_down.getItemMeta();
-        down.setDisplayName(plugin.getLanguage().getString("BUTTON_DOWN"));
+        down.displayName(Component.text(plugin.getLanguage().getString("BUTTON_DOWN", "Down")));
         pad_down.setItemMeta(down);
         is[GUIArs.BUTTON_DOWN.slot()] = pad_down;
         // level bottom
         ItemStack level_bot = new ItemStack(GUIArs.BUTTON_LEVEL_B.material(), 1);
         ItemMeta bot = level_bot.getItemMeta();
-        bot.setDisplayName(plugin.getLanguage().getString("BUTTON_LEVEL_B"));
+        bot.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL_B")));
         level_bot.setItemMeta(bot);
         is[GUIArs.BUTTON_LEVEL_B.slot()] = level_bot;
         // level selected
         ItemStack level_sel = new ItemStack(GUIArs.BUTTON_LEVEL.material(), 1);
         ItemMeta main = level_sel.getItemMeta();
-        main.setDisplayName(plugin.getLanguage().getString("BUTTON_LEVEL"));
+        main.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL")));
         level_sel.setItemMeta(main);
         is[GUIArs.BUTTON_LEVEL.slot()] = level_sel;
         // level top
         ItemStack level_top = new ItemStack(GUIArs.BUTTON_LEVEL_T.material(), 1);
         ItemMeta top = level_top.getItemMeta();
-        top.setDisplayName(plugin.getLanguage().getString("BUTTON_LEVEL_T"));
+        top.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL_T")));
         level_top.setItemMeta(top);
         is[GUIArs.BUTTON_LEVEL_T.slot()] = level_top;
         // reset
         ItemStack reset = new ItemStack(GUIArs.BUTTON_RESET.material(), 1);
         ItemMeta cobble = reset.getItemMeta();
-        cobble.setDisplayName(plugin.getLanguage().getString("BUTTON_RESET"));
+        cobble.displayName(Component.text(plugin.getLanguage().getString("BUTTON_RESET")));
         reset.setItemMeta(cobble);
         is[GUIArs.BUTTON_RESET.slot()] = reset;
         // scroll left
         ItemStack scroll_left = new ItemStack(GUIArs.BUTTON_SCROLL_L.material(), 1);
         ItemMeta nim = scroll_left.getItemMeta();
-        nim.setDisplayName(plugin.getLanguage().getString("BUTTON_SCROLL_L"));
+        nim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_L")));
         scroll_left.setItemMeta(nim);
         is[GUIArs.BUTTON_SCROLL_L.slot()] = scroll_left;
         // scroll right
         ItemStack scroll_right = new ItemStack(GUIArs.BUTTON_SCROLL_R.material(), 1);
         ItemMeta pim = scroll_right.getItemMeta();
-        pim.setDisplayName(plugin.getLanguage().getString("BUTTON_SCROLL_R"));
+        pim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_R")));
         scroll_right.setItemMeta(pim);
         is[GUIArs.BUTTON_SCROLL_R.slot()] = scroll_right;
         // jettison
         ItemStack jettison = new ItemStack(GUIArs.BUTTON_JETT.material(), 1);
         ItemMeta tnt = jettison.getItemMeta();
-        tnt.setDisplayName(plugin.getLanguage().getString("BUTTON_JETT"));
+        tnt.displayName(Component.text(plugin.getLanguage().getString("BUTTON_JETT")));
         jettison.setItemMeta(tnt);
         is[GUIArs.BUTTON_JETT.slot()] = jettison;
 
@@ -160,14 +158,14 @@ public class TARDISARSInventory implements InventoryHolder {
             if (a.getOffset() != 0 && i < 54) {
                 ItemStack room = new ItemStack(Material.getMaterial(a.getMaterial()), 1);
                 ItemMeta im = room.getItemMeta();
-                im.setDisplayName(a.getDescriptiveName());
-                List<String> lore = new ArrayList<>();
-                lore.add("Cost: " + plugin.getRoomsConfig().getInt("rooms." + a + ".cost"));
+                im.displayName(Component.text(a.getDescriptiveName()));
+                List<Component> lore = new ArrayList<>();
+                lore.add(Component.text("Cost: " + plugin.getRoomsConfig().getInt("rooms." + a + ".cost")));
                 String roomName = TARDISARS.ARSFor(room.getType().toString()).getConfigPath();
                 if (player != null && !TARDISPermission.hasPermission(player, "tardis.room." + roomName.toLowerCase(Locale.ROOT))) {
-                    lore.add(ChatColor.RED + plugin.getLanguage().getString("NO_PERM_CONSOLE"));
+                    lore.add(Component.text(plugin.getLanguage().getString("NO_PERM_CONSOLE", "No permission!"), NamedTextColor.RED));
                 }
-                im.setLore(lore);
+                im.lore(lore);
                 room.setItemMeta(im);
                 is[i] = room;
                 i++;

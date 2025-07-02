@@ -21,6 +21,8 @@ import me.eccentric_nz.TARDIS.api.event.TARDISChameleonArchEvent;
 import me.eccentric_nz.TARDIS.api.event.TARDISChameleonArchOffEvent;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -59,7 +61,7 @@ public class TARDISFobWatchListener implements Listener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (!im.hasDisplayName() || !im.getDisplayName().endsWith("Fob Watch")) {
+        if (!im.hasDisplayName() || !TARDISStringUtils.stripColour(im.displayName()).endsWith("Fob Watch")) {
             return;
         }
         Player player = event.getPlayer();
@@ -92,8 +94,9 @@ public class TARDISFobWatchListener implements Listener {
                 TARDISArchDisguise.disguise(player, name);
             }
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                player.setDisplayName(name);
-                player.setPlayerListName(name);
+                Component component = Component.text(name);
+                player.displayName(component);
+                player.playerListName(component);
             }, 5L);
             plugin.getPM().callEvent(new TARDISChameleonArchEvent(player, twd));
         } else if (plugin.getTrackerKeeper().getJohnSmith().get(uuid).getTime() <= System.currentTimeMillis()) {
@@ -109,8 +112,9 @@ public class TARDISFobWatchListener implements Listener {
             player.getWorld().strikeLightningEffect(player.getLocation());
             plugin.getTrackerKeeper().getJohnSmith().remove(uuid);
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                player.setDisplayName(player.getName());
-                player.setPlayerListName(player.getName());
+                Component component = Component.text(player.getName());
+                player.displayName(component);
+                player.playerListName(component);
             }, 5L);
             // remove player from arched table
             new TARDISArchPersister(plugin).removeArch(uuid);

@@ -34,6 +34,9 @@ import me.eccentric_nz.TARDIS.sonic.TARDISSonicDock;
 import me.eccentric_nz.TARDIS.update.TARDISUpdateBlocks;
 import me.eccentric_nz.TARDIS.update.TARDISUpdateableChecker;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -102,7 +105,7 @@ class TARDISUpdateCommand {
                 return false;
             }
             HashMap<String, Object> where = new HashMap<>();
-            UUID uuid = (TARDISSudoTracker.SUDOERS.containsKey(playerUUID)) ? TARDISSudoTracker.SUDOERS.get(playerUUID) : playerUUID;
+            UUID uuid = TARDISSudoTracker.SUDOERS.getOrDefault(playerUUID, playerUUID);
             where.put("uuid", uuid);
             ResultSetTardis rs = new ResultSetTardis(plugin, where, "", false);
             if (!rs.resultSet()) {
@@ -161,7 +164,7 @@ class TARDISUpdateCommand {
                             // reinstate display name
                             ItemStack glass = itemFrame.getItem();
                             ItemMeta im = glass.getItemMeta();
-                            im.setDisplayName("Monitor Frame");
+                            im.displayName(Component.text("Monitor Frame", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
                             glass.setItemMeta(im);
                         }
                         case SONIC_DOCK -> itemFrame = TARDISSonicDock.getItemFrame(tardis.getTardisId());

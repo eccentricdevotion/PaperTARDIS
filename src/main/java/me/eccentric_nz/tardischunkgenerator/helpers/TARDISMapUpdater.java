@@ -17,7 +17,6 @@
 package me.eccentric_nz.tardischunkgenerator.helpers;
 
 import com.mojang.authlib.GameProfile;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MapItem;

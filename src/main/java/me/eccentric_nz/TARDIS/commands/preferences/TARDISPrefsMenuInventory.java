@@ -17,6 +17,7 @@
 package me.eccentric_nz.TARDIS.commands.preferences;
 
 import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.GUIPlayerPreferences;
 import me.eccentric_nz.TARDIS.database.data.Tardis;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
@@ -28,6 +29,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -53,7 +55,7 @@ public class TARDISPrefsMenuInventory implements InventoryHolder {
     public TARDISPrefsMenuInventory(TARDIS plugin, UUID uuid) {
         this.plugin = plugin;
         this.uuid = uuid;
-        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Player Prefs Menu", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Player Prefs Menu", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -81,6 +83,7 @@ public class TARDISPrefsMenuInventory implements InventoryHolder {
             rsp = new ResultSetPlayerPrefs(plugin, uuid.toString());
             rsp.resultSet();
         }
+        Player player = plugin.getServer().getPlayer(uuid);
         values.add(rsp.isAutoOn()); // 0
         values.add(rsp.isAutoSiegeOn()); // 1
         values.add(rsp.isAutoRescueOn()); // 2
@@ -119,7 +122,7 @@ public class TARDISPrefsMenuInventory implements InventoryHolder {
             String chunk = tardis != null ? rst.getTardis().getChunk() : "TARDIS_TimeVortex:1";
             String[] split = chunk.split(":");
             World world = plugin.getServer().getWorld(split[0]);
-            values.add(!plugin.getWorldGuardUtils().queryContainers(world, plugin.getServer().getPlayer(uuid).getName())); // lock containers - 23
+            values.add(!plugin.getWorldGuardUtils().queryContainers(world, player.getName())); // lock containers - 23
         } else {
             values.add(false); // 23
             // make a stack
@@ -131,7 +134,7 @@ public class TARDISPrefsMenuInventory implements InventoryHolder {
             if (pref.getMaterial() == Material.REPEATER) {
                 ItemStack is = new ItemStack(pref.getMaterial(), 1);
                 ItemMeta im = is.getItemMeta();
-                im.setDisplayName(pref.getName());
+                im.displayName(Component.text(pref.getName()));
                 boolean v;
                 if (pref == GUIPlayerPreferences.JUNK_TARDIS) {
                     v = (tardis != null && tardis.getPreset().equals(ChameleonPreset.JUNK_MODE));
@@ -144,9 +147,13 @@ public class TARDISPrefsMenuInventory implements InventoryHolder {
                     im.setCustomModelDataComponent(component);
                 }
                 if (pref == GUIPlayerPreferences.HADS_TYPE) {
-                    im.setLore(List.of(v ? "DISPERSAL" : "DISPLACEMENT"));
+                    im.lore(List.of(Component.text(v ? "DISPERSAL" : "DISPLACEMENT")));
                 } else {
-                    im.setLore(List.of(v ? plugin.getLanguage().getString("SET_ON", "ON") : plugin.getLanguage().getString("SET_OFF", "OFF")));
+                    im.lore(List.of(
+                            Component.text(v
+                                    ? plugin.getLanguage().getString("SET_ON", "ON")
+                                    : plugin.getLanguage().getString("SET_OFF", "OFF"))
+                    ));
                 }
                 is.setItemMeta(im);
                 stack[pref.getSlot()] = is;
@@ -158,67 +165,71 @@ public class TARDISPrefsMenuInventory implements InventoryHolder {
         // flight mode
         ItemStack fli = new ItemStack(Material.ELYTRA, 1);
         ItemMeta ght_im = fli.getItemMeta();
-        ght_im.setDisplayName("Flight Mode");
+        ght_im.displayName(Component.text("Flight Mode"));
         String mode_value = FlightMode.getByMode().get(rsp.getFlightMode()).toString();
-        ght_im.setLore(List.of(mode_value));
+        ght_im.lore(List.of(Component.text(mode_value)));
         fli.setItemMeta(ght_im);
         stack[GUIPlayerPreferences.FLIGHT_MODE.getSlot()] = fli;
         // interior hum sound
         ItemStack hum = new ItemStack(Material.BOWL, 1);
         ItemMeta hum_im = hum.getItemMeta();
-        hum_im.setDisplayName("Interior Hum Sound");
+        hum_im.displayName(Component.text("Interior Hum Sound"));
         String hum_value = (rsp.getHum().isEmpty()) ? "random" : rsp.getHum();
-        hum_im.setLore(List.of(hum_value));
+        hum_im.lore(List.of(Component.text(hum_value)));
         hum.setItemMeta(hum_im);
         stack[GUIPlayerPreferences.INTERIOR_HUM_SOUND.getSlot()] = hum;
         // handbrake
         ItemStack hand = new ItemStack(Material.LEVER, 1);
         ItemMeta brake = hand.getItemMeta();
-        brake.setDisplayName("Handbrake");
-        brake.setLore(List.of((tardis != null && tardis.isHandbrakeOn()) ? plugin.getLanguage().getString("SET_ON", "ON") : plugin.getLanguage().getString("SET_OFF", "OFF")));
+        brake.displayName(Component.text("Handbrake"));
+        brake.lore(List.of(Component.text(
+                (tardis != null && tardis.isHandbrakeOn())
+                        ? plugin.getLanguage().getString("SET_ON", "ON")
+                        : plugin.getLanguage().getString("SET_OFF", "OFF"))
+        ));
         hand.setItemMeta(brake);
         stack[GUIPlayerPreferences.HANDBRAKE.getSlot()] = hand;
         // map
         ItemStack tt = new ItemStack(Material.MAP, 1);
         ItemMeta map = tt.getItemMeta();
-        map.setDisplayName("TARDIS Map");
+        map.displayName(Component.text("TARDIS Map"));
         tt.setItemMeta(map);
         stack[GUIPlayerPreferences.TARDIS_MAP.getSlot()] = tt;
-        if (plugin.getServer().getPlayer(uuid).hasPermission("tardis.autonomous")) {
+        if (TARDISPermission.hasPermission(player, "tardis.autonomous")) {
             // autonomous preferences
             ItemStack auto = new ItemStack(Material.BOWL, 1);
             ItemMeta prefs = auto.getItemMeta();
-            prefs.setDisplayName("Autonomous Preferences");
+            prefs.displayName(Component.text("Autonomous Preferences"));
             auto.setItemMeta(prefs);
             stack[GUIPlayerPreferences.AUTONOMOUS_PREFERENCES.getSlot()] = auto;
         }
-        if (plugin.getServer().getPlayer(uuid).hasPermission("tardis.farm")) {
+        if (TARDISPermission.hasPermission(player, "tardis.farm")) {
             // farming preferences
             ItemStack farm = new ItemStack(Material.BOWL, 1);
             ItemMeta ing = farm.getItemMeta();
-            ing.setDisplayName("Farming Preferences");
+            ing.displayName(Component.text("Farming Preferences"));
             farm.setItemMeta(ing);
             stack[GUIPlayerPreferences.FARMING_PREFERENCES.getSlot()] = farm;
         }
         // sonic configurator
         ItemStack sonic = new ItemStack(Material.BOWL, 1);
         ItemMeta config = sonic.getItemMeta();
-        config.setDisplayName("Sonic Configurator");
+        config.displayName(Component.text("Sonic Configurator"));
         sonic.setItemMeta(config);
         stack[GUIPlayerPreferences.SONIC_CONFIGURATOR.getSlot()] = sonic;
-        if (plugin.getServer().getPlayer(uuid).hasPermission("tardis.particles")) {
+        if (TARDISPermission.hasPermission(player, "tardis.particles")) {
             // particle preferences
             ItemStack part = new ItemStack(Material.BOWL, 1);
             ItemMeta icles = part.getItemMeta();
-            icles.setDisplayName("Materialisation Particles");
+            icles.displayName(Component.text("Materialisation Particles"));
             part.setItemMeta(icles);
             stack[GUIPlayerPreferences.PARTICLES.getSlot()] = part;
         }
-        if (plugin.getServer().getPlayer(uuid).hasPermission("tardis.admin")) {
+        if (TARDISPermission.hasPermission(player, "tardis.admin")) {
             // admin
             ItemStack ad = new ItemStack(Material.NETHER_STAR, 1);
             ItemMeta min = ad.getItemMeta();
-            min.setDisplayName("Admin Config Menu");
+            min.displayName(Component.text("Admin Config Menu"));
             ad.setItemMeta(min);
             stack[GUIPlayerPreferences.ADMIN_MENU.getSlot()] = ad;
         }

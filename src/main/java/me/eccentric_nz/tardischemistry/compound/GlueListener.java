@@ -18,6 +18,7 @@ package me.eccentric_nz.tardischemistry.compound;
 
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.keys.ChemistryBottle;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -43,7 +44,7 @@ public class GlueListener implements Listener {
                 ItemStack is = event.getItem();
                 if (is != null && is.getType().equals(Material.GLASS_BOTTLE) && is.hasItemMeta()) {
                     ItemMeta im = is.getItemMeta();
-                    if (im.hasDisplayName() && im.getDisplayName().endsWith("Glue") && im.hasItemModel() && ChemistryBottle.GLUE.getKey().equals(im.getItemModel())) {
+                    if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "Glue") && im.hasItemModel() && ChemistryBottle.GLUE.getKey().equals(im.getItemModel())) {
                         player.playSound(player.getLocation(), Sound.ENTITY_SLIME_SQUISH, 1.0f, 1.0f);
                         // switch piston to sticky piston
                         Piston blockData = (Piston) block.getBlockData();

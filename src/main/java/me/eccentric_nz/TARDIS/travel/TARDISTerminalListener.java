@@ -32,6 +32,8 @@ import me.eccentric_nz.TARDIS.flight.TARDISLand;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -168,8 +170,7 @@ public class TARDISTerminalListener implements Listener {
                     // set lore
                     ItemStack is = view.getItem(49);
                     ItemMeta im = is.getItemMeta();
-                    List<String> lore = List.of("No valid destination has been set!");
-                    im.setLore(lore);
+                    im.lore(List.of(Component.text("No valid destination has been set!")));
                     is.setItemMeta(im);
                 }
             }
@@ -207,7 +208,7 @@ public class TARDISTerminalListener implements Listener {
                 String sub = (rsp.isSubmarineOn()) ? "true" : "false";
                 ItemStack is = inv.getItem(44);
                 ItemMeta im = is.getItemMeta();
-                im.setLore(List.of(sub));
+                im.lore(List.of(Component.text(sub)));
                 is.setItemMeta(im);
             }
         }
@@ -230,7 +231,7 @@ public class TARDISTerminalListener implements Listener {
         }
     }
 
-    private List<String> getLoreValue(int max, int slot, boolean signed, UUID uuid) {
+    private List<Component> getLoreValue(int max, int slot, boolean signed, UUID uuid) {
         int step = terminalStep.getOrDefault(uuid, 50);
         int val = max - slot;
         String str = switch (val) {
@@ -242,7 +243,7 @@ public class TARDISTerminalListener implements Listener {
             case 6 -> (signed) ? "-" + (3 * step) : "x" + 1;
             default -> (signed) ? "0" : "x" + 4;
         };
-        return List.of(str);
+        return List.of(Component.text(str));
     }
 
     private int getValue(int max, int slot, boolean signed, UUID uuid) {
@@ -269,9 +270,9 @@ public class TARDISTerminalListener implements Listener {
             default -> new ItemStack(Material.PURPLE_WOOL, 1);
         };
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(row);
-        List<String> lore = getLoreValue(max, new_slot, signed, uuid);
-        im.setLore(lore);
+        im.displayName(Component.text(row));
+        List<Component> lore = getLoreValue(max, new_slot, signed, uuid);
+        im.lore(lore);
         is.setItemMeta(im);
         view.setItem(new_slot, is);
     }
@@ -285,34 +286,34 @@ public class TARDISTerminalListener implements Listener {
         }
         int[] slots = new int[]{36, 38, 40, 42};
         for (int i : slots) {
-            List<String> lore = null;
+            List<Component> lore = null;
             ItemStack is = view.getItem(i);
             ItemMeta im = is.getItemMeta();
             if (i == slot) {
                 switch (slot) {
                     case 38 ->
                         // get a normal world
-                            lore = List.of(getWorld("NORMAL", current, p));
+                            lore = List.of(Component.text(getWorld("NORMAL", current, p)));
                     case 40 -> {
                         // get a nether world
                         if (plugin.getConfig().getBoolean("travel.nether") || !plugin.getConfig().getBoolean("travel.terminal.redefine")) {
-                            lore = List.of(getWorld("NETHER", current, p));
+                            lore = List.of(Component.text(getWorld("NETHER", current, p)));
                         } else {
-                            lore = List.of(getWorld(plugin.getConfig().getString("travel.terminal.nether"), current, p));
+                            lore = List.of(Component.text(getWorld(plugin.getConfig().getString("travel.terminal.nether"), current, p)));
                         }
                     }
                     case 42 -> {
                         // get an end world
                         if (plugin.getConfig().getBoolean("travel.the_end") || !plugin.getConfig().getBoolean("travel.terminal.redefine")) {
-                            lore = List.of(getWorld("THE_END", current, p));
+                            lore = List.of(Component.text(getWorld("THE_END", current, p)));
                         } else {
-                            lore = List.of(getWorld(plugin.getConfig().getString("travel.terminal.the_end"), current, p));
+                            lore = List.of(Component.text(getWorld(plugin.getConfig().getString("travel.terminal.the_end"), current, p)));
                         }
                     }
-                    default -> lore = List.of(current);
+                    default -> lore = List.of(Component.text(current));
                 }
             }
-            im.setLore(lore);
+            im.lore(lore);
             is.setItemMeta(im);
         }
     }
@@ -323,7 +324,7 @@ public class TARDISTerminalListener implements Listener {
             String bool = (rsp.isSubmarineOn()) ? "false" : "true";
             ItemStack is = view.getItem(44);
             ItemMeta im = is.getItemMeta();
-            im.setLore(List.of(bool));
+            im.lore(List.of(Component.text(bool)));
             is.setItemMeta(im);
             int tf = (rsp.isSubmarineOn()) ? 0 : 1;
             HashMap<String, Object> set = new HashMap<>();
@@ -384,7 +385,7 @@ public class TARDISTerminalListener implements Listener {
         int slotm = getValue(34, getSlot(view, 28, 34), false, uuid) * plugin.getConfig().getInt("travel.terminal_step");
         int slotx = getValue(16, getSlot(view, 10, 16), true, uuid) * slotm;
         int slotz = getValue(25, getSlot(view, 19, 25), true, uuid) * slotm;
-        List<String> lore = new ArrayList<>();
+        List<Component> lore = new ArrayList<>();
         COMPASS d = terminalUsers.get(uuid).direction();
         // what kind of world is it?
         Environment e;
@@ -392,10 +393,13 @@ public class TARDISTerminalListener implements Listener {
         boolean found = false;
         for (int i : slots) {
             if (view.getItem(i).getItemMeta().hasLore()) {
-                String world = view.getItem(i).getItemMeta().getLore().getFirst();
+                String world = TARDISStringUtils.stripColour(view.getItem(i).getItemMeta().lore().getFirst());
                 if (!world.equals("No permission")) {
                     found = true;
-                    World w = (!plugin.getPlanetsConfig().getBoolean("planets." + world + ".enabled") && plugin.getWorldManager().equals(WorldManager.MULTIVERSE)) ? plugin.getMVHelper().getWorld(world) : TARDISAliasResolver.getWorldFromAlias(world);
+                    World w = (!plugin.getPlanetsConfig().getBoolean("planets." + world + ".enabled")
+                            && plugin.getWorldManager().equals(WorldManager.MULTIVERSE))
+                            ? plugin.getMVHelper().getWorld(world)
+                            : TARDISAliasResolver.getWorldFromAlias(world);
                     e = w.getEnvironment();
                     if (plugin.getPlanetsConfig().getBoolean("planets." + w.getName() + ".false_nether")) {
                         e = Environment.NETHER;
@@ -418,31 +422,31 @@ public class TARDISTerminalListener implements Listener {
                                     String save = world + ":" + slotx + ":" + endy + ":" + slotz;
                                     if (plugin.getPluginRespect().getRespect(new Location(w, slotx, endy, slotz), new Parameters(p, Flag.getNoMessageFlags()))) {
                                         terminalDestination.put(uuid, save);
-                                        lore.add(save);
-                                        lore.add("is a valid destination!");
+                                        lore.add(Component.text(save));
+                                        lore.add(Component.text("is a valid destination!"));
                                     } else {
-                                        lore.add(save);
-                                        lore.add("is a protected location.");
-                                        lore.add("Try again!");
+                                        lore.add(Component.text(save));
+                                        lore.add(Component.text("is a protected location."));
+                                        lore.add(Component.text("Try again!"));
                                     }
                                 } else {
-                                    lore.add(loc_str);
-                                    lore.add("is not safe!");
+                                    lore.add(Component.text(loc_str));
+                                    lore.add(Component.text("is not safe!"));
                                 }
                             } else {
-                                lore.add(loc_str);
-                                lore.add("is not safe!");
+                                lore.add(Component.text(loc_str));
+                                lore.add(Component.text("is not safe!"));
                             }
                         }
                         case NETHER -> {
                             if (tt.safeNether(w, slotx, slotz, d, p)) {
                                 String save = world + ":" + slotx + ":" + plugin.getUtils().getHighestNetherBlock(w, slotx, slotz) + ":" + slotz;
                                 terminalDestination.put(uuid, save);
-                                lore.add(save);
-                                lore.add("is a valid destination!");
+                                lore.add(Component.text(save));
+                                lore.add(Component.text("is a valid destination!"));
                             } else {
-                                lore.add(loc_str);
-                                lore.add("is not safe!");
+                                lore.add(Component.text(loc_str));
+                                lore.add(Component.text("is not safe!"));
                             }
                         }
                         default -> {
@@ -457,7 +461,7 @@ public class TARDISTerminalListener implements Listener {
                             // check submarine
                             ItemMeta subim = view.getItem(44).getItemMeta();
                             loc.setY(starty);
-                            if (subim.hasLore() && subim.getLore().getFirst().equals("true") && TARDISStaticUtils.isOceanBiome(loc.getBlock().getBiome())) {
+                            if (subim.hasLore() && TARDISStringUtils.stripColour(subim.lore().getFirst()).equals("true") && TARDISStaticUtils.isOceanBiome(loc.getBlock().getBiome())) {
                                 Location subloc = tt.submarine(loc.getBlock(), d);
                                 if (subloc != null) {
                                     safe = 0;
@@ -473,16 +477,16 @@ public class TARDISTerminalListener implements Listener {
                                 String save = world + ":" + slotx + ":" + starty + ":" + slotz;
                                 if (plugin.getPluginRespect().getRespect(new Location(w, slotx, starty, slotz), new Parameters(p, Flag.getNoMessageFlags()))) {
                                     terminalDestination.put(uuid, save);
-                                    lore.add(save);
-                                    lore.add("is a valid destination!");
+                                    lore.add(Component.text(save));
+                                    lore.add(Component.text("is a valid destination!"));
                                 } else {
-                                    lore.add(save);
-                                    lore.add("is a protected location.");
-                                    lore.add("Try again!");
+                                    lore.add(Component.text(save));
+                                    lore.add(Component.text("is a protected location."));
+                                    lore.add(Component.text("Try again!"));
                                 }
                             } else {
-                                lore.add(loc_str);
-                                lore.add("is not safe!");
+                                lore.add(Component.text(loc_str));
+                                lore.add(Component.text("is not safe!"));
                             }
                         }
                     }
@@ -490,11 +494,11 @@ public class TARDISTerminalListener implements Listener {
             }
         }
         if (!found) {
-            lore.add("You need to select a world!");
+            lore.add(Component.text("You need to select a world!"));
         }
         ItemStack is = view.getItem(46);
         ItemMeta im = is.getItemMeta();
-        im.setLore(lore);
+        im.lore(lore);
         is.setItemMeta(im);
     }
 

@@ -54,7 +54,7 @@ public class TARDISSavesInventory implements InventoryHolder {
         this.plugin = plugin;
         this.id = id;
         this.world = world;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS saves", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS saves", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -112,19 +112,19 @@ public class TARDISSavesInventory implements InventoryHolder {
                         }
                         ItemStack is = new ItemStack(material, 1);
                         ItemMeta im = is.getItemMeta();
-                        im.setDisplayName(map.dest_name());
-                        List<String> lore = new ArrayList<>();
+                        im.displayName(Component.text(map.dest_name()));
+                        List<Component> lore = new ArrayList<>();
                         String world = (!plugin.getPlanetsConfig().getBoolean("planets." + map.world() + ".enabled") && plugin.getWorldManager().equals(WorldManager.MULTIVERSE)) ? plugin.getMVHelper().getAlias(map.world()) : TARDISAliasResolver.getWorldAlias(map.world());
-                        lore.add(world);
-                        lore.add("" + map.x());
-                        lore.add("" + map.y());
-                        lore.add("" + map.z());
-                        lore.add(map.direction());
-                        lore.add("" + map.submarine());
+                        lore.add(Component.text(world));
+                        lore.add(Component.text("" + map.x()));
+                        lore.add(Component.text("" + map.y()));
+                        lore.add(Component.text("" + map.z()));
+                        lore.add(Component.text(map.direction()));
+                        lore.add(Component.text(map.submarine()));
                         if (!map.preset().isEmpty()) {
-                            lore.add(map.preset());
+                            lore.add(Component.text(map.preset()));
                         }
-                        im.setLore(lore);
+                        im.lore(lore);
                         is.setItemMeta(im);
                         dests.put(slot, is);
                         i++;
@@ -138,17 +138,17 @@ public class TARDISSavesInventory implements InventoryHolder {
         // add button to allow rearranging saves
         ItemStack tool = new ItemStack(GUISaves.REARRANGE_SAVES.material(), 1);
         ItemMeta rearrange = tool.getItemMeta();
-        rearrange.setDisplayName("Rearrange saves");
+        rearrange.displayName(Component.text("Rearrange saves"));
         tool.setItemMeta(rearrange);
         // add button to allow deleting saves
         ItemStack bucket = new ItemStack(GUISaves.DELETE_SAVE.material(), 1);
         ItemMeta delete = bucket.getItemMeta();
-        delete.setDisplayName("Delete save");
+        delete.displayName(Component.text("Delete save"));
         bucket.setItemMeta(delete);
         // add button to go back to planets
         ItemStack planet = new ItemStack(GUISaves.BACK_TO_PLANETS.material(), 1);
         ItemMeta map = planet.getItemMeta();
-        map.setDisplayName("Back to Dimension Map");
+        map.displayName(Component.text("Back to Dimension Map"));
         planet.setItemMeta(map);
         for (int m = 45; m < 54; m++) {
             switch (m) {

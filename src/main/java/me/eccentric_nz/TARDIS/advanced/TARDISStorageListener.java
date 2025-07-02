@@ -24,7 +24,7 @@ import me.eccentric_nz.TARDIS.enumeration.Storage;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.handles.TARDISHandlesProgramInventory;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -91,7 +91,7 @@ public class TARDISStorageListener extends TARDISMenuListener {
                     return;
                 }
                 ItemMeta ims = stack.getItemMeta();
-                if (!ims.hasDisplayName() || !ims.getDisplayName().endsWith("Area Storage Disk")) {
+                if (!ims.hasDisplayName() || !TARDISStringUtils.endsWith(ims.displayName(), "Area Storage Disk")) {
                     return;
                 }
                 Player p = (Player) event.getPlayer();
@@ -216,7 +216,7 @@ public class TARDISStorageListener extends TARDISMenuListener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (im == null || !im.hasDisplayName() || !im.getDisplayName().endsWith("Area Storage Disk")) {
+        if (im == null || !im.hasDisplayName() || !TARDISStringUtils.endsWith(im.displayName(), "Area Storage Disk")) {
             return;
         }
         event.setCancelled(true);
@@ -262,7 +262,7 @@ public class TARDISStorageListener extends TARDISMenuListener {
                         ItemMeta im = is.getItemMeta();
                         if (im.hasDisplayName()) {
                             if (is.getType().equals(Material.FILLED_MAP)) {
-                                GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(im.getDisplayName());
+                                GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(im.displayName());
                                 if (glowstone != null) {
                                     is.setType(Material.GLOWSTONE_DUST);
                                     is.setItemMeta(im);

@@ -20,7 +20,8 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.keys.SonicVariant;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -59,11 +60,11 @@ public class TARDISSonicUpgradeListener implements Listener {
                 ItemMeta im = is.getItemMeta();
                 // get the upgrade
                 boolean found = false;
-                String upgrade = im.getDisplayName();
+                String upgrade = TARDISStringUtils.stripColour(im.displayName());
                 for (ItemStack glowstone : ci.getContents()) {
                     if (glowstone != null && glowstone.getType().equals(Material.GLOWSTONE_DUST) && glowstone.hasItemMeta()) {
                         ItemMeta rm = glowstone.getItemMeta();
-                        String displayName = ChatColor.stripColor(rm.getDisplayName());
+                        String displayName = TARDISStringUtils.stripColour(rm.displayName());
                         upgrade = SonicUpgradeData.displayNames.get(displayName);
                         found = true;
                     }
@@ -101,15 +102,15 @@ public class TARDISSonicUpgradeListener implements Listener {
                     if (sim.hasCustomModelDataComponent()) {
                         floats = sim.getCustomModelDataComponent().getFloats();
                     }
-                    String dn = sim.getDisplayName();
-                    List<String> lore;
+                    String dn = TARDISStringUtils.stripColour(sim.displayName());
+                    List<Component> lore;
                     if (sim.hasLore()) {
                         // get the current sonic's upgrades
-                        lore = sim.getLore();
+                        lore = sim.lore();
                     } else {
                         // otherwise this is the first upgrade
                         lore = new ArrayList<>();
-                        lore.add("Upgrades:");
+                        lore.add(Component.text("Upgrades:"));
                     }
                     // if they don't already have the upgrade
                     if (!lore.contains(upgrade)) {
@@ -122,11 +123,11 @@ public class TARDISSonicUpgradeListener implements Listener {
                 }
             }
         } else if (recipe instanceof ShapedRecipe) {
-            if (is == null || !is.hasItemMeta() || !is.getItemMeta().hasDisplayName() || !is.getItemMeta().getDisplayName().endsWith("TARDIS Remote Key")) {
+            if (is == null || !is.hasItemMeta() || !is.getItemMeta().hasDisplayName() || !TARDISStringUtils.endsWith(is.getItemMeta().displayName(), "TARDIS Remote Key")) {
                 return;
             }
             ItemStack key = ci.getItem(5);
-            if (!key.hasItemMeta() || !key.getItemMeta().hasDisplayName() || !key.getItemMeta().getDisplayName().endsWith("TARDIS Key")) {
+            if (!key.hasItemMeta() || !key.getItemMeta().hasDisplayName() || !TARDISStringUtils.endsWith(key.getItemMeta().displayName(), "TARDIS Key")) {
                 ci.setResult(null);
                 TARDIS.plugin.getMessenger().send(event.getView().getPlayer(), TardisModule.TARDIS, "REMOTE_KEY");
             }

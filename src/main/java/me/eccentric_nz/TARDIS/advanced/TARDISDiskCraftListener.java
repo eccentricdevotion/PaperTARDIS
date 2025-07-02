@@ -20,6 +20,8 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.BiomeLookup;
 import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
@@ -73,28 +75,28 @@ public class TARDISDiskCraftListener implements Listener {
                     return;
                 }
                 ItemMeta im = is.getItemMeta();
-                if (!im.hasDisplayName() || !im.getDisplayName().endsWith("Biome Storage Disk") || !im.hasLore()) {
+                if (!im.hasDisplayName() || !TARDISStringUtils.stripColour(im.displayName()).endsWith("Biome Storage Disk") || !im.hasLore()) {
                     return;
                 }
-                List<String> lore = im.getLore();
-                if (!lore.getFirst().equals("Blank")) {
+                List<Component> lore = im.lore();
+                if (!TARDISStringUtils.stripColour(lore.getFirst()).equals("Blank")) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "DISK_BLANK_BIOME");
                     return;
                 }
-                List<String> disk_lore = new ArrayList<>();
+                List<Component> disk_lore = new ArrayList<>();
                 // biome disk
                 Material lookup = items.getFirst().getType();
                 Biome biome = BiomeLookup.MATERIALS.get(lookup);
                 if (biome != null) {
-                    disk_lore.add(biome.toString());
+                    disk_lore.add(Component.text(biome.toString()));
                 }
                 if (disk_lore.isEmpty()) {
                     return;
                 }
                 disk = new ItemStack(Material.MUSIC_DISC_CAT, 1);
                 ItemMeta dim = disk.getItemMeta();
-                dim.setDisplayName("Biome Storage Disk");
-                dim.setLore(disk_lore);
+                dim.displayName(Component.text("Biome Storage Disk"));
+                dim.lore(disk_lore);
                 disk.setItemMeta(dim);
                 inv.setItem(0, disk);
                 player.updateInventory();
@@ -105,11 +107,11 @@ public class TARDISDiskCraftListener implements Listener {
                     return;
                 }
                 ItemMeta im = is.getItemMeta();
-                if (!im.hasDisplayName() || !im.getDisplayName().endsWith("Preset Storage Disk") || !im.hasLore()) {
+                if (!im.hasDisplayName() || !TARDISStringUtils.stripColour(im.displayName()).endsWith("Preset Storage Disk") || !im.hasLore()) {
                     return;
                 }
-                List<String> lore = im.getLore();
-                if (!lore.getFirst().equals("Blank")) {
+                List<Component> lore = im.lore();
+                if (!TARDISStringUtils.stripColour(lore.getFirst()).equals("Blank")) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "DISK_BLANK_PRESET");
                     return;
                 }
@@ -125,11 +127,10 @@ public class TARDISDiskCraftListener implements Listener {
                 if (preset.isEmpty()) {
                     return;
                 }
-                List<String> disk_lore = List.of(preset);
                 disk = new ItemStack(Material.MUSIC_DISC_MALL, 1);
                 ItemMeta dim = disk.getItemMeta();
-                dim.setDisplayName("Preset Storage Disk");
-                dim.setLore(disk_lore);
+                dim.displayName(Component.text("Preset Storage Disk"));
+                dim.lore(List.of(Component.text(preset)));
                 disk.setItemMeta(dim);
                 inv.setItem(0, disk);
                 player.updateInventory();

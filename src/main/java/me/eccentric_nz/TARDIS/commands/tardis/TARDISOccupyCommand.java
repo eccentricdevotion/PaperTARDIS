@@ -22,7 +22,8 @@ import me.eccentric_nz.TARDIS.builders.interior.TARDISInteriorPostioning;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTravellers;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -43,14 +44,14 @@ class TARDISOccupyCommand {
             HashMap<String, Object> wheret = new HashMap<>();
             wheret.put("uuid", player.getUniqueId().toString());
             ResultSetTravellers rst = new ResultSetTravellers(plugin, wheret, false);
-            String occupied;
+            Component occupied;
             if (rst.resultSet()) {
                 // only if they're not in the TARDIS world
                 if (!plugin.getUtils().inTARDISWorld(player)) {
                     HashMap<String, Object> whered = new HashMap<>();
                     whered.put("uuid", player.getUniqueId().toString());
                     plugin.getQueryFactory().doDelete("travellers", whered);
-                    occupied = ChatColor.RED + plugin.getLanguage().getString("OCCUPY_OUT");
+                    occupied = Component.text(plugin.getLanguage().getString("OCCUPY_OUT", "UNOCCUPIED"), NamedTextColor.RED);
                 } else {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "OCCUPY_MUST_BE_OUT");
                     return true;
@@ -73,7 +74,7 @@ class TARDISOccupyCommand {
                 wherei.put("tardis_id", id);
                 wherei.put("uuid", player.getUniqueId().toString());
                 plugin.getQueryFactory().doInsert("travellers", wherei);
-                occupied = ChatColor.GREEN + plugin.getLanguage().getString("OCCUPY_IN");
+                occupied = Component.text(plugin.getLanguage().getString("OCCUPY_IN", "OCCUPIED"), NamedTextColor.GREEN);
             } else {
                 plugin.getMessenger().send(player, TardisModule.TARDIS, "OCCUPY_MUST_BE_IN");
                 return true;

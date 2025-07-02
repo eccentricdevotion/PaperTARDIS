@@ -39,7 +39,10 @@ import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
 import me.eccentric_nz.TARDIS.utility.TARDISMaterials;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.TARDIS.utility.protection.TARDISLWCChecker;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import nl.rutgerkok.blocklocker.BlockLockerAPIv2;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -94,7 +97,7 @@ public class TARDISStattenheimListener implements Listener {
         if (is.getType().equals(Material.FLINT) && is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
             int uses;
-            if (im.getDisplayName().endsWith("Stattenheim Remote")) {
+            if (TARDISStringUtils.endsWith(im.displayName(),"Stattenheim Remote")) {
                 UUID uuid = player.getUniqueId();
                 if (plugin.getConfig().getBoolean("difficulty.system_upgrades") && !new SystemUpgradeChecker(plugin).has(uuid.toString(), SystemTree.STATTENHEIM_REMOTE)) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "SYS_NEED", "Stattenheim Remote");
@@ -193,9 +196,12 @@ public class TARDISStattenheimListener implements Listener {
                         int decremented = uses - 1;
                         im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.INTEGER, decremented);
                         // set the lore
-                        String coloured = ChatColor.YELLOW + "" + decremented;
-                        List<String> lore = List.of("Right-click block", "to call TARDIS", "Uses left", coloured);
-                        im.setLore(lore);
+                        im.lore(List.of(
+                                Component.text("Right-click block"),
+                                Component.text("to call TARDIS"),
+                                Component.text("Uses left"),
+                                Component.text(decremented, NamedTextColor.YELLOW)
+                        ));
                         is.setItemMeta(im);
                         boolean hidden = tardis.isHidden();
                         int level = tardis.getArtronLevel();

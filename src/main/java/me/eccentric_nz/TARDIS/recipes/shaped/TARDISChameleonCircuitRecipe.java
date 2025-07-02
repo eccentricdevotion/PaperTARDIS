@@ -19,7 +19,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -57,14 +59,14 @@ public class TARDISChameleonCircuitRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "TARDIS Chameleon Circuit");
+        im.displayName(Component.text("TARDIS Chameleon Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         CustomModelDataComponent component = im.getCustomModelDataComponent();
         component.setFloats(CircuitVariant.CHAMELEON.getFloats());
         im.setCustomModelDataComponent(component);
-        String uses = (plugin.getConfig().getString("circuits.uses.chameleon").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
-                ? ChatColor.YELLOW + "unlimited"
-                : ChatColor.YELLOW + plugin.getConfig().getString("circuits.uses.chameleon");
-        im.setLore(List.of("Uses left", uses));
+        Component uses = (plugin.getConfig().getString("circuits.uses.chameleon", "25").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
+                ? Component.text("unlimited", NamedTextColor.YELLOW)
+                : Component.text(plugin.getConfig().getString("circuits.uses.chameleon", "25"), NamedTextColor.YELLOW);
+        im.lore(List.of(Component.text("Uses left"), uses));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "tardis_chameleon_circuit");
         ShapedRecipe r = new ShapedRecipe(key, is);
@@ -73,17 +75,15 @@ public class TARDISChameleonCircuitRecipe {
             r.setIngredient('D', Material.REPEATER);
             ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
             ItemMeta em = exact.getItemMeta();
-            em.setDisplayName(ChatColor.WHITE + "TARDIS Materialisation Circuit");
+            em.displayName(Component.text("TARDIS Materialisation Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
             CustomModelDataComponent mcomponent = em.getCustomModelDataComponent();
             mcomponent.setFloats(CircuitVariant.MATERIALISATION.getFloats());
-          em.setCustomModelDataComponent(mcomponent);
+            em.setCustomModelDataComponent(mcomponent);
             // set the second line of lore
-            List<String> circuit;
-            String mat_uses = (plugin.getConfig().getString("circuits.uses.materialisation").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
-                    ? ChatColor.YELLOW + "unlimited"
-                    : ChatColor.YELLOW + plugin.getConfig().getString("circuits.uses.materialisation");
-            circuit = List.of("Uses left", mat_uses);
-            em.setLore(circuit);
+            Component mat_uses = (plugin.getConfig().getString("circuits.uses.materialisation").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
+                    ? Component.text("unlimited", NamedTextColor.YELLOW)
+                    : Component.text(plugin.getConfig().getString("circuits.uses.materialisation", "50"), NamedTextColor.YELLOW);
+            em.lore(List.of(Component.text("Uses left"), mat_uses));
             exact.setItemMeta(em);
             r.setIngredient('M', new RecipeChoice.ExactChoice(exact));
         } else {

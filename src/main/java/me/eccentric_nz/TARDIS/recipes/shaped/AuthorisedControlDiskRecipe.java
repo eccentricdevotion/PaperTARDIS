@@ -18,7 +18,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -49,7 +51,7 @@ public class AuthorisedControlDiskRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.MUSIC_DISC_FAR, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Authorised Control Disk");
+        im.displayName(Component.text("Authorised Control Disk", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "authorised_control_disk");
         ShapedRecipe r = new ShapedRecipe(key, is);

@@ -9,11 +9,11 @@ import me.eccentric_nz.TARDIS.api.Parameters;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.Flag;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMGUI;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,7 +22,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -78,7 +77,7 @@ public class TVMEquipListener implements Listener {
             return;
         }
         ItemStack is = player.getInventory().getItemInMainHand();
-        if (is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().endsWith("Vortex Manipulator")) {
+        if (is.hasItemMeta() && is.getItemMeta().hasDisplayName() && TARDISStringUtils.endsWith(is.getItemMeta().displayName(), "Vortex Manipulator")) {
             // get tachyon level
             TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, player.getUniqueId().toString());
             if (rs.resultSet()) {
@@ -108,7 +107,7 @@ public class TVMEquipListener implements Listener {
                     plugin.getMessenger().send(player, TardisModule.VORTEX_MANIPULATOR, "VM_STANDBY");
                     // Random malfunction
                     if (TARDISConstants.RANDOM.nextInt(100) < plugin.getVortexConfig().getInt("block_travel_malfunction_chance")) {
-                        plugin.debug(player.getDisplayName() + " has malfunctioned");
+                        plugin.debug(player.displayName() + " has malfunctioned");
                         Parameters params = new Parameters(player, Flag.getAPIFlags());
                         Location _bl = null;
                         // since the TARDIS api is a little funky at times, retry up to ten times if a location isn't found

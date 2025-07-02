@@ -64,7 +64,7 @@ public class TARDISSerializeInventory {
                     ItemStack is = (ItemStack) dataInput.readObject();
                     if (is != null && is.getType() == Material.GLOWSTONE_DUST) {
                         ItemMeta im = is.getItemMeta();
-                        if (im.hasDisplayName() && im.getDisplayName().equals("Circuits")) {
+                        if (im.hasDisplayName() && im.displayName().equals("Circuits")) {
                             CustomModelDataComponent component = im.getCustomModelDataComponent();
                             if (component.getFloats().size() > 0 && component.getFloats().getFirst() != 130.0f) {
                                 component.setFloats(List.of(130.0f));

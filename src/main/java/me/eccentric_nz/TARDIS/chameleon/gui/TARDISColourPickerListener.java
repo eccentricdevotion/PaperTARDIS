@@ -24,7 +24,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -143,11 +143,11 @@ public class TARDISColourPickerListener extends TARDISMenuListener {
         if (bb < 0) {
             bb = 0;
         }
-        List<String> lore = meta.getLore();
-        lore.set(0, "Red: " + rr);
-        lore.set(1, "Green: " + gg);
-        lore.set(2, "Blue: " + bb);
-        meta.setLore(lore);
+        List<Component> lore = meta.lore();
+        lore.set(0, Component.text("Red: " + rr));
+        lore.set(1, Component.text("Green: " + gg));
+        lore.set(2, Component.text("Blue: " + bb));
+        meta.lore(lore);
         meta.setColor(Color.fromRGB(rr, gg, bb));
         display.setItemMeta(meta);
     }
@@ -168,11 +168,11 @@ public class TARDISColourPickerListener extends TARDISMenuListener {
         if (bb > 255) {
             bb = 255;
         }
-        List<String> lore = meta.getLore();
-        lore.set(0, "Red: " + rr);
-        lore.set(1, "Green: " + gg);
-        lore.set(2, "Blue: " + bb);
-        meta.setLore(lore);
+        List<Component> lore = meta.lore();
+        lore.set(0, Component.text("Red: " + rr));
+        lore.set(1, Component.text("Green: " + gg));
+        lore.set(2, Component.text("Blue: " + bb));
+        meta.lore(lore);
         meta.setColor(Color.fromRGB(rr, gg, bb));
         display.setItemMeta(meta);
     }

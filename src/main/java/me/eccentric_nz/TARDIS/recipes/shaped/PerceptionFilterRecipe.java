@@ -19,7 +19,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -54,7 +56,7 @@ public class PerceptionFilterRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.OMINOUS_TRIAL_KEY, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Perception Filter");
+        im.displayName(Component.text("Perception Filter", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "perception_filter");
         ShapedRecipe r = new ShapedRecipe(key, is);
@@ -65,7 +67,7 @@ public class PerceptionFilterRecipe {
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
             ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
             ItemMeta em = exact.getItemMeta();
-            em.setDisplayName(ChatColor.WHITE + "Perception Circuit");
+            em.displayName(Component.text("Perception Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
             CustomModelDataComponent component = em.getCustomModelDataComponent();
             component.setFloats(CircuitVariant.PERCEPTION.getFloats());
             em.setCustomModelDataComponent(component);

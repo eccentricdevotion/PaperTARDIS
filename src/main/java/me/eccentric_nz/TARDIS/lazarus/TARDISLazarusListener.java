@@ -23,7 +23,6 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisPowered;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.floodgate.FloodgateGeneticManipulatorForm;
 import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -34,7 +33,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.Inventory;
 
 import java.util.HashMap;
 import java.util.UUID;

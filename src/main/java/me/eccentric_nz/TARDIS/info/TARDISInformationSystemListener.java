@@ -16,13 +16,13 @@
  */
 package me.eccentric_nz.TARDIS.info;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.Locale;
 import java.util.UUID;
@@ -1880,12 +1880,12 @@ public class TARDISInformationSystemListener implements Listener {
      * @param event a player typing in chat
      */
     @EventHandler(ignoreCancelled = true)
-    public void onTISChat(AsyncPlayerChatEvent event) {
+    public void onTISChat(AsyncChatEvent event) {
         Player p = event.getPlayer();
         UUID uuid = p.getUniqueId();
         if (plugin.getTrackerKeeper().getInfoMenu().containsKey(uuid)) {
             event.setCancelled(true);
-            String chat = ChatColor.stripColor(event.getMessage());
+            String chat = TARDISStringUtils.stripColour(event.message());
             // always exit if 'e' is pressed
             if (chat.equalsIgnoreCase("E")) {
                 exit(p, plugin);

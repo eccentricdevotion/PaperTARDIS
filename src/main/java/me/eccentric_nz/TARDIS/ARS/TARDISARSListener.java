@@ -22,6 +22,7 @@ import me.eccentric_nz.TARDIS.commands.sudo.TARDISSudoTracker;
 import me.eccentric_nz.TARDIS.custommodels.keys.RoomVariant;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -79,18 +80,14 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
         }
         InventoryView view = event.getView();
         switch (slot) {
-            case 1, 9, 11, 19 ->
-                // up, left, right, down
-                    moveMap(playerUUID, view, slot);
+            case 1, 9, 11, 19 -> moveMap(playerUUID, view, slot); // up, left, right, down
             case 4, 5, 6, 7, 8, 13, 14, 15, 16, 17, 22, 23, 24, 25, 26, 31, 32, 33, 34, 35, 40, 41, 42, 43, 44 -> {
                 if (!checkSlotForConsole(view, slot)) {
                     // select slot
                     selected_slot.put(playerUUID, slot);
                 }
             }
-            case 10 ->
-                // load map
-                    loadMap(view, playerUUID);
+            case 10 ->loadMap(view, playerUUID); // load map
             case 12 -> {
                 // reconfigure
                 if (!plugin.getBuildKeeper().getRoomProgress().containsKey(player.getUniqueId())) {
@@ -119,7 +116,7 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
                     } else {
                         ItemStack stone = new ItemStack(Material.STONE, 1);
                         ItemMeta s1 = stone.getItemMeta();
-                        s1.setDisplayName("Empty slot");
+                        s1.displayName(Component.text("Empty slot"));
                         stone.setItemMeta(s1);
                         setSlot(view, selected_slot.get(playerUUID), stone, playerUUID, true);
                         setLore(view, slot, null);
@@ -169,7 +166,7 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
                     // need to check for gravity wells, and jettison both layers...
                     ItemStack tnt = new ItemStack(Material.TNT, 1);
                     ItemMeta j = tnt.getItemMeta();
-                    j.setDisplayName("Jettison");
+                    j.displayName(Component.text("Jettison"));
                     tnt.setItemMeta(j);
                     setSlot(view, selected_slot.get(playerUUID), tnt, playerUUID, true);
                     setLore(view, slot, null);
@@ -185,7 +182,7 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
                         setLore(view, slot, "Jettison existing room first!");
                     } else {
                         ItemStack ris = view.getItem(slot);
-                        String displayName = ris.getItemMeta().getDisplayName();
+                        String displayName = TARDISStringUtils.stripColour(ris.getItemMeta().displayName());
                         String room = TARDISARS.ARSFor(ris.getType().toString()).getConfigPath();
                         if (!TARDISPermission.hasPermission(player, "tardis.room." + room.toLowerCase(Locale.ROOT))) {
                             break;
@@ -209,8 +206,7 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
                     setLore(view, slot, plugin.getLanguage().getString("ARS_NO_SLOT"));
                 }
             }
-            default -> {
-            }
+            default -> { }
         }
     }
 

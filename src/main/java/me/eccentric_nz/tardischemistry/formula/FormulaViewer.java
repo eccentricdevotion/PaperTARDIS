@@ -26,23 +26,32 @@ import me.eccentric_nz.tardischemistry.lab.Lab;
 import me.eccentric_nz.tardischemistry.lab.LabBuilder;
 import me.eccentric_nz.tardischemistry.product.Product;
 import me.eccentric_nz.tardischemistry.product.ProductBuilder;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class FormulaViewer {
+public class FormulaViewer implements InventoryHolder {
 
     private final TARDIS plugin;
     private final Player player;
     private final ItemStack[] stack = new ItemStack[27];
+    private final Inventory inventory;
     private String formula;
 
     public FormulaViewer(TARDIS plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text(formula.replace("_", " ") + " Formula", NamedTextColor.DARK_RED));
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 
     public void getCompoundFormula(Compound compound) {
@@ -139,12 +148,10 @@ public class FormulaViewer {
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close_im.setItemModel(GUIChemistry.CLOSE.key());
         close.setItemMeta(close_im);
         stack[26] = close;
-        Inventory viewer = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + formula.replace("_", " ") + " Formula");
-        viewer.setContents(stack);
-        player.openInventory(viewer);
+        inventory.setContents(stack);
     }
 }

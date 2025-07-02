@@ -21,25 +21,37 @@ import me.eccentric_nz.TARDIS.custommodels.GUIMap;
 import me.eccentric_nz.TARDIS.custommodels.GUIWallFloor;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetCurrentFromId;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Biome;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class TARDISTelepathicBiome {
+public class TARDISTelepathicBiome implements InventoryHolder {
 
     private final TARDIS plugin;
     private final int id;
+    private final Inventory inventory;
 
     public TARDISTelepathicBiome(TARDIS plugin, int id) {
         this.plugin = plugin;
         this.id = id;
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Telepathic Biome Finder", NamedTextColor.DARK_RED));
+        this.inventory.setContents(getButtons());
     }
 
-    public ItemStack[] getButtons() {
+    @Override
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    private ItemStack[] getButtons() {
         ItemStack[] stack = new ItemStack[54];
         // only show biomes for the environment the TARDIS is currently in
         ResultSetCurrentFromId rsc = new ResultSetCurrentFromId(plugin, id);
@@ -61,7 +73,7 @@ public class TARDISTelepathicBiome {
                 if (material != null) {
                     ItemStack is = new ItemStack(material, 1);
                     ItemMeta im = is.getItemMeta();
-                    im.setDisplayName(TARDISStringUtils.capitalise(biome.toString()));
+                    im.displayName(Component.text(TARDISStringUtils.capitalise(biome.toString())));
                     is.setItemMeta(im);
                     stack[i] = is;
                     if (i % 9 == 7) {
@@ -75,14 +87,14 @@ public class TARDISTelepathicBiome {
                 // scroll up
                 ItemStack scroll_up = new ItemStack(GUIWallFloor.BUTTON_SCROLL_U.material(), 1);
                 ItemMeta uim = scroll_up.getItemMeta();
-                uim.setDisplayName(plugin.getLanguage().getString("BUTTON_SCROLL_U"));
+                uim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_U", "Scroll up")));
                 uim.setItemModel(GUIWallFloor.BUTTON_SCROLL_U.key());
                 scroll_up.setItemMeta(uim);
                 stack[GUIWallFloor.BUTTON_SCROLL_U.slot()] = scroll_up;
                 // scroll down
                 ItemStack scroll_down = new ItemStack(GUIWallFloor.BUTTON_SCROLL_D.material(), 1);
                 ItemMeta dim = scroll_down.getItemMeta();
-                dim.setDisplayName(plugin.getLanguage().getString("BUTTON_SCROLL_D"));
+                dim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_D", "Scroll down")));
                 dim.setItemModel(GUIWallFloor.BUTTON_SCROLL_D.key());
                 scroll_down.setItemMeta(dim);
                 stack[GUIWallFloor.BUTTON_SCROLL_D.slot()] = scroll_down;
@@ -91,7 +103,7 @@ public class TARDISTelepathicBiome {
         // close
         ItemStack close = new ItemStack(GUIMap.BUTTON_CLOSE.material(), 1);
         ItemMeta gui = close.getItemMeta();
-        gui.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        gui.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         gui.setItemModel(GUIMap.BUTTON_CLOSE.key());
         close.setItemMeta(gui);
         stack[53] = close;

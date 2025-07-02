@@ -18,13 +18,11 @@ package me.eccentric_nz.tardischemistry.creative;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.tardischemistry.element.ElementInventory;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
@@ -39,7 +37,6 @@ public class CreativeGUIListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onCreativeMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
         InventoryHolder holder = event.getInventory().getHolder(false);
         if (!(holder instanceof ProductsCreativeInventory) && !(holder instanceof CompoundsCreativeInventory)) {
             return;
@@ -49,10 +46,12 @@ public class CreativeGUIListener implements Listener {
         if (slot < 0 || slot > 53) {
             ClickType click = event.getClick();
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
+                plugin.debug("CreativeGUIListener");
                 event.setCancelled(true);
             }
             return;
         }
+        InventoryView view = event.getView();
         switch (slot) {
             case 35 -> {
                 event.setCancelled(true);

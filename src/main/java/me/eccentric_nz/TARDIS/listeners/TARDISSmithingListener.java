@@ -20,7 +20,8 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.keys.Whoniverse;
 import me.eccentric_nz.TARDIS.sonic.SonicUpgradeData;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -59,7 +60,7 @@ public class TARDISSmithingListener implements Listener {
                 ItemStack glowstone = inventory.getItem(2);
                 if (glowstone != null && glowstone.getType().equals(Material.GLOWSTONE_DUST) && glowstone.hasItemMeta()) {
                     ItemMeta rm = glowstone.getItemMeta();
-                    upgrade = SonicUpgradeData.displayNames.get(ChatColor.stripColor(rm.getDisplayName()));
+                    upgrade = SonicUpgradeData.displayNames.get(TARDISStringUtils.stripColour(rm.displayName()));
                     found = true;
                 }
                 // is it a valid upgrade?
@@ -80,24 +81,24 @@ public class TARDISSmithingListener implements Listener {
                 }
                 ItemMeta sim = sonic.getItemMeta();
                 CustomModelDataComponent component = sim.getCustomModelDataComponent();
-                String dn = sim.getDisplayName();
-                List<String> lore;
+                Component dn = sim.displayName();
+                List<Component> lore;
                 if (sim.hasLore()) {
                     // get the current sonic's upgrades
-                    lore = sim.getLore();
+                    lore = sim.lore();
                 } else {
                     // otherwise this is the first upgrade
                     lore = new ArrayList<>();
-                    lore.add("Upgrades:");
+                    lore.add(Component.text("Upgrades:"));
                 }
                 // if they don't already have the upgrade
-                if (!lore.contains(upgrade)) {
-                    im.setDisplayName(dn);
+                if (!lore.contains(Component.text(upgrade))) {
+                    im.displayName(dn);
                     im.setCustomModelDataComponent(component);
                     int index = -1;
-                    String charge = null;
+                    Component charge = null;
                     for (int i = lore.size() - 1; i >= 0; i--) {
-                        if (lore.get(i).startsWith("Charge: ")) {
+                        if (TARDISStringUtils.stripColour(lore.get(i)).startsWith("Charge: ")) {
                             charge = lore.get(i);
                             index = i;
                             break;
@@ -105,12 +106,12 @@ public class TARDISSmithingListener implements Listener {
                     }
                     if (index != -1 && charge != null) {
                         lore.remove(index);
-                        lore.add(upgrade);
+                        lore.add(Component.text(upgrade));
                         lore.add(charge);
                     } else {
-                        lore.add(upgrade);
+                        lore.add(Component.text(upgrade));
                     }
-                    im.setLore(lore);
+                    im.lore(lore);
                     is.setItemMeta(im);
                     // change the crafting result
                     event.setResult(is);
@@ -134,7 +135,7 @@ public class TARDISSmithingListener implements Listener {
         if (!im.hasDisplayName()) {
             return false;
         }
-        if (!im.getDisplayName().endsWith("Artron Capacitor")) {
+        if (!TARDISStringUtils.stripColour(im.displayName()).endsWith("Artron Capacitor")) {
             return false;
         }
         return !im.hasItemModel() || im.getItemModel().equals(Whoniverse.ARTRON_CAPACITOR_DAMAGED.getKey());

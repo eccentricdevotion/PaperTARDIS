@@ -19,10 +19,7 @@ package me.eccentric_nz.TARDIS.console.interaction;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.console.telepathic.TARDISTelepathicInventory;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.UUID;

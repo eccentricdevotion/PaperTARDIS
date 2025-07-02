@@ -2,17 +2,13 @@ package me.eccentric_nz.TARDIS.info.dialog;
 
 import me.eccentric_nz.TARDIS.info.TISCategory;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.dialog.*;
-import net.minecraft.server.dialog.action.Action;
 import net.minecraft.server.dialog.action.CustomAll;
-import net.minecraft.server.dialog.action.StaticAction;
 import net.minecraft.server.dialog.body.DialogBody;
 import net.minecraft.server.dialog.body.ItemBody;
 import net.minecraft.server.dialog.body.PlainMessage;

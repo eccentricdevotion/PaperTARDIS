@@ -18,7 +18,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -49,7 +51,7 @@ public class ServerAdminCircuitRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Server Admin Circuit");
+        im.displayName(Component.text("Server Admin Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         CustomModelDataComponent component = im.getCustomModelDataComponent();
         component.setFloats(CircuitVariant.ADMIN.getFloats());
         im.setCustomModelDataComponent(component);
@@ -58,7 +60,7 @@ public class ServerAdminCircuitRecipe {
         ShapedRecipe r = new ShapedRecipe(key, is);
         ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta em = exact.getItemMeta();
-        em.setDisplayName(ChatColor.WHITE + "Sonic Oscillator");
+        em.displayName(Component.text("Sonic Oscillator", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         CustomModelDataComponent ecomponent = em.getCustomModelDataComponent();
         ecomponent.setFloats(CircuitVariant.SONIC.getFloats());
         em.setCustomModelDataComponent(ecomponent);

@@ -3,6 +3,7 @@
  */
 package me.eccentric_nz.TARDIS.rooms.eye;
 
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,7 +27,7 @@ public class TARDISSpaceHelmetListener implements Listener {
         if (!im.hasDisplayName() || !im.hasMaxStackSize()) {
             return false;
         }
-        return im.getDisplayName().endsWith("TARDIS Space Helmet") && im.getMaxStackSize() == 1;
+        return TARDISStringUtils.endsWith(im.displayName(), "TARDIS Space Helmet") && im.getMaxStackSize() == 1;
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

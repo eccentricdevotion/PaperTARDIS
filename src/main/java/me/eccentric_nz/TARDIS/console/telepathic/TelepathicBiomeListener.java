@@ -19,7 +19,7 @@ package me.eccentric_nz.TARDIS.console.telepathic;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
@@ -53,8 +53,7 @@ public class TelepathicBiomeListener extends TARDISMenuListener {
 
     @EventHandler
     public void onWallMenuOpen(InventoryOpenEvent event) {
-        String name = event.getView().getTitle();
-        if (name.equals(ChatColor.DARK_RED + "Telepathic Biome Finder")) {
+        if (event.getInventory().getHolder(false) instanceof TARDISTelepathicBiome) {
             Player p = (Player) event.getPlayer();
             scroll.put(p.getUniqueId(), 0);
         }
@@ -62,9 +61,7 @@ public class TelepathicBiomeListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBiomeMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        String name = view.getTitle();
-        if (!name.equals(ChatColor.DARK_RED + "Telepathic Biome Finder")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISTelepathicBiome)) {
             return;
         }
         Player player = (Player) event.getWhoClicked();
@@ -73,11 +70,13 @@ public class TelepathicBiomeListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             ClickType click = event.getClick();
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
+                plugin.debug("TelepathicBiomeListener");
                 event.setCancelled(true);
             }
             return;
         }
         event.setCancelled(true);
+        InventoryView view = event.getView();
         switch (slot) {
             // scroll up
             case 8 -> {
@@ -105,7 +104,7 @@ public class TelepathicBiomeListener extends TARDISMenuListener {
                 if (choice != null) {
                     // get the biome
                     ItemMeta im = choice.getItemMeta();
-                    String enumStr = TARDISStringUtils.toEnumUppercase(im.getDisplayName());
+                    String enumStr = TARDISStringUtils.toEnumUppercase(TARDISStringUtils.stripColour(im.displayName()));
                     player.performCommand("tardistravel biome " + enumStr);
                     close(player);
                 }
@@ -146,7 +145,7 @@ public class TelepathicBiomeListener extends TARDISMenuListener {
             if (material != null) {
                 ItemStack is = new ItemStack(material, 1);
                 ItemMeta im = is.getItemMeta();
-                im.setDisplayName(TARDISStringUtils.capitalise(biome.toString()));
+                im.displayName(Component.text(TARDISStringUtils.capitalise(biome.toString())));
                 is.setItemMeta(im);
                 stacks[r][c] = is;
                 c++;

@@ -40,7 +40,7 @@ public class TARDISTerminalInventory implements InventoryHolder {
 
     public TARDISTerminalInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Destination Terminal", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Destination Terminal", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -60,61 +60,61 @@ public class TARDISTerminalInventory implements InventoryHolder {
         // 10
         ItemStack ten = new ItemStack(Material.WHITE_WOOL, 1);
         ItemMeta im10 = ten.getItemMeta();
-        im10.setDisplayName(plugin.getLanguage().getString("BUTTON_STEP") + ": " + (10 * step));
+        im10.displayName(Component.text(plugin.getLanguage().getString("BUTTON_STEP") + ": " + (10 * step)));
         ten.setItemMeta(im10);
         // 25
         ItemStack twentyfive = new ItemStack(Material.LIGHT_GRAY_WOOL, 1);
         ItemMeta im25 = twentyfive.getItemMeta();
-        im25.setDisplayName(plugin.getLanguage().getString("BUTTON_STEP") + ": " + (25 * step));
+        im25.displayName(Component.text(plugin.getLanguage().getString("BUTTON_STEP") + ": " + (25 * step)));
         twentyfive.setItemMeta(im25);
         // 50
         ItemStack fifty = new ItemStack(Material.GRAY_WOOL, 1);
         ItemMeta im50 = fifty.getItemMeta();
-        im50.setDisplayName(plugin.getLanguage().getString("BUTTON_STEP") + ": " + (50 * step));
+        im50.displayName(Component.text(plugin.getLanguage().getString("BUTTON_STEP") + ": " + (50 * step)));
         fifty.setItemMeta(im50);
         // 100
         ItemStack onehundred = new ItemStack(Material.BLACK_WOOL, 1);
         ItemMeta im100 = onehundred.getItemMeta();
-        im100.setDisplayName(plugin.getLanguage().getString("BUTTON_STEP") + ": " + (100 * step));
+        im100.displayName(Component.text(plugin.getLanguage().getString("BUTTON_STEP") + ": " + (100 * step)));
         onehundred.setItemMeta(im100);
         // -ve
         ItemStack neg = new ItemStack(Material.RED_WOOL, 1);
         ItemMeta nim = neg.getItemMeta();
-        nim.setDisplayName(plugin.getLanguage().getString("BUTTON_NEG"));
+        nim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_NEG")));
         neg.setItemMeta(nim);
         // +ve
         ItemStack pos = new ItemStack(Material.LIME_WOOL, 1);
         ItemMeta pim = pos.getItemMeta();
-        pim.setDisplayName(plugin.getLanguage().getString("BUTTON_POS"));
+        pim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_POS")));
         pos.setItemMeta(pim);
         // x
         ItemStack x = new ItemStack(Material.LIGHT_BLUE_WOOL, 1);
         ItemMeta xim = x.getItemMeta();
-        xim.setDisplayName("X");
-        xim.setLore(List.of("0"));
+        xim.displayName(Component.text("X"));
+        xim.lore(List.of(Component.text("0")));
         x.setItemMeta(xim);
         // z
         ItemStack z = new ItemStack(Material.YELLOW_WOOL, 1);
         ItemMeta zim = z.getItemMeta();
-        zim.setDisplayName("Z");
-        zim.setLore(List.of("0"));
+        zim.displayName(Component.text("Z"));
+        zim.lore(List.of(Component.text("0")));
         z.setItemMeta(zim);
         // multiplier
         ItemStack m = new ItemStack(Material.PURPLE_WOOL, 1);
         ItemMeta mim = m.getItemMeta();
-        mim.setDisplayName(plugin.getLanguage().getString("BUTTON_MULTI"));
-        mim.setLore(List.of("x1"));
+        mim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MULTI")));
+        mim.lore(List.of(Component.text("x1")));
         m.setItemMeta(mim);
         // environments
         // current
         ItemStack u = new ItemStack(Material.OAK_LEAVES, 1);
         ItemMeta uim = u.getItemMeta();
-        uim.setDisplayName(plugin.getLanguage().getString("BUTTON_CURRENT"));
+        uim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CURRENT")));
         u.setItemMeta(uim);
         // normal
         ItemStack w = new ItemStack(Material.DIRT, 1);
         ItemMeta wim = w.getItemMeta();
-        wim.setDisplayName(plugin.getLanguage().getString("BUTTON_NORM"));
+        wim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_NORM")));
         w.setItemMeta(wim);
         // nether
         ItemStack r;
@@ -127,7 +127,7 @@ public class TARDISTerminalInventory implements InventoryHolder {
             ndn = plugin.getConfig().getString("travel.terminal.nether");
         }
         ItemMeta rim = r.getItemMeta();
-        rim.setDisplayName(ndn);
+        rim.displayName(Component.text(ndn));
         r.setItemMeta(rim);
         // the end
         ItemStack e;
@@ -140,27 +140,27 @@ public class TARDISTerminalInventory implements InventoryHolder {
             edn = plugin.getConfig().getString("travel.terminal.the_end");
         }
         ItemMeta eim = e.getItemMeta();
-        eim.setDisplayName(edn);
+        eim.displayName(Component.text(edn));
         e.setItemMeta(eim);
         // submarine
         ItemStack sub = new ItemStack(Material.WATER_BUCKET, 1);
         ItemMeta subim = sub.getItemMeta();
-        subim.setDisplayName(plugin.getLanguage().getString("BUTTON_SUB"));
+        subim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SUB")));
         sub.setItemMeta(subim);
         // test
         ItemStack t = new ItemStack(Material.PISTON, 1);
         ItemMeta tim = t.getItemMeta();
-        tim.setDisplayName(plugin.getLanguage().getString("BUTTON_CHECK"));
+        tim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CHECK")));
         t.setItemMeta(tim);
         // set
         ItemStack s = new ItemStack(Material.BOOKSHELF, 1);
         ItemMeta sim = s.getItemMeta();
-        sim.setDisplayName(plugin.getLanguage().getString("BUTTON_DEST"));
+        sim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_DEST")));
         s.setItemMeta(sim);
         // cancel
         ItemStack c = new ItemStack(Material.TNT, 1);
         ItemMeta cim = c.getItemMeta();
-        cim.setDisplayName(plugin.getLanguage().getString("BUTTON_CANCEL"));
+        cim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CANCEL", "Cancel")));
         c.setItemMeta(cim);
 
         return new ItemStack[]{

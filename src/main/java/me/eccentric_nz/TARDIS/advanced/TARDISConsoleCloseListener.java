@@ -35,8 +35,13 @@ import me.eccentric_nz.TARDIS.travel.TARDISRescue;
 import me.eccentric_nz.TARDIS.travel.TARDISTimeTravel;
 import me.eccentric_nz.TARDIS.travel.TravelCostAndType;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardischunkgenerator.custombiome.BiomeUtilities;
-import org.bukkit.*;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -125,11 +130,11 @@ public class TARDISConsoleCloseListener implements Listener {
                     HashMap<String, Object> where_next = new HashMap<>();
                     HashMap<String, Object> where_tardis = new HashMap<>();
                     // process any disks
-                    List<String> lore = is.getItemMeta().getLore();
+                    List<Component> lore = is.getItemMeta().lore();
                     if (lore == null) {
                         return;
                     }
-                    String first = lore.getFirst();
+                    String first = TARDISStringUtils.stripColour(lore.getFirst());
                     if (!first.equals("Blank")) {
                         TravelType travelType = TravelType.SAVE;
                         switch (mat) {
@@ -266,10 +271,10 @@ public class TARDISConsoleCloseListener implements Listener {
                             }
                             case MUSIC_DISC_CHIRP -> { // save
                                 if (TARDISPermission.hasPermission(p, "tardis.save")) {
-                                    String world = lore.get(1);
-                                    int x = TARDISNumberParsers.parseInt(lore.get(2));
-                                    int y = TARDISNumberParsers.parseInt(lore.get(3));
-                                    int z = TARDISNumberParsers.parseInt(lore.get(4));
+                                    String world = TARDISStringUtils.stripColour(lore.get(1));
+                                    int x = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(2)));
+                                    int y = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(3)));
+                                    int z = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(4)));
                                     if (current.location().getWorld().getName().equals(world) && current.location().getBlockX() == x && current.location().getBlockZ() == z) {
                                         continue;
                                     }
@@ -279,25 +284,26 @@ public class TARDISConsoleCloseListener implements Listener {
                                     set_next.put("y", y);
                                     set_next.put("z", z);
                                     set_next.put("direction", lore.get(6));
-                                    boolean sub = Boolean.parseBoolean(lore.get(7));
+                                    boolean sub = Boolean.parseBoolean(TARDISStringUtils.stripColour(lore.get(7)));
                                     set_next.put("submarine", (sub) ? 1 : 0);
-                                    if (lore.get(5).startsWith("ITEM")) {
-                                        String[] split = lore.get(5).split(":");
+                                    String five = TARDISStringUtils.stripColour(lore.get(5));
+                                    if (five.startsWith("ITEM")) {
+                                        String[] split = five.split(":");
                                         if (plugin.getCustomModelConfig().getConfigurationSection("models").getKeys(false).contains(split[1])) {
-                                            set_tardis.put("chameleon_preset", lore.get(5));
+                                            set_tardis.put("chameleon_preset", five);
                                             // set chameleon adaption to OFF
                                             set_tardis.put("adapti_on", 0);
                                         } else {
-                                            plugin.debug("Invalid PRESET value: " + lore.get(5));
+                                            plugin.debug("Invalid PRESET value: " + five);
                                         }
                                     } else {
                                         try {
-                                            ChameleonPreset.valueOf(lore.get(5));
-                                            set_tardis.put("chameleon_preset", lore.get(5));
+                                            ChameleonPreset.valueOf(five);
+                                            set_tardis.put("chameleon_preset", five);
                                             // set chameleon adaption to OFF
                                             set_tardis.put("adapti_on", 0);
                                         } catch (IllegalArgumentException e) {
-                                            plugin.debug("Invalid PRESET value: " + lore.get(5));
+                                            plugin.debug("Invalid PRESET value: " + five);
                                         }
                                     }
                                     plugin.getMessenger().send(p, "LOC_SET", !plugin.getTrackerKeeper().getDestinationVortex().containsKey(id));
@@ -337,7 +343,7 @@ public class TARDISConsoleCloseListener implements Listener {
                     } else {
                         plugin.getMessenger().send(p, TardisModule.TARDIS, "ADV_BLANK");
                     }
-                } else if (mat.equals(Material.MUSIC_DISC_STRAD) && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().endsWith("Blank Storage Disk")) {
+                } else if (mat.equals(Material.MUSIC_DISC_STRAD) && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && TARDISStringUtils.stripColour(is.getItemMeta().displayName()).endsWith("Blank Storage Disk")) {
                     // Blank Disk - get a random location
                     Location l = new TARDISRandomiserCircuit(plugin).getRandomlocation(p, current.direction());
                     if (l == null) {

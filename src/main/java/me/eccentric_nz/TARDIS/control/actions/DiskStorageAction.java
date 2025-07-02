@@ -78,7 +78,7 @@ public class DiskStorageAction {
                         ItemMeta im = is.getItemMeta();
                         if (im.hasDisplayName()) {
                             if (is.getType().equals(Material.FILLED_MAP)) {
-                                GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(im.getDisplayName());
+                                GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(im.displayName());
                                 if (glowstone != null) {
                                     is.setType(Material.GLOWSTONE_DUST);
                                     is.setItemMeta(im);

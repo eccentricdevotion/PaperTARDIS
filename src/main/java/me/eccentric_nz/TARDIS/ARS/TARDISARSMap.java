@@ -38,7 +38,7 @@ public class TARDISARSMap implements InventoryHolder {
 
     public TARDISARSMap(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Map", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Map", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -57,62 +57,62 @@ public class TARDISARSMap implements InventoryHolder {
         // up
         ItemStack pad_up = new ItemStack(GUIMap.BUTTON_UP.material(), 1);
         ItemMeta up = pad_up.getItemMeta();
-        up.setDisplayName(plugin.getLanguage().getString("BUTTON_UP"));
+        up.displayName(Component.text(plugin.getLanguage().getString("BUTTON_UP", "Up")));
         pad_up.setItemMeta(up);
         // down
         ItemStack pad_down = new ItemStack(GUIMap.BUTTON_DOWN.material(), 1);
         ItemMeta down = pad_down.getItemMeta();
-        down.setDisplayName(plugin.getLanguage().getString("BUTTON_DOWN"));
+        down.displayName(Component.text(plugin.getLanguage().getString("BUTTON_DOWN", "Down")));
         pad_down.setItemMeta(down);
         // left
         ItemStack pad_left = new ItemStack(GUIMap.BUTTON_LEFT.material(), 1);
         ItemMeta left = pad_left.getItemMeta();
-        left.setDisplayName(plugin.getLanguage().getString("BUTTON_LEFT"));
+        left.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEFT", "Left")));
         pad_left.setItemMeta(left);
         // right
         ItemStack pad_right = new ItemStack(GUIMap.BUTTON_RIGHT.material(), 1);
         ItemMeta right = pad_right.getItemMeta();
-        right.setDisplayName(plugin.getLanguage().getString("BUTTON_RIGHT"));
+        right.displayName(Component.text(plugin.getLanguage().getString("BUTTON_RIGHT", "Right")));
         pad_right.setItemMeta(right);
         // level selected
         ItemStack level_sel = new ItemStack(GUIMap.BUTTON_LEVEL.material(), 1);
         ItemMeta main = level_sel.getItemMeta();
-        main.setDisplayName(plugin.getLanguage().getString("BUTTON_LEVEL"));
+        main.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL")));
         level_sel.setItemMeta(main);
         // level top
         ItemStack level_top = new ItemStack(GUIMap.BUTTON_LEVEL_T.material(), 1);
         ItemMeta top = level_top.getItemMeta();
-        top.setDisplayName(plugin.getLanguage().getString("BUTTON_LEVEL_T"));
+        top.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL_T")));
         level_top.setItemMeta(top);
         // level top
         ItemStack level_bot = new ItemStack(GUIMap.BUTTON_LEVEL_B.material(), 1);
         ItemMeta bot = level_bot.getItemMeta();
-        bot.setDisplayName(plugin.getLanguage().getString("BUTTON_LEVEL_B"));
+        bot.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL_B")));
         level_bot.setItemMeta(bot);
         // stone
         ItemStack black = new ItemStack(GUIMap.BUTTON_MAP_ON.material(), 1);
         ItemMeta wool = black.getItemMeta();
-        wool.setDisplayName(plugin.getLanguage().getString("BUTTON_MAP"));
+        wool.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MAP")));
         black.setItemMeta(wool);
         // load map
         ItemStack loa = new ItemStack(GUIMap.BUTTON_MAP.material(), 1);
         ItemMeta der = loa.getItemMeta();
-        der.setDisplayName(plugin.getLanguage().getString("BUTTON_MAP_NO"));
+        der.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MAP_NO")));
         loa.setItemMeta(der);
         // close
         ItemStack close = new ItemStack(GUIMap.BUTTON_CLOSE.material(), 1);
         ItemMeta gui = close.getItemMeta();
-        gui.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        gui.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(gui);
         // transmat
         ItemStack tran = new ItemStack(GUIMap.BUTTON_TRANSMAT.material(), 1);
         ItemMeta smat = tran.getItemMeta();
-        smat.setDisplayName(plugin.getLanguage().getString("BUTTON_TRANSMAT"));
+        smat.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TRANSMAT")));
         tran.setItemMeta(smat);
         // where am I?
         ItemStack where = new ItemStack(GUIMap.BUTTON_WHERE.material(), 1);
         ItemMeta ami = where.getItemMeta();
-        ami.setDisplayName(plugin.getLanguage().getString("BUTTON_WHERE"));
+        ami.displayName(Component.text(plugin.getLanguage().getString("BUTTON_WHERE")));
         where.setItemMeta(ami);
 
         return new ItemStack[]{

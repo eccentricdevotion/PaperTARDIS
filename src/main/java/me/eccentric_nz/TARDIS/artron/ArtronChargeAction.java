@@ -20,6 +20,8 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetArtronStorage;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -78,13 +80,13 @@ public class ArtronChargeAction {
             ItemStack is = player.getInventory().getItemInMainHand();
             if (is.hasItemMeta()) {
                 ItemMeta im = is.getItemMeta();
-                String name = im.getDisplayName();
+                String name = TARDISStringUtils.stripColour(im.displayName());
                 if (!name.endsWith("Artron Storage Cell")) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "CELL_NOT_VALID");
                     return;
                 }
-                List<String> lore = im.getLore();
-                int charge = TARDISNumberParsers.parseInt(lore.get(1));
+                List<Component> lore = im.lore();
+                int charge = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(1)));
                 if (charge <= 0) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "CELL_NOT_CHARGED");
                     return;
@@ -110,8 +112,8 @@ public class ArtronChargeAction {
                     amount = max;
                     int remove = max - current_level;
                     int set = charge - remove;
-                    lore.set(1, "" + set);
-                    im.setLore(lore);
+                    lore.set(1, Component.text(set));
+                    im.lore(lore);
                     if (set < 1) {
                         im.setEnchantmentGlintOverride(null);
                         is.getEnchantments().keySet().forEach(is::removeEnchantment);
@@ -121,8 +123,8 @@ public class ArtronChargeAction {
                 } else {
                     // only add energy up to capacitors * max level - damage
                     if (amount <= max) {
-                        lore.set(1, "0");
-                        im.setLore(lore);
+                        lore.set(1, Component.text("0"));
+                        im.lore(lore);
                         im.setEnchantmentGlintOverride(null);
                         is.setItemMeta(im);
                         is.getEnchantments().keySet().forEach(is::removeEnchantment);

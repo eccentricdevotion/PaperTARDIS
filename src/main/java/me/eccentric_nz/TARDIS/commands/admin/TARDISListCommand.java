@@ -25,7 +25,8 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.enumeration.WorldManager;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -106,7 +107,12 @@ class TARDISListCommand {
                 for (Tardis tardis : rsl.getData()) {
                     ResultSetCurrentFromId rsc = new ResultSetCurrentFromId(plugin, tardis.getTardisId());
                     if (!rsc.resultSet()) {
-                        plugin.getMessenger().message(sender, ChatColor.GREEN + "" + tardis.getTardisId() + " " + tardis.getOwner() + ChatColor.RESET + " TARDIS is in an unloaded world!");
+                        plugin.getMessenger().message(
+                            sender,
+                            TardisModule.TARDIS,
+                            Component.text(tardis.getTardisId() + " ", NamedTextColor.GREEN)
+                                .append(Component.text(tardis.getOwner() + " TARDIS is in an unloaded world!", NamedTextColor.WHITE))
+                        );
                         continue;
                     }
                     Current current = rsc.getCurrent();

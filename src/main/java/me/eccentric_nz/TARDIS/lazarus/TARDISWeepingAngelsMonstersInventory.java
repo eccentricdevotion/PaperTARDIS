@@ -38,7 +38,7 @@ public class TARDISWeepingAngelsMonstersInventory implements InventoryHolder {
 
     public TARDISWeepingAngelsMonstersInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Genetic Manipulator", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Genetic Manipulator", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -58,7 +58,7 @@ public class TARDISWeepingAngelsMonstersInventory implements InventoryHolder {
         for (Monster monster : Monster.values()) {
             ItemStack mon = new ItemStack(monster.getMaterial(), 1);
             ItemMeta ster = mon.getItemMeta();
-            ster.setDisplayName(monster.getName());
+            ster.displayName(Component.text(monster.getName()));
             mon.setItemMeta(ster);
             stacks[i] = mon;
             i++;
@@ -66,26 +66,26 @@ public class TARDISWeepingAngelsMonstersInventory implements InventoryHolder {
         // page one
         ItemStack page1 = new ItemStack(GUIChameleonPoliceBoxes.GO_TO_PAGE_1.material(), 1);
         ItemMeta one = page1.getItemMeta();
-        one.setDisplayName(plugin.getLanguage().getString("BUTTON_PAGE_1"));
+        one.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_1")));
         page1.setItemMeta(one);
         stacks[42] = page1;
         // page two
         ItemStack page2 = new ItemStack(GUIChameleonPresets.GO_TO_PAGE_2.material(), 1);
         ItemMeta two = page2.getItemMeta();
-        two.setDisplayName(plugin.getLanguage().getString("BUTTON_PAGE_2"));
+        two.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_2")));
         page2.setItemMeta(two);
         stacks[43] = page2;
         // add skins
         ItemStack down = new ItemStack(GUIGeneticManipulator.BUTTON_SKINS.material(), 1);
         ItemMeta load = down.getItemMeta();
-        load.setDisplayName("TARDIS Television");
+        load.displayName(Component.text("TARDIS Television"));
         down.setItemMeta(load);
         stacks[44] = down;
         // master
         ItemStack the = new ItemStack(GUIGeneticManipulator.BUTTON_MASTER.material(), 1);
         ItemMeta master = the.getItemMeta();
-        master.setDisplayName(plugin.getLanguage().getString("BUTTON_MASTER"));
-        master.setLore(List.of(plugin.getLanguage().getString("SET_OFF")));
+        master.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MASTER")));
+        master.lore(List.of(Component.text(plugin.getLanguage().getString("SET_OFF"))));
         CustomModelDataComponent component = master.getCustomModelDataComponent();
         component.setFloats(List.of(152f));
         master.setCustomModelDataComponent(component);
@@ -94,19 +94,19 @@ public class TARDISWeepingAngelsMonstersInventory implements InventoryHolder {
         // add buttons
         ItemStack rem = new ItemStack(GUIGeneticManipulator.BUTTON_RESTORE.material(), 1);
         ItemMeta ove = rem.getItemMeta();
-        ove.setDisplayName(plugin.getLanguage().getString("BUTTON_RESTORE"));
+        ove.displayName(Component.text(plugin.getLanguage().getString("BUTTON_RESTORE")));
         rem.setItemMeta(ove);
         stacks[GUIGeneticManipulator.BUTTON_RESTORE.slot()] = rem;
         // set
         ItemStack s = new ItemStack(GUIGeneticManipulator.BUTTON_DNA.material(), 1);
         ItemMeta sim = s.getItemMeta();
-        sim.setDisplayName(plugin.getLanguage().getString("BUTTON_DNA"));
+        sim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_DNA")));
         s.setItemMeta(sim);
         stacks[GUIGeneticManipulator.BUTTON_DNA.slot()] = s;
         // cancel
         ItemStack can = new ItemStack(GUIGeneticManipulator.BUTTON_CANCEL.material(), 1);
         ItemMeta cel = can.getItemMeta();
-        cel.setDisplayName(plugin.getLanguage().getString("BUTTON_CANCEL"));
+        cel.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CANCEL")));
         can.setItemMeta(cel);
         stacks[GUIGeneticManipulator.BUTTON_CANCEL.slot()] = can;
 

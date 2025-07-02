@@ -19,7 +19,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -57,12 +59,17 @@ public class StattenheimRemoteRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.FLINT, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Stattenheim Remote");
+        im.displayName(Component.text("Stattenheim Remote", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         String uses = plugin.getConfig().getString("circuits.uses.stattenheim", "15");
         if (uses.equals("0")) {
             uses = "1000";
         }
-        im.setLore(List.of("Right-click block", "to call TARDIS", "Uses left", uses));
+        im.lore(List.of(
+                Component.text("Right-click block"),
+                Component.text("to call TARDIS"),
+                Component.text("Uses left"),
+                Component.text(uses)
+        ));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "stattenheim_remote");
         ShapedRecipe r = new ShapedRecipe(key, is);
@@ -70,7 +77,7 @@ public class StattenheimRemoteRecipe {
             r.shape("OBO", "OLO", "RRR");
             ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
             ItemMeta em = exact.getItemMeta();
-            em.setDisplayName(ChatColor.WHITE + "TARDIS Stattenheim Circuit");
+            em.displayName(Component.text("TARDIS Stattenheim Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
             CustomModelDataComponent component = em.getCustomModelDataComponent();
             component.setFloats(CircuitVariant.STATTENHEIM.getFloats());
             em.setCustomModelDataComponent(component);

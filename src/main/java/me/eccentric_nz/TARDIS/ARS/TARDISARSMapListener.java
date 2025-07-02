@@ -25,6 +25,8 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.move.TARDISDoorListener;
 import me.eccentric_nz.TARDIS.travel.TARDISDoorLocation;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -127,7 +129,7 @@ public class TARDISARSMapListener extends TARDISARSMethods implements Listener {
                     ItemStack is = view.getItem(slot);
                     if (is != null) {
                         ItemMeta im = is.getItemMeta();
-                        String dn = im.getDisplayName();
+                        String dn = TARDISStringUtils.stripColour(im.displayName());
                         if (!dn.equals("Empty slot")) {
                             selectedLocation.put(playerUUID, is.getType().toString());
                             // get selected slot
@@ -197,7 +199,7 @@ public class TARDISARSMapListener extends TARDISARSMethods implements Listener {
                 ItemStack is = view.getItem(slot);
                 is.setType(Material.ARROW);
                 ItemMeta im = is.getItemMeta();
-                im.setLore(List.of(plugin.getLanguage().getString("ARS_MAP_HERE")));
+                im.lore(List.of(Component.text(plugin.getLanguage().getString("ARS_MAP_HERE", "You are here!"))));
                 is.setItemMeta(im);
             }
         } else {

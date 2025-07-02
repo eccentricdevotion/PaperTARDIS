@@ -25,6 +25,8 @@ import me.eccentric_nz.TARDIS.travel.save.TARDISSavesPlanetInventory;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -57,21 +59,23 @@ class TARDISSaveSign {
         }
         if (plugin.getTrackerKeeper().getJunkPlayers().containsKey(uuid) && plugin.getConfig().getBoolean("difficulty.disks")) {
             ItemStack disk = player.getInventory().getItemInMainHand();
-            if (disk.hasItemMeta() && disk.getItemMeta().hasDisplayName() && disk.getItemMeta().getDisplayName().endsWith("Save Storage Disk")) {
-                List<String> lore = disk.getItemMeta().getLore();
-                if (!lore.getFirst().equals("Blank")) {
+            if (disk.hasItemMeta() && disk.getItemMeta().hasDisplayName() && TARDISStringUtils.endsWith(disk.getItemMeta().displayName(), "Save Storage Disk")) {
+                List<Component> lore = disk.getItemMeta().lore();
+                if (!TARDISStringUtils.stripColour(lore.getFirst()).equals("Blank")) {
                     // read the lore from the disk
-                    String world = lore.get(1);
-                    int x = TARDISNumberParsers.parseInt(lore.get(2));
-                    int y = TARDISNumberParsers.parseInt(lore.get(3));
-                    int z = TARDISNumberParsers.parseInt(lore.get(4));
+                    String world = TARDISStringUtils.stripColour(lore.get(1));
+                    // TODO make method to parse int from component
+                    int x = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(2)));
+                    int y = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(3)));
+                    int z = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(4)));
                     HashMap<String, Object> set_next = new HashMap<>();
                     set_next.put("world", world);
                     set_next.put("x", x);
                     set_next.put("y", y);
                     set_next.put("z", z);
                     set_next.put("direction", lore.get(6));
-                    boolean sub = Boolean.parseBoolean(lore.get(7));
+                    // TODO and parse boolean
+                    boolean sub = Boolean.parseBoolean(TARDISStringUtils.stripColour(lore.get(7)));
                     set_next.put("submarine", (sub) ? 1 : 0);
                     plugin.getMessenger().send(player, "LOC_SET", true);
                     // update next

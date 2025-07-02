@@ -47,7 +47,7 @@ public class TARDISCompanionAddInventory implements InventoryHolder {
         this.plugin = plugin;
         this.player = player;
         uuid = this.player.getUniqueId();
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Add Companion", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Add Companion", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -74,10 +74,8 @@ public class TARDISCompanionAddInventory implements InventoryHolder {
                     ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
                     SkullMeta skull = (SkullMeta) head.getItemMeta();
                     skull.setOwningPlayer(p);
-                    skull.setDisplayName(p.getName());
-                    ArrayList<String> lore = new ArrayList<>();
-                    lore.add(p.getUniqueId().toString());
-                    skull.setLore(lore);
+                    skull.displayName(Component.text(p.getName()));
+                    skull.lore(List.of(Component.text(p.getUniqueId().toString())));
                     head.setItemMeta(skull);
                     heads[i] = head;
                     i++;
@@ -87,27 +85,27 @@ public class TARDISCompanionAddInventory implements InventoryHolder {
         // add buttons
         ItemStack info = new ItemStack(GUICompanion.INFO.material(), 1);
         ItemMeta ii = info.getItemMeta();
-        ii.setDisplayName("Info");
-        ArrayList<String> info_lore = new ArrayList<>();
-        info_lore.add("Click a player head to");
-        info_lore.add("add them as a companion.");
-        ii.setLore(info_lore);
+        ii.displayName(Component.text("Info"));
+        ii.lore(List.of(
+                Component.text("Click a player head to"),
+                Component.text("add them as a companion.")
+        ));
         info.setItemMeta(ii);
         heads[GUICompanion.INFO.slot()] = info;
         ItemStack list = new ItemStack(GUICompanion.LIST_COMPANIONS.material(), 1);
         ItemMeta ll = list.getItemMeta();
-        ll.setDisplayName("List companions");
+        ll.displayName(Component.text("List companions"));
         list.setItemMeta(ll);
         heads[GUICompanion.LIST_COMPANIONS.slot()] = list;
         ItemStack every = new ItemStack(GUICompanion.ALL_COMPANIONS.material(), 1);
         ItemMeta one = every.getItemMeta();
-        one.setDisplayName("Add all online players");
+        one.displayName(Component.text("Add all online players"));
         every.setItemMeta(one);
         heads[GUICompanion.ALL_COMPANIONS.slot()] = every;
         // Cancel / close
         ItemStack close = new ItemStack(GUICompanion.BUTTON_CLOSE.material(), 1);
         ItemMeta can = close.getItemMeta();
-        can.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);
         heads[GUICompanion.BUTTON_CLOSE.slot()] = close;
 

@@ -21,7 +21,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetCurrentFromId;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.display.TARDISDisplayType;
 import me.eccentric_nz.TARDIS.flight.FlightVisibility;
-import org.bukkit.Location;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -34,8 +34,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
-
-import java.util.Objects;
 
 /**
  * @author eccentric_nz
@@ -61,7 +59,7 @@ public class TARDISHotbarListener implements Listener {
                     im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.INTEGER, which);
                     is.setItemMeta(im);
                 }
-                if (is.getType().equals(Material.COMPASS) && im.getDisplayName().endsWith("TARDIS Locator")) {
+                if (is.getType().equals(Material.COMPASS) && TARDISStringUtils.endsWith(im.displayName(), "TARDIS Locator")) {
                     // get TARDIS location
                     ResultSetTardisID rs = new ResultSetTardisID(plugin);
                     if (rs.fromUUID(player.getUniqueId().toString())) {

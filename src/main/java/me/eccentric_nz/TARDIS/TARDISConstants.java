@@ -16,16 +16,12 @@
  */
 package me.eccentric_nz.TARDIS;
 
-import io.papermc.paper.registry.RegistryAccess;
-import io.papermc.paper.registry.RegistryKey;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import org.bukkit.*;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Levelled;
 import org.bukkit.boss.BarFlag;
 import org.bukkit.entity.EntityType;
-import org.bukkit.loot.LootTable;
-import org.bukkit.loot.LootTables;
 import org.joml.AxisAngle4f;
 import org.joml.Vector3f;
 

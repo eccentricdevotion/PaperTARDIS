@@ -10,8 +10,10 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.Flag;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -273,12 +275,13 @@ public class TVMGUIListener extends TARDISMenuListener {
     private void usePredictive(InventoryView view) {
         ItemStack is = view.getItem(6);
         ItemMeta im = is.getItemMeta();
-        String world = im.getLore().getFirst();
+        String world = TARDISStringUtils.stripColour(im.lore().getFirst());
         components.set(0, world);
         ItemStack display = view.getItem(4);
         ItemMeta dim = display.getItemMeta();
-        List<String> lore = List.of(world + " " + components.get(1) + " " + components.get(2) + " " + components.get(3));
-        dim.setLore(lore);
+        dim.lore(List.of(
+                Component.text(world + " " + components.get(1) + " " + components.get(2) + " " + components.get(3))
+        ));
         display.setItemMeta(dim);
         // move the cursor to the end of the string
         which = 1;
@@ -290,8 +293,7 @@ public class TVMGUIListener extends TARDISMenuListener {
         for (World w : plugin.getServer().getWorlds()) {
             String world = w.getName();
             if (w.getName().toLowerCase(Locale.ROOT).startsWith(stub)) {
-                List<String> lore = List.of(world);
-                im.setLore(lore);
+                im.lore(List.of(Component.text(world)));
                 is.setItemMeta(im);
                 break;
             }
@@ -325,8 +327,7 @@ public class TVMGUIListener extends TARDISMenuListener {
             default -> combined = comp;
         }
         components.set(which, comp);
-        List<String> dlore = List.of(combined);
-        dim.setLore(dlore);
+        dim.lore(List.of(Component.text(combined)));
         display.setItemMeta(dim);
     }
 
@@ -346,8 +347,8 @@ public class TVMGUIListener extends TARDISMenuListener {
     private void saveCurrentLocation(Player player, InventoryView view) {
         ItemStack display = view.getItem(4);
         ItemMeta dim = display.getItemMeta();
-        List<String> lore = dim.getLore();
-        String name = lore.getFirst();
+        List<Component> lore = dim.lore();
+        String name = TARDISStringUtils.stripColour(lore.getFirst());
         if (name.isEmpty()) {
             plugin.getMessenger().send(player, TardisModule.VORTEX_MANIPULATOR, "VM_NEED");
             return;
@@ -383,8 +384,8 @@ public class TVMGUIListener extends TARDISMenuListener {
         // process GUI
         ItemStack display = view.getItem(4);
         ItemMeta dim = display.getItemMeta();
-        List<String> lore = dim.getLore();
-        String pname = lore.getFirst().trim();
+        List<Component> lore = dim.lore();
+        String pname = TARDISStringUtils.stripColour(lore.getFirst()).trim();
         if (pname.isEmpty()) {
             plugin.getMessenger().send(player, TardisModule.VORTEX_MANIPULATOR, "SCAN_ENTS");
             // scan nearby entities
@@ -519,10 +520,11 @@ public class TVMGUIListener extends TARDISMenuListener {
     private void doWarp(Player player, InventoryView view) {
         ItemStack display = view.getItem(4);
         ItemMeta dim = display.getItemMeta();
-        List<String> lore = dim.getLore();
+        List<Component> lore = dim.lore();
         List<String> dest;
-        if (!lore.getFirst().trim().isEmpty()) {
-            dest = List.of(lore.getFirst().trim().split(" "));
+        String first = TARDISStringUtils.stripColour(lore.getFirst()).trim();
+        if (!first.isEmpty()) {
+            dest = List.of(first.split(" "));
         } else {
             dest = new ArrayList<>();
         }

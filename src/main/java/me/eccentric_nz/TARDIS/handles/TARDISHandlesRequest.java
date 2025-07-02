@@ -16,6 +16,8 @@
  */
 package me.eccentric_nz.TARDIS.handles;
 
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.commands.TARDISRecipeTabComplete;
@@ -85,7 +87,7 @@ public class TARDISHandlesRequest {
                     }
                     PlayerInventory pi = player.getInventory();
                     ItemStack communicator = pi.getHelmet();
-                    if (communicator == null || !communicator.hasItemMeta() || !communicator.getType().equals(Material.LEATHER_HELMET) || !communicator.getItemMeta().getDisplayName().endsWith("TARDIS Communicator")) {
+                    if (communicator == null || !communicator.hasItemMeta() || !communicator.getType().equals(Material.LEATHER_HELMET) || !TARDISStringUtils.endsWith(communicator.getItemMeta().displayName(), "TARDIS Communicator")) {
                         plugin.getMessenger().send(player, TardisModule.TARDIS, "HANDLES_COMMUNICATOR");
                         return;
                     }
@@ -96,7 +98,7 @@ public class TARDISHandlesRequest {
                 for (ItemStack is : player.getInventory().getContents()) {
                     if (is != null && is.getType().equals(Material.BIRCH_BUTTON) && is.hasItemMeta()) {
                         ItemMeta im = is.getItemMeta();
-                        if (im.hasDisplayName() && im.getDisplayName().endsWith("Handles")) {
+                        if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "Handles")) {
                             found = true;
                         }
                     }
@@ -313,7 +315,7 @@ public class TARDISHandlesRequest {
                             }
                             String gb = (groups.getFirst() == null || groups.getFirst().isEmpty()) ? groups.get(1) : groups.getFirst();
                             // cycle through biomes
-                            for (Biome biome : Registry.BIOME) {
+                            for (Biome biome : RegistryAccess.registryAccess().getRegistry(RegistryKey.BIOME)) {
                                 String b = biome.toString();
                                 if (gb.equalsIgnoreCase(b)) {
                                     plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.performCommand("tardistravel biome " + b + " kzsbtr1h2"), 1L);

@@ -26,6 +26,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisLight;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -142,7 +143,7 @@ public class TARDISLightsGUIListener extends TARDISMenuListener {
                         default -> {
                             ItemMeta im = is.getItemMeta();
                             // save preference
-                            String light = TARDISStringUtils.toUnderscoredUppercase(im.getDisplayName());
+                            String light = TARDISStringUtils.toUnderscoredUppercase(TARDISStringUtils.stripColour(im.displayName()));
                             HashMap<String, Object> set = new HashMap<>();
                             set.put("light", light);
                             HashMap<String, Object> wheret = new HashMap<>();
@@ -159,10 +160,10 @@ public class TARDISLightsGUIListener extends TARDISMenuListener {
                                 ItemStack isl = view.getItem(l);
                                 if (isl != null) {
                                     ItemMeta iml = isl.getItemMeta();
-                                    if (!iml.getDisplayName().equals(im.getDisplayName())) {
-                                        iml.setLore(null);
+                                    if (!iml.displayName().equals(im.displayName())) {
+                                        iml.lore(null);
                                     } else {
-                                        iml.setLore(List.of("Current light"));
+                                        iml.lore(List.of(Component.text("Current light")));
                                     }
                                     isl.setItemMeta(iml);
                                 }

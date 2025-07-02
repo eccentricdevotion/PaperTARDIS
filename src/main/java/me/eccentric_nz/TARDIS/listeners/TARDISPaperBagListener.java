@@ -20,6 +20,8 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPaperBag;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -60,7 +62,7 @@ public class TARDISPaperBagListener implements Listener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (im == null || !im.hasDisplayName() || !im.getDisplayName().endsWith("Paper Bag")) {
+        if (im == null || !im.hasDisplayName() || !TARDISStringUtils.stripColour(im.displayName()).endsWith("Paper Bag")) {
             return;
         }
         if (event.isRightClick()) {
@@ -71,7 +73,7 @@ public class TARDISPaperBagListener implements Listener {
                 // create a random flavoured Jelly Baby
                 ItemStack jb = new ItemStack(Material.MELON_SLICE, 1);
                 ItemMeta jim = jb.getItemMeta();
-                jim.setDisplayName(flavour + " Jelly Baby");
+                jim.displayName(Component.text(flavour + " Jelly Baby"));
                 jb.setItemMeta(jim);
                 int slot = inv.firstEmpty();
                 if (slot != -1) {
@@ -131,7 +133,7 @@ public class TARDISPaperBagListener implements Listener {
                     if (entry.getValue().hasItemMeta()) {
                         ItemMeta jim = entry.getValue().getItemMeta();
                         if (jim.hasDisplayName()) {
-                            String name = jim.getDisplayName();
+                            String name = TARDISStringUtils.stripColour(jim.displayName());
                             if (name.endsWith("Jelly Baby")) {
                                 int amount = entry.getValue().getAmount();
                                 String flavour = name.replace(" Jelly Baby", "");

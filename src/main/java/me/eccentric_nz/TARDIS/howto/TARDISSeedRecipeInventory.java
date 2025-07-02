@@ -45,7 +45,7 @@ class TARDISSeedRecipeInventory implements InventoryHolder {
     TARDISSeedRecipeInventory(TARDIS plugin, Material block) {
         this.plugin = plugin;
         this.block = block;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Seed Recipe", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Seed Recipe", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -82,14 +82,20 @@ class TARDISSeedRecipeInventory implements InventoryHolder {
         // interior wall
         ItemStack in_wall = new ItemStack(Material.ORANGE_WOOL, 1);
         ItemMeta in_meta = in_wall.getItemMeta();
-        in_meta.setDisplayName("Interior walls");
-        in_meta.setLore(List.of("Any valid Wall/Floor block", "Click to see blocks..."));
+        in_meta.displayName(Component.text("Interior walls"));
+        in_meta.lore(List.of(
+                Component.text("Any valid Wall/Floor block"),
+                Component.text("Click to see blocks...")
+        ));
         in_wall.setItemMeta(in_meta);
         // interior floor
         ItemStack in_floor = new ItemStack(Material.LIGHT_GRAY_WOOL, 1);
         ItemMeta fl_meta = in_floor.getItemMeta();
-        fl_meta.setDisplayName("Interior floors");
-        fl_meta.setLore(List.of("Any valid Wall/Floor block", "Click to see blocks..."));
+        fl_meta.displayName(Component.text("Interior floors"));
+        fl_meta.lore(List.of(
+                Component.text("Any valid Wall/Floor block"),
+                Component.text("Click to see blocks...")
+        ));
         in_floor.setItemMeta(fl_meta);
         // tardis type
         ItemStack tardis = new ItemStack(block, 1);
@@ -101,13 +107,13 @@ class TARDISSeedRecipeInventory implements InventoryHolder {
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);
         stack[26] = close;
         // back
         ItemStack back = new ItemStack(Material.BOWL, 1);
         ItemMeta back_im = back.getItemMeta();
-        back_im.setDisplayName("Back");
+        back_im.displayName(Component.text("Back"));
         back.setItemMeta(back_im);
         stack[8] = back;
 

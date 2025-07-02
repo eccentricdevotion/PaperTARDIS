@@ -43,7 +43,7 @@ class TARDISHowtoWallsInventory implements InventoryHolder {
 
     public TARDISHowtoWallsInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Wall & Floor Menu", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Wall & Floor Menu", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -77,25 +77,25 @@ class TARDISHowtoWallsInventory implements InventoryHolder {
         // scroll up
         ItemStack scroll_up = new ItemStack(GUIWallFloor.BUTTON_SCROLL_U.material(), 1);
         ItemMeta uim = scroll_up.getItemMeta();
-        uim.setDisplayName(plugin.getLanguage().getString("BUTTON_SCROLL_U"));
+        uim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_U")));
         scroll_up.setItemMeta(uim);
         stack[GUIWallFloor.BUTTON_SCROLL_U.slot()] = scroll_up;
         // scroll down
         ItemStack scroll_down = new ItemStack(GUIWallFloor.BUTTON_SCROLL_D.material(), 1);
         ItemMeta dim = scroll_down.getItemMeta();
-        dim.setDisplayName(plugin.getLanguage().getString("BUTTON_SCROLL_D"));
+        dim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_D")));
         scroll_down.setItemMeta(dim);
         stack[26] = scroll_down;
         // back
         ItemStack back = new ItemStack(GUIChameleonPresets.BACK.material(), 1);
         ItemMeta back_im = back.getItemMeta();
-        back_im.setDisplayName("Back");
+        back_im.displayName(Component.text("Back"));
         back.setItemMeta(back_im);
         stack[44] = back;
         // close
         ItemStack close = new ItemStack(GUIChameleonPresets.CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);
         stack[GUIChameleonPresets.CLOSE.slot()] = close;
 

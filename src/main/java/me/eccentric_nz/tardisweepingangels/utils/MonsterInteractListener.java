@@ -18,11 +18,15 @@ package me.eccentric_nz.tardisweepingangels.utils;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngelSpawnEvent;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
 import me.eccentric_nz.tardisweepingangels.equip.Equipper;
 import me.eccentric_nz.tardisweepingangels.nms.MonsterSpawner;
 import me.eccentric_nz.tardisweepingangels.nms.TWAFollower;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.entity.CraftEntity;
@@ -76,7 +80,7 @@ public class MonsterInteractListener implements Listener {
         }
         if (entity instanceof Zombie zombie) {
             if (h.getType().equals(Material.POTATO)) {
-                if (im.getDisplayName().startsWith("Sontaran")) {
+                if (TARDISStringUtils.stripColour(im.displayName()).startsWith("Sontaran")) {
                     Player p = event.getPlayer();
                     ItemStack is = p.getInventory().getItemInMainHand();
                     if (is.getType().equals(Material.POTION)) {
@@ -97,7 +101,7 @@ public class MonsterInteractListener implements Listener {
                             strax.setAngry(false);
                             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                                 new Equipper(Monster.STRAX, strax, false).setHelmetAndInvisibility();
-                                strax.setCustomName("Strax");
+                                strax.customName(Component.text("Strax"));
                                 strax.getPersistentDataContainer().set(TARDISWeepingAngels.STRAX, PersistentDataType.INTEGER, Monster.STRAX.ordinal());
                                 strax.getPersistentDataContainer().remove(TARDISWeepingAngels.SONTARAN);
                                 plugin.getServer().getPluginManager().callEvent(new TARDISWeepingAngelSpawnEvent(strax, EntityType.ZOMBIFIED_PIGLIN, Monster.STRAX, l));
@@ -108,7 +112,7 @@ public class MonsterInteractListener implements Listener {
                 }
             }
             if (ee.getHelmet().getType().equals(Material.BAKED_POTATO)) {
-                if (im.getDisplayName().startsWith("Strax")) {
+                if (TARDISStringUtils.stripColour(im.displayName()).startsWith("Strax")) {
                     Player p = event.getPlayer();
                     UUID uuid = p.getUniqueId();
                     ItemStack is = p.getInventory().getItemInMainHand();
@@ -118,7 +122,7 @@ public class MonsterInteractListener implements Listener {
                             p.playSound(zombie.getLocation(), "milk", 1.0f, 1.0f);
                             ItemStack milk = new ItemStack(Material.MILK_BUCKET);
                             ItemMeta m = milk.getItemMeta();
-                            m.setDisplayName("Sontaran Lactic Fluid");
+                            m.displayName(Component.text("Sontaran Lactic Fluid", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
                             milk.setItemMeta(m);
                             p.getEquipment().setItemInMainHand(milk);
                             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> milkers.remove(uuid), 3000L);

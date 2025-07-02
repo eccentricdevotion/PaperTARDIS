@@ -71,6 +71,10 @@ public class TARDISMessage {
         }
     }
 
+    public void message(CommandSender cs, TardisModule module, Component component) {
+        cs.sendMessage(AdventureComponents.getModule(module).append(component));
+    }
+
     public void handlesMessage(Player p, String message) {
         Bukkit.getScheduler().scheduleSyncDelayedTask(TARDIS.plugin, () -> message(p, TardisModule.HANDLES, message), 2L);
     }
@@ -93,6 +97,12 @@ public class TARDISMessage {
     public void send(CommandSender cs, TardisModule module, String key, Object... subs) {
         String local = TARDIS.plugin.getLanguage().getString(key);
         message(cs, module, String.format(local, subs));
+    }
+
+    public void send(CommandSender cs, TardisModule module, String key, Component sub) {
+        String local = TARDIS.plugin.getLanguage().getString(key).replace("%s", "");
+        TextComponent textComponent = Component.text(local).append(sub);
+        message(cs, module, textComponent);
     }
 
     public void send(Player player, String key, boolean handbrake) {

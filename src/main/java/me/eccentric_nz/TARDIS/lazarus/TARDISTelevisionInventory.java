@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.lazarus;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIChameleonPoliceBoxes;
 import me.eccentric_nz.TARDIS.custommodels.GUIChameleonPresets;
@@ -30,8 +31,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.profile.PlayerProfile;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class TARDISTelevisionInventory implements InventoryHolder {
 
     public TARDISTelevisionInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Genetic Skins", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Genetic Skins", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -60,10 +59,10 @@ public class TARDISTelevisionInventory implements InventoryHolder {
                 ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(doctor);
-                im.setOwnerProfile(profile);
+                im.setPlayerProfile(profile);
                 String[] name = doctor.name().split(" - ");
-                im.setDisplayName(name[0]);
-                im.setLore(List.of(name[1]));
+                im.displayName(Component.text(name[0]));
+                im.lore(List.of(Component.text(name[1])));
                 is.setItemMeta(im);
                 // cache the item stack
                 PlayerHeadCache.DOCTORS.add(is);
@@ -82,8 +81,8 @@ public class TARDISTelevisionInventory implements InventoryHolder {
                 ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(companion);
-                im.setOwnerProfile(profile);
-                im.setDisplayName(companion.name());
+                im.setPlayerProfile(profile);
+                im.displayName(Component.text(companion.name()));
                 is.setItemMeta(im);
                 // cache the item stack
                 PlayerHeadCache.COMPANIONS.add(is);
@@ -102,8 +101,8 @@ public class TARDISTelevisionInventory implements InventoryHolder {
                 ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(character);
-                im.setOwnerProfile(profile);
-                im.setDisplayName(character.name());
+                im.setPlayerProfile(profile);
+                im.displayName(Component.text(character.name()));
                 is.setItemMeta(im);
                 // cache the item stack
                 PlayerHeadCache.LAZARUS_CHARACTERS.add(is);
@@ -119,37 +118,37 @@ public class TARDISTelevisionInventory implements InventoryHolder {
         // page one
         ItemStack page1 = new ItemStack(GUIChameleonPoliceBoxes.GO_TO_PAGE_1.material(), 1);
         ItemMeta one = page1.getItemMeta();
-        one.setDisplayName(plugin.getLanguage().getString("BUTTON_PAGE_1"));
+        one.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_1", "Go to page 1")));
         page1.setItemMeta(one);
         stacks[48] = page1;
         // page two
         ItemStack page2 = new ItemStack(GUIChameleonPresets.GO_TO_PAGE_2.material(), 1);
         ItemMeta two = page2.getItemMeta();
-        two.setDisplayName(plugin.getLanguage().getString("BUTTON_PAGE_2"));
+        two.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_2", "Go to page 2")));
         page2.setItemMeta(two);
         stacks[49] = page2;
         // TARDISWeepingAngels monsters
         ItemStack weep = new ItemStack(GUIGeneticManipulator.BUTTON_TWA.material(), 1);
         ItemMeta ing = weep.getItemMeta();
-        ing.setDisplayName("TARDIS Monsters");
+        ing.displayName(Component.text("TARDIS Monsters"));
         weep.setItemMeta(ing);
         stacks[50] = weep;
         // add buttons
         ItemStack rem = new ItemStack(GUIGeneticManipulator.BUTTON_RESTORE.material(), 1);
         ItemMeta ove = rem.getItemMeta();
-        ove.setDisplayName(plugin.getLanguage().getString("BUTTON_RESTORE"));
+        ove.displayName(Component.text(plugin.getLanguage().getString("BUTTON_RESTORE", "Restore my original genetic material")));
         rem.setItemMeta(ove);
         stacks[GUIGeneticManipulator.BUTTON_RESTORE.slot()] = rem;
         // set
         ItemStack s = new ItemStack(GUIGeneticManipulator.BUTTON_DNA.material(), 1);
         ItemMeta sim = s.getItemMeta();
-        sim.setDisplayName(plugin.getLanguage().getString("BUTTON_DNA"));
+        sim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_DNA", "Modify my genetic material")));
         s.setItemMeta(sim);
         stacks[GUIGeneticManipulator.BUTTON_DNA.slot()] = s;
         // cancel
         ItemStack can = new ItemStack(GUIGeneticManipulator.BUTTON_CANCEL.material(), 1);
         ItemMeta cel = can.getItemMeta();
-        cel.setDisplayName(plugin.getLanguage().getString("BUTTON_CANCEL"));
+        cel.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CANCEL", "Cancel")));
         can.setItemMeta(cel);
         stacks[GUIGeneticManipulator.BUTTON_CANCEL.slot()] = can;
         return stacks;

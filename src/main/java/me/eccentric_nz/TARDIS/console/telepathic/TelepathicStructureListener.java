@@ -22,12 +22,10 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -42,9 +40,7 @@ public class TelepathicStructureListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onStructureMenuClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        String name = view.getTitle();
-        if (!name.equals(ChatColor.DARK_RED + "Telepathic Structure Finder")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISTelepathicStructure)) {
             return;
         }
         Player player = (Player) event.getWhoClicked();
@@ -52,6 +48,7 @@ public class TelepathicStructureListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             ClickType click = event.getClick();
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
+                plugin.debug("TelepathicStructureListener");
                 event.setCancelled(true);
             }
             return;
@@ -60,7 +57,7 @@ public class TelepathicStructureListener extends TARDISMenuListener {
         if (slot == 53) {
             close(player);
         } else {
-            ItemStack choice = view.getItem(slot);
+            ItemStack choice = event.getView().getItem(slot);
             if (choice != null) {
                 // get TARDIS id
                 ResultSetTardisID rst = new ResultSetTardisID(plugin);
@@ -79,7 +76,7 @@ public class TelepathicStructureListener extends TARDISMenuListener {
                 }
                 // get the structure
                 ItemMeta im = choice.getItemMeta();
-                String enumStr = TARDISStringUtils.toEnumUppercase(im.getDisplayName());
+                String enumStr = TARDISStringUtils.toEnumUppercase(TARDISStringUtils.stripColour(im.displayName()));
                 player.performCommand("tardistravel structure " + enumStr);
                 close(player);
             }

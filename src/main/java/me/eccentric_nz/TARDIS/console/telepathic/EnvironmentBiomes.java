@@ -18,9 +18,7 @@ package me.eccentric_nz.TARDIS.console.telepathic;
 
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
-import me.eccentric_nz.TARDIS.TARDIS;
 import org.bukkit.Material;
-import org.bukkit.Registry;
 import org.bukkit.block.Biome;
 
 import java.util.ArrayList;

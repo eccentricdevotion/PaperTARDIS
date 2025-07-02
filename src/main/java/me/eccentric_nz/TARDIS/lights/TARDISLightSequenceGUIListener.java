@@ -22,14 +22,14 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetLightPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.ArrayUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -144,8 +144,8 @@ public class TARDISLightSequenceGUIListener extends TARDISMenuListener {
         // which sequence?
         ItemStack preset = view.getItem(36);
         ItemMeta im = preset.getItemMeta();
-        List<String> lore = im.getLore();
-        String num = lore.get(2);
+        List<Component> lore = im.lore();
+        String num = TARDISStringUtils.stripColour(lore.get(2));
         int next = TARDISNumberParsers.parseInt(num) + 1;
         if (next == Sequences.PRESETS.size()) {
             next = 0;
@@ -165,8 +165,8 @@ public class TARDISLightSequenceGUIListener extends TARDISMenuListener {
         for (int i = 27; i < 36; i++) {
             view.getItem(i).setAmount(levels.get(i - 27));
         }
-        lore.set(2, "" + next);
-        im.setLore(lore);
+        lore.set(2, Component.text(next));
+        im.lore(lore);
         preset.setItemMeta(im);
     }
 

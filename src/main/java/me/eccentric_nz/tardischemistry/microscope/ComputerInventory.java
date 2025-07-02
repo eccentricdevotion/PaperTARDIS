@@ -27,7 +27,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.jetbrains.annotations.NotNull;
 
 class ComputerInventory implements InventoryHolder {
 
@@ -36,7 +35,7 @@ class ComputerInventory implements InventoryHolder {
 
     ComputerInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Computer Storage", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Computer Storage", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItems());
     }
 
@@ -51,7 +50,7 @@ class ComputerInventory implements InventoryHolder {
         for (Screen screen : Screen.values()) {
             ItemStack is = new ItemStack(Material.LIME_STAINED_GLASS, 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(screen.getName());
+            im.displayName(Component.text(screen.getName()));
             im.setItemModel(ChemistryEquipment.COMPUTER_DISK.getKey());
             im.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.STRING, screen.getModel().getKey());
             is.setItemMeta(im);
@@ -60,7 +59,7 @@ class ComputerInventory implements InventoryHolder {
         // Cancel / close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta can = close.getItemMeta();
-        can.setDisplayName("Close");
+        can.displayName(Component.text("Close"));
         can.setItemModel(GuiVariant.CLOSE.getKey());
         close.setItemMeta(can);
         stacks[53] = close;

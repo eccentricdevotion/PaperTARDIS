@@ -19,7 +19,9 @@ package me.eccentric_nz.TARDIS.commands.tardis;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -53,11 +55,11 @@ public class TARDISItemCommand {
                 return true;
             }
             // strip color codes
-            String stripped = ChatColor.stripColor(im.getDisplayName());
+            String stripped = TARDISStringUtils.stripColour(im.displayName());
             // look up display name
             RecipeItem recipeItem = RecipeItem.getByName(stripped);
             if (!recipeItem.equals(RecipeItem.NOT_FOUND)) {
-                im.setDisplayName(ChatColor.WHITE + stripped);
+                im.displayName(Component.text(stripped, NamedTextColor.WHITE));
                 im.setItemModel(null);
                 inHand.setItemMeta(im);
                 player.updateInventory();
@@ -70,11 +72,11 @@ public class TARDISItemCommand {
                     ItemMeta im = is.getItemMeta();
                     if (im.hasDisplayName()) {
                         // strip color codes
-                        String stripped = ChatColor.stripColor(im.getDisplayName());
+                        String stripped = TARDISStringUtils.stripColour(im.displayName());
                         // look up display name
                         RecipeItem recipeItem = RecipeItem.getByName(stripped);
                         if (!recipeItem.equals(RecipeItem.NOT_FOUND)) {
-                            im.setDisplayName(ChatColor.WHITE + stripped);
+                            im.displayName(Component.text(stripped, NamedTextColor.WHITE));
                             im.setItemModel(null);
                             is.setItemMeta(im);
                             i++;

@@ -27,7 +27,9 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.schematic.ArchiveUpdate;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
@@ -66,6 +68,7 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
         if (slot < 0 || slot > 26) {
             ClickType click = event.getClick();
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
+                plugin.debug("TARDISArchiveMenuListener");
                 event.setCancelled(true);
             }
             return;
@@ -88,16 +91,20 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
                 // size
                 ItemStack iss = view.getItem(18);
                 ItemMeta ims = iss.getItemMeta();
-                List<String> lores = ims.getLore();
+                List<Component> lores = ims.lore();
                 String t;
                 String b;
                 int s;
-                int o = ConsoleSize.valueOf(lores.getFirst()).ordinal();
+                int o = ConsoleSize.valueOf(TARDISStringUtils.stripColour(lores.getFirst())).ordinal();
                 s = (o < 2) ? o + 1 : 0;
                 t = ConsoleSize.values()[s].toString();
                 b = ConsoleSize.values()[s].getBlocks();
                 if (t != null) {
-                    ims.setLore(List.of(t, b, ChatColor.AQUA + "Click to change"));
+                    ims.lore(List.of(
+                            Component.text(t),
+                            Component.text(b),
+                            Component.text("Click to change", NamedTextColor.AQUA)
+                    ));
                     iss.setItemMeta(ims);
                 }
             }
@@ -109,10 +116,11 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
                     UUID uuid = p.getUniqueId();
                     TARDISUpgradeData tud = plugin.getTrackerKeeper().getUpgrades().get(uuid);
                     ItemMeta im = template.getItemMeta();
-                    String size = im.getDisplayName().toLowerCase(Locale.ROOT);
+                    String dn = TARDISStringUtils.stripColour(im.displayName());
+                    String size = dn.toLowerCase(Locale.ROOT);
                     int upgrade = plugin.getArtronConfig().getInt("upgrades.template." + size);
                     if (tud.getLevel() >= upgrade) {
-                        new ArchiveUpdate(plugin, uuid.toString(), im.getDisplayName()).setInUse();
+                        new ArchiveUpdate(plugin, uuid.toString(), dn).setInUse();
                         tud.setSchematic(Consoles.schematicFor(size));
                         tud.setWall("ORANGE_WOOL");
                         tud.setFloor("LIGHT_GRAY_WOOL");
@@ -135,19 +143,20 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
                     UUID uuid = p.getUniqueId();
                     TARDISUpgradeData tud = plugin.getTrackerKeeper().getUpgrades().get(uuid);
                     ItemMeta im = choice.getItemMeta();
-                    List<String> lore = im.getLore();
-                    if (lore.contains(ChatColor.GREEN + plugin.getLanguage().getString("CURRENT_CONSOLE"))) {
+                    List<Component> lore = im.lore();
+                    if (lore == null || lore.contains(Component.text(plugin.getLanguage().getString("CURRENT_CONSOLE", ""), NamedTextColor.GREEN))) {
                         plugin.getMessenger().send(p, TardisModule.TARDIS, "ARCHIVE_NOT_CURRENT");
                         return;
                     }
                     int upgrade = plugin.getArtronConfig().getInt("upgrades.archive.tall");
-                    for (String l : lore) {
-                        if (l.startsWith("Cost")) {
-                            upgrade = TARDISNumberParsers.parseInt(l.replace("Cost: ", ""));
+                    for (Component l : lore) {
+                        String c = TARDISStringUtils.stripColour(l);
+                        if (c.startsWith("Cost")) {
+                            upgrade = TARDISNumberParsers.parseInt(c.replace("Cost: ", ""));
                         }
                     }
                     if (tud.getLevel() >= upgrade) {
-                        new ArchiveUpdate(plugin, uuid.toString(), im.getDisplayName()).setInUse();
+                        new ArchiveUpdate(plugin, uuid.toString(), TARDISStringUtils.stripColour(im.displayName())).setInUse();
                         tud.setSchematic(schm);
                         tud.setWall("ORANGE_WOOL");
                         tud.setFloor("LIGHT_GRAY_WOOL");
@@ -181,8 +190,8 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
      */
     private void scan(Player p, InventoryView view) {
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            List<String> lore = getSizeLore(view);
-            String size = lore.getFirst();
+            List<Component> lore = getSizeLore(view);
+            String size = TARDISStringUtils.stripColour(lore.getFirst());
             p.closeInventory();
             p.performCommand("tardis archive scan " + size);
         }, 1L);
@@ -195,8 +204,8 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
      */
     private void archive(Player p, InventoryView view) {
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            List<String> lore = getSizeLore(view);
-            String size = lore.getFirst();
+            List<Component> lore = getSizeLore(view);
+            String size = TARDISStringUtils.stripColour(lore.getFirst());
             p.closeInventory();
             // generate random name
             String name = TARDISRandomArchiveName.getRandomName();
@@ -204,9 +213,9 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
         }, 1L);
     }
 
-    private List<String> getSizeLore(InventoryView view) {
+    private List<Component> getSizeLore(InventoryView view) {
         ItemStack is = view.getItem(18);
         ItemMeta im = is.getItemMeta();
-        return im.getLore();
+        return im.lore();
     }
 }

@@ -26,6 +26,8 @@ import me.eccentric_nz.TARDIS.schematic.actions.SchematicSave;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -91,7 +93,8 @@ public class TARDISSchematicBuilder {
                     // x repeater
                     // z repeater
                     case 2, 3, 4, 5 -> map.put(c, location); // distance multiplier
-                    default -> h = TARDISStaticLocationGetters.getLocationFromBukkitString(rsc.getLocation()); // handbrake
+                    default ->
+                            h = TARDISStaticLocationGetters.getLocationFromBukkitString(rsc.getLocation()); // handbrake
                 }
             }
         }
@@ -193,12 +196,13 @@ public class TARDISSchematicBuilder {
                                             frame.addProperty("cmd", im.getItemModel().getKey());
                                         }
                                         if (im.hasDisplayName()) {
-                                            frame.addProperty("name", im.getDisplayName());
+                                            // TODO need to store display name as json element
+                                            frame.addProperty("name", TARDISStringUtils.stripColour(im.displayName()));
                                         }
                                         if (im.hasLore()) {
                                             JsonArray lore = new JsonArray();
-                                            for (String s : im.getLore()) {
-                                                lore.add(s);
+                                            for (Component s : im.lore()) {
+                                                lore.add(TARDISStringUtils.stripColour(s));
                                             }
                                             frame.add("lore", lore);
                                         }
@@ -309,13 +313,13 @@ public class TARDISSchematicBuilder {
                     if (m.equals(Material.PLAYER_HEAD) || m.equals(Material.PLAYER_WALL_HEAD)) {
                         JsonObject head = new JsonObject();
                         Skull skull = (Skull) b.getState();
-                        if (skull.getOwnerProfile() != null) {
-                            String name = Objects.requireNonNullElse(skull.getOwnerProfile().getName(), "");
-                            plugin.debug("UUID: " + skull.getOwnerProfile().getUniqueId());
+                        if (skull.getPlayerProfile() != null) {
+                            String name = Objects.requireNonNullElse(skull.getPlayerProfile().getName(), "");
+                            plugin.debug("UUID: " + skull.getPlayerProfile().getUniqueId());
                             plugin.debug("name: " + name);
-                            head.addProperty("uuid", skull.getOwnerProfile().getUniqueId().toString());
+                            head.addProperty("uuid", skull.getPlayerProfile().getUniqueId().toString());
                             head.addProperty("name", name);
-                            head.addProperty("texture", skull.getOwnerProfile().getTextures().getSkin().toString());
+                            head.addProperty("texture", skull.getPlayerProfile().getTextures().getSkin().toString());
                         }
                         obj.add("head", head);
                     }

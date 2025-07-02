@@ -20,6 +20,7 @@ import com.google.common.collect.Multimaps;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemFlag;
@@ -39,6 +40,7 @@ public class TARDISSonicBlasterRecipe {
     private final TARDIS plugin;
     private final HashMap<String, NamespacedKey> modelData = new HashMap<>();
 
+    // TODO make recipes non-configurable like other TARDIS recipes
     public TARDISSonicBlasterRecipe(TARDIS plugin) {
         this.plugin = plugin;
         modelData.put("Sonic Blaster", RecipeItem.SONIC_BLASTER.getModel());
@@ -58,9 +60,14 @@ public class TARDISSonicBlasterRecipe {
         int amount = plugin.getBlasterConfig().getInt("recipes." + s + ".amount");
         ItemStack is = new ItemStack(mat, amount);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(s);
-        if (!plugin.getBlasterConfig().getString("recipes." + s + ".lore").isEmpty()) {
-            im.setLore(List.of(plugin.getBlasterConfig().getString("recipes." + s + ".lore").split("~")));
+        im.displayName(Component.text(s));
+        String blaster = plugin.getBlasterConfig().getString("recipes." + s + ".lore", "");
+        if (!blaster.isEmpty()) {
+            List<Component> lore = new ArrayList<>();
+            for (String b : blaster.split("~")) {
+                lore.add(Component.text(b));
+            }
+            im.lore(lore);
         }
         im.setItemModel(modelData.get(s));
         im.addItemFlags(ItemFlag.values());
@@ -70,7 +77,7 @@ public class TARDISSonicBlasterRecipe {
         ShapedRecipe r = new ShapedRecipe(key, is);
         // get shape
         try {
-            String[] shape_tmp = plugin.getBlasterConfig().getString("recipes." + s + ".shape").split(",");
+            String[] shape_tmp = plugin.getBlasterConfig().getString("recipes." + s + ".shape", "").split(",");
             String[] shape = new String[3];
             for (int i = 0; i < 3; i++) {
                 shape[i] = shape_tmp[i].replaceAll("-", " ");
@@ -86,8 +93,8 @@ public class TARDISSonicBlasterRecipe {
                     Material m = Material.valueOf(choice[0]);
                     exact = new ItemStack(m, 1);
                     ItemMeta em = exact.getItemMeta();
-                    em.setDisplayName(choice[1]);
-                    em.setItemModel(RecipeItem.getByName(choice[1]).getModel());
+                    em.displayName(Component.text(choice[1]));
+//                    em.setItemModel(RecipeItem.getByName(choice[1]).getModel());
                     exact.setItemMeta(em);
                     r.setIngredient(c, new RecipeChoice.ExactChoice(exact));
                 } else {

@@ -19,7 +19,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -57,8 +59,8 @@ public class TARDISRemoteKeyRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.OMINOUS_TRIAL_KEY, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "TARDIS Remote Key");
-        im.setLore(List.of("Deadlock & unlock", "Hide & rebuild"));
+        im.displayName(Component.text("TARDIS Remote Key", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.lore(List.of(Component.text("Deadlock & unlock"), Component.text("Hide & rebuild")));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "tardis_remote_key");
         ShapedRecipe r = new ShapedRecipe(key, is);
@@ -69,17 +71,15 @@ public class TARDISRemoteKeyRecipe {
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
             ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
             ItemMeta em = exact.getItemMeta();
-            em.setDisplayName(ChatColor.WHITE + "TARDIS Materialisation Circuit");
+            em.displayName(Component.text("TARDIS Materialisation Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
             CustomModelDataComponent component = em.getCustomModelDataComponent();
             component.setFloats(CircuitVariant.MATERIALISATION.getFloats());
             em.setCustomModelDataComponent(component);
             // set the second line of lore
-            List<String> circuit;
-            String uses = (plugin.getConfig().getString("circuits.uses.materialisation").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
-                    ? ChatColor.YELLOW + "unlimited"
-                    : ChatColor.YELLOW + plugin.getConfig().getString("circuits.uses.materialisation");
-            circuit = List.of("Uses left", uses);
-            em.setLore(circuit);
+            Component uses = (plugin.getConfig().getString("circuits.uses.materialisation", "50").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
+                    ? Component.text("unlimited", NamedTextColor.YELLOW)
+                    : Component.text(plugin.getConfig().getString("circuits.uses.materialisation", "50"), NamedTextColor.YELLOW);
+            em.lore(List.of(Component.text("Uses left"), uses));
             exact.setItemMeta(em);
             r.setIngredient('T', new RecipeChoice.ExactChoice(exact));
         } else {

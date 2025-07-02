@@ -19,6 +19,7 @@ package me.eccentric_nz.TARDIS.handles;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.advanced.TARDISSerializeInventory;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -132,8 +133,8 @@ public class TARDISHandlesProgramListener implements Listener {
                     close(player);
                     ItemStack is = new ItemStack(Material.MUSIC_DISC_WARD, 1);
                     ItemMeta im = is.getItemMeta();
-                    im.setDisplayName("Handles Program Disk");
-                    im.setLore(List.of("Untitled Disk", pid + "", "Checked OUT"));
+                    im.displayName(Component.text("Handles Program Disk"));
+                    im.lore(List.of(Component.text("Untitled Disk"), Component.text(pid), Component.text("Checked OUT")));
                     im.addItemFlags(ItemFlag.values());
                     is.setItemMeta(im);
                     player.getWorld().dropItemNaturally(player.getLocation(), is);
@@ -226,9 +227,9 @@ public class TARDISHandlesProgramListener implements Listener {
     private void setSlot(InventoryView view, int slot, TARDISHandlesBlock block) {
         ItemStack is = new ItemStack(Material.PAPER, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(block.getDisplayName());
+        im.displayName(Component.text(block.getDisplayName()));
         if (block.getLore() != null) {
-            im.setLore(block.getLore());
+            im.lore(block.getLore());
         }
         is.setItemMeta(im);
         view.setItem(slot, is);

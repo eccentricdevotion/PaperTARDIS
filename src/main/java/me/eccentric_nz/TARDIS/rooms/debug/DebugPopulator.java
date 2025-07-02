@@ -45,6 +45,7 @@ import me.eccentric_nz.tardisshop.ShopItem;
 import me.eccentric_nz.tardisshop.ShopItemRecipe;
 import me.eccentric_nz.tardisweepingangels.equip.ArmourStandEquipment;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -117,7 +118,7 @@ public class DebugPopulator {
             if (item.getRecipeType() == ShopItemRecipe.SHAPED || item.getRecipeType() == ShopItemRecipe.SHAPELESS) {
                 Location location = new Location(world, rx + x, 65, rz + z);
                 // set block at location
-                setItemFromMaterial(location, item.getMaterial(), item.getModel(), item.getDisplayName());
+                setItemFromMaterial(location, item.getMaterial(), item.getModel(), Component.text(item.getDisplayName()));
                 // loop x z 24 x 24 blocks with empty blocks between
                 x -= 2;
                 if (x < -24) {
@@ -134,7 +135,7 @@ public class DebugPopulator {
         int c = 0;
         for (String damaged : names) {
             Location location = new Location(world, rx + x, 65, rz + z);
-            setItemFromMaterial(location, Material.GLOWSTONE_DUST, data[c], "Damaged " + damaged + " Circuit");
+            setItemFromMaterial(location, Material.GLOWSTONE_DUST, data[c], Component.text("Damaged " + damaged + " Circuit"));
             c++;
             x -= 2;
             if (x < -24) {
@@ -149,7 +150,7 @@ public class DebugPopulator {
         int b = 0;
         for (String m : misc) {
             Location location = new Location(world, rx + x, 65, rz + z);
-            setItemFromMaterial(location, materials[b], cmd[b], m);
+            setItemFromMaterial(location, materials[b], cmd[b], Component.text(m));
             b++;
             x -= 2;
             if (x < -24) {
@@ -169,7 +170,7 @@ public class DebugPopulator {
                 // set display item at location
                 TARDISDisplayItemUtils.set(tdi, world, rx + x, 65, rz + z);
                 //labels
-                addLabel(location, tdi.getDisplayName());
+                addLabel(location, Component.text(tdi.getDisplayName()));
                 // loop x z - spaced over 24 x 24 with empty blocks between
                 x += 2;
                 if (x > 24) {
@@ -188,7 +189,7 @@ public class DebugPopulator {
             if (sonic.getMaterial() == Material.BLAZE_ROD && sonic != GUISonicPreferences.COLOUR) {
                 Location location = new Location(world, rx + x, 65, rz + z);
                 // set block at location
-                setItemFromMaterial(location, sonic.getMaterial(), sonic.getModel(), sonic.getName());
+                setItemFromMaterial(location, sonic.getMaterial(), sonic.getModel(), Component.text(sonic.getName()));
                 x += 2;
                 if (x > 48) {
                     x = 28;
@@ -200,7 +201,7 @@ public class DebugPopulator {
             if (key.getSlot() < 17) {
                 Location location = new Location(world, rx + x, 65, rz + z);
                 // set block at location
-                setItemFromMaterial(location, key.getMaterial(), key.getModel(), key.getName());
+                setItemFromMaterial(location, key.getMaterial(), key.getModel(), Component.text(key.getName()));
                 x += 2;
                 if (x > 48) {
                     x = 28;
@@ -517,7 +518,7 @@ public class DebugPopulator {
         for (GuiPreview gui : DebugGUI.ICONS) {
             Location location = new Location(world, rx + x, 65, rz + z);
             // set block at location
-            setItemFromMaterial(location, gui.material(), gui.model(), gui.name());
+            setItemFromMaterial(location, gui.material(), gui.model(), Component.text(gui.name()));
             // loop x z 48 x 24 blocks with empty blocks between
             x -= 2;
             if (x < -48) {
@@ -527,12 +528,12 @@ public class DebugPopulator {
         }
     }
 
-    private void setItemFromMaterial(Location location, Material material, NamespacedKey model, String name) {
+    private void setItemFromMaterial(Location location, Material material, NamespacedKey model, Component name) {
         location.getBlock().setType(Material.WHITE_CONCRETE);
         ItemStack is = new ItemStack(material, 1);
         ItemMeta im = is.getItemMeta();
         im.setItemModel(model);
-        im.setDisplayName(name);
+        im.displayName(name);
         is.setItemMeta(im);
         ItemDisplay display = (ItemDisplay) location.getWorld().spawnEntity(location.clone().add(0.5d, 1.25d, 0.5d), EntityType.ITEM_DISPLAY);
         display.setItemStack(is);
@@ -542,7 +543,7 @@ public class DebugPopulator {
         addLabel(location, name);
     }
 
-    private void setItemFromStack(Location location, ItemStack is, String name) {
+    private void setItemFromStack(Location location, ItemStack is, Component name) {
         location.getBlock().setType(Material.WHITE_CONCRETE);
         ItemDisplay display = (ItemDisplay) location.getWorld().spawnEntity(location.clone().add(0.5d, 1.25d, 0.5d), EntityType.ITEM_DISPLAY);
         display.setItemStack(is);
@@ -552,10 +553,10 @@ public class DebugPopulator {
         addLabel(location, name);
     }
 
-    private void addLabel(Location location, String name) {
+    private void addLabel(Location location, Component name) {
         TextDisplay text = (TextDisplay) location.getWorld().spawnEntity(location.clone().add(0.5d, 1.65d, 0.5d), EntityType.TEXT_DISPLAY);
         text.setAlignment(TextDisplay.TextAlignment.CENTER);
-        text.setText(name);
+        text.text(name);
         text.setTransformation(new Transformation(TARDISConstants.VECTOR_ZERO, TARDISConstants.AXIS_ANGLE_ZERO, TARDISConstants.VECTOR_QUARTER, TARDISConstants.AXIS_ANGLE_ZERO));
         text.setBillboard(Display.Billboard.VERTICAL);
     }
@@ -591,7 +592,7 @@ public class DebugPopulator {
         for (Material material : slides) {
             Location location = new Location(world, rx + x, 65, rz + z);
             // set block at location
-            setItemFromMaterial(location, material, keys[s], names[s]);
+            setItemFromMaterial(location, material, keys[s], Component.text(names[s]));
             s++;
             x += 2;
             if (x > 24) {
@@ -603,7 +604,7 @@ public class DebugPopulator {
             ItemStack chemical = CompoundBuilder.getCompound(compound);
             Location location = new Location(world, rx + x, 65, rz + z);
             // set block at location
-            setItemFromStack(location, chemical, compound.getName());
+            setItemFromStack(location, chemical, Component.text(compound.getName()));
             x += 2;
             if (x > 24) {
                 x = 3;
@@ -614,7 +615,7 @@ public class DebugPopulator {
             ItemStack chemical = LabBuilder.getLabProduct(lab);
             Location location = new Location(world, rx + x, 65, rz + z);
             // set block at location
-            setItemFromStack(location, chemical, lab.getName());
+            setItemFromStack(location, chemical, Component.text(lab.getName()));
             x += 2;
             if (x > 24) {
                 x = 3;
@@ -625,7 +626,7 @@ public class DebugPopulator {
             ItemStack chemical = ProductBuilder.getProduct(product);
             Location location = new Location(world, rx + x, 65, rz + z);
             // set block at location
-            setItemFromStack(location, chemical, product.getName());
+            setItemFromStack(location, chemical, Component.text(product.getName()));
             x += 2;
             if (x > 24) {
                 x = 3;
@@ -636,7 +637,7 @@ public class DebugPopulator {
             ItemStack chemical = ElementBuilder.getElement(element);
             Location location = new Location(world, rx + x, 65, rz + z);
             // set block at location
-            setItemFromStack(location, chemical, element.toString());
+            setItemFromStack(location, chemical, Component.text(element.toString()));
             x += 2;
             if (x > 24) {
                 x = 3;
@@ -652,7 +653,7 @@ public class DebugPopulator {
         ItemStack elixir = ElixirOfLife.create();
         Location loc = new Location(world, rx + x, 65, rz + z);
         // set block at location
-        setItemFromStack(loc, elixir, "Elixir of Life");
+        setItemFromStack(loc, elixir, Component.text("Elixir of Life"));
         x += 5;
         Block block = world.getBlockAt(rx + x, 65, rz + z);
         TARDISDisplayItemUtils.set(TARDISDisplayItem.UNTEMPERED_SCHISM, block, -1);
@@ -683,7 +684,7 @@ public class DebugPopulator {
         for (GuiPreview gui : DebugHandles.ICONS) {
             Location location = new Location(world, rx + x, 65, rz + z);
             // set block at location
-            setItemFromMaterial(location, gui.material(), gui.model(), gui.name());
+            setItemFromMaterial(location, gui.material(), gui.model(), Component.text(gui.name()));
             x += 2;
             if (x > 48) {
                 x = 27;
@@ -698,7 +699,7 @@ public class DebugPopulator {
         for (GuiPreview gui : DebugLazarus.ICONS) {
             Location location = new Location(world, rx + x, 65, rz + z);
             // set block at location
-            setItemFromMaterial(location, gui.material(), gui.model(), gui.name());
+            setItemFromMaterial(location, gui.material(), gui.model(), Component.text(gui.name()));
             x += 2;
             if (x > 48) {
                 x = 27;

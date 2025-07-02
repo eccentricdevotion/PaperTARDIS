@@ -21,12 +21,14 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItemUtils;
 import me.eccentric_nz.TARDIS.database.data.Tardis;
-import me.eccentric_nz.TARDIS.database.resultset.*;
+import me.eccentric_nz.TARDIS.database.resultset.ResultSetControls;
+import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
+import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
+import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisPowered;
 import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
-import me.eccentric_nz.TARDIS.enumeration.GlowstoneCircuit;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -35,11 +37,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -120,45 +120,11 @@ public class TARDISConsoleListener implements Listener {
                 plugin.getMessenger().send(p, TardisModule.TARDIS, "POWER_DOWN");
                 return;
             }
-//            Inventory inv = plugin.getServer().createInventory(p, 18, ChatColor.DARK_RED + "TARDIS Console");
-//            HashMap<String, Object> where = new HashMap<>();
-//            where.put("uuid", uuid.toString());
-//            ResultSetDiskStorage rsds = new ResultSetDiskStorage(plugin, where);
-//            if (rsds.resultSet()) {
-//                String console = rsds.getConsole();
-//                if (!console.isEmpty()) {
-//                    try {
-//                        ItemStack[] stack = TARDISSerializeInventory.itemStacksFromString(console);
-//                        for (ItemStack circuit : stack) {
-//                            if (circuit != null && circuit.hasItemMeta()) {
-//                                ItemMeta cm = circuit.getItemMeta();
-//                                if (circuit.getType().equals(Material.FILLED_MAP)) {
-//                                    if (cm.hasDisplayName()) {
-//                                        GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(cm.getDisplayName());
-//                                        if (glowstone != null) {
-//                                            circuit.setType(Material.GLOWSTONE_DUST);
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                        inv.setContents(stack);
-//                    } catch (IOException ex) {
-//                        plugin.debug("Could not read console from database!");
-//                    }
-//                }
-//            } else {
-//                // create new storage record
-//                HashMap<String, Object> setstore = new HashMap<>();
-//                setstore.put("uuid", uuid.toString());
-//                setstore.put("tardis_id", id);
-//                plugin.getQueryFactory().doInsert("storage", setstore);
-//            }
             // open gui
             p.openInventory(new TARDISAdvancedConsoleInventory(plugin, uuid.toString(), id).getInventory());
         } else if (disk.getType().equals(Material.MUSIC_DISC_FAR)) {
             ItemMeta im = disk.getItemMeta();
-            if (im.hasDisplayName() && im.getDisplayName().endsWith("Authorised Control Disk")) {
+            if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "Authorised Control Disk")) {
                 // get the UUID from the disk
                 if (im.getPersistentDataContainer().has(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID())) {
                     UUID diskUuid = im.getPersistentDataContainer().get(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID());
@@ -174,7 +140,7 @@ public class TARDISConsoleListener implements Listener {
                         }
                         Tardis tardis = rst.getTardis();
                         // process disk
-                        TARDISAuthorisedControlDisk tacd = new TARDISAuthorisedControlDisk(plugin, tardis.getUuid(), im.getLore(), id, p, tardis.getEps(), tardis.getCreeper());
+                        TARDISAuthorisedControlDisk tacd = new TARDISAuthorisedControlDisk(plugin, tardis.getUuid(), im.lore(), id, p, tardis.getEps(), tardis.getCreeper());
                         String processed = tacd.process();
                         if (processed.equals("success")) {
                             // success remove disk from hand

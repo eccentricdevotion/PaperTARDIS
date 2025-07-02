@@ -22,7 +22,8 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetOccupied;
 import me.eccentric_nz.TARDIS.enumeration.WorldManager;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Tag;
 import org.bukkit.block.Sign;
 import org.bukkit.block.sign.Side;
@@ -57,19 +58,19 @@ public class TARDISControlRunnable implements Runnable {
                                 SignSide front = sign.getSide(Side.FRONT);
                                 // update the data
                                 if (plugin.getTrackerKeeper().getDestinationVortex().containsKey(id)) {
-                                    front.setLine(0, ChatColor.DARK_PURPLE + "Drifting");
-                                    front.setLine(1, ChatColor.DARK_PURPLE + "in the");
-                                    front.setLine(2, ChatColor.DARK_PURPLE + "time");
-                                    front.setLine(3, ChatColor.DARK_PURPLE + "vortex...");
+                                    front.line(0, Component.text("Drifting", NamedTextColor.DARK_PURPLE));
+                                    front.line(1, Component.text("in the", NamedTextColor.DARK_PURPLE));
+                                    front.line(2, Component.text("time", NamedTextColor.DARK_PURPLE));
+                                    front.line(3, Component.text("vortex...", NamedTextColor.DARK_PURPLE));
                                 } else {
                                     String worldName = (resultSetConsole.getWorld() != null) ? TARDISAliasResolver.getWorldAlias(resultSetConsole.getWorld()) : "";
                                     if (!plugin.getPlanetsConfig().getBoolean("planets." + resultSetConsole.getWorld() + ".enabled") && plugin.getWorldManager().equals(WorldManager.MULTIVERSE) && !worldName.isEmpty()) {
                                         worldName = plugin.getMVHelper().getAlias(worldName);
                                     }
-                                    front.setLine(0, ChatColor.DARK_PURPLE + worldName);
-                                    front.setLine(1, ChatColor.BLACK + resultSetConsole.getX());
-                                    front.setLine(2, ChatColor.BLACK + resultSetConsole.getY());
-                                    front.setLine(3, ChatColor.BLACK + resultSetConsole.getZ());
+                                    front.line(0, Component.text(worldName, NamedTextColor.DARK_PURPLE));
+                                    front.line(1, Component.text(resultSetConsole.getX(), NamedTextColor.BLACK));
+                                    front.line(2, Component.text(resultSetConsole.getY(), NamedTextColor.BLACK));
+                                    front.line(3, Component.text(resultSetConsole.getZ(), NamedTextColor.BLACK));
                                 }
                                 sign.update();
                             }
@@ -84,17 +85,17 @@ public class TARDISControlRunnable implements Runnable {
                                 Sign sign = (Sign) resultSetConsole.getSign().getState();
                                 SignSide front = sign.getSide(Side.FRONT);
                                 // update the data
-                                front.setLine(0, ChatColor.BLACK + plugin.getLanguage().getString("ARTRON_DISPLAY"));
-                                front.setLine(1, ChatColor.AQUA + resultSetConsole.getArtronLevel());
-                                front.setLine(2, ChatColor.BLACK + plugin.getLanguage().getString("CHAM_DISPLAY"));
-                                String preset;
+                                front.line(0, Component.text(plugin.getLanguage().getString("ARTRON_DISPLAY", "Artron Energy"), NamedTextColor.BLACK));
+                                front.line(1, Component.text(resultSetConsole.getArtronLevel(), NamedTextColor.AQUA));
+                                front.line(2, Component.text(plugin.getLanguage().getString("CHAM_DISPLAY", "Exterior"), NamedTextColor.BLACK));
+                                Component preset;
                                 if (resultSetConsole.getPreset().startsWith("POLICE_BOX_")) {
-                                    ChatColor colour = TARDISStaticUtils.policeBoxToChatColor(resultSetConsole.getPreset());
-                                    preset = colour + "POLICE_BOX";
+                                    NamedTextColor colour = TARDISStaticUtils.policeBoxToNamedTextColor(resultSetConsole.getPreset());
+                                    preset = Component.text("POLICE_BOX", colour);
                                 } else {
-                                    preset = ChatColor.BLUE + resultSetConsole.getPreset().replace("ITEM:", "");
+                                    preset = Component.text(resultSetConsole.getPreset().replace("ITEM:", ""), NamedTextColor.BLUE);
                                 }
-                                front.setLine(3, preset);
+                                front.line(3, preset);
                                 sign.update();
                             }
                         }

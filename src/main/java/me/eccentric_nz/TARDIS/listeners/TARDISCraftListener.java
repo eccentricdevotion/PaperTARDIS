@@ -18,7 +18,10 @@ package me.eccentric_nz.TARDIS.listeners;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -58,13 +61,13 @@ public class TARDISCraftListener implements Listener {
             if (is.hasItemMeta()) {
                 ItemMeta im = is.getItemMeta();
                 if (im.hasDisplayName()) {
-                    String dn = im.getDisplayName();
-                    if (dn.equals(ChatColor.GOLD + "TARDIS Seed Block")) {
-                        List<String> lore = im.getLore();
-                        lore.add("Walls: " + ci.getItem(6).getType());
-                        lore.add("Floors: " + ci.getItem(9).getType());
-                        lore.add("Chameleon: FACTORY");
-                        im.setLore(lore);
+                    String dn = TARDISStringUtils.stripColour(im.displayName());
+                    if (dn.equals("TARDIS Seed Block")) {
+                        List<Component> lore = im.lore();
+                        lore.add(Component.text("Walls: " + ci.getItem(6).getType()));
+                        lore.add(Component.text("Floors: " + ci.getItem(9).getType()));
+                        lore.add(Component.text("Chameleon: FACTORY"));
+                        im.lore(lore);
                         is.setItemMeta(im);
                         ci.setResult(is);
                     } else if (is.getType().equals(Material.GLOWSTONE_DUST)) {
@@ -73,15 +76,17 @@ public class TARDISCraftListener implements Listener {
                             String[] split = dn.split(" ");
                             String which = split[1].toLowerCase(Locale.ROOT);
                             // set the second line of lore
-                            List<String> lore;
-                            String uses = (plugin.getConfig().getString("circuits.uses." + which).equals("0") || !plugin.getConfig().getBoolean("circuits.damage")) ? ChatColor.YELLOW + "unlimited" : ChatColor.YELLOW + plugin.getConfig().getString("circuits.uses." + which);
+                            List<Component> lore;
+                            Component uses = (plugin.getConfig().getString("circuits.uses." + which, "20").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
+                                    ? Component.text("unlimited", NamedTextColor.YELLOW)
+                                    : Component.text(plugin.getConfig().getString("circuits.uses." + which, "20"), NamedTextColor.YELLOW);
                             if (im.hasLore()) {
-                                lore = im.getLore();
+                                lore = im.lore();
                                 lore.set(1, uses);
                             } else {
-                                lore = List.of("Uses left", uses);
+                                lore = List.of(Component.text("Uses left"), uses);
                             }
-                            im.setLore(lore);
+                            im.lore(lore);
                             is.setItemMeta(im);
                             ci.setResult(is);
                         }
@@ -98,15 +103,14 @@ public class TARDISCraftListener implements Listener {
                         HumanEntity human = event.getView().getPlayer();
                         if (human instanceof Player) {
                             im.getPersistentDataContainer().set(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID(), human.getUniqueId());
-                            List<String> lore = im.getLore();
+                            List<Component> lore = im.lore();
                             if (lore == null) {
                                 lore = new ArrayList<>();
                             }
-                            String format = ChatColor.AQUA + "" + ChatColor.ITALIC;
                             String what = dn.contains("Key") ? "key" : "disk";
-                            lore.add(format + "This " + what + " belongs to");
-                            lore.add(format + human.getName());
-                            im.setLore(lore);
+                            lore.add(Component.text("This " + what + " belongs to", NamedTextColor.AQUA).decorate(TextDecoration.ITALIC));
+                            lore.add(Component.text(human.getName(), NamedTextColor.AQUA).decorate(TextDecoration.ITALIC));
+                            im.lore(lore);
                             is.setItemMeta(im);
                             ci.setResult(is);
                         }
@@ -123,7 +127,7 @@ public class TARDISCraftListener implements Listener {
                     } else if (is.getType() == Material.GLASS && dn.endsWith("Variable Light")) {
                         // set the lore to the material in the centre
                         Material variable = ci.getItem(5).getType();
-                        im.setLore(List.of(variable.toString()));
+                        im.lore(List.of(Component.text(variable.toString())));
                         is.setItemMeta(im);
                         ci.setResult(is);
                     }

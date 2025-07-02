@@ -18,6 +18,7 @@ package me.eccentric_nz.tardisweepingangels.equip;
 
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
@@ -32,7 +33,7 @@ public class ArmourStandEquipment {
         as.getPersistentDataContainer().set(TARDISWeepingAngels.MONSTER_HEAD, PersistentDataType.INTEGER, 1);
         ItemStack head = new ItemStack(monster.getMaterial(), 1);
         ItemMeta headMeta = head.getItemMeta();
-        headMeta.setDisplayName(monster.getName() + " Head");
+        headMeta.displayName(Component.text(monster.getName() + " Head"));
         headMeta.setItemModel(monster.getModel());
         head.setItemMeta(headMeta);
         setHelmetOnly(as, head);

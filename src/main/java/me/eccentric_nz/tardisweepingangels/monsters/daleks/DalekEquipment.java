@@ -21,6 +21,7 @@ import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.custommodels.keys.DalekVariant;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -40,7 +41,7 @@ public class DalekEquipment {
         le.getPersistentDataContainer().set(TARDISWeepingAngels.DALEK, PersistentDataType.INTEGER, Monster.DALEK.ordinal());
         ItemStack helmet = new ItemStack(Material.SLIME_BALL, 1);
         ItemMeta headMeta = helmet.getItemMeta();
-        headMeta.setDisplayName("Dalek Head");
+        headMeta.displayName(Component.text("Dalek Head"));
         headMeta.setItemModel(getRandomModel());
         helmet.setItemMeta(headMeta);
         EntityEquipment ee = le.getEquipment();
@@ -78,23 +79,55 @@ public class DalekEquipment {
         if (TARDISConstants.RANDOM.nextBoolean()) {
             return DalekVariant.DALEK_BRASS.getKey();
         } else {
-            switch (TARDISConstants.RANDOM.nextInt(1,17)) {
-                case 1 -> { return DalekVariant.DALEK_WHITE.getKey(); }
-                case 2 -> { return DalekVariant.DALEK_ORANGE.getKey(); }
-                case 3 -> { return DalekVariant.DALEK_MAGENTA.getKey(); }
-                case 4 -> { return DalekVariant.DALEK_LIGHT_BLUE.getKey(); }
-                case 5 -> { return DalekVariant.DALEK_YELLOW.getKey(); }
-                case 6 -> { return DalekVariant.DALEK_LIME.getKey(); }
-                case 7 -> { return DalekVariant.DALEK_PINK.getKey(); }
-                case 8 -> { return DalekVariant.DALEK_GRAY.getKey(); }
-                case 9 -> { return DalekVariant.DALEK_LIGHT_GRAY.getKey(); }
-                case 10 -> { return DalekVariant.DALEK_CYAN.getKey(); }
-                case 11 -> { return DalekVariant.DALEK_BLUE.getKey(); }
-                case 12 -> { return DalekVariant.DALEK_PURPLE.getKey(); }
-                case 13 -> { return DalekVariant.DALEK_GREEN.getKey(); }
-                case 14 -> { return DalekVariant.DALEK_BROWN.getKey(); }
-                case 15 -> { return DalekVariant.DALEK_RED.getKey(); }
-                case 16 -> { return DalekVariant.DALEK_BLACK.getKey(); }
+            switch (TARDISConstants.RANDOM.nextInt(1, 17)) {
+                case 1 -> {
+                    return DalekVariant.DALEK_WHITE.getKey();
+                }
+                case 2 -> {
+                    return DalekVariant.DALEK_ORANGE.getKey();
+                }
+                case 3 -> {
+                    return DalekVariant.DALEK_MAGENTA.getKey();
+                }
+                case 4 -> {
+                    return DalekVariant.DALEK_LIGHT_BLUE.getKey();
+                }
+                case 5 -> {
+                    return DalekVariant.DALEK_YELLOW.getKey();
+                }
+                case 6 -> {
+                    return DalekVariant.DALEK_LIME.getKey();
+                }
+                case 7 -> {
+                    return DalekVariant.DALEK_PINK.getKey();
+                }
+                case 8 -> {
+                    return DalekVariant.DALEK_GRAY.getKey();
+                }
+                case 9 -> {
+                    return DalekVariant.DALEK_LIGHT_GRAY.getKey();
+                }
+                case 10 -> {
+                    return DalekVariant.DALEK_CYAN.getKey();
+                }
+                case 11 -> {
+                    return DalekVariant.DALEK_BLUE.getKey();
+                }
+                case 12 -> {
+                    return DalekVariant.DALEK_PURPLE.getKey();
+                }
+                case 13 -> {
+                    return DalekVariant.DALEK_GREEN.getKey();
+                }
+                case 14 -> {
+                    return DalekVariant.DALEK_BROWN.getKey();
+                }
+                case 15 -> {
+                    return DalekVariant.DALEK_RED.getKey();
+                }
+                case 16 -> {
+                    return DalekVariant.DALEK_BLACK.getKey();
+                }
             }
         }
         return DalekVariant.DALEK_BRASS.getKey();

@@ -4,7 +4,7 @@ import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.*;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
@@ -283,7 +283,7 @@ public class ResourcePackConverterCommand {
 
     private void writeFile(CommandSender sender, ItemStack result) {
         ItemMeta im = result.getItemMeta();
-        String name = ChatColor.stripColor(im.getDisplayName());
+        String name = TARDISStringUtils.stripColour(im.displayName());
         String material = result.getType().toString().toLowerCase(Locale.ROOT);
         String lowercaseName = name.toLowerCase(Locale.ROOT).replace(" ", "_");
         String filename = material + "_" + lowercaseName;

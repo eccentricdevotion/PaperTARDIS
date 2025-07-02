@@ -36,7 +36,7 @@ public class TARDISIndexFileSection implements InventoryHolder {
     public TARDISIndexFileSection(TARDIS plugin, TISCategory category) {
         this.plugin = plugin;
         this.category = category;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Info Category", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Info Category", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -96,13 +96,13 @@ public class TARDISIndexFileSection implements InventoryHolder {
         // back
         ItemStack back = new ItemStack(GUIChameleonPoliceBoxes.BACK.material(), 1);
         ItemMeta but = back.getItemMeta();
-        but.setDisplayName("Back");
+        but.displayName(Component.text("Back"));
         back.setItemMeta(but);
         stack[45] = back;
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);
         stack[53] = close;
         return stack;
@@ -111,7 +111,7 @@ public class TARDISIndexFileSection implements InventoryHolder {
     private ItemStack makeButton(TARDISInfoMenu tim) {
         ItemStack is = new ItemStack(Material.WRITTEN_BOOK, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(TARDISStringUtils.capitalise(tim.toString()));
+        im.displayName(Component.text(TARDISStringUtils.capitalise(tim.toString())));
         is.setItemMeta(im);
         return is;
     }

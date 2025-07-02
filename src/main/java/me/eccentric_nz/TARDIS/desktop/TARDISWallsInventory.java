@@ -44,7 +44,7 @@ public class TARDISWallsInventory implements InventoryHolder {
     public TARDISWallsInventory(TARDIS plugin, String title) {
         this.plugin = plugin;
         this.title = title;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text(title, NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text(title, NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -78,31 +78,31 @@ public class TARDISWallsInventory implements InventoryHolder {
         // scroll up
         ItemStack scroll_up = new ItemStack(GUIWallFloor.BUTTON_SCROLL_U.material(), 1);
         ItemMeta uim = scroll_up.getItemMeta();
-        uim.setDisplayName(plugin.getLanguage().getString("BUTTON_SCROLL_U"));
+        uim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_U")));
         scroll_up.setItemMeta(uim);
         stack[GUIWallFloor.BUTTON_SCROLL_U.slot()] = scroll_up;
         // scroll down
         ItemStack scroll_down = new ItemStack(GUIWallFloor.BUTTON_SCROLL_D.material(), 1);
         ItemMeta dim = scroll_down.getItemMeta();
-        dim.setDisplayName(plugin.getLanguage().getString("BUTTON_SCROLL_D"));
+        dim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_D")));
         scroll_down.setItemMeta(dim);
         stack[GUIWallFloor.BUTTON_SCROLL_D.slot()] = scroll_down;
         // default wall
         ItemStack wall = new ItemStack(GUIWallFloor.WALL.material(), 1);
         ItemMeta wim = wall.getItemMeta();
-        wim.setDisplayName("Default Wall Block");
+        wim.displayName(Component.text("Default Wall Block"));
         wall.setItemMeta(wim);
         stack[GUIWallFloor.WALL.slot()] = wall;
         // default floor
         ItemStack floor = new ItemStack(GUIWallFloor.FLOOR.material(), 1);
         ItemMeta fim = floor.getItemMeta();
-        fim.setDisplayName("Default Floor Block");
+        fim.displayName(Component.text("Default Floor Block"));
         floor.setItemMeta(fim);
         stack[GUIWallFloor.FLOOR.slot()] = floor;
         // close
         ItemStack close = new ItemStack(GUIWallFloor.BUTTON_ABORT.material(), 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName("Abort upgrade");
+        close_im.displayName(Component.text("Abort upgrade"));
         close.setItemMeta(close_im);
         stack[GUIWallFloor.BUTTON_ABORT.slot()] = close;
 

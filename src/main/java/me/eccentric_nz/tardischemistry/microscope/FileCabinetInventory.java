@@ -27,7 +27,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.jetbrains.annotations.NotNull;
 
 class FileCabinetInventory implements InventoryHolder {
 
@@ -36,7 +35,7 @@ class FileCabinetInventory implements InventoryHolder {
 
     FileCabinetInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Map Cabinet", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Map Cabinet", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItems());
     }
 
@@ -51,7 +50,7 @@ class FileCabinetInventory implements InventoryHolder {
         for (ScopeView view : ScopeView.values()) {
             ItemStack is = new ItemStack(Material.GRAY_STAINED_GLASS, 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(view.getName());
+            im.displayName(Component.text(view.getName()));
             im.setItemModel(ChemistryEquipment.FOLDER.getKey());
             im.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.STRING, view.getModel().getKey());
             is.setItemMeta(im);
@@ -60,7 +59,7 @@ class FileCabinetInventory implements InventoryHolder {
         // Cancel / close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta can = close.getItemMeta();
-        can.setDisplayName("Close");
+        can.displayName(Component.text("Close"));
         can.setItemModel(GuiVariant.CLOSE.getKey());
         close.setItemMeta(can);
         stacks[53] = close;

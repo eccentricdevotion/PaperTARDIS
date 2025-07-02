@@ -21,6 +21,10 @@ import me.eccentric_nz.TARDIS.advanced.TARDISSerializeInventory;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetDiskStorage;
 import me.eccentric_nz.TARDIS.enumeration.Storage;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
@@ -53,8 +57,8 @@ public class TARDISBiomeReaderListener implements Listener {
             if (disk != null && disk.hasItemMeta()) {
                 ItemMeta diskim = disk.getItemMeta();
                 if (diskim.hasLore()) {
-                    List<String> lore = diskim.getLore();
-                    if (lore.contains(biome.toUpperCase(Locale.ROOT))) {
+                    List<Component> lore = diskim.lore();
+                    if (lore != null && lore.contains(Component.text(biome.toUpperCase(Locale.ROOT)))) {
                         found = true;
                         break;
                     }
@@ -76,7 +80,7 @@ public class TARDISBiomeReaderListener implements Listener {
         ItemStack is = player.getInventory().getItemInMainHand();
         if (is.getType().equals(Material.BRICK) && is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && im.getDisplayName().endsWith("TARDIS Biome Reader")) {
+            if (im.hasDisplayName() && TARDISStringUtils.stripColour(im.displayName()).endsWith("TARDIS Biome Reader")) {
                 UUID uuid = player.getUniqueId();
                 Biome biome = event.getClickedBlock().getBiome();
                 if (biome.equals(Biome.THE_VOID)) {
@@ -106,10 +110,10 @@ public class TARDISBiomeReaderListener implements Listener {
                             if (!hasBiomeDisk(disks2, biomeKey)) {
                                 ItemStack bd = new ItemStack(Material.MUSIC_DISC_CAT, 1);
                                 ItemMeta dim = bd.getItemMeta();
-                                dim.setDisplayName("Biome Storage Disk");
-                                List<String> disk_lore = new ArrayList<>();
-                                disk_lore.add(biomeKey);
-                                dim.setLore(disk_lore);
+                                dim.displayName(Component.text("Biome Storage Disk", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                                List<Component> disk_lore = new ArrayList<>();
+                                disk_lore.add(Component.text(biomeKey));
+                                dim.lore(disk_lore);
                                 bd.setItemMeta(dim);
                                 int slot = getNextFreeSlot(disks1);
                                 if (slot != -1) {

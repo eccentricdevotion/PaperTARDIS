@@ -22,7 +22,6 @@ import me.eccentric_nz.TARDIS.database.data.Program;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPrograms;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -45,7 +44,7 @@ class TARDISHandlesSavedInventory implements InventoryHolder {
     TARDISHandlesSavedInventory(TARDIS plugin, String uuid) {
         this.plugin = plugin;
         this.uuid = uuid;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Saved Programs", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Saved Programs", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -70,12 +69,21 @@ class TARDISHandlesSavedInventory implements InventoryHolder {
             for (Program p : rs.getPrograms()) {
                 ItemStack is = new ItemStack(Material.MUSIC_DISC_WARD, 1);
                 ItemMeta im = is.getItemMeta();
-                im.setDisplayName("Handles Program Disk");
+                im.displayName(Component.text("Handles Program Disk"));
                 String checked = (p.isCheckedOut()) ? "Checked OUT" : "Checked IN";
                 if (!p.getParsed().isEmpty()) {
-                    im.setLore(List.of(p.getName(), p.getProgram_id() + "", checked, ChatColor.AQUA + "Running"));
+                    im.lore(List.of(
+                            Component.text(p.getName()),
+                            Component.text(p.getProgram_id()),
+                            Component.text(checked),
+                            Component.text("Running", NamedTextColor.AQUA)
+                    ));
                 } else {
-                    im.setLore(List.of(p.getName(), p.getProgram_id() + "", checked));
+                    im.lore(List.of(
+                            Component.text(p.getName()),
+                            Component.text(p.getProgram_id()),
+                            Component.text(checked)
+                    ));
                 }
                 im.addItemFlags(ItemFlag.values());
                 im.setAttributeModifiers(Multimaps.forMap(Map.of()));
@@ -90,37 +98,37 @@ class TARDISHandlesSavedInventory implements InventoryHolder {
         // back
         ItemStack back = new ItemStack(Material.ARROW, 1);
         ItemMeta bk = back.getItemMeta();
-        bk.setDisplayName("Back to editor");
+        bk.displayName(Component.text("Back to editor"));
         back.setItemMeta(bk);
         stack[45] = back;
         // load button
         ItemStack load = new ItemStack(Material.BOWL, 1);
         ItemMeta ld = load.getItemMeta();
-        ld.setDisplayName("Load selected program in editor");
+        ld.displayName(Component.text("Load selected program in editor"));
         load.setItemMeta(ld);
         stack[47] = load;
         // deactivate
         ItemStack deactivate = new ItemStack(Material.BUCKET, 1);
         ItemMeta dem = deactivate.getItemMeta();
-        dem.setDisplayName("Deactivate selected program");
+        dem.displayName(Component.text("Deactivate selected program"));
         deactivate.setItemMeta(dem);
         stack[48] = deactivate;
         // delete
         ItemStack delete = new ItemStack(Material.BUCKET, 1);
         ItemMeta dm = delete.getItemMeta();
-        dm.setDisplayName("Delete selected program");
+        dm.displayName(Component.text("Delete selected program"));
         delete.setItemMeta(dm);
         stack[49] = delete;
         // check out
         ItemStack checked = new ItemStack(Material.BOWL, 1);
         ItemMeta km = checked.getItemMeta();
-        km.setDisplayName("Check out selected program");
+        km.displayName(Component.text("Check out selected program"));
         checked.setItemMeta(km);
         stack[51] = checked;
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta cm = close.getItemMeta();
-        cm.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        cm.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(cm);
         stack[53] = close;
         return stack;

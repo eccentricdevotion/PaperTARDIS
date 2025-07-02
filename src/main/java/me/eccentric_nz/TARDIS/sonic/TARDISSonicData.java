@@ -19,6 +19,7 @@ package me.eccentric_nz.TARDIS.sonic;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetSonicLocation;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -32,18 +33,18 @@ public class TARDISSonicData {
 
     private final List<String> upgrades = List.of("bio", "diamond", "emerald", "redstone", "painter", "ignite", "arrow", "knockback", "brush", "conversion");
 
-    public static List<Integer> getSonicData(List<String> lore) {
+    public static List<Integer> getSonicData(List<Component> lore) {
         return List.of(
-                lore.contains("Bio-scanner Upgrade") ? 1 : 0,
-                lore.contains("Diamond Upgrade") ? 1 : 0,
-                lore.contains("Emerald Upgrade") ? 1 : 0,
-                lore.contains("Redstone Upgrade") ? 1 : 0,
-                lore.contains("Painter Upgrade") ? 1 : 0,
-                lore.contains("Ignite Upgrade") ? 1 : 0,
-                lore.contains("Pickup Arrows Upgrade") ? 1 : 0,
-                lore.contains("Knockback Upgrade") ? 1 : 0,
-                lore.contains("Brush Upgrade") ? 1 : 0,
-                lore.contains("Conversion Upgrade") ? 1 : 0
+                lore.contains(Component.text("Bio-scanner Upgrade")) ? 1 : 0,
+                lore.contains(Component.text("Diamond Upgrade")) ? 1 : 0,
+                lore.contains(Component.text("Emerald Upgrade")) ? 1 : 0,
+                lore.contains(Component.text("Redstone Upgrade")) ? 1 : 0,
+                lore.contains(Component.text("Painter Upgrade")) ? 1 : 0,
+                lore.contains(Component.text("Ignite Upgrade")) ? 1 : 0,
+                lore.contains(Component.text("Pickup Arrows Upgrade")) ? 1 : 0,
+                lore.contains(Component.text("Knockback Upgrade")) ? 1 : 0,
+                lore.contains(Component.text("Brush Upgrade")) ? 1 : 0,
+                lore.contains(Component.text("Conversion Upgrade")) ? 1 : 0
         );
     }
 
@@ -67,7 +68,7 @@ public class TARDISSonicData {
                 set.put("sonic_uuid", sonic_uuid.toString());
                 // get sonic data
                 set.put("uuid", player.getUniqueId().toString());
-                List<Integer> settings = getSonicData(im.getLore());
+                List<Integer> settings = getSonicData(im.lore());
                 for (int i = 0; i < settings.size(); i++) {
                     set.put(upgrades.get(i), settings.get(i));
                 }
@@ -81,7 +82,7 @@ public class TARDISSonicData {
             set.put("sonic_uuid", sonic_uuid.toString());
             // get sonic data
             set.put("uuid", player.getUniqueId().toString());
-            List<Integer> settings = getSonicData(im.getLore());
+            List<Integer> settings = getSonicData(im.lore());
             for (int i = 0; i < settings.size(); i++) {
                 set.put(upgrades.get(i), settings.get(i));
             }

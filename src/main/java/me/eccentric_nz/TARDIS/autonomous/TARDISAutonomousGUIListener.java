@@ -23,7 +23,8 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetAutonomousSave;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -46,11 +47,11 @@ public class TARDISAutonomousGUIListener extends TARDISMenuListener {
         this.plugin = plugin;
         on = new ItemStack(Material.LIME_WOOL, 1);
         ItemMeta onMeta = on.getItemMeta();
-        onMeta.setDisplayName(ChatColor.GREEN + plugin.getLanguage().getString("SET_ON"));
+        onMeta.displayName(Component.text(plugin.getLanguage().getString("SET_ON", "ON"), NamedTextColor.GREEN));
         on.setItemMeta(onMeta);
         off = new ItemStack(Material.LIGHT_GRAY_CARPET, 1);
         ItemMeta offMeta = off.getItemMeta();
-        offMeta.setDisplayName(ChatColor.RED + plugin.getLanguage().getString("SET_OFF"));
+        offMeta.displayName(Component.text(plugin.getLanguage().getString("SET_OFF", "OFF"), NamedTextColor.RED));
         off.setItemMeta(offMeta);
     }
 
@@ -144,10 +145,10 @@ public class TARDISAutonomousGUIListener extends TARDISMenuListener {
                         }
                         Pair<String, Integer> next = rsa.getData().get(i);
                         ItemMeta im = is.getItemMeta();
-                        List<String> lore = im.getLore();
-                        if (lore.size() > 3) {
-                            lore.set(3, ChatColor.GREEN + next.getFirst());
-                            im.setLore(lore);
+                        List<Component> lore = im.lore();
+                        if (lore != null && lore.size() > 3) {
+                            lore.set(3, Component.text(next.getFirst(), NamedTextColor.GREEN));
+                            im.lore(lore);
                             is.setItemMeta(im);
                             view.setItem(25, is);
                         }

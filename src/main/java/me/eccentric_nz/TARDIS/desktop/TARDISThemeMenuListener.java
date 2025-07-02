@@ -27,7 +27,6 @@ import me.eccentric_nz.TARDIS.enumeration.Schematic;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.schematic.ArchiveUpdate;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -35,9 +34,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -69,6 +66,7 @@ public class TARDISThemeMenuListener extends TARDISMenuListener {
         ClickType click = event.getClick();
         if (slot < 0 || slot > 53) {
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
+                plugin.debug("TARDISThemeMenuListener");
                 event.setCancelled(true);
             }
             return;
@@ -101,7 +99,7 @@ public class TARDISThemeMenuListener extends TARDISMenuListener {
                 TARDISUpgradeData tud = plugin.getTrackerKeeper().getUpgrades().get(player.getUniqueId());
                 InventoryHolder consoles;
                 // switch page
-                if (GUIChameleonPresets.GO_TO_PAGE_2.name().equals(choice.getItemMeta().getDisplayName())) {
+                if (GUIChameleonPresets.GO_TO_PAGE_2.name().equals(choice.getItemMeta().displayName())) {
                     // page 2
                     consoles = new TARDISCustomThemeInventory(plugin, player, tud.getPrevious().getPermission(), tud.getLevel());
                 } else {

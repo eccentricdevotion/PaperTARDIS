@@ -41,7 +41,7 @@ class TARDISConfigPageTwoInventory implements InventoryHolder {
 
     TARDISConfigPageTwoInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Admin Config Menu", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Admin Config Menu", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -77,12 +77,12 @@ class TARDISConfigPageTwoInventory implements InventoryHolder {
             ) {
                 ItemStack is = new ItemStack(Material.REPEATER, 1);
                 ItemMeta im = is.getItemMeta();
-                im.setDisplayName(c);
+                im.displayName(Component.text(c));
                 GUIConfiguration gui = GUIConfiguration.valueOf(c.split("\\.")[0].toUpperCase(Locale.ROOT));
                 CustomModelDataComponent component = im.getCustomModelDataComponent();
                 component.setFloats(value.equals("false") ? gui.getOffFloats() : gui.getOnFloats());
                 im.setCustomModelDataComponent(component);
-                im.setLore(List.of(value));
+                im.lore(List.of(Component.text(value)));
                 is.setItemMeta(im);
                 options.add(is);
             }
@@ -98,13 +98,13 @@ class TARDISConfigPageTwoInventory implements InventoryHolder {
         // previous page
         ItemStack next = new ItemStack(Material.BOWL, 1);
         ItemMeta page = next.getItemMeta();
-        page.setDisplayName("Previous page");
+        page.displayName(Component.text("Previous page"));
         next.setItemMeta(page);
         stack[52] = next;
         // player prefs
         ItemStack play = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta prefs = play.getItemMeta();
-        prefs.setDisplayName("Player Preferences");
+        prefs.displayName(Component.text("Player Preferences"));
         play.setItemMeta(prefs);
         stack[53] = play;
         return stack;

@@ -29,7 +29,6 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.Registry;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 

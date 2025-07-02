@@ -19,6 +19,7 @@ package me.eccentric_nz.TARDIS.commands.give.actions;
 import com.google.common.collect.Multimaps;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -47,10 +48,10 @@ public class FuelCell {
         result.setAmount(amount);
         // add lore and enchantment
         ItemMeta im = result.getItemMeta();
-        List<String> lore = im.getLore();
+        List<Component> lore = im.lore();
         int max = plugin.getArtronConfig().getInt("full_charge");
-        lore.set(1, "" + max);
-        im.setLore(lore);
+        lore.set(1, Component.text( max));
+        im.lore(lore);
         im.setEnchantmentGlintOverride(true);
         im.addItemFlags(ItemFlag.values());
         im.setAttributeModifiers(Multimaps.forMap(Map.of()));

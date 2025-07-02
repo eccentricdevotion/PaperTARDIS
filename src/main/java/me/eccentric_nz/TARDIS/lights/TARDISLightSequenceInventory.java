@@ -29,7 +29,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class TARDISLightSequenceInventory implements InventoryHolder {
     public TARDISLightSequenceInventory(TARDIS plugin, int id) {
         this.plugin = plugin;
         this.id = id;
-        this.inventory = plugin.getServer().createInventory(this, 45, Component.text("TARDIS Light Sequence", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 45, Component.text("TARDIS Light Sequence", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -61,8 +60,12 @@ public class TARDISLightSequenceInventory implements InventoryHolder {
         // 4 info
         ItemStack lights = new ItemStack(GUILights.SEQUENCE_INFO.material(), 1);
         ItemMeta sim = lights.getItemMeta();
-        sim.setDisplayName("TARDIS Light Sequence");
-        sim.setLore(List.of("Click a block in", "the second row to", "change its colour."));
+        sim.displayName(Component.text("TARDIS Light Sequence"));
+        sim.lore(List.of(
+                Component.text("Click a block in"),
+                Component.text("the second row to"),
+                Component.text("change its colour.")
+        ));
         lights.setItemMeta(sim);
         stacks[GUILights.SEQUENCE_INFO.slot()] = lights;
         // get light sequence, delay, level from light prefs
@@ -84,7 +87,7 @@ public class TARDISLightSequenceInventory implements InventoryHolder {
                 }
                 ItemStack delay = new ItemStack(Material.COAL_BLOCK, 1);
                 ItemMeta dim = delay.getItemMeta();
-                dim.setDisplayName("Display time");
+                dim.displayName(Component.text("Display time"));
                 delay.setItemMeta(dim);
                 delay.setAmount(amount);
                 stacks[i] = delay;
@@ -98,7 +101,7 @@ public class TARDISLightSequenceInventory implements InventoryHolder {
                 }
                 ItemStack level = new ItemStack(Material.COAL_BLOCK, 1);
                 ItemMeta lim = level.getItemMeta();
-                lim.setDisplayName("Light level");
+                lim.displayName(Component.text("Light level"));
                 level.setItemMeta(lim);
                 level.setAmount(amount);
                 stacks[i] = level;
@@ -107,26 +110,30 @@ public class TARDISLightSequenceInventory implements InventoryHolder {
         // 36 preset (cycle)
         ItemStack preset = new ItemStack(GUILights.BUTTON_LIGHT_SEQUENCE.material(), 1);
         ItemMeta pim = preset.getItemMeta();
-        pim.setDisplayName("Preset Sequence");
-        pim.setLore(List.of("Click to cycle through", "various light sequences.", "1"));
+        pim.displayName(Component.text("Preset Sequence"));
+        pim.lore(List.of(
+                Component.text("Click to cycle through"),
+                Component.text("various light sequences."),
+                Component.text("1")
+        ));
         preset.setItemMeta(pim);
         stacks[36] = preset;
         // 40 save
         ItemStack save = new ItemStack(GUIChameleonConstructor.SAVE_CONSTRUCT.material(), 1);
         ItemMeta se = save.getItemMeta();
-        se.setDisplayName("Save Sequence");
+        se.displayName(Component.text("Save Sequence"));
         save.setItemMeta(se);
         stacks[40] = save;
         // back button
         ItemStack back = new ItemStack(GUIChameleonTemplate.BACK_HELP.material(), 1);
         ItemMeta bk = back.getItemMeta();
-        bk.setDisplayName("Back");
+        bk.displayName(Component.text("Back"));
         back.setItemMeta(bk);
         stacks[42] = back;
         // 44 close
         ItemStack close = new ItemStack(GUILights.CLOSE.material(), 1);
         ItemMeta clim = close.getItemMeta();
-        clim.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        clim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(clim);
         stacks[44] = close;
         return stacks;

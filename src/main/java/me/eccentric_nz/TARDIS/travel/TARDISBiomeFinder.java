@@ -31,7 +31,6 @@ import me.eccentric_nz.tardischunkgenerator.custombiome.BiomeUtilities;
 import me.eccentric_nz.tardischunkgenerator.custombiome.TerraBiomeLocator;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
-import org.bukkit.Registry;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;

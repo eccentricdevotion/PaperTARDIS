@@ -28,6 +28,7 @@ import me.eccentric_nz.TARDIS.flight.vehicle.InterpolatedAnimation;
 import me.eccentric_nz.TARDIS.flight.vehicle.VehicleUtility;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardisshop.ShopItem;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -140,7 +141,7 @@ public class TARDISDisplayItemCommand {
                     ItemMeta im = is.getItemMeta();
                     im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, tdi.getCustomModel().getKey());
                     im.setItemModel(tdi.getCustomModel());
-                    im.setDisplayName(TARDISStringUtils.capitalise(args[2]));
+                    im.displayName(Component.text(TARDISStringUtils.capitalise(args[2])));
                     is.setItemMeta(im);
                     Block up = block.getRelative(BlockFace.UP);
                     if (tdi == TARDISDisplayItem.DOOR || tdi == TARDISDisplayItem.CLASSIC_DOOR || tdi == TARDISDisplayItem.BONE_DOOR || tdi.isLight()) {

@@ -22,10 +22,7 @@ import me.eccentric_nz.TARDIS.floodgate.FloodgateIndexFileForm;
 import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
 import me.eccentric_nz.TARDIS.info.TARDISIndexFileInventory;
 import me.eccentric_nz.TARDIS.info.TARDISInfoMenu;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * @author eccentric_nz

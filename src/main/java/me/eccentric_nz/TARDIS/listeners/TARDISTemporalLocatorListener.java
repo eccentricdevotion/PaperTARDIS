@@ -23,11 +23,11 @@ import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.travel.TARDISTemporalLocatorInventory;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -65,7 +65,7 @@ public class TARDISTemporalLocatorListener extends TARDISMenuListener {
         ItemStack is = event.getView().getItem(slot);
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            List<String> lore = im.getLore();
+            List<Component> lore = im.lore();
             long time = getTime(lore);
             plugin.getTrackerKeeper().getSetTime().put(player.getUniqueId(), time);
             plugin.getMessenger().send(player, TardisModule.TARDIS, "TEMPORAL_SET", String.format("%d", time));
@@ -88,8 +88,8 @@ public class TARDISTemporalLocatorListener extends TARDISMenuListener {
      * @param lore the lore to read
      * @return the destination string
      */
-    private long getTime(List<String> lore) {
-        String[] data = lore.getFirst().split(" ");
+    private long getTime(List<Component> lore) {
+        String[] data = TARDISStringUtils.stripColour(lore.getFirst()).split(" ");
         return TARDISNumberParsers.parseLong(data[0]);
     }
 }

@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.tardissonicblaster;
 
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -45,12 +46,15 @@ public class TARDISSonicBlasterCraftListener implements Listener {
         Recipe recipe = ci.getRecipe();
         ItemStack is = ci.getResult();
         if (recipe instanceof ShapedRecipe) {
-            if (is == null || !is.hasItemMeta() || !is.getItemMeta().hasDisplayName() || !is.getItemMeta().getDisplayName().endsWith("Sonic Blaster")) {
+            if (is == null || !is.hasItemMeta() || !is.getItemMeta().hasDisplayName() || !TARDISStringUtils.endsWith(is.getItemMeta().displayName(), "Sonic Blaster")) {
                 return;
             }
             ItemStack b1 = ci.getItem(7);
             ItemStack b2 = ci.getItem(9);
-            if ((!b1.hasItemMeta() || !b2.hasItemMeta()) || (!b1.getItemMeta().hasDisplayName() || !b2.getItemMeta().hasDisplayName()) || (!b1.getItemMeta().getDisplayName().endsWith("Blaster Battery") || !b2.getItemMeta().getDisplayName().endsWith("Blaster Battery"))) {
+            if ((!b1.hasItemMeta() || !b2.hasItemMeta())
+                    || (!b1.getItemMeta().hasDisplayName() || !b2.getItemMeta().hasDisplayName())
+                    || (!TARDISStringUtils.endsWith(b1.getItemMeta().displayName(), "Blaster Battery")
+                    || !TARDISStringUtils.endsWith(b2.getItemMeta().displayName(), "Blaster Battery"))) {
                 ci.setResult(null);
             }
         }

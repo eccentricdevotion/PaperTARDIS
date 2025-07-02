@@ -25,16 +25,15 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
-public class TARDISWeatherInventory  implements InventoryHolder {
+public class TARDISWeatherInventory implements InventoryHolder {
 
     private final TARDIS plugin;
     private final Inventory inventory;
 
     public TARDISWeatherInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Weather Menu", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Weather Menu", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -54,31 +53,31 @@ public class TARDISWeatherInventory  implements InventoryHolder {
         // clear
         ItemStack clear = new ItemStack(GUIWeather.CLEAR.material(), 1);
         ItemMeta sun = clear.getItemMeta();
-        sun.setDisplayName(TARDISStringUtils.uppercaseFirst(plugin.getLanguage().getString("WEATHER_CLEAR")));
+        sun.displayName(Component.text(TARDISStringUtils.uppercaseFirst(plugin.getLanguage().getString("WEATHER_CLEAR"))));
         clear.setItemMeta(sun);
         stack[GUIWeather.CLEAR.slot()] = clear;
         // rain
         ItemStack rain = new ItemStack(GUIWeather.RAIN.material(), 1);
         ItemMeta ing = rain.getItemMeta();
-        ing.setDisplayName(TARDISStringUtils.uppercaseFirst(plugin.getLanguage().getString("WEATHER_RAIN")));
+        ing.displayName(Component.text(TARDISStringUtils.uppercaseFirst(plugin.getLanguage().getString("WEATHER_RAIN"))));
         rain.setItemMeta(ing);
         stack[GUIWeather.RAIN.slot()] = rain;
         // thunder
         ItemStack thunder = new ItemStack(GUIWeather.THUNDER.material(), 1);
         ItemMeta storm = thunder.getItemMeta();
-        storm.setDisplayName(plugin.getLanguage().getString("WEATHER_THUNDER"));
+        storm.displayName(Component.text(plugin.getLanguage().getString("WEATHER_THUNDER")));
         thunder.setItemMeta(storm);
         stack[GUIWeather.THUNDER.slot()] = thunder;
         // excite
         ItemStack excit = new ItemStack(GUIWeather.EXCITE.material(), 1);
         ItemMeta ation = excit.getItemMeta();
-        ation.setDisplayName(plugin.getLanguage().getString("WEATHER_EXCITE"));
+        ation.displayName(Component.text(plugin.getLanguage().getString("WEATHER_EXCITE")));
         excit.setItemMeta(ation);
         stack[GUIWeather.EXCITE.slot()] = excit;
         // close
         ItemStack close = new ItemStack(GUIWeather.CLOSE.material(), 1);
         ItemMeta can = close.getItemMeta();
-        can.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);
         stack[GUIWeather.CLOSE.slot()] = close;
 

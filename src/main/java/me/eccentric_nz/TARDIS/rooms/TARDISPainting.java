@@ -18,7 +18,6 @@ package me.eccentric_nz.TARDIS.rooms;
 
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
-import me.eccentric_nz.TARDIS.TARDIS;
 import org.bukkit.Art;
 import org.bukkit.Location;
 import org.bukkit.Registry;

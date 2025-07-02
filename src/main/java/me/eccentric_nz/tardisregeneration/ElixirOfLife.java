@@ -21,7 +21,10 @@ import io.papermc.paper.datacomponent.item.Consumable;
 import io.papermc.paper.datacomponent.item.consumable.ItemUseAnimation;
 import io.papermc.paper.registry.keys.SoundEventKeys;
 import me.eccentric_nz.TARDIS.custommodels.keys.Whoniverse;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -53,8 +56,11 @@ public class ElixirOfLife {
         foodComponent.setSaturation(1.0f);
         im.setFood(foodComponent);
         im.setItemModel(Whoniverse.ELIXIR_OF_LIFE.getKey());
-        im.setDisplayName(ChatColor.WHITE + "Elixir of Life");
-        im.setLore(List.of("Use to trigger a", "Time Lord regeneration"));
+        im.displayName(Component.text("Elixir of Life", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.lore(List.of(
+                Component.text("Use to trigger a"),
+                Component.text("Time Lord regeneration")
+        ));
         goblet.setItemMeta(im);
         // set consumable component
         Consumable consumable = Consumable.consumable()
@@ -75,6 +81,6 @@ public class ElixirOfLife {
         if (!im.hasDisplayName()) {
             return false;
         }
-        return im.getDisplayName().endsWith("Elixir of Life");
+        return TARDISStringUtils.stripColour(im.displayName()).endsWith("Elixir of Life");
     }
 }

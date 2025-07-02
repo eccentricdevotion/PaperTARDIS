@@ -21,7 +21,6 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItemUtils;
 import me.eccentric_nz.TARDIS.customblocks.TARDISTinter;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISMaterials;
 import me.eccentric_nz.tardischunkgenerator.custombiome.CubicMaterial;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

@@ -19,7 +19,8 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -56,7 +57,7 @@ public class TimeRotorCustomRecipe {
                 ItemStack is = new ItemStack(Material.LIGHT_GRAY_DYE, 1);
                 ItemMeta im = is.getItemMeta();
                 String dn = TARDISStringUtils.capitalise(r);
-                im.setDisplayName(ChatColor.WHITE + "Time Rotor " + dn);
+                im.displayName(Component.text("Time Rotor " + dn, NamedTextColor.WHITE));
                 im.setItemModel(new NamespacedKey(plugin, "time_rotor/time_rotor_" + r + "_off"));
                 is.setItemMeta(im);
                 NamespacedKey key = new NamespacedKey(plugin, "time_rotor_" + r);

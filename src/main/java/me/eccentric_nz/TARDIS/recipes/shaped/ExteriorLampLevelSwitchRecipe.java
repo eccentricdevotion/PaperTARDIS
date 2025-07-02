@@ -18,7 +18,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -51,7 +53,7 @@ public class ExteriorLampLevelSwitchRecipe {
         // add exterior recipe
         ItemStack is = new ItemStack(Material.LEVER, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Exterior Lamp Level Switch");
+        im.displayName(Component.text("Exterior Lamp Level Switch", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "exterior_lamp_level_switch");
         ShapedRecipe r = new ShapedRecipe(key, is);

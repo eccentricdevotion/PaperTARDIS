@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.tardischemistry.element;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -27,11 +28,15 @@ public class ElementBuilder {
     public static ItemStack getElement(Element element) {
         ItemStack is = new ItemStack(Material.FEATHER, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(element.toString());
+        im.displayName(Component.text(element.toString()));
         if (element.equals(Element.Unknown)) {
-            im.setLore(List.of("?", "?"));
+            Component question = Component.text("?");
+            im.lore(List.of(question, question));
         } else {
-            im.setLore(List.of(element.getSymbol(), "" + element.getAtomicNumber()));
+            im.lore(List.of(
+                    Component.text(element.getSymbol()),
+                    Component.text(element.getAtomicNumber())
+            ));
         }
         im.setItemModel(element.getModel());
         is.setItemMeta(im);

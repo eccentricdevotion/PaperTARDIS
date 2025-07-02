@@ -22,6 +22,8 @@ import me.eccentric_nz.TARDIS.database.data.Tardis;
 import me.eccentric_nz.TARDIS.database.resultset.*;
 import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -57,17 +59,17 @@ public class TARDISDiskWriterCommand {
         if (makeAndSaveDisk) {
             is = new ItemStack(Material.MUSIC_DISC_CHIRP, 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName("Save Storage Disk");
-            im.setLore(List.of("Blank"));
+            im.displayName(Component.text("Save Storage Disk"));
+            im.lore(List.of(Component.text("Blank")));
             is.setItemMeta(im);
         } else {
             is = player.getInventory().getItemInMainHand();
         }
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && im.getDisplayName().endsWith("Save Storage Disk")) {
-                List<String> lore = im.getLore();
-                if (!lore.getFirst().equals("Blank")) {
+            if (im.hasDisplayName() && TARDISStringUtils.stripColour(im.displayName()).endsWith("Save Storage Disk")) {
+                List<Component> lore = im.lore();
+                if (!lore.getFirst().equals(Component.text("Blank"))) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "DISK_ONLY_BLANK");
                     return true;
                 }
@@ -106,15 +108,15 @@ public class TARDISDiskWriterCommand {
                         return true;
                     }
                     Current current = rsc.getCurrent();
-                    lore.set(0, args[1]);
-                    lore.add(1, current.location().getWorld().getName());
-                    lore.add(2, "" + current.location().getBlockX());
-                    lore.add(3, "" + current.location().getBlockY());
-                    lore.add(4, "" + current.location().getBlockZ());
-                    lore.add(5, preset.toString());
-                    lore.add(6, current.direction().toString());
-                    lore.add(7, (current.submarine()) ? "true" : "false");
-                    im.setLore(lore);
+                    lore.set(0, Component.text(args[1]));
+                    lore.add(1, Component.text(current.location().getWorld().getName()));
+                    lore.add(2, Component.text(current.location().getBlockX()));
+                    lore.add(3, Component.text(current.location().getBlockY()));
+                    lore.add(4, Component.text(current.location().getBlockZ()));
+                    lore.add(5, Component.text(preset.toString()));
+                    lore.add(6, Component.text(current.direction().toString()));
+                    lore.add(7, Component.text((current.submarine()) ? "true" : "false"));
+                    im.lore(lore);
                     is.setItemMeta(im);
                     if (makeAndSaveDisk) {
                         // save the disk to storage
@@ -190,9 +192,9 @@ public class TARDISDiskWriterCommand {
         ItemStack is = player.getInventory().getItemInMainHand();
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && im.getDisplayName().endsWith("Player Storage Disk")) {
-                List<String> lore = im.getLore();
-                if (!lore.getFirst().equals("Blank")) {
+            if (im.hasDisplayName() && TARDISStringUtils.stripColour(im.displayName()).endsWith("Player Storage Disk")) {
+                List<Component> lore = im.lore();
+                if (!TARDISStringUtils.stripColour(lore.getFirst()).equals("Blank")) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "DISK_ONLY_BLANK");
                     return true;
                 }
@@ -215,8 +217,8 @@ public class TARDISDiskWriterCommand {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "NO_TARDIS");
                     return false;
                 } else {
-                    lore.set(0, args[1]);
-                    im.setLore(lore);
+                    lore.set(0, Component.text(args[1]));
+                    im.lore(lore);
                     is.setItemMeta(im);
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "DISK_PLAYER_SAVED");
                     return true;
@@ -228,10 +230,9 @@ public class TARDISDiskWriterCommand {
 
     public boolean eraseDisk(Player player) {
         ItemStack is = player.getInventory().getItemInMainHand();
-        if (is.hasItemMeta() && disks.contains(is.getItemMeta().getDisplayName())) {
+        if (is.hasItemMeta() && disks.contains(is.getItemMeta().displayName())) {
             ItemMeta im = is.getItemMeta();
-            List<String> lore = List.of("Blank");
-            im.setLore(lore);
+            im.lore(List.of(Component.text("Blank")));
             is.setItemMeta(im);
             plugin.getMessenger().send(player, TardisModule.TARDIS, "DISK_ERASE");
         } else {
@@ -244,7 +245,8 @@ public class TARDISDiskWriterCommand {
         ItemStack is = player.getInventory().getItemInMainHand();
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && im.getDisplayName().endsWith("Authorised Control Disk") && im.getPersistentDataContainer().has(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID())) {
+            if (im.hasDisplayName() && TARDISStringUtils.stripColour(im.displayName()).endsWith("Authorised Control Disk")
+                    && im.getPersistentDataContainer().has(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID())) {
                 if (args.length < 2) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "TOO_FEW_ARGS");
                     return false;
@@ -269,9 +271,9 @@ public class TARDISDiskWriterCommand {
                         }
                         save = args[1];
                     }
-                    List<String> lore = im.getLore();
-                    lore.add(save);
-                    im.setLore(lore);
+                    List<Component> lore = im.lore();
+                    lore.add(Component.text(save));
+                    im.lore(lore);
                     is.setItemMeta(im);
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "DISK_LOC_SAVED");
                     return true;

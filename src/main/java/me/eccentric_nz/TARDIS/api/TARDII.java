@@ -53,6 +53,9 @@ import me.eccentric_nz.tardisweepingangels.nms.TWAFollower;
 import me.eccentric_nz.tardisweepingangels.utils.FollowerChecker;
 import me.eccentric_nz.tardisweepingangels.utils.HeadBuilder;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Entity;
@@ -447,10 +450,12 @@ public class TARDII implements TardisAPI {
         if (item.endsWith("TARDIS Invisibility Circuit")) {
             // set the second line of lore
             ItemMeta im = result.getItemMeta();
-            List<String> lore = im.getLore();
-            String uses = (TARDIS.plugin.getConfig().getInt("circuits.uses.invisibility", 5) == 0 || !TARDIS.plugin.getConfig().getBoolean("circuits.damage")) ? ChatColor.YELLOW + "unlimited" : ChatColor.YELLOW + TARDIS.plugin.getConfig().getString("circuits.uses.invisibility");
+            List<Component> lore = im.lore();
+            Component uses = (TARDIS.plugin.getConfig().getInt("circuits.uses.invisibility", 5) == 0 || !TARDIS.plugin.getConfig().getBoolean("circuits.damage"))
+                    ? Component.text("unlimited", NamedTextColor.YELLOW)
+                    : Component.text(TARDIS.plugin.getConfig().getString("circuits.uses.invisibility", "5"), NamedTextColor.YELLOW);
             lore.set(1, uses);
-            im.setLore(lore);
+            im.lore(lore);
             result.setItemMeta(im);
         }
         if (item.endsWith("Blank Storage Disk") || item.endsWith("Save Storage Disk") || item.endsWith("Preset Storage Disk") || item.endsWith("Biome Storage Disk") || item.endsWith("Player Storage Disk") || item.endsWith("Authorised Control Disk")) {
@@ -462,15 +467,14 @@ public class TARDII implements TardisAPI {
         if (item.endsWith("TARDIS Key") || item.endsWith("Authorised Control Disk")) {
             ItemMeta im = result.getItemMeta();
             im.getPersistentDataContainer().set(TARDIS.plugin.getTimeLordUuidKey(), TARDIS.plugin.getPersistentDataTypeUUID(), player.getUniqueId());
-            List<String> lore = im.getLore();
+            List<Component> lore = im.lore();
             if (lore == null) {
                 lore = new ArrayList<>();
             }
-            String format = ChatColor.AQUA + "" + ChatColor.ITALIC;
             String what = item.endsWith("TARDIS Key") ? "key" : "disk";
-            lore.add(format + "This " + what + " belongs to");
-            lore.add(format + player.getName());
-            im.setLore(lore);
+            lore.add(Component.text("This " + what + " belongs to", NamedTextColor.AQUA).decorate(TextDecoration.ITALIC));
+            lore.add(Component.text(player.getName(), NamedTextColor.AQUA).decorate(TextDecoration.ITALIC));
+            im.lore(lore);
             result.setItemMeta(im);
         }
         return result;
@@ -502,13 +506,13 @@ public class TARDII implements TardisAPI {
             ItemMeta im = is.getItemMeta();
             im.getPersistentDataContainer().set(TARDIS.plugin.getCustomBlockKey(), PersistentDataType.STRING, model.getKey());
             // set display name
-            im.setDisplayName(ChatColor.GOLD + "TARDIS Seed Block");
-            List<String> lore = new ArrayList<>();
-            lore.add(schematic);
-            lore.add("Walls: ORANGE_WOOL");
-            lore.add("Floors: LIGHT_GRAY_WOOL");
-            lore.add("Chameleon: FACTORY");
-            im.setLore(lore);
+            im.displayName(Component.text("TARDIS Seed Block", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.text(schematic));
+            lore.add(Component.text("Walls: ORANGE_WOOL"));
+            lore.add(Component.text("Floors: LIGHT_GRAY_WOOL"));
+            lore.add(Component.text("Chameleon: FACTORY"));
+            im.lore(lore);
             is.setItemMeta(im);
             return is;
         }
@@ -584,9 +588,13 @@ public class TARDII implements TardisAPI {
                 PersistentDataContainer pdc = im.getPersistentDataContainer();
                 pdc.set(TARDIS.plugin.getTimeLordUuidKey(), TARDIS.plugin.getPersistentDataTypeUUID(), player.getUniqueId());
                 pdc.set(TARDIS.plugin.getBlueprintKey(), PersistentDataType.STRING, perm);
-                im.setDisplayName("TARDIS Blueprint Disk");
-                List<String> lore = List.of(TARDISStringUtils.capitalise(item), "Valid only for", player.getName());
-                im.setLore(lore);
+                im.displayName(Component.text("TARDIS Blueprint Disk"));
+                List<Component> lore = List.of(
+                        Component.text(TARDISStringUtils.capitalise(item)),
+                        Component.text("Valid only for"),
+                        Component.text(player.getName())
+                );
+                im.lore(lore);
                 im.addItemFlags(ItemFlag.values());
                 im.setAttributeModifiers(Multimaps.forMap(Map.of()));
                 is.setItemMeta(im);
@@ -959,7 +967,7 @@ public class TARDII implements TardisAPI {
     public void setStraxEquipment(LivingEntity le, boolean disguise) {
         new Equipper(Monster.STRAX, le, disguise).setHelmetAndInvisibility();
         if (!disguise) {
-            le.setCustomName("Strax");
+            le.customName(Component.text("Strax"));
         }
     }
 

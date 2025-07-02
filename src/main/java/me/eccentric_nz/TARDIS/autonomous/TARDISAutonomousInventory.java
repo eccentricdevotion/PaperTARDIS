@@ -24,7 +24,6 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -48,9 +47,9 @@ public class TARDISAutonomousInventory implements InventoryHolder {
         this.uuid = uuid;
         off = new ItemStack(Material.LIGHT_GRAY_CARPET, 1);
         ItemMeta offMeta = off.getItemMeta();
-        offMeta.setDisplayName(ChatColor.RED + plugin.getLanguage().getString("SET_OFF"));
+        offMeta.displayName(Component.text(plugin.getLanguage().getString("SET_OFF", "OFF"), NamedTextColor.RED));
         off.setItemMeta(offMeta);
-        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("TARDIS Autonomous Menu", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("TARDIS Autonomous Menu", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -79,7 +78,7 @@ public class TARDISAutonomousInventory implements InventoryHolder {
         for (GUIAutonomous a : GUIAutonomous.values()) {
             ItemStack is = new ItemStack(a.getMaterial(), 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(a.getName().contains("Selected") ? ChatColor.GREEN + plugin.getLanguage().getString("SET_ON") : a.getName());
+            im.displayName(a.getName().contains("Selected") ? Component.text(plugin.getLanguage().getString("SET_ON", "ON"), NamedTextColor.GREEN) : Component.text(a.getName()));
             if (a == GUIAutonomous.AUTONOMOUS_TYPE) {
                 CustomModelDataComponent component = im.getCustomModelDataComponent();
                 component.setFloats(SwitchVariant.AUTO_TYPE.getFloats());
@@ -91,19 +90,19 @@ public class TARDISAutonomousInventory implements InventoryHolder {
                 im.setCustomModelDataComponent(component);
             }
             if (a == GUIAutonomous.SAVE_SELECTOR) {
-                List<String> lore = new ArrayList<>(a.getLore());
+                List<Component> lore = new ArrayList<>(a.getLore());
                 // get tardis id
                 ResultSetTardisID rst = new ResultSetTardisID(plugin);
                 if (rst.fromUUID(uuid.toString())) {
                     // get autonomous save
                     ResultSetAutonomousSave rsd = new ResultSetAutonomousSave(plugin);
                     if (rsd.fromID(rst.getTardisId())) {
-                        lore.add(ChatColor.GREEN + rsd.getAutonomous());
+                        lore.add(Component.text(rsd.getAutonomous(), NamedTextColor.GREEN));
                     }
                 }
-                im.setLore(lore);
+                im.lore(lore);
             } else if (a.getLore() != null) {
-                im.setLore(a.getLore());
+                im.lore(a.getLore());
             }
             is.setItemMeta(im);
             int slot = (a.getSlot() == -1) ? findSlot(a) : a.getSlot();

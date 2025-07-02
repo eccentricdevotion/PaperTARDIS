@@ -19,7 +19,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -55,14 +57,14 @@ public class TARDISTemporalCircuitRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "TARDIS Temporal Circuit");
+        im.displayName(Component.text("TARDIS Temporal Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         CustomModelDataComponent component = im.getCustomModelDataComponent();
         component.setFloats(CircuitVariant.TEMPORAL.getFloats());
         im.setCustomModelDataComponent(component);
-        String uses = (plugin.getConfig().getString("circuits.uses.temporal").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
-                ? ChatColor.YELLOW + "unlimited"
-                : ChatColor.YELLOW + plugin.getConfig().getString("circuits.uses.temporal");
-        im.setLore(List.of("Uses left", uses));
+        Component uses = (plugin.getConfig().getString("circuits.uses.temporal", "20").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
+                ? Component.text("unlimited", NamedTextColor.YELLOW)
+                : Component.text(plugin.getConfig().getString("circuits.uses.temporal", "20"), NamedTextColor.YELLOW);
+        im.lore(List.of(Component.text("Uses left"), uses));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "tardis_temporal_circuit");
         ShapedRecipe r = new ShapedRecipe(key, is);

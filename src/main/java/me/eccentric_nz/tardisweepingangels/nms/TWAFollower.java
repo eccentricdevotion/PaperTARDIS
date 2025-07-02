@@ -17,7 +17,6 @@
 package me.eccentric_nz.tardisweepingangels.nms;
 
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.world.entity.EntityReference;
 import net.minecraft.world.entity.EntityType;

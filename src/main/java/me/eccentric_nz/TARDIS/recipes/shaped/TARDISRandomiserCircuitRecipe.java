@@ -18,7 +18,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -57,14 +59,14 @@ public class TARDISRandomiserCircuitRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "TARDIS Randomiser Circuit");
+        im.displayName(Component.text("TARDIS Randomiser Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         CustomModelDataComponent component = im.getCustomModelDataComponent();
         component.setFloats(CircuitVariant.RANDOM.getFloats());
         im.setCustomModelDataComponent(component);
-        String uses = (plugin.getConfig().getString("circuits.uses.randomiser").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
-                ? ChatColor.YELLOW + "unlimited"
-                : ChatColor.YELLOW + plugin.getConfig().getString("circuits.uses.randomiser");
-        im.setLore(List.of("Uses left", uses));
+        Component uses = (plugin.getConfig().getString("circuits.uses.randomiser", "50").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
+                ? Component.text("unlimited", NamedTextColor.YELLOW)
+                : Component.text(plugin.getConfig().getString("circuits.uses.randomiser", "50"), NamedTextColor.YELLOW);
+        im.lore(List.of(Component.text("Uses left"), uses));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "tardis_randomiser_circuit");
         ShapedRecipe r = new ShapedRecipe(key, is);

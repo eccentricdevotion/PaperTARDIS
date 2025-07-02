@@ -22,7 +22,9 @@ import me.eccentric_nz.TARDIS.enumeration.Consoles;
 import me.eccentric_nz.TARDIS.enumeration.Schematic;
 import me.eccentric_nz.TARDIS.rooms.TARDISWalls;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World;
@@ -72,10 +74,8 @@ public class TARDISSeedRecipe {
         }
         ItemMeta im = is.getItemMeta();
         im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, model.getKey());
-        im.setDisplayName(ChatColor.GOLD + "TARDIS Seed Block");
-        List<String> lore = new ArrayList<>();
-        lore.add(s.getPermission().toUpperCase(Locale.ROOT));
-        im.setLore(lore);
+        im.displayName(Component.text("TARDIS Seed Block", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+        im.lore(List.of(Component.text(s.getPermission().toUpperCase(Locale.ROOT))));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, s.getPermission() + "_seed");
         ShapedRecipe r = new ShapedRecipe(key, is);

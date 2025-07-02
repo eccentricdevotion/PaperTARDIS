@@ -21,7 +21,7 @@ import me.eccentric_nz.TARDIS.custommodels.GUIChameleonPresets;
 import me.eccentric_nz.TARDIS.custommodels.GUIGeneticManipulator;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -94,7 +94,7 @@ class TARDISLazarusInventory implements InventoryHolder {
         disguises.add(Material.PIGLIN_SPAWN_EGG);
         disguises.add(Material.POLAR_BEAR_SPAWN_EGG);
 
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Genetic Manipulator", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Genetic Manipulator", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -115,9 +115,9 @@ class TARDISLazarusInventory implements InventoryHolder {
             ItemStack egg = new ItemStack(m, 1);
             ItemMeta me = egg.getItemMeta();
             if (m == Material.MOOSHROOM_SPAWN_EGG) {
-                me.setDisplayName("MUSHROOM_COW");
+                me.displayName(Component.text("MUSHROOM_COW"));
             } else {
-                me.setDisplayName(m.toString().replace("_SPAWN_EGG", ""));
+                me.displayName(Component.text(m.toString().replace("_SPAWN_EGG", "")));
             }
             egg.setItemMeta(me);
             stacks[i] = egg;
@@ -126,28 +126,28 @@ class TARDISLazarusInventory implements InventoryHolder {
         // page two
         ItemStack page = new ItemStack(GUIChameleonPresets.GO_TO_PAGE_2.material(), 1);
         ItemMeta two = page.getItemMeta();
-        two.setDisplayName(plugin.getLanguage().getString("BUTTON_PAGE_2"));
+        two.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_2", "Go to page 2")));
         page.setItemMeta(two);
         stacks[42] = page;
         // add skins
         ItemStack down = new ItemStack(GUIGeneticManipulator.BUTTON_SKINS.material(), 1);
         ItemMeta load = down.getItemMeta();
-        load.setDisplayName("TARDIS Television");
+        load.displayName(Component.text("TARDIS Television"));
         load.setItemModel(GUIGeneticManipulator.BUTTON_SKINS.key());
         down.setItemMeta(load);
         stacks[GUIGeneticManipulator.BUTTON_SKINS.slot()] = down;
         // TARDISWeepingAngels monsters
         ItemStack weep = new ItemStack(GUIGeneticManipulator.BUTTON_TWA.material(), 1);
         ItemMeta ing = weep.getItemMeta();
-        ing.setDisplayName("TARDIS Monsters");
+        ing.displayName(Component.text("TARDIS Monsters"));
         weep.setItemMeta(ing);
         stacks[GUIGeneticManipulator.BUTTON_TWA.slot()] = weep;
         // add options
         // master
         ItemStack the = new ItemStack(GUIGeneticManipulator.BUTTON_MASTER.material(), 1);
         ItemMeta master = the.getItemMeta();
-        master.setDisplayName(plugin.getLanguage().getString("BUTTON_MASTER"));
-        master.setLore(List.of(plugin.getLanguage().getString("SET_OFF")));
+        master.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MASTER", "The Master's reverse polarity button")));
+        master.lore(List.of(Component.text(plugin.getLanguage().getString("SET_OFF", "OFF"))));
         CustomModelDataComponent component = master.getCustomModelDataComponent();
         component.setFloats(List.of(152f));
         master.setCustomModelDataComponent(component);
@@ -156,45 +156,45 @@ class TARDISLazarusInventory implements InventoryHolder {
         // adult
         ItemStack adult = new ItemStack(GUIGeneticManipulator.BUTTON_AGE.material(), 1);
         ItemMeta baby = adult.getItemMeta();
-        baby.setDisplayName(plugin.getLanguage().getString("BUTTON_AGE"));
-        baby.setLore(List.of("ADULT"));
+        baby.displayName(Component.text(plugin.getLanguage().getString("BUTTON_AGE", "Age")));
+        baby.lore(List.of(Component.text("ADULT")));
         adult.setItemMeta(baby);
         stacks[GUIGeneticManipulator.BUTTON_AGE.slot()] = adult;
         // type
         ItemStack typ = new ItemStack(GUIGeneticManipulator.BUTTON_TYPE.material(), 1);
         ItemMeta col = typ.getItemMeta();
-        col.setDisplayName(plugin.getLanguage().getString("BUTTON_TYPE"));
-        col.setLore(List.of("WHITE"));
+        col.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TYPE", "Type/Colour")));
+        col.lore(List.of(Component.text("WHITE")));
         typ.setItemMeta(col);
         stacks[GUIGeneticManipulator.BUTTON_TYPE.slot()] = typ;
         // tamed
         ItemStack tamed = new ItemStack(GUIGeneticManipulator.BUTTON_OPTS.material(), 1);
         ItemMeta tf = tamed.getItemMeta();
-        tf.setDisplayName(plugin.getLanguage().getString("BUTTON_OPTS"));
-        List<String> opts = new ArrayList<>();
+        tf.displayName(Component.text(plugin.getLanguage().getString("BUTTON_OPTS", "Disguise Options")));
+        List<Component> opts = new ArrayList<>();
         for (String o : plugin.getLanguage().getString("BUTTON_OPTS_LIST").split("/")) {
-            opts.add(ChatColor.ITALIC + o + ChatColor.RESET);
+            opts.add(Component.text(o).decorate(TextDecoration.ITALIC));
         }
-        opts.add(ChatColor.RED + "FALSE");
-        tf.setLore(opts);
+        opts.add(Component.text("FALSE", NamedTextColor.RED));
+        tf.lore(opts);
         tamed.setItemMeta(tf);
         stacks[GUIGeneticManipulator.BUTTON_OPTS.slot()] = tamed;
         // add buttons
         ItemStack rem = new ItemStack(GUIGeneticManipulator.BUTTON_RESTORE.material(), 1);
         ItemMeta ove = rem.getItemMeta();
-        ove.setDisplayName(plugin.getLanguage().getString("BUTTON_RESTORE"));
+        ove.displayName(Component.text(plugin.getLanguage().getString("BUTTON_RESTORE", "Restore my original genetic material")));
         rem.setItemMeta(ove);
         stacks[GUIGeneticManipulator.BUTTON_RESTORE.slot()] = rem;
         // set
         ItemStack s = new ItemStack(GUIGeneticManipulator.BUTTON_DNA.material(), 1);
         ItemMeta sim = s.getItemMeta();
-        sim.setDisplayName(plugin.getLanguage().getString("BUTTON_DNA"));
+        sim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_DNA", "Modify my genetic material")));
         s.setItemMeta(sim);
         stacks[GUIGeneticManipulator.BUTTON_DNA.slot()] = s;
         // cancel
         ItemStack can = new ItemStack(GUIGeneticManipulator.BUTTON_CANCEL.material(), 1);
         ItemMeta cel = can.getItemMeta();
-        cel.setDisplayName(plugin.getLanguage().getString("BUTTON_CANCEL"));
+        cel.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CANCEL", "Cancel")));
         can.setItemMeta(cel);
         stacks[GUIGeneticManipulator.BUTTON_CANCEL.slot()] = can;
 

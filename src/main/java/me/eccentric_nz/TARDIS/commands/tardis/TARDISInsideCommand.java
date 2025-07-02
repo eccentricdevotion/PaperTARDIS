@@ -54,7 +54,7 @@ class TARDISInsideCommand {
             data.forEach((s) -> {
                 Player p = plugin.getServer().getPlayer(s);
                 if (p != null) {
-                    player.sendMessage(p.getDisplayName());
+                    player.sendMessage(p.displayName());
                 }
             });
         } else {

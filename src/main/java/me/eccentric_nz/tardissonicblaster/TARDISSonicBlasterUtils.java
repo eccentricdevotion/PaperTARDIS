@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.tardissonicblaster;
 
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -37,7 +38,7 @@ public class TARDISSonicBlasterUtils {
         if (!im.hasDisplayName()) {
             return false;
         }
-        return im.getDisplayName().endsWith("Sonic Blaster");
+        return TARDISStringUtils.endsWith(im.displayName(), "Sonic Blaster");
     }
 
     public static float getLineOfSightAngle(Player p) {

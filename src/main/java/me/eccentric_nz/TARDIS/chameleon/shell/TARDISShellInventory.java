@@ -24,7 +24,6 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetShells;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.Inventory;
@@ -56,7 +55,7 @@ public class TARDISShellInventory implements InventoryHolder {
     public TARDISShellInventory(TARDIS plugin, int id) {
         this.plugin = plugin;
         this.id = id;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Shells", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Shells", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -102,16 +101,16 @@ public class TARDISShellInventory implements InventoryHolder {
                 }
                 ItemStack saved = new ItemStack(material, 1);
                 ItemMeta con = saved.getItemMeta();
-                con.setDisplayName("Saved Construct");
-                List<String> lore = new ArrayList<>();
-                lore.add(map.get("line1"));
-                lore.add(map.get("line2"));
-                lore.add(map.get("line3"));
-                lore.add(map.get("line4"));
+                con.displayName(Component.text("Saved Construct"));
+                List<Component> lore = new ArrayList<>();
+                lore.add(Component.text(map.get("line1")));
+                lore.add(Component.text(map.get("line2")));
+                lore.add(Component.text(map.get("line3")));
+                lore.add(Component.text(map.get("line4")));
                 if (map.get("active").equals("1")) {
-                    lore.add(ChatColor.AQUA + "Active shell");
+                    lore.add(Component.text("Active shell", NamedTextColor.AQUA));
                 }
-                con.setLore(lore);
+                con.lore(lore);
                 con.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.INTEGER, TARDISNumberParsers.parseInt(map.get("chameleon_id")));
                 saved.setItemMeta(con);
                 stacks[i] = saved;
@@ -125,40 +124,50 @@ public class TARDISShellInventory implements InventoryHolder {
         // use selected shell
         ItemStack use = new ItemStack(GUIChameleonPresets.USE_SELECTED.material(), 1);
         ItemMeta uim = use.getItemMeta();
-        uim.setDisplayName("Use selected shell");
-        uim.setLore(List.of("Will apply shell to", "the Chameleon Circuit", "and rebuild the exterior."));
+        uim.displayName(Component.text("Use selected shell"));
+        uim.lore(List.of(
+                Component.text("Will apply shell to"),
+                Component.text("the Chameleon Circuit"),
+                Component.text("and rebuild the exterior.")
+        ));
         use.setItemMeta(uim);
         stacks[GUIChameleonPresets.USE_SELECTED.slot()] = use;
         // delete selected shell
         ItemStack delete = new ItemStack(GUIChameleonPresets.DELETE_SELECTED.material(), 1);
         ItemMeta dim = delete.getItemMeta();
-        dim.setDisplayName("Delete selected shell");
+        dim.displayName(Component.text("Delete selected shell"));
         delete.setItemMeta(dim);
         stacks[GUIChameleonPresets.DELETE_SELECTED.slot()] = delete;
         // update selected shell
         ItemStack update = new ItemStack(GUIChameleonPresets.UPDATE_SELECTED.material(), 1);
         ItemMeta upim = update.getItemMeta();
-        upim.setDisplayName("Update selected shell");
+        upim.displayName(Component.text("Update selected shell"));
         update.setItemMeta(upim);
         stacks[GUIChameleonPresets.UPDATE_SELECTED.slot()] = update;
         // clear shell on platform
         ItemStack newShell = new ItemStack(GUIChameleonPresets.NEW.material(), 1);
         ItemMeta ns = newShell.getItemMeta();
-        ns.setDisplayName("New Chameleon shell");
-        ns.setLore(List.of("Will clear the shell platform", "ready for building."));
+        ns.displayName(Component.text("New Chameleon shell"));
+        ns.lore(List.of(
+                Component.text("Will clear the shell platform"),
+                Component.text("ready for building.")
+        ));
         newShell.setItemMeta(ns);
         stacks[GUIChameleonPresets.NEW.slot()] = newShell;
         // Save current shell on platform
         ItemStack save = new ItemStack(GUIChameleonPresets.SAVE.material(), 1);
         ItemMeta pre = save.getItemMeta();
-        pre.setDisplayName("Save Chameleon shell");
-        ns.setLore(List.of("Will save shell and", "rebuild the exterior."));
+        pre.displayName(Component.text("Save Chameleon shell"));
+        ns.lore(List.of(
+                Component.text("Will save shell and"),
+                Component.text("rebuild the exterior.")
+        ));
         save.setItemMeta(pre);
         stacks[GUIChameleonPresets.SAVE.slot()] = save;
         // Cancel / close
         ItemStack close = new ItemStack(GUIChameleonPresets.CLOSE.material(), 1);
         ItemMeta can = close.getItemMeta();
-        can.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);
         stacks[GUIChameleonPresets.CLOSE.slot()] = close;
 

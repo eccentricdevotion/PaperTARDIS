@@ -32,6 +32,9 @@ import me.eccentric_nz.TARDIS.enumeration.Schematic;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -78,8 +81,8 @@ public class TARDISSeedBlockListener implements Listener {
         if (!im.hasDisplayName() || !im.hasLore()) {
             return;
         }
-        String dn = im.getDisplayName();
-        if (dn.equals(ChatColor.GOLD + "TARDIS Seed Block")) {
+        String dn = TARDISStringUtils.stripColour(im.displayName());
+        if (dn.equals("TARDIS Seed Block")) {
             Block block = event.getBlockPlaced();
             if (im.getPersistentDataContainer().has(plugin.getCustomBlockKey(), PersistentDataType.STRING)) {
                 String key = im.getPersistentDataContainer().get(plugin.getCustomBlockKey(), PersistentDataType.STRING);
@@ -91,10 +94,10 @@ public class TARDISSeedBlockListener implements Listener {
                 }
                 TARDISDisplayItemUtils.setSeed(tdi, block, im);
             }
-            List<String> lore = im.getLore();
-            Schematic schm = Consoles.getBY_NAMES().get(lore.getFirst());
-            Material wall = Material.valueOf(TARDISStringUtils.getValuesFromWallString(lore.get(1)));
-            Material floor = Material.valueOf(TARDISStringUtils.getValuesFromWallString(lore.get(2)));
+            List<Component> lore = im.lore();
+            Schematic schm = Consoles.getBY_NAMES().get(TARDISStringUtils.stripColour(lore.getFirst()));
+            Material wall = Material.valueOf(TARDISStringUtils.getValuesFromWallString(TARDISStringUtils.stripColour(lore.get(1))));
+            Material floor = Material.valueOf(TARDISStringUtils.getValuesFromWallString(TARDISStringUtils.stripColour(lore.get(2))));
             TARDISBuildData seed = new TARDISBuildData();
             seed.setSchematic(schm);
             seed.setWallType(wall);
@@ -130,8 +133,8 @@ public class TARDISSeedBlockListener implements Listener {
                 new ConsoleBuilder(plugin).create(event.getBlockPlaced(), type, rs.getTardisId(), uuid);
             }
         } else if (dn.endsWith("Variable Light") && is.getType() == Material.GLASS) {
-            List<String> lore = im.getLore();
-            Material variable = Material.valueOf(lore.getFirst());
+            List<Component> lore = im.lore();
+            Material variable = Material.valueOf(TARDISStringUtils.stripColour(lore.getFirst()));
             // place the variable light
             new VariableLight(variable, event.getBlockPlaced().getLocation().add(0.5d, 0.5d, 0.5d)).set();
         }
@@ -172,12 +175,12 @@ public class TARDISSeedBlockListener implements Listener {
                     return;
                 }
                 im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, model.getKey());
-                im.setDisplayName(ChatColor.GOLD + "TARDIS Seed Block");
-                List<String> lore = new ArrayList<>();
-                lore.add(console);
-                lore.add("Walls: " + data.getWallType().toString());
-                lore.add("Floors: " + data.getFloorType().toString());
-                im.setLore(lore);
+                im.displayName(Component.text("TARDIS Seed Block", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+                List<Component> lore = new ArrayList<>();
+                lore.add(Component.text(console));
+                lore.add(Component.text("Walls: " + data.getWallType().toString()));
+                lore.add(Component.text("Floors: " + data.getFloorType().toString()));
+                im.lore(lore);
                 is.setItemMeta(im);
                 // set the block to AIR
                 event.getBlock().setBlockData(TARDISConstants.AIR);
@@ -213,7 +216,7 @@ public class TARDISSeedBlockListener implements Listener {
                         plugin.getMessenger().send(player, TardisModule.TARDIS, "WORLD_NO_TARDIS");
                         return;
                     }
-                    if (!plugin.getConfig().getString("creation.area").equals("none")) {
+                    if (!plugin.getConfig().getString("creation.area", "none").equals("none")) {
                         String area = plugin.getConfig().getString("creation.area");
                         if (plugin.getTardisArea().areaCheckInExile(area, l)) {
                             plugin.getMessenger().send(player, TardisModule.TARDIS, "TARDIS_ONLY_AREA", area);

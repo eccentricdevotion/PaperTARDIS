@@ -19,8 +19,6 @@ package me.eccentric_nz.tardischemistry;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.tardischemistry.block.ChemistryBlock;
-import me.eccentric_nz.tardischemistry.block.RecipeData;
 import me.eccentric_nz.tardischemistry.compound.CompoundCommand;
 import me.eccentric_nz.tardischemistry.constructor.ConstructCommand;
 import me.eccentric_nz.tardischemistry.creative.CreativeCommand;
@@ -28,15 +26,11 @@ import me.eccentric_nz.tardischemistry.formula.FormulaCommand;
 import me.eccentric_nz.tardischemistry.lab.LabCommand;
 import me.eccentric_nz.tardischemistry.product.ProductCommand;
 import me.eccentric_nz.tardischemistry.reducer.ReduceCommand;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 import java.util.Locale;
@@ -129,25 +123,6 @@ public class TARDISChemistryCommand implements CommandExecutor {
             // lab
             default -> Material.COAL;
         };
-        Inventory inv = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "Chemistry " + which + " recipe");
-        ItemStack ingredient = new ItemStack(surround, 1);
-        inv.setItem(0, ingredient);
-        inv.setItem(1, ingredient);
-        inv.setItem(2, ingredient);
-        inv.setItem(9, ingredient);
-        inv.setItem(10, new ItemStack(Material.CRAFTING_TABLE, 1));
-        inv.setItem(11, ingredient);
-        inv.setItem(18, ingredient);
-        inv.setItem(19, ingredient);
-        inv.setItem(20, ingredient);
-        RecipeData data = ChemistryBlock.RECIPES.get(which);
-        ItemStack result = new ItemStack(data.displayItem().getMaterial(), 1);
-        ItemMeta im = result.getItemMeta();
-        im.setDisplayName(data.displayName());
-        im.setLore(data.lore());
-        im.setItemModel(data.displayItem().getCustomModel());
-        result.setItemMeta(im);
-        inv.setItem(17, result);
-        player.openInventory(inv);
+        player.openInventory(new TARDISChemistryRecipeInventory(plugin, which, surround).getInventory());
     }
 }

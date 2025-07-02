@@ -51,7 +51,8 @@ import me.eccentric_nz.TARDIS.travel.save.TARDISSavesPlanetInventory;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -384,7 +385,7 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                     // update the lore
                     ItemStack d = view.getItem(40);
                     ItemMeta im = d.getItemMeta();
-                    im.setLore(List.of(direction));
+                    im.lore(List.of(Component.text(direction)));
                     d.setItemMeta(im);
                 }
             }
@@ -423,7 +424,7 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                 // update the lore
                 ItemStack spt = view.getItem(51);
                 ItemMeta im = spt.getItemMeta();
-                String currentThrottle = im.getLore().getFirst();
+                String currentThrottle = TARDISStringUtils.stripColour(im.lore().getFirst());
                 int delay = SpaceTimeThrottle.valueOf(currentThrottle).getDelay() - 1;
                 if (delay < 1) {
                     delay = 4;
@@ -452,7 +453,7 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                     }
                 }
                 String throttle = SpaceTimeThrottle.getByDelay().get(delay).toString();
-                im.setLore(List.of(throttle));
+                im.lore(List.of(Component.text(throttle)));
                 spt.setItemMeta(im);
                 // update player prefs
                 HashMap<String, Object> wherer = new HashMap<>();

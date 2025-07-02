@@ -23,7 +23,9 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTravellers;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -159,17 +161,17 @@ public class TARDISSystemTreeListener extends TARDISMenuListener {
                 // set custom model data for clicked upgrade
                 ItemMeta im = is.getItemMeta();
                 im.setItemModel(clicked.getUnlocked());
-                List<String> lore = im.getLore();
-                lore.set(lore.size() - 1, ChatColor.GREEN + "" + org.bukkit.ChatColor.ITALIC + "Unlocked");
-                im.setLore(lore);
+                List<Component> lore = im.lore();
+                lore.set(lore.size() - 1, Component.text("Unlocked", NamedTextColor.GREEN).decorate(TextDecoration.ITALIC));
+                im.lore(lore);
                 is.setItemMeta(im);
                 // set artron level remaining for item in system tree slot
                 int remaining = current.getArtronLevel() - cost;
                 ItemStack st = view.getItem(SystemTree.UPGRADE_TREE.getSlot());
                 ItemMeta stim = st.getItemMeta();
-                List<String> stlore = stim.getLore();
-                stlore.set(3, ChatColor.AQUA + "" + ChatColor.ITALIC + "Artron Level: " + remaining);
-                stim.setLore(stlore);
+                List<Component> stlore = stim.lore();
+                stlore.set(3, Component.text("Artron Level: " + remaining, NamedTextColor.AQUA).decorate(TextDecoration.ITALIC));
+                stim.lore(stlore);
                 st.setItemMeta(stim);
             }
         } catch (IllegalArgumentException e) {

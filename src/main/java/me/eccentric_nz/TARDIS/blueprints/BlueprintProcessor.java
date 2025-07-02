@@ -47,7 +47,7 @@ public class BlueprintProcessor {
                     set.put("uuid", diskUuid.toString());
                     set.put("permission", perm);
                     plugin.getQueryFactory().doInsert("blueprint", set);
-                    plugin.getMessenger().send(player, TardisModule.TARDIS, "BLUEPRINT", im.getLore().getFirst());
+                    plugin.getMessenger().send(player, TardisModule.TARDIS, "BLUEPRINT", im.lore().getFirst());
                 }
             }
         }

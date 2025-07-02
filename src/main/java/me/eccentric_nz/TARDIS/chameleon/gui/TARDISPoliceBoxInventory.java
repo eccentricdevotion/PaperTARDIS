@@ -52,7 +52,7 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
     public TARDISPoliceBoxInventory(TARDIS plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Chameleon Police Boxes", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Chameleon Police Boxes", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -76,7 +76,7 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
                 String dye = underscored.toUpperCase(Locale.ROOT) + "_DYE";
                 ItemStack is = new ItemStack(Material.valueOf(dye), 1);
                 ItemMeta im = is.getItemMeta();
-                im.setDisplayName(s + " Police Box");
+                im.displayName(Component.text(s + " Police Box"));
                 switch (s) {
                     case "Blue" -> im.setItemModel(ChameleonVariant.BLUE_CLOSED.getKey());
                     case "White" -> im.setItemModel(ChameleonVariant.WHITE_CLOSED.getKey());
@@ -104,7 +104,7 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
         if (TARDISPermission.hasPermission(player, "tardis.preset.police_box_tennant")) {
             ItemStack david = new ItemStack(Material.CYAN_STAINED_GLASS_PANE, 1);
             ItemMeta tennant = david.getItemMeta();
-            tennant.setDisplayName("Tennant Era Police Box");
+            tennant.displayName(Component.text("Tennant Era Police Box"));
             tennant.setItemModel(ChameleonVariant.TENNANT_CLOSED.getKey());
             david.setItemMeta(tennant);
             boxes[i] = david;
@@ -114,7 +114,7 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
         if (TARDISPermission.hasPermission(player, "tardis.preset.weeping_angel")) {
             ItemStack is = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName("Weeping Angel");
+            im.displayName(Component.text("Weeping Angel"));
             im.setItemModel(ChameleonVariant.WEEPING_ANGEL_CLOSED.getKey());
             is.setItemMeta(im);
             boxes[i] = is;
@@ -124,7 +124,7 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
         if (TARDISPermission.hasPermission(player, "tardis.preset.pandorica")) {
             ItemStack pan = new ItemStack(Material.ENDER_PEARL, 1);
             ItemMeta ica = pan.getItemMeta();
-            ica.setDisplayName("Pandorica");
+            ica.displayName(Component.text("Pandorica"));
             ica.setItemModel(ChameleonVariant.PANDORICA_CLOSED.getKey());
             pan.setItemMeta(ica);
             boxes[i] = pan;
@@ -135,7 +135,7 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
         if (TARDISPermission.hasPermission(player, "tardis.preset.police_box_tinted")) {
             ItemStack any = new ItemStack(Material.LEATHER_HORSE_ARMOR, 1);
             ItemMeta colour = any.getItemMeta();
-            colour.setDisplayName("Pick a colour Police Box");
+            colour.displayName(Component.text("Pick a colour Police Box"));
             colour.setItemModel(ColouredVariant.TINTED_CLOSED.getKey());
             any.setItemMeta(colour);
             boxes[i] = any;
@@ -148,7 +148,7 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
                     Material cm = Material.valueOf(plugin.getCustomModelConfig().getString("models." + custom + ".item"));
                     ItemStack cis = new ItemStack(cm);
                     ItemMeta cim = cis.getItemMeta();
-                    cim.setDisplayName(custom);
+                    cim.displayName(Component.text(custom));
                     String key = TARDISStringUtils.toUnderscoredLowercase(custom);
                     cim.setItemModel(new NamespacedKey(plugin, key + "_closed"));
                     cis.setItemMeta(cim);
@@ -162,19 +162,19 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
         // page one
         ItemStack page = new ItemStack(GUIChameleonPoliceBoxes.GO_TO_PAGE_1.material(), 1);
         ItemMeta one = page.getItemMeta();
-        one.setDisplayName(plugin.getLanguage().getString("BUTTON_PAGE_1"));
+        one.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_1")));
         page.setItemMeta(one);
         boxes[GUIChameleonPoliceBoxes.GO_TO_PAGE_1.slot()] = page;
         // back
         ItemStack back = new ItemStack(GUIChameleonPoliceBoxes.BACK.material(), 1);
         ItemMeta but = back.getItemMeta();
-        but.setDisplayName("Back");
+        but.displayName(Component.text("Back"));
         back.setItemMeta(but);
         boxes[GUIChameleonPoliceBoxes.BACK.slot()] = back;
         // Cancel / close
         ItemStack close = new ItemStack(GUIChameleonPoliceBoxes.CLOSE.material(), 1);
         ItemMeta can = close.getItemMeta();
-        can.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);
         boxes[GUIChameleonPoliceBoxes.CLOSE.slot()] = close;
         return boxes;

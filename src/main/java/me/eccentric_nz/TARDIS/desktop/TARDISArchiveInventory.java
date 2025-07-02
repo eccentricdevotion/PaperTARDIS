@@ -23,7 +23,6 @@ import me.eccentric_nz.TARDIS.enumeration.ConsoleSize;
 import me.eccentric_nz.TARDIS.schematic.ResultSetArchiveButtons;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -49,7 +48,7 @@ class TARDISArchiveInventory implements InventoryHolder {
     TARDISArchiveInventory(TARDIS plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
-        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Archive", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Archive", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -77,13 +76,13 @@ class TARDISArchiveInventory implements InventoryHolder {
         // back
         ItemStack back = new ItemStack(GUIArchive.BACK.material(), 1);
         ItemMeta back_im = back.getItemMeta();
-        back_im.setDisplayName("Back");
+        back_im.displayName(Component.text("Back"));
         back.setItemMeta(back_im);
         stack[17] = back;
         // size
         ItemStack size = new ItemStack(GUIArchive.SET_SIZE.material(), 1);
         ItemMeta size_im = size.getItemMeta();
-        size_im.setDisplayName("Set size");
+        size_im.displayName(Component.text("Set size"));
         String s = "SMALL";
         String b = "16 x 16 x 16 blocks";
 
@@ -93,20 +92,29 @@ class TARDISArchiveInventory implements InventoryHolder {
             s = rss.getConsoleSize().toString();
             b = rss.getConsoleSize().getBlocks();
         }
-        size_im.setLore(List.of(s, b, ChatColor.AQUA + "Click to change"));
+        size_im.lore(List.of(
+                Component.text(s),
+                Component.text(b),
+                Component.text("Click to change", NamedTextColor.AQUA)
+        ));
         size.setItemMeta(size_im);
         stack[18] = size;
         // scan
         ItemStack scan = new ItemStack(GUIArchive.SCAN_CONSOLE.material(), 1);
         ItemMeta but_im = scan.getItemMeta();
-        but_im.setDisplayName("Scan console");
+        but_im.displayName(Component.text("Scan console"));
         scan.setItemMeta(but_im);
         stack[19] = scan;
         // archive
         ItemStack arc = new ItemStack(GUIArchive.ARCHIVE_CURRENT_CONSOLE.material(), 1);
         ItemMeta hive_im = arc.getItemMeta();
-        hive_im.setDisplayName("Archive current console");
-        hive_im.setLore(List.of("A random name will", "be generated - use the", "/tardis archive command", "to set your own."));
+        hive_im.displayName(Component.text("Archive current console"));
+        hive_im.lore(List.of(
+                Component.text("A random name will"),
+                Component.text("be generated - use the"),
+                Component.text("/tardis archive command"),
+                Component.text("to set your own.")
+        ));
         arc.setItemMeta(hive_im);
         stack[20] = arc;
         // templates
@@ -115,8 +123,11 @@ class TARDISArchiveInventory implements InventoryHolder {
             if (!c.equals(ConsoleSize.MASSIVE)) {
                 ItemStack temp = new ItemStack(GUIArchive.SMALL.material(), 1);
                 ItemMeta late = temp.getItemMeta();
-                late.setDisplayName(c.toString());
-                late.setLore(List.of("Cobblestone template", c.getBlocks()));
+                late.displayName(Component.text(c.toString()));
+                late.lore(List.of(
+                        Component.text("Cobblestone template"),
+                        Component.text(c.getBlocks())
+                ));
                 temp.setItemMeta(late);
                 stack[t] = temp;
                 t++;
@@ -125,7 +136,7 @@ class TARDISArchiveInventory implements InventoryHolder {
         // close
         ItemStack close = new ItemStack(GUIArchive.CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);
         stack[GUIArchive.CLOSE.slot()] = close;
 

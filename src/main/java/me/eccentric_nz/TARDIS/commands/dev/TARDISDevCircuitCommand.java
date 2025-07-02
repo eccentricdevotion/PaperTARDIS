@@ -19,7 +19,8 @@ package me.eccentric_nz.TARDIS.commands.dev;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -52,10 +53,10 @@ public class TARDISDevCircuitCommand {
             ItemStack result = recipe.getResult();
             // set the second line of lore
             ItemMeta im = result.getItemMeta();
-            List<String> lore = im.getLore();
-            String uses = ChatColor.YELLOW + "" + (plugin.getConfig().getInt("circuits.uses.invisibility") - 3);
+            List<Component> lore = im.lore();
+            Component uses = Component.text(plugin.getConfig().getInt("circuits.uses.invisibility") - 3, NamedTextColor.YELLOW);
             lore.set(1, uses);
-            im.setLore(lore);
+            im.lore(lore);
             result.setItemMeta(im);
             player.getInventory().addItem(result);
         }

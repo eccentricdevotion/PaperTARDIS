@@ -19,6 +19,8 @@ package me.eccentric_nz.TARDIS.commands.config;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.commands.preferences.TARDISPrefsMenuInventory;
 import me.eccentric_nz.TARDIS.custommodels.GUIConfiguration;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -96,17 +98,17 @@ public class TARDISConfigMenuListener implements Listener {
         ItemStack is = view.getItem(slot);
         if (is != null) {
             ItemMeta im = is.getItemMeta();
-            return im.getDisplayName();
+            return TARDISStringUtils.stripColour(im.displayName());
         } else {
             return "";
         }
     }
 
     private void setLore(InventoryView view, int slot, String str, String option) {
-        List<String> lore = (str != null) ? List.of(str) : null;
+        List<Component> lore = (str != null) ? List.of(Component.text(str)) : null;
         ItemStack is = view.getItem(slot);
         ItemMeta im = is.getItemMeta();
-        im.setLore(lore);
+        im.lore(lore);
         GUIConfiguration gui = GUIConfiguration.valueOf(option.split("\\.")[0].toUpperCase(Locale.ROOT));
         CustomModelDataComponent component = im.getCustomModelDataComponent();
         component.setFloats("false".equals(str) ? gui.getOffFloats() : gui.getOnFloats());

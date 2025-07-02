@@ -26,6 +26,7 @@ import me.eccentric_nz.TARDIS.customblocks.TARDISMushroomBlockData;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTravellers;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.rooms.eye.TARDISSpaceHelmetListener;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -114,7 +115,7 @@ public class TARDISBlockPlaceListener implements Listener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (im.hasDisplayName() && im.getDisplayName().endsWith("Rift Manipulator")) {
+        if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "Rift Manipulator")) {
             // make sure they're not inside the TARDIS
             HashMap<String, Object> where = new HashMap<>();
             where.put("uuid", player.getUniqueId().toString());

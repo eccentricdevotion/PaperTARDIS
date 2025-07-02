@@ -22,11 +22,10 @@ import me.eccentric_nz.TARDIS.custommodels.keys.SwitchVariant;
 import me.eccentric_nz.TARDIS.handles.wiki.WikiLink;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.skins.*;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -39,11 +38,11 @@ public class TVSkinListener extends TARDISMenuListener {
 
     private final TARDIS plugin;
     private final List<String> titles = List.of(
-            ChatColor.DARK_RED + "Doctor Skins",
-            ChatColor.DARK_RED + "Companion Skins",
-            ChatColor.DARK_RED + "Character Skins",
-            ChatColor.DARK_RED + "Monster Skins",
-            ChatColor.DARK_RED + "Cyberman Skins"
+            "Doctor Skins",
+            "Companion Skins",
+            "Character Skins",
+            "Monster Skins",
+            "Cyberman Skins"
     );
 
     public TVSkinListener(TARDIS plugin) {
@@ -60,7 +59,7 @@ public class TVSkinListener extends TARDISMenuListener {
     @EventHandler(ignoreCancelled = true)
     public void onSkinMenuClick(InventoryClickEvent event) {
         InventoryView view = event.getView();
-        String title = view.getTitle();
+        String title = TARDISStringUtils.stripColour(view.title());
         if (!titles.contains(title)) {
             return;
         }
@@ -92,7 +91,7 @@ public class TVSkinListener extends TARDISMenuListener {
                     SkinUtils.removeExtras(player, SkinUtils.SKINNED.get(uuid));
                 }
                 Skin skin = ArchSkins.ARI;
-                String which = ChatColor.stripColor(title).split(" ")[0];
+                String which = title.split(" ")[0];
                 switch (which) {
                     case "Doctor" -> skin = DoctorSkins.DOCTORS.get(slot);
                     case "Companion" -> skin = CompanionSkins.COMPANIONS.get(slot);

@@ -30,16 +30,14 @@ import me.eccentric_nz.TARDIS.travel.TARDISTerminalInventory;
 import me.eccentric_nz.TARDIS.travel.save.TARDISSavesPlanetInventory;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -57,13 +55,13 @@ public class TARDISConsoleSwitchListener implements Listener {
 
     private final TARDIS plugin;
     private final List<String> gui_circuits = List.of(
-            ChatColor.WHITE + "TARDIS Telepathic Circuit",
-            ChatColor.WHITE + "TARDIS Chameleon Circuit",
-            ChatColor.WHITE + "TARDIS ARS Circuit",
-            ChatColor.WHITE + "TARDIS Temporal Circuit",
-            ChatColor.WHITE + "TARDIS Memory Circuit",
-            ChatColor.WHITE + "TARDIS Input Circuit",
-            ChatColor.WHITE + "TARDIS Scanner Circuit"
+            "TARDIS Telepathic Circuit",
+            "TARDIS Chameleon Circuit",
+            "TARDIS ARS Circuit",
+            "TARDIS Temporal Circuit",
+            "TARDIS Memory Circuit",
+            "TARDIS Input Circuit",
+            "TARDIS Scanner Circuit"
     );
 
     public TARDISConsoleSwitchListener(TARDIS plugin) {
@@ -101,7 +99,7 @@ public class TARDISConsoleSwitchListener implements Listener {
         if (!im.hasDisplayName()) {
             return;
         }
-        String dn = im.getDisplayName();
+        String dn = TARDISStringUtils.stripColour(im.displayName());
         if (!gui_circuits.contains(dn)) {
             return;
         }

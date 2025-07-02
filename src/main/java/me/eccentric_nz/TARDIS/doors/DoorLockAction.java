@@ -22,6 +22,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTravellers;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -42,7 +43,7 @@ public class DoorLockAction {
         UUID playerUUID = player.getUniqueId();
         ItemStack stack = player.getInventory().getItemInMainHand();
         Material material = stack.getType();
-        if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName() && stack.getItemMeta().getDisplayName().endsWith("TARDIS Remote Key")) {
+        if (stack.hasItemMeta() && stack.getItemMeta().hasDisplayName() && TARDISStringUtils.endsWith(stack.getItemMeta().displayName(), "TARDIS Remote Key")) {
             return;
         }
         // must be the owner

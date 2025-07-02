@@ -26,7 +26,10 @@ import me.eccentric_nz.TARDIS.custommodels.keys.Whoniverse;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Furnace;
@@ -82,15 +85,16 @@ public class TARDISArtronFurnaceListener implements Listener {
             ItemStack is = event.getFuel().clone();
             if (is.hasItemMeta()) {
                 ItemMeta im = is.getItemMeta();
-                if (im.hasDisplayName() && im.getDisplayName().endsWith("Artron Storage Cell")) {
-                    List<String> lore = im.getLore();
-                    if (!lore.get(1).equals("0")) {
+                if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "Artron Storage Cell")) {
+                    List<Component> lore = im.lore();
+                    String one = TARDISStringUtils.stripColour(lore.get(1));
+                    if (!one.equals("0")) {
                         // track furnace
                         plugin.getTrackerKeeper().getArtronFurnaces().add(l);
                         setLit(event.getBlock(), true);
                         TARDISSounds.playTARDISSound(furnace.getLocation(), "artron_furnace");
                         // get charge level
-                        int charge_level = TARDISNumberParsers.parseInt(lore.get(1));
+                        int charge_level = TARDISNumberParsers.parseInt(one);
                         double percentage = charge_level / plugin.getArtronConfig().getDouble("full_charge");
                         // determine burn time
                         int burnTime = (int) (percentage * burnFactor);
@@ -98,8 +102,8 @@ public class TARDISArtronFurnaceListener implements Listener {
                         furnace.setCookTimeTotal(cookTime);
                         // return an empty cell
                         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                            lore.set(1, "0");
-                            im.setLore(lore);
+                            lore.set(1, Component.text("0"));
+                            im.lore(lore);
                             im.setEnchantmentGlintOverride(null);
                             is.setItemMeta(im);
                             is.removeEnchantment(Enchantment.UNBREAKING);
@@ -150,7 +154,7 @@ public class TARDISArtronFurnaceListener implements Listener {
         if (!event.getItemInHand().getItemMeta().hasDisplayName()) {
             return;
         }
-        if (!event.getItemInHand().getItemMeta().getDisplayName().endsWith("TARDIS Artron Furnace")) {
+        if (!TARDISStringUtils.stripColour(event.getItemInHand().getItemMeta().displayName()).endsWith("TARDIS Artron Furnace")) {
             return;
         }
         Player player = event.getPlayer();
@@ -190,7 +194,7 @@ public class TARDISArtronFurnaceListener implements Listener {
             }
             ItemStack is = new ItemStack(Material.FURNACE, 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(ChatColor.WHITE + "TARDIS Artron Furnace");
+            im.displayName(Component.text("TARDIS Artron Furnace", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
             is.setItemMeta(im);
             TARDISDisplayItemUtils.remove(block);
             block.setBlockData(TARDISConstants.AIR);

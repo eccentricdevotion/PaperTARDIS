@@ -19,7 +19,8 @@ package me.eccentric_nz.TARDIS.desktop;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.Schematic;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -62,28 +63,28 @@ public class TARDISThemeInventory implements InventoryHolder {
         ItemStack is = null;
         // get console
         Material m = Material.getMaterial(schematic.getSeed());
-        if (!m.equals(Material.COBBLESTONE)) {
+        if (m != null && !m.equals(Material.COBBLESTONE)) {
             is = new ItemStack(m, 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(schematic.getDescription());
+            im.displayName(Component.text(schematic.getDescription()));
             int cost = plugin.getArtronConfig().getInt("upgrades." + schematic.getPermission());
             if (currentConsole.equals(schematic.getPermission())) {
                 cost = Math.round((plugin.getArtronConfig().getInt("just_wall_floor") / 100F) * cost);
             }
-            List<String> lore = new ArrayList<>();
-            lore.add("Cost: " + cost);
+            List<Component> lore = new ArrayList<>();
+            lore.add(Component.text("Cost: " + cost));
             if (!TARDISPermission.hasPermission(player, "tardis." + schematic.getPermission())) {
-                lore.add(ChatColor.RED + plugin.getLanguage().getString("NO_PERM_CONSOLE"));
+                lore.add(Component.text(plugin.getLanguage().getString("NO_PERM_CONSOLE", "No permission!"), NamedTextColor.RED));
             } else if (level < cost && !currentConsole.equals(schematic.getPermission())) {
-                lore.add(plugin.getLanguage().getString("UPGRADE_ABORT_ENERGY"));
+                lore.add(Component.text(plugin.getLanguage().getString("UPGRADE_ABORT_ENERGY", "You have insufficient Artron Energy!")));
             }
             if (currentConsole.equals(schematic.getPermission())) {
-                lore.add(ChatColor.GREEN + plugin.getLanguage().getString("CURRENT_CONSOLE"));
+                lore.add(Component.text(plugin.getLanguage().getString("CURRENT_CONSOLE", "Your current console"), NamedTextColor.GREEN));
             } else {
-                lore.add(ChatColor.GREEN + plugin.getLanguage().getString("RESET"));
-                lore.add(ChatColor.GREEN + plugin.getLanguage().getString("REMEMBER"));
+                lore.add(Component.text(plugin.getLanguage().getString("RESET", "TARDIS reset required!"), NamedTextColor.GREEN));
+                lore.add(Component.text(plugin.getLanguage().getString("REMEMBER", "Remove chests and items before proceeding."), NamedTextColor.GREEN));
             }
-            im.setLore(lore);
+            im.lore(lore);
             is.setItemMeta(im);
         }
         return is;

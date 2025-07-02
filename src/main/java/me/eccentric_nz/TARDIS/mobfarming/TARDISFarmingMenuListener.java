@@ -18,7 +18,7 @@ package me.eccentric_nz.TARDIS.mobfarming;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -79,13 +79,13 @@ public class TARDISFarmingMenuListener extends TARDISMenuListener {
         switch (material) {
             case LIME_WOOL -> {
                 // disable
-                im.setDisplayName("Disabled");
+                im.displayName(Component.text("Disabled"));
                 option.setType(Material.RED_WOOL);
                 onOff = 0;
             }
             case RED_WOOL -> {
                 // enable
-                im.setDisplayName("Enabled");
+                im.displayName(Component.text("Enabled"));
                 option.setType(Material.LIME_WOOL);
                 onOff = 1;
             }

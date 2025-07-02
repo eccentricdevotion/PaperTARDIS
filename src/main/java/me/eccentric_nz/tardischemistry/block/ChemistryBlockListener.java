@@ -29,6 +29,7 @@ import me.eccentric_nz.tardischemistry.element.ElementInventory;
 import me.eccentric_nz.tardischemistry.lab.LabInventory;
 import me.eccentric_nz.tardischemistry.product.ProductInventory;
 import me.eccentric_nz.tardischemistry.reducer.ReducerInventory;
+import net.kyori.adventure.text.Component;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -159,7 +160,7 @@ public class ChemistryBlockListener implements Listener {
             if (tdi != null) {
                 ItemStack is = new ItemStack(tdi.getMaterial(), 1);
                 ItemMeta im = is.getItemMeta();
-                im.setDisplayName(tdi.getDisplayName());
+                im.displayName(Component.text(tdi.getDisplayName()));
                 im.setItemModel(tdi.getCustomModel());
                 im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, tdi.getCustomModel().getKey());
                 is.setItemMeta(im);

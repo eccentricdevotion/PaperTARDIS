@@ -18,6 +18,7 @@ package me.eccentric_nz.tardischemistry.product;
 
 import com.google.common.collect.Multimaps;
 import me.eccentric_nz.TARDIS.TARDIS;
+import net.kyori.adventure.text.Component;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlotGroup;
@@ -33,11 +34,11 @@ public class ProductBuilder {
     public static ItemStack getProduct(Product product) {
         ItemStack is = new ItemStack(product.getMaterial(), 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(product.getName());
+        im.displayName(Component.text(product.getName()));
         im.addAttributeModifier(
                 Attribute.LUCK,
                 new AttributeModifier(
-                       product.getModel(),
+                        product.getModel(),
                         0.0d,
                         AttributeModifier.Operation.ADD_NUMBER,
                         EquipmentSlotGroup.ANY

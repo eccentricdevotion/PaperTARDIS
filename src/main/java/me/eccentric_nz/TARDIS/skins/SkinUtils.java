@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.skins;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -26,6 +27,7 @@ import me.eccentric_nz.TARDIS.custommodels.keys.CybermanVariant;
 import me.eccentric_nz.TARDIS.custommodels.keys.Features;
 import me.eccentric_nz.TARDIS.custommodels.keys.MireVariant;
 import me.eccentric_nz.TARDIS.custommodels.keys.SlitheenVariant;
+import net.kyori.adventure.text.Component;
 import net.minecraft.server.level.ServerPlayer;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -38,7 +40,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
 
 import java.net.MalformedURLException;
@@ -150,7 +151,7 @@ public class SkinUtils {
                 // + 5 torch
                 ItemStack torch = new ItemStack(Material.TORCH, 1);
                 ItemMeta tim = torch.getItemMeta();
-                tim.setDisplayName("Liberty Torch");
+                tim.displayName(Component.text("Liberty Torch"));
                 tim.setItemModel(Features.ANGEL_OF_LIBERTY_TORCH.getKey());
                 torch.setItemMeta(tim);
                 setOrSwapItem(torch, player, EquipmentSlot.HAND);
@@ -166,7 +167,7 @@ public class SkinUtils {
                 // + 7 weapon
                 ItemStack weapon = new ItemStack(material, 1);
                 ItemMeta cwim = weapon.getItemMeta();
-                cwim.setDisplayName("Cyber Weapon");
+                cwim.displayName(Component.text("Cyber Weapon"));
                 cwim.setItemModel(CybermanVariant.CYBER_WEAPON.getKey());
                 weapon.setItemMeta(cwim);
                 setOrSwapItem(weapon, player, EquipmentSlot.HAND);
@@ -177,7 +178,7 @@ public class SkinUtils {
                 // + weapon
                 ItemStack weapon = new ItemStack(material, 1);
                 ItemMeta cwim = weapon.getItemMeta();
-                cwim.setDisplayName("Wood Cyber Weapon");
+                cwim.displayName(Component.text("Wood Cyber Weapon"));
                 cwim.setItemModel(CybermanVariant.WOOD_CYBER_WEAPON.getKey());
                 weapon.setItemMeta(cwim);
                 setOrSwapItem(weapon, player, EquipmentSlot.HAND);
@@ -192,7 +193,7 @@ public class SkinUtils {
                 // + arm decor
                 ItemStack arm = new ItemStack(material, 1);
                 ItemMeta cwim = arm.getItemMeta();
-                cwim.setDisplayName("Cyber Arm");
+                cwim.displayName(Component.text("Cyber Arm"));
                 cwim.setItemModel(CybermanVariant.CYBERMAN_INVASION_ARM.getKey());
                 arm.setItemMeta(cwim);
                 setOrSwapItem(arm, player, EquipmentSlot.HAND);
@@ -208,7 +209,7 @@ public class SkinUtils {
                 // + arm decor
                 ItemStack arm = new ItemStack(material, 1);
                 ItemMeta cwim = arm.getItemMeta();
-                cwim.setDisplayName("Cyber Arm");
+                cwim.displayName(Component.text("Cyber Arm"));
                 cwim.setItemModel(CybermanVariant.CYBERMAN_RISE_ARM.getKey());
                 arm.setItemMeta(cwim);
                 setOrSwapItem(arm, player, EquipmentSlot.HAND);
@@ -254,7 +255,7 @@ public class SkinUtils {
                 // 17 off-hand katana
                 ItemStack katana = new ItemStack(material, 1);
                 ItemMeta kim = katana.getItemMeta();
-                kim.setDisplayName("Katana");
+                kim.displayName(Component.text("Katana"));
                 kim.setItemModel(Features.JENNY_FLINT_KATANA.getKey());
                 katana.setItemMeta(kim);
                 setOrSwapItem(katana, player, EquipmentSlot.OFF_HAND);
@@ -269,12 +270,12 @@ public class SkinUtils {
                 key = Features.MELANIE_BUSH_HAIR.getKey();
                 ItemStack leftArm = new ItemStack(material, 1);
                 ItemMeta laim = leftArm.getItemMeta();
-                laim.setDisplayName(skin.name());
+                laim.displayName(Component.text(skin.name()));
                 laim.setItemModel(Features.MELANIE_BUSH_ARM_LEFT.getKey());
                 leftArm.setItemMeta(laim);
                 ItemStack rightArm = new ItemStack(material, 1);
                 ItemMeta raim = rightArm.getItemMeta();
-                raim.setDisplayName(skin.name());
+                raim.displayName(Component.text(skin.name()));
                 raim.setItemModel(Features.MELANIE_BUSH_ARM_RIGHT.getKey());
                 rightArm.setItemMeta(raim);
                 setOrSwapItem(leftArm, player, EquipmentSlot.OFF_HAND);
@@ -286,12 +287,12 @@ public class SkinUtils {
                 // + 7, 8 left, right arms
                 ItemStack leftArm = new ItemStack(material, 1);
                 ItemMeta laim = leftArm.getItemMeta();
-                laim.setDisplayName(skin.name());
+                laim.displayName(Component.text(skin.name()));
                 laim.setItemModel(MireVariant.MIRE_LEFT_ARM.getKey());
                 leftArm.setItemMeta(laim);
                 ItemStack rightArm = new ItemStack(material, 1);
                 ItemMeta raim = rightArm.getItemMeta();
-                raim.setDisplayName(skin.name());
+                raim.displayName(Component.text(skin.name()));
                 raim.setItemModel(MireVariant.MIRE_RIGHT_ARM.getKey());
                 rightArm.setItemMeta(raim);
                 setOrSwapItem(leftArm, player, EquipmentSlot.OFF_HAND);
@@ -333,12 +334,12 @@ public class SkinUtils {
                 // + 7, 8 left, right claws
                 ItemStack leftClaw = new ItemStack(material, 1);
                 ItemMeta lhim = leftClaw.getItemMeta();
-                lhim.setDisplayName(skin.name());
+                lhim.displayName(Component.text(skin.name()));
                 lhim.setItemModel(SlitheenVariant.SLITHEEN_CLAW_LEFT.getKey());
                 leftClaw.setItemMeta(lhim);
                 ItemStack rightClaw = new ItemStack(material, 1);
                 ItemMeta rhim = rightClaw.getItemMeta();
-                rhim.setDisplayName(skin.name());
+                rhim.displayName(Component.text(skin.name()));
                 rhim.setItemModel(SlitheenVariant.SLITHEEN_CLAW_RIGHT.getKey());
                 rightClaw.setItemMeta(rhim);
                 setOrSwapItem(leftClaw, player, EquipmentSlot.OFF_HAND);
@@ -377,7 +378,7 @@ public class SkinUtils {
         if (!skin.name().equals("Jenny Flint")) {
             ItemStack head = new ItemStack(material, 1);
             ItemMeta im = head.getItemMeta();
-            im.setDisplayName(skin.name());
+            im.displayName(Component.text(skin.name()));
             if (key != null) {
                 im.setItemModel(key);
             }
@@ -390,7 +391,7 @@ public class SkinUtils {
     public static void setOrSwapItem(ItemStack item, Player player, EquipmentSlot slot) {
         PlayerInventory inventory = player.getInventory();
         ItemStack current = inventory.getItem(slot);
-        if (current != null && !current.getType().isAir()) {
+        if (!current.getType().isAir()) {
             HashMap<Integer, ItemStack> remainder = inventory.addItem(current);
             if (!remainder.isEmpty()) {
                 player.getWorld().dropItem(player.getLocation(), current);

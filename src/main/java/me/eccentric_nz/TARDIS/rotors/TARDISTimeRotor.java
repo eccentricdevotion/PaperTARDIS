@@ -18,6 +18,7 @@ package me.eccentric_nz.TARDIS.rotors;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.RotorVariant;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -51,7 +52,7 @@ public class TARDISTimeRotor {
     public static void setRotor(NamespacedKey key, ItemFrame itemFrame) {
         ItemStack is = new ItemStack(Material.LIGHT_GRAY_DYE, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName("Time Rotor");
+        im.displayName(Component.text("Time Rotor"));
         im.setItemModel(key);
         is.setItemMeta(im);
         itemFrame.setItem(is, false);
@@ -63,7 +64,7 @@ public class TARDISTimeRotor {
     public static void setRotor(Rotor which, ItemFrame itemFrame) {
         ItemStack is = new ItemStack(which.material(), 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName("Time Rotor");
+        im.displayName(Component.text("Time Rotor"));
         im.setItemModel(which.offModel());
         is.setItemMeta(im);
         itemFrame.setItem(is, false);

@@ -67,6 +67,7 @@ public class TARDISVariableLightBlocksListener extends TARDISWallListener {
         if (slot < 0 || slot > 53) {
             ClickType click = event.getClick();
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
+                plugin.debug("TARDISVariableLightBlocksListener");
                 event.setCancelled(true);
             }
             return;

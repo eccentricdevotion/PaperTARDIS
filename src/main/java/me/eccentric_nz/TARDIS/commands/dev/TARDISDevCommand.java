@@ -26,7 +26,6 @@ import me.eccentric_nz.TARDIS.bStats.ARSRoomCounts;
 import me.eccentric_nz.TARDIS.commands.TARDISCommandHelper;
 import me.eccentric_nz.TARDIS.commands.dev.wiki.ChoiceDialog;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.info.dialog.CategoryDialog;
 import me.eccentric_nz.TARDIS.lazarus.disguise.ArmourTrim;
 import me.eccentric_nz.TARDIS.monitor.MonitorSnapshot;
 import me.eccentric_nz.TARDIS.move.TARDISTeleportLocation;
@@ -34,12 +33,14 @@ import me.eccentric_nz.TARDIS.skins.ArchSkins;
 import me.eccentric_nz.TARDIS.skins.DoctorSkins;
 import me.eccentric_nz.TARDIS.skins.Skin;
 import me.eccentric_nz.TARDIS.skins.tv.TVInventory;
-import me.eccentric_nz.TARDIS.travel.dialog.TerminalDialog;
 import me.eccentric_nz.TARDIS.utility.Pluraliser;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
 import me.eccentric_nz.tardisregeneration.Regenerator;
 import me.eccentric_nz.tardisweepingangels.equip.MonsterArmour;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.minecraft.core.Holder;
 import net.minecraft.server.dialog.Dialog;
 import net.minecraft.server.level.ServerPlayer;
@@ -54,7 +55,10 @@ import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
-import org.bukkit.inventory.*;
+import org.bukkit.inventory.EntityEquipment;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
@@ -88,7 +92,7 @@ public class TARDISDevCommand implements CommandExecutor {
             "interaction",
             "label", "leather", "list",
             "monster",
-            "nms",
+            "ntc", "nms",
             "plurals",
             "recipe", "regen", "registry", "rooms",
             "screen", "skin", "snapshot", "stats", "systree",
@@ -220,6 +224,10 @@ public class TARDISDevCommand implements CommandExecutor {
                                 return true;
                             }
                             return false;
+                        }
+                        case "ntc" -> {
+                            TARDISStaticUtils.getColor(Component.text("test", NamedTextColor.AQUA));
+                            return true;
                         }
                         case "regen" -> {
                             if (sender instanceof Player player) {

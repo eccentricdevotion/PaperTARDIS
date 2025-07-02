@@ -18,7 +18,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -52,8 +54,8 @@ public class PaperBagRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.PAPER, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Paper Bag");
-        im.setLore(List.of("Smaller on the outside"));
+        im.displayName(Component.text("Paper Bag", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.lore(List.of(Component.text("Smaller on the outside")));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "paper_bag");
         ShapedRecipe r = new ShapedRecipe(key, is);

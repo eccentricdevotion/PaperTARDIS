@@ -39,7 +39,7 @@ public class TARDISIndexFileEntry implements InventoryHolder {
     public TARDISIndexFileEntry(TARDIS plugin, TARDISInfoMenu tardisInfoMenu) {
         this.plugin = plugin;
         this.tardisInfoMenu = tardisInfoMenu;
-        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Info Entry", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Info Entry", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -52,7 +52,7 @@ public class TARDISIndexFileEntry implements InventoryHolder {
         ItemStack[] stack = new ItemStack[27];
         ItemStack entry = new ItemStack(Material.WRITTEN_BOOK, 1);
         ItemMeta entryMeta = entry.getItemMeta();
-        entryMeta.setDisplayName(TARDISStringUtils.capitalise(tardisInfoMenu.toString()));
+        entryMeta.displayName(Component.text(TARDISStringUtils.capitalise(tardisInfoMenu.toString())));
         entryMeta.addItemFlags(ItemFlag.values());
         entryMeta.setAttributeModifiers(Multimaps.forMap(Map.of()));
         entry.setItemMeta(entryMeta);
@@ -61,7 +61,7 @@ public class TARDISIndexFileEntry implements InventoryHolder {
         for (String key : TARDISInfoMenu.getChildren(tardisInfoMenu.toString()).keySet()) {
             ItemStack is = new ItemStack(Material.BOOK);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(key);
+            im.displayName(Component.text(key));
             is.setItemMeta(im);
             stack[i] = is;
             i++;
@@ -69,7 +69,7 @@ public class TARDISIndexFileEntry implements InventoryHolder {
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);
         stack[26] = close;
         return stack;

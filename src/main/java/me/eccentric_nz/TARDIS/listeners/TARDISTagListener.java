@@ -20,7 +20,8 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -65,11 +66,11 @@ public class TARDISTagListener implements Listener {
                 plugin.getMessenger().message(event.getPlayer(), TardisModule.TARDIS,  "Happy " + age + ordinal + " Birthday Doctor Who!");
             }
             plugin.getMessenger().message(event.getPlayer(), TardisModule.TARDIS,  "Today, and today only, you can play 'Tag the OOD'!");
-            plugin.getMessenger().message(event.getPlayer(), TardisModule.TARDIS,  "To see tag stats (and who is currently 'it'), use the command " + ChatColor.AQUA + "/tardis tagtheood");
-            if (plugin.getTagConfig().get("it").equals("")) {
-                Player startit = getRandomPlayer();
-                plugin.getMessenger().broadcast(TardisModule.TARDIS, startit.getName() + " is now the 'OOD'!");
-                setConfig(startit.getName());
+            plugin.getMessenger().message(event.getPlayer(), TardisModule.TARDIS, Component.text("To see tag stats (and who is currently 'it'), use the command ").append(Component.text("/tardis tagtheood", NamedTextColor.AQUA)));
+            if (plugin.getTagConfig().getString("it", "").isEmpty()) {
+                Player starter = getRandomPlayer();
+                plugin.getMessenger().broadcast(TardisModule.TARDIS, starter.getName() + " is now the 'OOD'!");
+                setConfig(starter.getName());
                 setConfig(System.currentTimeMillis());
             }
         }

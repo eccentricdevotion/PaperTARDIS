@@ -19,6 +19,8 @@ package me.eccentric_nz.TARDIS.areas;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -44,7 +46,7 @@ public class TARDISEditAreasGUIListener extends TARDISMenuListener {
         this.plugin = plugin;
     }
 
-    private void removeLocation(List<String> lore) {
+    private void removeLocation(List<Component> lore) {
         /*
         [0] = world
         [1] = x
@@ -54,7 +56,7 @@ public class TARDISEditAreasGUIListener extends TARDISMenuListener {
          */
         HashMap<String, Object> where = new HashMap<>();
         where.put("area_id", getValueFromLore(lore.get(4)));
-        where.put("world", lore.getFirst());
+        where.put("world", TARDISStringUtils.stripColour(lore.getFirst()));
         where.put("x", getValueFromLore(lore.get(1)));
         where.put("y", getValueFromLore(lore.get(2)));
         where.put("z", getValueFromLore(lore.get(3)));
@@ -83,7 +85,7 @@ public class TARDISEditAreasGUIListener extends TARDISMenuListener {
             case 48 -> {
                 // add
                 ItemMeta meta = is.getItemMeta();
-                Object area_id = getValueFromLore(meta.getLore().getFirst());
+                Object area_id = getValueFromLore(meta.lore().getFirst());
                 // get player's location
                 Location location = player.getLocation();
                 HashMap<String, Object> add = new HashMap<>();
@@ -100,7 +102,7 @@ public class TARDISEditAreasGUIListener extends TARDISMenuListener {
                 if (selected.containsKey(uuid)) {
                     ItemStack map = event.getView().getItem(selected.get(uuid));
                     ItemMeta meta = map.getItemMeta();
-                    List<String> lore = meta.getLore();
+                    List<Component> lore = meta.lore();
                     removeLocation(lore);
                     close(player);
                 }
@@ -110,8 +112,8 @@ public class TARDISEditAreasGUIListener extends TARDISMenuListener {
         }
     }
 
-    private Object getValueFromLore(String s) {
-        String[] split = s.split(": ");
+    private Object getValueFromLore(Component s) {
+        String[] split = TARDISStringUtils.stripColour(s).split(": ");
         return TARDISNumberParsers.parseInt(split[1]);
     }
 }

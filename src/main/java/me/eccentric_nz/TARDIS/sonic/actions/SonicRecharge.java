@@ -20,6 +20,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetArtronLeveID;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.ItemFrame;
@@ -117,7 +118,7 @@ public class SonicRecharge implements Runnable {
             ItemStack dock = frame.getItem();
             ItemMeta dim = dock.getItemMeta();
             String name = (amount > 0) ? "Sonic Dock: " + amount : "Sonic Dock";
-            dim.setDisplayName(name);
+            dim.displayName(Component.text(name));
             dock.setItemMeta(dim);
             frame.setItem(dock);
         }

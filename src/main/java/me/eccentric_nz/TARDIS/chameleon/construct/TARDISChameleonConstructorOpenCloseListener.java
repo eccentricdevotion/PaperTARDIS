@@ -17,7 +17,6 @@
 package me.eccentric_nz.TARDIS.chameleon.construct;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

@@ -29,7 +29,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +48,7 @@ public class TARDISAreasInventory implements InventoryHolder {
     public TARDISAreasInventory(TARDIS plugin, Player p) {
         this.plugin = plugin;
         this.p = p;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS areas", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS areas", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -75,10 +74,8 @@ public class TARDISAreasInventory implements InventoryHolder {
                 if (TARDISPermission.hasPermission(p, "tardis.area." + name) || TARDISPermission.hasPermission(p, "tardis.area.*")) {
                     ItemStack is = new ItemStack(TARDISConstants.GUI_IDS.get(i), 1);
                     ItemMeta im = is.getItemMeta();
-                    im.setDisplayName(name);
-                    List<String> lore = new ArrayList<>();
-                    lore.add(a.world());
-                    im.setLore(lore);
+                    im.displayName(Component.text(name));
+                    im.lore(List.of(Component.text(a.world())));
                     is.setItemMeta(im);
                     areas.add(is);
                     i++;
@@ -97,7 +94,7 @@ public class TARDISAreasInventory implements InventoryHolder {
         // add button to load TARDIS areas
         ItemStack map = new ItemStack(Material.MAP, 1);
         ItemMeta switchto = map.getItemMeta();
-        switchto.setDisplayName("Load TARDIS saves");
+        switchto.displayName(Component.text("Load TARDIS saves"));
         map.setItemMeta(switchto);
         for (int m = 45; m < 54; m++) {
             if (m == 49) {

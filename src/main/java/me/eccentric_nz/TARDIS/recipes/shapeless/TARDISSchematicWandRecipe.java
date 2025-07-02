@@ -17,7 +17,9 @@
 package me.eccentric_nz.TARDIS.recipes.shapeless;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -44,8 +46,11 @@ public class TARDISSchematicWandRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.BONE, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "TARDIS Schematic Wand");
-        im.setLore(List.of("Right-click start", "Left-click end"));
+        im.displayName(Component.text("TARDIS Schematic Wand", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.lore(List.of(
+                Component.text("Right-click start"),
+                Component.text("Left-click end")
+        ));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "tardis_schematic_wand");
         ShapelessRecipe r = new ShapelessRecipe(key, is);

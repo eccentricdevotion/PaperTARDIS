@@ -31,7 +31,6 @@ import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -266,7 +265,7 @@ public class TARDISPlayerShellListener extends TARDISMenuListener {
         // get if active
         ItemStack shell = view.getItem(slot);
         ItemMeta im = shell.getItemMeta();
-        return im.hasLore() && im.getLore().size() > 4;
+        return im.hasLore() && im.lore().size() > 4;
     }
 
     private Location getButton(int id) {

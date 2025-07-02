@@ -24,10 +24,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.floodgate.FloodgateBiomesForm;
 import me.eccentric_nz.TARDIS.floodgate.FloodgateStructuresForm;
 import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 public class TARDISTravelGUI {
 
@@ -52,22 +49,14 @@ public class TARDISTravelGUI {
             if (TARDISFloodgate.isFloodgateEnabled() && TARDISFloodgate.isBedrockPlayer(player.getUniqueId())) {
                 new FloodgateBiomesForm(plugin, player.getUniqueId(), id).send();
             } else {
-                TARDISTelepathicBiome ttb = new TARDISTelepathicBiome(plugin, id);
-                ItemStack[] gui = ttb.getButtons();
-                Inventory biome = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Telepathic Biome Finder");
-                biome.setContents(gui);
-                player.openInventory(biome);
+                player.openInventory(new TARDISTelepathicBiome(plugin, id).getInventory());
             }
         } else {
             // open Structure GUI
             if (TARDISFloodgate.isFloodgateEnabled() && TARDISFloodgate.isBedrockPlayer(player.getUniqueId())) {
                 new FloodgateStructuresForm(plugin, player.getUniqueId(), id).send();
             } else {
-                TARDISTelepathicStructure tts = new TARDISTelepathicStructure(plugin);
-                ItemStack[] gui = tts.getButtons();
-                Inventory structure = plugin.getServer().createInventory(player, 54, ChatColor.DARK_RED + "Telepathic Structure Finder");
-                structure.setContents(gui);
-                player.openInventory(structure);
+                player.openInventory(new TARDISTelepathicStructure(plugin).getInventory());
             }
         }
         return true;

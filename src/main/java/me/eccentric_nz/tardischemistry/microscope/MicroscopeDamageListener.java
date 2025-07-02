@@ -17,6 +17,7 @@
 package me.eccentric_nz.tardischemistry.microscope;
 
 import me.eccentric_nz.TARDIS.TARDIS;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
@@ -56,7 +57,7 @@ public class MicroscopeDamageListener implements Listener {
                 LabEquipment equipment = LabEquipment.getByMaterial().get(dye.getType());
                 ItemStack drop = new ItemStack(equipment.getMaterial(), 1);
                 ItemMeta dropMeta = drop.getItemMeta();
-                dropMeta.setDisplayName(equipment.getName());
+                dropMeta.displayName(Component.text(equipment.getName()));
                 dropMeta.setItemModel(equipment.getModel());
                 drop.setItemMeta(dropMeta);
                 player.getWorld().dropItem(entity.getLocation(), drop);

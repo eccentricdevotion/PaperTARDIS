@@ -25,7 +25,10 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.floodgate.FloodgateTelepathicForm;
 import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -37,7 +40,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -112,7 +114,7 @@ public class TARDISTelepathicListener implements Listener {
                 return;
             }
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && im.getDisplayName().endsWith("TARDIS Telepathic Circuit")) {
+            if (im.hasDisplayName() && TARDISStringUtils.stripColour(im.displayName()).endsWith("TARDIS Telepathic Circuit")) {
                 Block up = event.getClickedBlock().getRelative(BlockFace.UP);
                 if (!up.getType().isAir()) {
                     return;
@@ -151,10 +153,12 @@ public class TARDISTelepathicListener implements Listener {
         // drop a custom GLOWSTONE_DUST
         ItemStack is = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName("TARDIS Telepathic Circuit");
-        String uses = (plugin.getConfig().getString("circuits.uses.telepathic").equals("0") || !plugin.getConfig().getBoolean("circuits.damage")) ? ChatColor.YELLOW + "unlimited" : ChatColor.YELLOW + plugin.getConfig().getString("circuits.uses.telepathic");
-        List<String> lore = List.of("Uses left", uses);
-        im.setLore(lore);
+        im.displayName(Component.text("TARDIS Telepathic Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        Component uses = (plugin.getConfig().getString("circuits.uses.telepathic", "20").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
+                ? Component.text("unlimited", NamedTextColor.YELLOW)
+                : Component.text(plugin.getConfig().getString("circuits.uses.telepathic", "20"), NamedTextColor.YELLOW);
+        List<Component> lore = List.of(Component.text("Uses left"), uses);
+        im.lore(lore);
         is.setItemMeta(im);
         b.getWorld().dropItemNaturally(b.getLocation(), is);
     }
@@ -166,7 +170,7 @@ public class TARDISTelepathicListener implements Listener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (im.hasDisplayName() && im.getDisplayName().endsWith("TARDIS Telepathic Circuit")) {
+        if (im.hasDisplayName() && TARDISStringUtils.stripColour(im.displayName()).endsWith("TARDIS Telepathic Circuit")) {
             UUID uuid = event.getPlayer().getUniqueId();
             String l = event.getBlock().getLocation().toString();
             plugin.getTrackerKeeper().getTelepathicPlacements().put(uuid, l);

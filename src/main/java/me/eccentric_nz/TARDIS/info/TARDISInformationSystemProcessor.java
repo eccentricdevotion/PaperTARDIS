@@ -2,8 +2,8 @@ package me.eccentric_nz.TARDIS.info;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.info.processors.CategoryProcessor;
-import me.eccentric_nz.TARDIS.info.processors.SectionProcessor;
 import me.eccentric_nz.TARDIS.info.processors.EntryProcessor;
+import me.eccentric_nz.TARDIS.info.processors.SectionProcessor;
 import net.minecraft.nbt.CompoundTag;
 import org.bukkit.entity.Player;
 

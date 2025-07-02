@@ -25,6 +25,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TARDISIndexFileInventory implements InventoryHolder {
@@ -34,7 +35,7 @@ public class TARDISIndexFileInventory implements InventoryHolder {
 
     public TARDISIndexFileInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Index File", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Index File", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -55,8 +56,12 @@ public class TARDISIndexFileInventory implements InventoryHolder {
         for (TISCategory category : TISCategory.values()) {
             ItemStack is = new ItemStack(Material.BOOKSHELF, 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(category.getName());
-            im.setLore(List.of(category.getLore().split("~")));
+            im.displayName(Component.text(category.getName()));
+            List<Component> lore = new ArrayList<>();
+            for (String s : category.getLore().split("~")) {
+                lore.add(Component.text(s));
+            }
+            im.lore(lore);
             is.setItemMeta(im);
             stack[i] = is;
             i++;
@@ -64,7 +69,7 @@ public class TARDISIndexFileInventory implements InventoryHolder {
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);
         stack[26] = close;
         return stack;

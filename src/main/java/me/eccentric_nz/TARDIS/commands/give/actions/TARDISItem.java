@@ -28,7 +28,9 @@ import me.eccentric_nz.tardischemistry.lab.Lab;
 import me.eccentric_nz.tardischemistry.lab.LabBuilder;
 import me.eccentric_nz.tardischemistry.product.Product;
 import me.eccentric_nz.tardischemistry.product.ProductBuilder;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -125,10 +127,12 @@ public class TARDISItem {
             if (item.equals("invisibility-circuit")) {
                 // set the second line of lore
                 im = result.getItemMeta();
-                List<String> lore = im.getLore();
-                String uses = (plugin.getConfig().getString("circuits.uses.invisibility").equals("0") || !plugin.getConfig().getBoolean("circuits.damage")) ? ChatColor.YELLOW + "unlimited" : ChatColor.YELLOW + plugin.getConfig().getString("circuits.uses.invisibility");
+                List<Component> lore = im.lore();
+                Component uses = (plugin.getConfig().getString("circuits.uses.invisibility", "5").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
+                        ? Component.text("unlimited", NamedTextColor.YELLOW)
+                        : Component.text(plugin.getConfig().getString("circuits.uses.invisibility", "5"), NamedTextColor.YELLOW);
                 lore.set(1, uses);
-                im.setLore(lore);
+                im.lore(lore);
             }
             if (item.equals("blank") || item.equals("save-disk") || item.equals("preset-disk") || item.equals("biome-disk") || item.equals("player-disk") || item.equals("blaster") || item.equals("control")) {
                 im = result.getItemMeta();
@@ -138,22 +142,21 @@ public class TARDISItem {
             if (item.equals("key") || item.equals("control")) {
                 im = result.getItemMeta();
                 im.getPersistentDataContainer().set(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID(), player.getUniqueId());
-                List<String> lore = im.getLore();
+                List<Component> lore = im.lore();
                 if (lore == null) {
                     lore = new ArrayList<>();
                 }
-                String format = ChatColor.AQUA + "" + ChatColor.ITALIC;
                 String what = item.equals("key") ? "key" : "disk";
-                lore.add(format + "This " + what + " belongs to");
-                lore.add(format + player.getName());
-                im.setLore(lore);
+                lore.add(Component.text("This " + what + " belongs to", NamedTextColor.AQUA).decorate(TextDecoration.ITALIC));
+                lore.add(Component.text(player.getName(), NamedTextColor.AQUA).decorate(TextDecoration.ITALIC));
+                im.lore(lore);
             }
         }
         if (result != null) {
             if (im == null) {
                 im = result.getItemMeta();
             }
-            im.setDisplayName(ChatColor.WHITE + Give.items.get(item));
+            im.displayName(Component.text(Give.items.get(item), NamedTextColor.WHITE));
             result.setItemMeta(im);
             result.setAmount(amount);
             player.getInventory().addItem(result);

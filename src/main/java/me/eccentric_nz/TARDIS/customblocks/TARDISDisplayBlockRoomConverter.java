@@ -93,7 +93,7 @@ public class TARDISDisplayBlockRoomConverter implements Runnable {
                             ItemMeta im = is.getItemMeta();
                             // get the custom name
                             if (im.hasDisplayName()) {
-                                String name = TARDISStringUtils.toEnumUppercase(im.getDisplayName());
+                                String name = TARDISStringUtils.toEnumUppercase(TARDISStringUtils.stripColour(im.displayName()));
                                 // look up the name to get the TDI
                                 TARDISDisplayItem tdi = TARDISDisplayItem.valueOf(name);
                                 if (tdi != null) {

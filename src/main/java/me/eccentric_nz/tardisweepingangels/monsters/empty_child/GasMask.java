@@ -19,6 +19,7 @@ package me.eccentric_nz.tardisweepingangels.monsters.empty_child;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.EmptyChildVariant;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -63,7 +64,7 @@ public class GasMask implements Listener {
             // set helmet to mask
             ItemStack gasmask = new ItemStack(Material.SUGAR, 1);
             ItemMeta im = gasmask.getItemMeta();
-            im.setDisplayName("Gas Mask");
+            im.displayName(Component.text("Gas Mask"));
             im.setItemModel(EmptyChildVariant.EMPTY_CHILD_MASK.getKey());
             EquippableComponent component = im.getEquippable();
             component.setCameraOverlay(EmptyChildVariant.EMPTY_CHILD_OVERLAY.getKey());

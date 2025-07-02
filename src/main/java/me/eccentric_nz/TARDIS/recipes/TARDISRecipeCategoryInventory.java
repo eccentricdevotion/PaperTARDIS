@@ -39,7 +39,7 @@ public class TARDISRecipeCategoryInventory implements InventoryHolder {
     private final Inventory inventory;
 
     public TARDISRecipeCategoryInventory(TARDIS plugin) {
-        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Recipe Categories", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Recipe Categories", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -53,15 +53,19 @@ public class TARDISRecipeCategoryInventory implements InventoryHolder {
         // info
         ItemStack info = new ItemStack(Material.BOWL, 1);
         ItemMeta info_im = info.getItemMeta();
-        info_im.setDisplayName("Info");
-        info_im.setLore(List.of("Click a button below", "to see the items", "in that recipe category"));
+        info_im.displayName(Component.text("Info"));
+        info_im.lore(List.of(
+                Component.text("Click a button below"),
+                Component.text("to see the items"),
+                Component.text("in that recipe category")
+        ));
         info.setItemMeta(info_im);
         stack[0] = info;
         for (RecipeCategory category : RecipeCategory.values()) {
             if (!category.equals(RecipeCategory.UNUSED) && category != RecipeCategory.UNCRAFTABLE && category != RecipeCategory.CHEMISTRY) {
                 ItemStack cat = new ItemStack(category.getMaterial(), 1);
                 ItemMeta egory = cat.getItemMeta();
-                egory.setDisplayName(category.getName());
+                egory.displayName(Component.text(category.getName()));
                 if (category == RecipeCategory.ITEMS) {
                     CustomModelDataComponent component = egory.getCustomModelDataComponent();
                     component.setFloats(KeyVariant.BRASS_STRING.getFloats());

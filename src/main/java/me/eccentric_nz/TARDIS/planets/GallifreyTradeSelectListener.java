@@ -18,6 +18,7 @@ package me.eccentric_nz.TARDIS.planets;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
@@ -62,9 +63,9 @@ public class GallifreyTradeSelectListener implements Listener {
                 ItemMeta meta = trade.getResult().getItemMeta();
                 PersistentDataContainer pdc = meta.getPersistentDataContainer();
                 pdc.set(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID(), player.getUniqueId());
-                List<String> lore = im.getLore();
-                lore.set(2, player.getName());
-                im.setLore(lore);
+                List<Component> lore = im.lore();
+                lore.set(2, Component.text(player.getName()));
+                im.lore(lore);
                 trade.getResult().setItemMeta(im);
                 MerchantRecipe newRecipe = new MerchantRecipe(trade.getResult(), 1);
                 newRecipe.addIngredient(trade.getIngredients().getFirst());
@@ -98,9 +99,9 @@ public class GallifreyTradeSelectListener implements Listener {
                 if (pdc.has(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID()) && pdc.has(plugin.getBlueprintKey(), PersistentDataType.STRING)) {
                     // get the player
                     pdc.set(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID(), player.getUniqueId());
-                    List<String> lore = im.getLore();
-                    lore.set(2, player.getName());
-                    im.setLore(lore);
+                    List<Component> lore = im.lore();
+                    lore.set(2, Component.text(player.getName()));
+                    im.lore(lore);
                     ItemStack is = result.clone();
                     is.setItemMeta(im);
                     MerchantRecipe newRecipe = new MerchantRecipe(is, 1);

@@ -21,7 +21,6 @@ import io.papermc.paper.registry.RegistryKey;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Location;
-import org.bukkit.Registry;
 import org.bukkit.generator.structure.Structure;
 
 public class TARDISStructureLocation {

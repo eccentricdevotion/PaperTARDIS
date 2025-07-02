@@ -22,7 +22,8 @@ import me.eccentric_nz.TARDIS.builders.utility.LightLevel;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItemUtils;
 import me.eccentric_nz.TARDIS.database.resultset.*;
 import me.eccentric_nz.TARDIS.enumeration.TardisLight;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
@@ -87,12 +88,11 @@ public class TARDISLampToggler {
                         if (display != null) {
                             ItemStack is = new ItemStack(light.getOff().getMaterial());
                             ItemMeta im = is.getItemMeta();
-                            String name = ChatColor.WHITE + light.getOff().getDisplayName();
-                            im.setDisplayName(name);
+                            im.displayName(Component.text(light.getOff().getDisplayName(), NamedTextColor.WHITE));
                             NamespacedKey model = light.getOff().getCustomModel();
                             if (model != null) {
                                 im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, model.getKey());
-                                if (name.contains("Variable")) {
+                                if (light.getOff().getDisplayName().contains("Variable")) {
                                     im.setItemModel(model);
                                 }
                             }
@@ -110,12 +110,11 @@ public class TARDISLampToggler {
                     if (display != null) {
                         ItemStack is = new ItemStack(light.getOn().getMaterial());
                         ItemMeta im = is.getItemMeta();
-                        String name = ChatColor.WHITE + light.getOn().getDisplayName();
-                        im.setDisplayName(name);
+                        im.displayName(Component.text(light.getOn().getDisplayName(), NamedTextColor.WHITE));
                         NamespacedKey model = light.getOn().getCustomModel();
                         if (model != null) {
                             im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, model.getKey());
-                            if (name.contains("Variable")) {
+                            if (light.getOn().getDisplayName().contains("Variable")) {
                                 im.setItemModel(model);
                             }
                         }

@@ -18,7 +18,8 @@ package me.eccentric_nz.tardischemistry.microscope;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -55,7 +56,7 @@ public class MicroscopeRecipes {
             String name = equipment.getName();
             ItemStack is = new ItemStack(equipment.getMaterial(), 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(ChatColor.WHITE + name);
+            im.displayName(Component.text(name, NamedTextColor.WHITE));
             im.setItemModel(equipment.getModel());
             is.setItemMeta(im);
             NamespacedKey key = new NamespacedKey(plugin, equipment.toString().toLowerCase(Locale.ROOT));

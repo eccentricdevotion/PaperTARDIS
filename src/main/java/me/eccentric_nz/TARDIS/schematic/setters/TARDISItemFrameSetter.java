@@ -24,6 +24,7 @@ import io.papermc.paper.registry.RegistryKey;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.rotors.TARDISTimeRotor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.block.Banner;
 import org.bukkit.block.BlockFace;
@@ -69,19 +70,19 @@ public class TARDISItemFrameSetter {
                         NamespacedKey key = new NamespacedKey(TARDIS.plugin, cmd);
                         im.setItemModel(key);
                     } else {
-                        im.setDisplayName("St John's Logo");
+                        im.displayName(Component.text("St John's Logo"));
                         frame.setCustomNameVisible(false);
                     }
                 }
                 if (json.has("name")) {
-                    im.setDisplayName(json.get("name").getAsString());
+                    im.displayName(Component.text(json.get("name").getAsString()));
                 }
                 if (json.has("lore")) {
-                    List<String> lore = new ArrayList<>();
+                    List<Component> lore = new ArrayList<>();
                     for (JsonElement element : json.get("lore").getAsJsonArray()) {
-                        lore.add(element.getAsString());
+                        lore.add(Component.text(element.getAsString()));
                     }
-                    im.setLore(lore);
+                    im.lore(lore);
                 }
                 if (json.has("banner")) {
                     JsonObject banner = json.get("banner").getAsJsonObject();

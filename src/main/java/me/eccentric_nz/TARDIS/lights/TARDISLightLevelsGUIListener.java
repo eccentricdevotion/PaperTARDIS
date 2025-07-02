@@ -25,12 +25,12 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetLightLevel;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.ArrayUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -150,7 +150,7 @@ public class TARDISLightLevelsGUIListener extends TARDISMenuListener {
     private Pair<Boolean, Integer> getNewState(InventoryView view, int slot, boolean next) {
         ItemStack is = view.getItem(slot);
         ItemMeta im = is.getItemMeta();
-        String lore = im.getLore().getFirst();
+        String lore = TARDISStringUtils.stripColour(im.lore().getFirst());
         int state = TARDISNumberParsers.parseInt(lore);
         int index;
         if (slot == 16) {
@@ -174,9 +174,9 @@ public class TARDISLightLevelsGUIListener extends TARDISMenuListener {
     private void setState(InventoryView view, int slot, int level) {
         ItemStack is = view.getItem(slot);
         ItemMeta im = is.getItemMeta();
-        List<String> lore = im.getLore();
-        lore.set(0, "" + level);
-        im.setLore(lore);
+        List<Component> lore = im.lore();
+        lore.set(0, Component.text(level));
+        im.lore(lore);
         is.setItemMeta(im);
     }
 

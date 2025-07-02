@@ -16,6 +16,9 @@
  */
 package me.eccentric_nz.TARDIS.utility;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+
 import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Locale;
@@ -275,5 +278,18 @@ public class TARDISStringUtils {
             return "";
         }
         return new String(newChars, 0, count - (whitespacesCount > 0 ? 1 : 0)).trim();
+    }
+
+    public static String stripColour(Component component) {
+        PlainTextComponentSerializer plainSerializer = PlainTextComponentSerializer.plainText();
+        return plainSerializer.serialize(component);
+    }
+
+    public static boolean endsWith(Component component, String end) {
+        return stripColour(component).endsWith(end);
+    }
+
+    public static boolean startsWith(Component component, String start) {
+        return stripColour(component).startsWith(start);
     }
 }

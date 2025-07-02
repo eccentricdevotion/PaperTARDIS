@@ -34,7 +34,7 @@ public class CompoundsCreativeInventory implements InventoryHolder {
 
     public CompoundsCreativeInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Molecular compounds", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Molecular compounds", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -61,21 +61,21 @@ public class CompoundsCreativeInventory implements InventoryHolder {
         // elements
         ItemStack elements = new ItemStack(GUIChemistry.ELEMENTS.material(), 1);
         ItemMeta eim = elements.getItemMeta();
-        eim.setDisplayName("Elements");
+        eim.displayName(Component.text("Elements"));
         eim.setItemModel(GUIChemistry.ELEMENTS.key());
         elements.setItemMeta(eim);
         stack[GUIChemistry.ELEMENTS.slot()] = elements;
         // products
         ItemStack products = new ItemStack(GUIChemistry.PRODUCTS.material(), 1);
         ItemMeta pim = products.getItemMeta();
-        pim.setDisplayName("Products");
+        pim.displayName(Component.text("Products"));
         pim.setItemModel(GUIChemistry.PRODUCTS.key());
         products.setItemMeta(pim);
         stack[GUIChemistry.PRODUCTS.slot()] = products;
         // close
         ItemStack close = new ItemStack(GUIChemistry.CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close_im.setItemModel(GUIChemistry.CLOSE.key());
         close.setItemMeta(close_im);
         stack[53] = close;

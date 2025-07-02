@@ -26,7 +26,9 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetThrottle;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -74,7 +76,7 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
             ItemStack is = view.getItem(slot);
             if (is != null) {
                 ItemMeta im = is.getItemMeta();
-                String display = im.getDisplayName();
+                String display = TARDISStringUtils.stripColour(im.displayName());
                 switch (slot) {
                     case 1, 2, 3, 4, 5, 6, 7 -> setShape(view, slot, display, uuid); // particle shape
                     case 10, 11, 12, 13, 14, 15, 16,
@@ -132,16 +134,15 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
     private void cycleColour(InventoryView view, UUID uuid) {
         ItemStack is = view.getItem(GUIParticle.COLOUR.slot());
         ItemMeta im = is.getItemMeta();
-        String lore = im.getLore().getFirst();
-        ChatColor current = ParticleColour.fromString(lore);
+        Component lore = im.lore().getFirst();
+        NamedTextColor current = ParticleColour.fromString(lore);
         int index = ParticleColour.colours.indexOf(current) + 1;
         if (index > 15) {
             index = 0;
         }
-        ChatColor next = ParticleColour.colours.get(index);
+        NamedTextColor next = ParticleColour.colours.get(index);
         String colour = ParticleColour.toString(next);
-        List<String> newLore = List.of(next + colour);
-        im.setLore(newLore);
+        im.lore(List.of(Component.text(colour, next)));
         is.setItemMeta(im);
         view.setItem(GUIParticle.COLOUR.slot(), is);
         HashMap<String, Object> set = new HashMap<>();
@@ -154,14 +155,13 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
     private void cycleBlocks(InventoryView view, UUID uuid) {
         ItemStack is = view.getItem(GUIParticle.BLOCK.slot());
         ItemMeta im = is.getItemMeta();
-        String lore = im.getLore().getFirst();
-        int index = ParticleBlock.blocks.indexOf(lore) + 1;
+        Component lore = im.lore().getFirst();
+        int index = ParticleBlock.blocks.indexOf(lore.toString()) + 1;
         if (index > ParticleBlock.blocks.size() - 1) {
             index = 0;
         }
-        String block = ParticleBlock.blocks.get(index);
-        List<String> newLore = List.of(block);
-        im.setLore(newLore);
+        Component block = Component.text(ParticleBlock.blocks.get(index));
+        im.lore(List.of(block));
         is.setItemMeta(im);
         view.setItem(GUIParticle.BLOCK.slot(), is);
         HashMap<String, Object> set = new HashMap<>();
@@ -177,9 +177,10 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
         boolean on = component.getFloats().getFirst() > 200;
         component.setFloats(on ? SwitchVariant.BUTTON_TOGGLE_OFF.getFloats() : SwitchVariant.BUTTON_TOGGLE_ON.getFloats());
         im.setCustomModelDataComponent(component);
-        List<String> lore = im.getLore();
-        lore.set(0, on ? "OFF" : "ON");
-        im.setLore(lore);
+        List<Component> lore = im.lore();
+        // TODO should use plugin.getLanguage().getString()
+        lore.set(0, on ? Component.text("OFF") : Component.text("ON"));
+        im.lore(lore);
         is.setItemMeta(im);
         view.setItem(GUIParticle.TOGGLE.slot(), is);
         HashMap<String, Object> set = new HashMap<>();
@@ -223,26 +224,26 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
             for (int s = 10; s < 44; s++) {
                 ItemStack eis = view.getItem(s);
                 if (eis != null && eis.getType() == Material.REDSTONE_ORE) {
-                    effect = ParticleEffect.valueOf(eis.getItemMeta().getDisplayName().toUpperCase(Locale.ROOT));
+                    effect = ParticleEffect.valueOf(TARDISStringUtils.stripColour(eis.getItemMeta().displayName()).toUpperCase(Locale.ROOT));
                 }
             }
             for (int s = 1; s < 8; s++) {
                 ItemStack sis = view.getItem(s);
                 if (sis != null && sis.getType() == Material.LAPIS_ORE) {
-                    shape = ParticleShape.valueOf(sis.getItemMeta().getDisplayName().toUpperCase(Locale.ROOT));
+                    shape = ParticleShape.valueOf(TARDISStringUtils.stripColour(sis.getItemMeta().displayName()).toUpperCase(Locale.ROOT));
                 }
             }
         } catch (IllegalArgumentException ignored) {
         }
         ItemStack dis = view.getItem(GUIParticle.DENSITY.slot());
-        String d = ChatColor.stripColor(dis.getItemMeta().getLore().getFirst());
+        String d = TARDISStringUtils.stripColour(dis.getItemMeta().lore().getFirst());
         int density = TARDISNumberParsers.parseInt(d);
         ItemStack spis = view.getItem(GUIParticle.SPEED.slot());
-        String s = ChatColor.stripColor(spis.getItemMeta().getLore().getFirst());
+        String s = TARDISStringUtils.stripColour(spis.getItemMeta().lore().getFirst());
         ItemStack cis = view.getItem(GUIParticle.COLOUR.slot());
-        String colour = ChatColor.stripColor(cis.getItemMeta().getLore().getFirst());
+        String colour = TARDISStringUtils.stripColour(cis.getItemMeta().lore().getFirst());
         ItemStack bis = view.getItem(GUIParticle.BLOCK.slot());
-        String block = ChatColor.stripColor(bis.getItemMeta().getLore().getFirst());
+        String block = TARDISStringUtils.stripColour(bis.getItemMeta().lore().getFirst());
         double speed = TARDISNumberParsers.parseInt(s) / 10.0d;
         return new ParticleData(effect, shape, density, speed, colour, block, b);
     }
@@ -252,12 +253,12 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
         int slot = density ? GUIParticle.DENSITY.slot() : GUIParticle.SPEED.slot();
         ItemStack is = view.getItem(slot);
         ItemMeta im = is.getItemMeta();
-        List<String> lore = im.getLore();
-        int level = TARDISNumberParsers.parseInt(ChatColor.stripColor(lore.getFirst()));
+        List<Component> lore = im.lore();
+        int level = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.getFirst()));
         level -= 1;
         if (level >= min) {
-            lore.set(0, ChatColor.AQUA + "" + level);
-            im.setLore(lore);
+            lore.set(0, Component.text(level, NamedTextColor.AQUA));
+            im.lore(lore);
             is.setItemMeta(im);
             view.setItem(slot, is);
             String field = density ? "density" : "speed";
@@ -274,12 +275,12 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
         int slot = density ? GUIParticle.DENSITY.slot() : GUIParticle.SPEED.slot();
         ItemStack is = view.getItem(slot);
         ItemMeta im = is.getItemMeta();
-        List<String> lore = im.getLore();
-        int level = TARDISNumberParsers.parseInt(ChatColor.stripColor(lore.getFirst()));
+        List<Component> lore = im.lore();
+        int level = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.getFirst()));
         level += 1;
         if (level <= max) {
-            lore.set(0, ChatColor.AQUA + "" + level);
-            im.setLore(lore);
+            lore.set(0, Component.text(level, NamedTextColor.AQUA));
+            im.lore(lore);
             is.setItemMeta(im);
             view.setItem(slot, is);
             String f = density ? "density" : "speed";

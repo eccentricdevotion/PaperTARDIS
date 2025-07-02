@@ -29,7 +29,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,7 +48,7 @@ public class TARDISSeedsInventory implements InventoryHolder {
     public TARDISSeedsInventory(TARDIS plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
-        this.inventory = plugin.getServer().createInventory(this, 45, Component.text("TARDIS Seeds Menu", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 45, Component.text("TARDIS Seeds Menu", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -72,10 +71,8 @@ public class TARDISSeedsInventory implements InventoryHolder {
                 Material m = Material.getMaterial(a.getSeed());
                 ItemStack is = new ItemStack(m, 1);
                 ItemMeta im = is.getItemMeta();
-                im.setDisplayName(a.getDescription());
-                List<String> lore = new ArrayList<>();
-                lore.add("Click to see recipe...");
-                im.setLore(lore);
+                im.displayName(Component.text(a.getDescription()));
+                im.lore(List.of(Component.text("Click to see recipe...")));
                 is.setItemMeta(im);
                 stack[i] = is;
                 i++;
@@ -84,7 +81,7 @@ public class TARDISSeedsInventory implements InventoryHolder {
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);
         stack[44] = close;
         return stack;

@@ -26,7 +26,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author eccentric_nz
@@ -40,7 +39,7 @@ public class TARDISHandlesProgramInventory implements InventoryHolder {
     public TARDISHandlesProgramInventory(TARDIS plugin, int program_id) {
         this.plugin = plugin;
         this.program_id = program_id;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Handles Program", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Handles Program", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -73,7 +72,7 @@ public class TARDISHandlesProgramInventory implements InventoryHolder {
         for (TARDISHandlesBlock b : TARDISHandlesBlock.getButtons()) {
             ItemStack is = new ItemStack(Material.BOWL, 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(b.getDisplayName());
+            im.displayName(Component.text(b.getDisplayName()));
             is.setItemMeta(im);
             stack[i] = is;
             i++;
@@ -86,9 +85,9 @@ public class TARDISHandlesProgramInventory implements InventoryHolder {
         for (TARDISHandlesBlock b : TARDISHandlesBlock.getControls()) {
             ItemStack is = new ItemStack(Material.PAPER, 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(b.getDisplayName());
+            im.displayName(Component.text(b.getDisplayName()));
             if (b.getLore() != null) {
-                im.setLore(b.getLore());
+                im.lore(b.getLore());
             }
             is.setItemMeta(im);
             stack[i] = is;

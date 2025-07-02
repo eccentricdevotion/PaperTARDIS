@@ -16,27 +16,29 @@
  */
 package me.eccentric_nz.TARDIS.skins.tv;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
+import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.skins.MonsterSkins;
 import me.eccentric_nz.TARDIS.skins.Skin;
 import me.eccentric_nz.TARDIS.skins.SkinUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.profile.PlayerProfile;
 
 public class TVMonstersInventory extends TVGUI {
 
-    private final ItemStack[] menu;
-
-    public TVMonstersInventory() {
-        menu = getItemStack();
+    public TVMonstersInventory(TARDIS plugin) {
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Chemical compounds", NamedTextColor.DARK_RED));
+        this.inventory.setContents(getItemStack());
     }
 
-    /**
-     * Constructs an inventory for the Monster Skins GUI.
-     *
-     * @return an Array of item stacks (an inventory)
-     */
+        /**
+         * Constructs an inventory for the Monster Skins GUI.
+         *
+         * @return an Array of item stacks (an inventory)
+         */
     private ItemStack[] getItemStack() {
         ItemStack[] stack = new ItemStack[36];
         int i = 0;
@@ -45,8 +47,8 @@ public class TVMonstersInventory extends TVGUI {
                 ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(monster);
-                im.setOwnerProfile(profile);
-                im.setDisplayName(monster.name());
+                im.setPlayerProfile(profile);
+                im.displayName(Component.text(monster.name()));
                 is.setItemMeta(im);
                 // cache the item stack
                 PlayerHeadCache.MONSTERS.add(is);
@@ -61,9 +63,5 @@ public class TVMonstersInventory extends TVGUI {
         }
         addDefaults(stack);
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

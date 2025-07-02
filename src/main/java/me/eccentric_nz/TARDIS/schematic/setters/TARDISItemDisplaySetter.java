@@ -24,6 +24,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetDoors;
 import me.eccentric_nz.TARDIS.enumeration.Consoles;
 import me.eccentric_nz.TARDIS.enumeration.Schematic;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -121,9 +122,9 @@ public class TARDISItemDisplaySetter {
         ItemStack is = new ItemStack(material);
         if (model != null) {
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(switch (model.getKey()) {
-                case "xray" -> "X-ray";
-                default -> TARDISStringUtils.capitalise(model.getKey());
+            im.displayName(switch (model.getKey()) {
+                case "xray" -> Component.text("X-ray");
+                default -> Component.text(TARDISStringUtils.capitalise(model.getKey()));
             });
             is.setItemMeta(im);
             display.setItemDisplayTransform(ItemDisplay.ItemDisplayTransform.GROUND);

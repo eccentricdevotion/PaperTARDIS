@@ -21,6 +21,7 @@ import io.papermc.paper.registry.RegistryKey;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.move.TARDISMoveSession;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -63,7 +64,7 @@ public class TARDISAcidWater implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         if (burningPlayers.contains(event.getEntity())) {
             String name = event.getEntity().getName();
-            event.setDeathMessage(name + " was dissolved in acid");
+            event.deathMessage(Component.text(name + " was dissolved in acid"));
         }
         burningPlayers.remove(event.getEntity());
     }
@@ -243,10 +244,10 @@ public class TARDISAcidWater implements Listener {
         ItemStack bucket = event.getItemStack();
         ItemMeta im = bucket.getItemMeta();
         if (type.equals(Material.WATER)) {
-            im.setDisplayName("Acid Bucket");
+            im.displayName(Component.text("Acid Bucket"));
         }
         if (type.equals(Material.LAVA)) {
-            im.setDisplayName("Rust Bucket");
+            im.displayName(Component.text("Rust Bucket"));
         }
         bucket.setItemMeta(im);
         p.updateInventory();

@@ -30,7 +30,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +46,7 @@ public class TARDISSavesPlanetInventory implements InventoryHolder {
         this.plugin = plugin;
         this.id = id;
         this.player = player;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Dimension Map", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Dimension Map", NamedTextColor.DARK_RED));
         this.inventory.setContents(getWorlds());
     }
 
@@ -61,45 +60,45 @@ public class TARDISSavesPlanetInventory implements InventoryHolder {
         // home stack
         ItemStack his = new ItemStack(GUISaves.HOME.material(), 1);
         ItemMeta him = his.getItemMeta();
-        List<String> hlore = new ArrayList<>();
+        List<Component> hlore = new ArrayList<>();
         HashMap<String, Object> wherehl = new HashMap<>();
         wherehl.put("tardis_id", id);
         ResultSetHomeLocation rsh = new ResultSetHomeLocation(plugin, wherehl);
         if (rsh.resultSet()) {
-            him.setDisplayName("Home");
-            hlore.add(rsh.getWorld().getName());
-            hlore.add("" + rsh.getX());
-            hlore.add("" + rsh.getY());
-            hlore.add("" + rsh.getZ());
-            hlore.add(rsh.getDirection().toString());
-            hlore.add((rsh.isSubmarine()) ? "true" : "false");
+            him.displayName(Component.text("Home"));
+            hlore.add(Component.text(rsh.getWorld().getName()));
+            hlore.add(Component.text(rsh.getX()));
+            hlore.add(Component.text(rsh.getY()));
+            hlore.add(Component.text(rsh.getZ()));
+            hlore.add(Component.text(rsh.getDirection().toString()));
+            hlore.add(Component.text((rsh.isSubmarine()) ? "true" : "false"));
             if (!rsh.getPreset().isEmpty()) {
-                hlore.add(rsh.getPreset());
+                hlore.add(Component.text(rsh.getPreset()));
             }
         } else {
-            hlore.add("Not found!");
+            hlore.add(Component.text("Not found!"));
         }
-        him.setLore(hlore);
+        him.lore(hlore);
         his.setItemMeta(him);
         stack[GUISaves.HOME.slot()] = his;
         if (TARDISPermission.hasPermission(player, "tardis.save.death")) {
             // home stack
             ItemStack death = new ItemStack(GUISaves.DEATH.material(), 1);
             ItemMeta dim = death.getItemMeta();
-            dim.setDisplayName("Death location");
-            List<String> dlore = new ArrayList<>();
+            dim.displayName(Component.text("Death location"));
+            List<Component> dlore = new ArrayList<>();
             ResultSetDeathLocation rsd = new ResultSetDeathLocation(plugin, player.getUniqueId().toString());
             if (rsd.resultSet()) {
-                dlore.add(rsd.getWorld().getName());
-                dlore.add("" + rsd.getX());
-                dlore.add("" + rsd.getY());
-                dlore.add("" + rsd.getZ());
-                dlore.add(rsd.getDirection().toString());
-                dlore.add((rsd.isSubmarine()) ? "true" : "false");
+                dlore.add(Component.text(rsd.getWorld().getName()));
+                dlore.add(Component.text(rsd.getX()));
+                dlore.add(Component.text(rsd.getY()));
+                dlore.add(Component.text(rsd.getZ()));
+                dlore.add(Component.text(rsd.getDirection().toString()));
+                dlore.add(Component.text((rsd.isSubmarine()) ? "true" : "false"));
             } else {
-                dlore.add("Not found!");
+                dlore.add(Component.text("Not found!"));
             }
-            dim.setLore(dlore);
+            dim.lore(dlore);
             death.setItemMeta(dim);
             stack[GUISaves.DEATH.slot()] = death;
         }
@@ -110,7 +109,7 @@ public class TARDISSavesPlanetInventory implements InventoryHolder {
             for (Planet planet : rsd.getData()) {
                 ItemStack is = new ItemStack(planet.material(), 1);
                 ItemMeta im = is.getItemMeta();
-                im.setDisplayName(planet.name());
+                im.displayName(Component.text(planet.name()));
                 is.setItemMeta(im);
                 stack[i] = is;
                 i += 2;

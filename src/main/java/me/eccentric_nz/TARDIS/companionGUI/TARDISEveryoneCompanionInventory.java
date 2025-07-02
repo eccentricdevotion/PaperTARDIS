@@ -28,6 +28,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TARDISEveryoneCompanionInventory implements InventoryHolder {
 
@@ -38,7 +39,7 @@ public class TARDISEveryoneCompanionInventory implements InventoryHolder {
     public TARDISEveryoneCompanionInventory(TARDIS plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Companions", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Companions", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -56,10 +57,8 @@ public class TARDISEveryoneCompanionInventory implements InventoryHolder {
                     ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
                     SkullMeta skull = (SkullMeta) head.getItemMeta();
                     skull.setOwningPlayer(c);
-                    skull.setDisplayName(c.getName());
-                    ArrayList<String> lore = new ArrayList<>();
-                    lore.add(c.getUniqueId().toString());
-                    skull.setLore(lore);
+                    skull.displayName(Component.text(c.getName()));
+                    skull.lore(List.of(Component.text(c.getUniqueId().toString())));
                     head.setItemMeta(skull);
                     heads[i] = head;
                     i++;
@@ -69,32 +68,32 @@ public class TARDISEveryoneCompanionInventory implements InventoryHolder {
         // add buttons
         ItemStack info = new ItemStack(Material.BOOK, 1);
         ItemMeta ii = info.getItemMeta();
-        ii.setDisplayName("Info");
-        ArrayList<String> info_lore = new ArrayList<>();
-        info_lore.add("To REMOVE a companion");
-        info_lore.add("select a player head");
-        info_lore.add("then click the Remove");
-        info_lore.add("button (bucket).");
-        info_lore.add("To ADD a companion");
-        info_lore.add("click the Add button");
-        info_lore.add("(nether star).");
-        ii.setLore(info_lore);
+        ii.displayName(Component.text("Info"));
+        ii.lore(List.of(
+                Component.text("To REMOVE a companion"),
+                Component.text("select a player head"),
+                Component.text("then click the Remove"),
+                Component.text("button (bucket)."),
+                Component.text("To ADD a companion"),
+                Component.text("click the Add button"),
+                Component.text("(nether star).")
+        ));
         info.setItemMeta(ii);
         heads[45] = info;
         ItemStack add = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta aa = add.getItemMeta();
-        aa.setDisplayName("Add");
+        aa.displayName(Component.text("Add"));
         add.setItemMeta(aa);
         heads[48] = add;
         ItemStack del = new ItemStack(Material.BUCKET, 1);
         ItemMeta dd = add.getItemMeta();
-        dd.setDisplayName("Remove");
+        dd.displayName(Component.text("Remove"));
         del.setItemMeta(dd);
         heads[51] = del;
         // Cancel / close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta can = close.getItemMeta();
-        can.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);
         heads[53] = close;
 

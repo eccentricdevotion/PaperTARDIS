@@ -24,6 +24,9 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.schematic.TARDISSchematicGZip;
 import me.eccentric_nz.TARDIS.schematic.getters.DataPackPainting;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+//import org.bukkit.*;
 import org.bukkit.*;
 import org.bukkit.block.*;
 import org.bukkit.block.sign.Side;
@@ -34,7 +37,7 @@ import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.BoundingBox;
-
+import com.destroystokyo.paper.profile.PlayerProfile;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -114,7 +117,7 @@ public class SchematicSave {
             plugin.getMessenger().send(player, TardisModule.TARDIS, "SCHM_SQUARE");
             return true;
         }
-        if ((width % 16 != 0 || length % 16 != 0) && !which.equals("zero") && !which.equals("junk") && !which.contains("dalek")) {
+        if (width % 16 != 0 && !which.equals("zero") && !which.equals("junk") && !which.contains("dalek")) {
             plugin.getMessenger().send(player, TardisModule.TARDIS, "SCHM_MULTIPLE");
             return true;
         }
@@ -176,11 +179,13 @@ public class SchematicSave {
                                             frame.addProperty("cmd", im.getItemModel().getKey());
                                         }
                                         if (im.hasDisplayName()) {
-                                            frame.addProperty("name", im.getDisplayName());
+                                            frame.addProperty("name", TARDISStringUtils.stripColour(im.displayName()));
                                         }
                                         if (im.hasLore()) {
                                             JsonArray lore = new JsonArray();
-                                            im.getLore().forEach(lore::add);
+                                            for (Component component : im.lore()) {
+                                                lore.add(TARDISStringUtils.stripColour(component));
+                                            }
                                             frame.add("lore", lore);
                                         }
                                         if ((Tag.ITEMS_BANNERS.isTagged(type) || type == Material.SHIELD) && im instanceof BlockStateMeta bsm) {
@@ -246,9 +251,9 @@ public class SchematicSave {
                     if (b.getType().equals(Material.PLAYER_HEAD) || b.getType().equals(Material.PLAYER_WALL_HEAD)) {
                         JsonObject head = new JsonObject();
                         Skull skull = (Skull) b.getState();
-                        if (skull.getOwnerProfile() != null) {
-                            head.addProperty("uuid", skull.getOwnerProfile().getUniqueId().toString());
-                            head.addProperty("texture", skull.getOwnerProfile().getTextures().getSkin().toString());
+                        if (skull.getPlayerProfile() != null) {
+                            head.addProperty("uuid", skull.getPlayerProfile().getUniqueId().toString());
+                            head.addProperty("texture", skull.getPlayerProfile().getTextures().getSkin().toString());
                         }
                         obj.add("head", head);
                     }
@@ -257,20 +262,20 @@ public class SchematicSave {
                         JsonObject text = new JsonObject();
                         Sign sign = (Sign) b.getState();
                         SignSide front = sign.getSide(Side.FRONT);
-                        if (front.getLines().length > 0) {
-                            text.addProperty("line0", front.getLine(0));
-                            text.addProperty("line1", front.getLine(1));
-                            text.addProperty("line2", front.getLine(2));
-                            text.addProperty("line3", front.getLine(3));
+                        if (!front.lines().isEmpty()) {
+                            text.addProperty("line0", TARDISStringUtils.stripColour(front.line(0)));
+                            text.addProperty("line1", TARDISStringUtils.stripColour(front.line(1)));
+                            text.addProperty("line2", TARDISStringUtils.stripColour(front.line(2)));
+                            text.addProperty("line3", TARDISStringUtils.stripColour(front.line(3)));
                             text.addProperty("glowing", front.isGlowingText());
                             text.addProperty("colour", front.getColor().toString());
                             text.addProperty("editable", sign.isWaxed());
                             JsonObject side = new JsonObject();
                             SignSide back = sign.getSide(Side.BACK);
-                            side.addProperty("line0", back.getLine(0));
-                            side.addProperty("line1", back.getLine(1));
-                            side.addProperty("line2", back.getLine(2));
-                            side.addProperty("line3", back.getLine(3));
+                            side.addProperty("line0", TARDISStringUtils.stripColour(back.line(0)));
+                            side.addProperty("line1", TARDISStringUtils.stripColour(back.line(1)));
+                            side.addProperty("line2", TARDISStringUtils.stripColour(back.line(2)));
+                            side.addProperty("line3", TARDISStringUtils.stripColour(back.line(3)));
                             side.addProperty("glowing", back.isGlowingText());
                             side.addProperty("colour", back.getColor().toString());
                             text.add("back", side);

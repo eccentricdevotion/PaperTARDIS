@@ -18,7 +18,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -57,13 +59,16 @@ public class ArtronCapacitorRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.BUCKET, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Artron Capacitor");
+        im.displayName(Component.text("Artron Capacitor", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         is.setItemMeta(im);
         // exact choice
         ItemStack storage = new ItemStack(Material.BUCKET, 1);
         ItemMeta cell = storage.getItemMeta();
-        cell.setDisplayName(ChatColor.WHITE + "Artron Storage Cell");
-        cell.setLore(List.of("Charge Level", "0"));
+        cell.displayName(Component.text("Artron Storage Cell", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        cell.lore(List.of(
+                Component.text("Charge Level"),
+                Component.text("0")
+        ));
         storage.setItemMeta(cell);
         NamespacedKey key = new NamespacedKey(plugin, "artron_capacitor");
         ShapedRecipe r = new ShapedRecipe(key, is);

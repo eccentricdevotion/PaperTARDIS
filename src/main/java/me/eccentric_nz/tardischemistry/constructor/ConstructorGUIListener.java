@@ -19,9 +19,10 @@ package me.eccentric_nz.tardischemistry.constructor;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.HandlesVariant;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardischemistry.element.Element;
 import me.eccentric_nz.tardischemistry.element.ElementBuilder;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -47,6 +48,7 @@ public class ConstructorGUIListener extends TARDISMenuListener {
         if (slot < 0 || slot > 26) {
             ClickType click = event.getClick();
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
+                TARDIS.plugin.debug("ConstructorGUIListener");
                 event.setCancelled(true);
             }
             return;
@@ -120,16 +122,17 @@ public class ConstructorGUIListener extends TARDISMenuListener {
         int oneInt, tenInt = 0, hundredInt = 0;
         ItemStack ones = view.getItem(3 + offset);
         ItemMeta oneMeta = ones.getItemMeta();
-        oneInt = Integer.parseInt(oneMeta.getDisplayName());
+        // TODO add parse int from component
+        oneInt = Integer.parseInt(TARDISStringUtils.stripColour(oneMeta.displayName()));
         ItemStack tens = view.getItem(2 + offset);
         if (tens != null) {
             ItemMeta tenMeta = tens.getItemMeta();
-            tenInt = Integer.parseInt(tenMeta.getDisplayName()) * 10;
+            tenInt = Integer.parseInt(TARDISStringUtils.stripColour(tenMeta.displayName())) * 10;
         }
         ItemStack hundreds = view.getItem(1 + offset);
         if (hundreds != null) {
             ItemMeta hundredMeta = hundreds.getItemMeta();
-            hundredInt = Integer.parseInt(hundredMeta.getDisplayName()) * 100;
+            hundredInt = Integer.parseInt(TARDISStringUtils.stripColour(hundredMeta.displayName())) * 100;
         }
         return oneInt + tenInt + hundredInt;
     }
@@ -140,7 +143,7 @@ public class ConstructorGUIListener extends TARDISMenuListener {
         int hundredInt = (amount / 100) % 10;
         ItemStack ones = view.getItem(3 + offset);
         ItemMeta oneMeta = ones.getItemMeta();
-        oneMeta.setDisplayName("" + oneInt);
+        oneMeta.displayName(Component.text(oneInt));
         oneMeta.setItemModel(HandlesVariant.values()[25 + oneInt].getKey());
         ones.setItemMeta(oneMeta);
         ItemStack tens = view.getItem(2 + offset);
@@ -149,7 +152,7 @@ public class ConstructorGUIListener extends TARDISMenuListener {
                 tens = new ItemStack(Material.PAPER, 1);
             }
             ItemMeta tenMeta = tens.getItemMeta();
-            tenMeta.setDisplayName("" + tenInt);
+            tenMeta.displayName(Component.text(tenInt));
             tenMeta.setItemModel(HandlesVariant.values()[25 + tenInt].getKey());
             tens.setItemMeta(tenMeta);
             view.setItem(2 + offset, tens);
@@ -162,7 +165,7 @@ public class ConstructorGUIListener extends TARDISMenuListener {
                 hundreds = new ItemStack(Material.PAPER, 1);
             }
             ItemMeta hundredMeta = hundreds.getItemMeta();
-            hundredMeta.setDisplayName("" + hundredInt);
+            hundredMeta.displayName(Component.text(hundredInt));
             hundredMeta.setItemModel(HandlesVariant.values()[25 + hundredInt].getKey());
             hundreds.setItemMeta(hundredMeta);
             view.setItem(1 + offset, hundreds);

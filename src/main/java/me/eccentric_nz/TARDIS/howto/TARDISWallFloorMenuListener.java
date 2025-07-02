@@ -17,17 +17,14 @@
 package me.eccentric_nz.TARDIS.howto;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import me.eccentric_nz.TARDIS.desktop.TARDISWallsInventory;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.rooms.TARDISWalls;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
@@ -59,7 +56,7 @@ public class TARDISWallFloorMenuListener extends TARDISMenuListener {
 
     @EventHandler
     public void onWallFloorMenuOpen(InventoryOpenEvent event) {
-        if (!(event.getInventory().getHolder(false) instanceof TARDISHowtoWallsInventory)) {
+        if (event.getInventory().getHolder(false) instanceof TARDISHowtoWallsInventory) {
             Player p = (Player) event.getPlayer();
             scroll.put(p.getUniqueId(), 0);
         }
@@ -77,6 +74,7 @@ public class TARDISWallFloorMenuListener extends TARDISMenuListener {
         if (slot < 0 || slot > 53) {
             ClickType click = event.getClick();
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
+                plugin.debug("TARDISWallFloorMenuListener");
                 event.setCancelled(true);
             }
             return;

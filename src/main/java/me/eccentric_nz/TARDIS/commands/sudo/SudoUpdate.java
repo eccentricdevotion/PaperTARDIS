@@ -29,6 +29,9 @@ import me.eccentric_nz.TARDIS.monitor.MonitorUtils;
 import me.eccentric_nz.TARDIS.rotors.TARDISTimeRotor;
 import me.eccentric_nz.TARDIS.update.TARDISUpdateableChecker;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -121,7 +124,7 @@ class SudoUpdate {
                             // reinstate display name
                             ItemStack glass = itemFrame.getItem();
                             ItemMeta im = glass.getItemMeta();
-                            im.setDisplayName("Monitor Frame");
+                            im.displayName(Component.text("Monitor Frame", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
                             glass.setItemMeta(im);
                         }
                         default -> {

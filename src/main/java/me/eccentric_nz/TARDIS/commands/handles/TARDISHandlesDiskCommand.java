@@ -20,7 +20,8 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -48,9 +49,9 @@ class TARDISHandlesDiskCommand {
         ItemStack disk = player.getInventory().getItemInMainHand();
         if (disk.getType().equals(Material.MUSIC_DISC_WARD) && disk.hasItemMeta()) {
             ItemMeta dim = disk.getItemMeta();
-            if (dim.hasDisplayName() && ChatColor.stripColor(dim.getDisplayName()).equals("Handles Program Disk")) {
+            if (dim.hasDisplayName() && TARDISStringUtils.stripColour(dim.displayName()).equals("Handles Program Disk")) {
                 // get the program_id from the disk
-                int pid = TARDISNumberParsers.parseInt(dim.getLore().get(1));
+                int pid = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(dim.lore().get(1)));
                 // get the name - must be 32 chars or fewer
                 String name = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
                 if (name.length() < 3 || name.length() > 32) {
@@ -63,9 +64,9 @@ class TARDISHandlesDiskCommand {
                 HashMap<String, Object> wherep = new HashMap<>();
                 wherep.put("program_id", pid);
                 plugin.getQueryFactory().doUpdate("programs", set, wherep);
-                List<String> lore = dim.getLore();
-                lore.set(0, name);
-                dim.setLore(lore);
+                List<Component> lore = dim.lore();
+                lore.set(0, Component.text(name));
+                dim.lore(lore);
                 disk.setItemMeta(dim);
             }
         } else {

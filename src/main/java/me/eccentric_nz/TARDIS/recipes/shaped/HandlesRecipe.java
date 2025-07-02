@@ -18,8 +18,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -54,8 +55,11 @@ public class HandlesRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.BIRCH_BUTTON, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Handles");
-        im.setLore(List.of("Cyberhead from the", "Maldovar Market"));
+        im.displayName(Component.text("Handles", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.lore(List.of(
+                Component.text("Cyberhead from the"),
+                Component.text("Maldovar Market")
+        ));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "handles");
         ShapedRecipe r = new ShapedRecipe(key, is);

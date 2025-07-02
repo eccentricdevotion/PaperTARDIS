@@ -21,8 +21,10 @@ import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
 import me.eccentric_nz.TARDIS.enumeration.Consoles;
 import me.eccentric_nz.TARDIS.enumeration.Schematic;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandSender;
@@ -96,13 +98,13 @@ public class Seed {
                 ItemMeta im = is.getItemMeta();
                 im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, model.getKey());
                 // set display name
-                im.setDisplayName(ChatColor.GOLD + "TARDIS Seed Block");
-                List<String> lore = new ArrayList<>();
-                lore.add(type);
-                lore.add("Walls: " + wall);
-                lore.add("Floors: " + floor);
-                lore.add("Chameleon: FACTORY");
-                im.setLore(lore);
+                im.displayName(Component.text("TARDIS Seed Block", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+                im.lore(List.of(
+                        Component.text(type),
+                        Component.text("Walls: " + wall),
+                        Component.text("Floors: " + floor),
+                        Component.text("Chameleon: FACTORY")
+                ));
                 is.setItemMeta(im);
                 player.getInventory().addItem(is);
                 player.updateInventory();

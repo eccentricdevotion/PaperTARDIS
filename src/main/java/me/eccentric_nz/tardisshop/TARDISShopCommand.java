@@ -24,7 +24,8 @@ import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardisshop.database.InsertShopItem;
 import me.eccentric_nz.tardisshop.database.ResultSetUpdateShop;
 import me.eccentric_nz.tardisshop.database.UpdateShopItem;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -85,7 +86,7 @@ public class TARDISShopCommand extends TARDISCompleter implements CommandExecuto
                                 // find text display and update the etxt
                                 for (Entity e : item.location().getWorld().getNearbyEntities(item.location().add(0.5d, 1.0d, 0.5d), 0.5d, 1.0d, 0.5d)) {
                                     if (e instanceof TextDisplay text) {
-                                        text.setText(item.item() + "\n" + ChatColor.RED + "Cost:" + ChatColor.RESET + String.format(" %.2f", cost));
+                                        text.text(Component.text(item.item() + "\n").append( Component.text("Cost:", NamedTextColor.RED)).append(Component.text(String.format(" %.2f", cost), NamedTextColor.WHITE)));
                                     }
                                 }
                             }

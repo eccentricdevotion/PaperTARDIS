@@ -35,7 +35,7 @@ class SlideInventory implements InventoryHolder {
 
     SlideInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Slides", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Slides", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItems());
     }
 
@@ -50,7 +50,7 @@ class SlideInventory implements InventoryHolder {
         for (Slide slide : Slide.values()) {
             ItemStack is = new ItemStack(Material.GLASS, 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(slide.getName());
+            im.displayName(Component.text(slide.getName()));
             im.setItemModel(ChemistryEquipment.GLASS_SLIDE.getKey());
             im.getPersistentDataContainer().set(plugin.getMicroscopeKey(), PersistentDataType.STRING, slide.getModel().getKey());
             is.setItemMeta(im);
@@ -59,7 +59,7 @@ class SlideInventory implements InventoryHolder {
         // Cancel / close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta can = close.getItemMeta();
-        can.setDisplayName("Close");
+        can.displayName(Component.text("Close"));
         can.setItemModel(GuiVariant.CLOSE.getKey());
         close.setItemMeta(can);
         stacks[53] = close;

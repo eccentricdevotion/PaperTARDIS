@@ -19,7 +19,8 @@ package me.eccentric_nz.TARDIS.recipes;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -48,7 +49,7 @@ public class TARDISDisplayItemRecipe {
                     is = new ItemStack(tdi.getMaterial(), 1);
                 }
                 ItemMeta im = is.getItemMeta();
-                im.setDisplayName(ChatColor.WHITE + tdi.getDisplayName());
+                im.displayName(Component.text(tdi.getDisplayName(), NamedTextColor.WHITE));
                 if (tdi.getCustomModel() != null) {
                     im.getPersistentDataContainer().set(TARDIS.plugin.getCustomBlockKey(), PersistentDataType.STRING, tdi.getCustomModel().getKey());
                 }

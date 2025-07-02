@@ -26,6 +26,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetConsoleLabel;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetInteractionsFromId;
 import me.eccentric_nz.TARDIS.sonic.SonicLore;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -161,8 +162,8 @@ public class ConsoleDestroyer {
             ItemStack console = new ItemStack(material, 1);
             ItemMeta im = console.getItemMeta();
             String dn = ((isRustic) ? "Rustic" : TARDISStringUtils.capitalise(colour)) + " Console";
-            im.setDisplayName(dn);
-            im.setLore(List.of("Integration with interaction"));
+            im.displayName(Component.text(dn));
+            im.lore(List.of(Component.text("Integration with interaction")));
             im.setItemModel(key);
             String which = model.getKey()
                     .replace("tardis/console_division_", "")

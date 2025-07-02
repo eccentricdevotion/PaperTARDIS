@@ -20,7 +20,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUISonicPreferences;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -43,7 +43,7 @@ public class TARDISSonicMenuInventory implements InventoryHolder {
 
     public TARDISSonicMenuInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Sonic Prefs Menu", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Sonic Prefs Menu", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -65,8 +65,8 @@ public class TARDISSonicMenuInventory implements InventoryHolder {
             if (sonic.getMaterial() == Material.BLAZE_ROD) {
                 ItemStack is = new ItemStack(sonic.getMaterial(), 1);
                 ItemMeta im = is.getItemMeta();
-                im.setDisplayName(ChatColor.WHITE + "Sonic Screwdriver");
-                im.setLore(List.of(sonic.getName()));
+                im.displayName(Component.text("Sonic Screwdriver", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                im.lore(List.of(Component.text(sonic.getName())));
                 CustomModelDataComponent component = im.getCustomModelDataComponent();
                 component.setFloats(sonic.getFloats());
                 im.setCustomModelDataComponent(component);
@@ -77,30 +77,38 @@ public class TARDISSonicMenuInventory implements InventoryHolder {
         // coloured wool
         ItemStack wool = new ItemStack(Material.WHITE_WOOL);
         ItemMeta wool_im = wool.getItemMeta();
-        wool_im.setDisplayName("Display name colour");
-        wool_im.setLore(List.of("Click to select"));
+        wool_im.displayName(Component.text("Display name colour"));
+        wool_im.lore(List.of(Component.text("Click to select")));
         wool.setItemMeta(wool_im);
         stack[28] = wool;
         // info
         ItemStack info = new ItemStack(Material.BOOK, 1);
         ItemMeta info_im = info.getItemMeta();
-        info_im.setDisplayName("Instructions");
-        List<String> lore = List.of("Put your Sonic Screwdriver", "in the bottom left most slot", "and then click on the", "Sonic of your choice.");
-        info_im.setLore(lore);
+        info_im.displayName(Component.text("Instructions"));
+        info_im.lore(List.of(
+                Component.text("Put your Sonic Screwdriver"),
+                Component.text("in the bottom left most slot"),
+                Component.text("and then click on the"),
+                Component.text("Sonic of your choice.")
+        ));
         info.setItemMeta(info_im);
         stack[31] = info;
         // info 2
         ItemStack name = new ItemStack(Material.BOOK, 1);
         ItemMeta name_im = name.getItemMeta();
-        name_im.setDisplayName("Name");
-        List<String> display = List.of("If you want to have", "a coloured display name", "click the wool block", "to choose a colour.");
-        name_im.setLore(display);
+        name_im.displayName(Component.text("Name"));
+        name_im.lore(List.of(
+                Component.text("If you want to have"),
+                Component.text("a coloured display name"),
+                Component.text("click the wool block"),
+                Component.text("to choose a colour.")
+        ));
         name.setItemMeta(name_im);
         stack[32] = name;
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);
         stack[35] = close;
 

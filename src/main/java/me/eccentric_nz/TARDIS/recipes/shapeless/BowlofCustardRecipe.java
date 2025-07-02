@@ -17,7 +17,9 @@
 package me.eccentric_nz.TARDIS.recipes.shapeless;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -41,7 +43,7 @@ public class BowlofCustardRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.MUSHROOM_STEW, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Bowl of Custard");
+        im.displayName(Component.text("Bowl of Custard", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "bowl_of_custard");
         ShapelessRecipe r = new ShapelessRecipe(key, is);

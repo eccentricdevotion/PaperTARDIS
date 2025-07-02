@@ -29,6 +29,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.schematic.ArchiveUpdate;
 import me.eccentric_nz.TARDIS.schematic.ResultSetArchive;
 import me.eccentric_nz.TARDIS.schematic.ResultSetArchiveButtons;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -64,7 +65,7 @@ public class FloodgateDesktopArchiveForm {
             builder.title("TARDIS Archive");
             for (ItemStack is : rs.getButtons()) {
                 ItemMeta im = is.getItemMeta();
-                builder.button(im.getDisplayName(), FormImage.Type.PATH, String.format(path, FloodgateColouredBlocks.IMAGES.get(i)));
+                builder.button(TARDISStringUtils.stripColour(im.displayName()), FormImage.Type.PATH, String.format(path, FloodgateColouredBlocks.IMAGES.get(i)));
                 i++;
             }
         }

@@ -19,12 +19,10 @@ package me.eccentric_nz.TARDIS.lights;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
@@ -40,9 +38,7 @@ public class TARDISLightEmittingListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onLightEmittingBlockClick(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        String name = view.getTitle();
-        if (!name.equals(ChatColor.DARK_RED + "Light Emitting Blocks")) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISLightEmittingInventory)) {
             return;
         }
         Player player = (Player) event.getWhoClicked();
@@ -51,6 +47,7 @@ public class TARDISLightEmittingListener extends TARDISMenuListener {
         if (slot < 0 || slot > 27) {
             ClickType click = event.getClick();
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
+                plugin.debug("TARDISLightEmittingListener");
                 event.setCancelled(true);
             }
             return;
@@ -68,7 +65,7 @@ public class TARDISLightEmittingListener extends TARDISMenuListener {
             case 26 -> close(player); // close
             default -> {
                 // get block type and data
-                ItemStack choice = view.getItem(slot);
+                ItemStack choice = event.getView().getItem(slot);
                 setEmittingLightBlock(player, choice.getType().toString());
             }
         }

@@ -5,7 +5,6 @@ import me.eccentric_nz.TARDIS.info.dialog.CategoryDialog;
 import me.eccentric_nz.TARDIS.travel.dialog.TerminalDialog;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.dialog.*;
 import net.minecraft.server.dialog.action.Action;

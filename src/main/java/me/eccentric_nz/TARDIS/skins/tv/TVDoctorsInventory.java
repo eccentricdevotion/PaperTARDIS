@@ -16,22 +16,24 @@
  */
 package me.eccentric_nz.TARDIS.skins.tv;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
+import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.skins.DoctorSkins;
 import me.eccentric_nz.TARDIS.skins.Skin;
 import me.eccentric_nz.TARDIS.skins.SkinUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.profile.PlayerProfile;
 
 import java.util.List;
 
 public class TVDoctorsInventory extends TVGUI {
 
-    private final ItemStack[] menu;
-
-    public TVDoctorsInventory() {
-        menu = getItemStack();
+    public TVDoctorsInventory(TARDIS plugin) {
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Doctor Skins", NamedTextColor.DARK_RED));
+        this.inventory.setContents(getItemStack());
     }
 
     /**
@@ -47,10 +49,10 @@ public class TVDoctorsInventory extends TVGUI {
                 ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(doctor);
-                im.setOwnerProfile(profile);
+                im.setPlayerProfile(profile);
                 String[] name = doctor.name().split(" - ");
-                im.setDisplayName(name[0]);
-                im.setLore(List.of(name[1]));
+                im.displayName(Component.text(name[0]));
+                im.lore(List.of(Component.text(name[1])));
                 is.setItemMeta(im);
                 // cache the item stack
                 PlayerHeadCache.DOCTORS.add(is);
@@ -65,9 +67,5 @@ public class TVDoctorsInventory extends TVGUI {
         }
         addDefaults(stack);
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

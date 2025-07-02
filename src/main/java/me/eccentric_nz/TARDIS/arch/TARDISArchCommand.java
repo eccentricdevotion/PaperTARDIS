@@ -18,7 +18,8 @@ package me.eccentric_nz.TARDIS.arch;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -57,7 +58,7 @@ public class TARDISArchCommand {
 
     public boolean whois(CommandSender sender, String[] args) {
         for (Player p : plugin.getServer().getOnlinePlayers()) {
-            if (ChatColor.stripColor(p.getPlayerListName()).equalsIgnoreCase(args[1])) {
+            if (TARDISStringUtils.stripColour(p.playerListName()).equalsIgnoreCase(args[1])) {
                 plugin.getMessenger().send(sender, TardisModule.TARDIS, "ARCH_PLAYER", p.getName());
                 return true;
             }
@@ -100,8 +101,9 @@ public class TARDISArchCommand {
                 TARDISArchDisguise.disguise(player, name);
             }
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                player.setDisplayName(name);
-                player.setPlayerListName(name);
+                Component component = Component.text(name);
+                player.displayName(component);
+                player.playerListName(component);
             }, 5L);
         } else {
             if (plugin.isDisguisesOnServer()) {
@@ -115,8 +117,9 @@ public class TARDISArchCommand {
             player.getWorld().strikeLightningEffect(player.getLocation());
             plugin.getTrackerKeeper().getJohnSmith().remove(uuid);
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                player.setDisplayName(player.getName());
-                player.setPlayerListName(player.getName());
+                Component component = Component.text(player.getName());
+                player.displayName(component);
+                player.playerListName(component);
             }, 5L);            // remove player from arched table
             new TARDISArchPersister(plugin).removeArch(uuid);
         }

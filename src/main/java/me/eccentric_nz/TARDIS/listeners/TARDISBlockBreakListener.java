@@ -23,6 +23,10 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetBlocks;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTravellers;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -103,9 +107,9 @@ public class TARDISBlockBreakListener implements Listener {
             // check the text on the sign
             Sign sign = (Sign) block.getState();
             SignSide front = sign.getSide(Side.FRONT);
-            String line0 = ChatColor.stripColor(front.getLine(0));
-            String line1 = ChatColor.stripColor(front.getLine(1));
-            String line2 = ChatColor.stripColor(front.getLine(2));
+            String line0 = TARDISStringUtils.stripColour(front.line(0));
+            String line1 = TARDISStringUtils.stripColour(front.line(1));
+            String line2 = TARDISStringUtils.stripColour(front.line(2));
             if (isPresetSign(line0, line1, line2)) {
                 event.setCancelled(true);
                 sign.update();
@@ -135,7 +139,7 @@ public class TARDISBlockBreakListener implements Listener {
                             event.getBlock().setBlockData(TARDISConstants.AIR);
                             ItemStack rm = new ItemStack(Material.BEACON, 1);
                             ItemMeta im = rm.getItemMeta();
-                            im.setDisplayName("Rift Manipulator");
+                            im.displayName(Component.text("Rift Manipulator", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
                             rm.setItemMeta(im);
                             w.dropItem(loc, rm);
                             break;

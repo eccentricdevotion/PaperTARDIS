@@ -18,6 +18,7 @@ package me.eccentric_nz.tardisweepingangels.monsters.toclafane;
 
 import me.eccentric_nz.TARDIS.custommodels.keys.ToclafaneVariant;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
@@ -32,7 +33,7 @@ public class ToclafaneEquipment {
     public static void set(Entity entity, boolean disguise) {
         ItemStack head = new ItemStack(Material.GUNPOWDER);
         ItemMeta headMeta = head.getItemMeta();
-        headMeta.setDisplayName("Toclafane");
+        headMeta.displayName(Component.text("Toclafane"));
         headMeta.setItemModel((disguise) ? ToclafaneVariant.TOCLAFANE.getKey() : ToclafaneVariant.TOCLAFANE_ATTACK.getKey());
         head.setItemMeta(headMeta);
         if (!disguise) {

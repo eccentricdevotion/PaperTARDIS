@@ -47,7 +47,7 @@ public class TARDISLightLevelsInventory implements InventoryHolder {
             exterior_level = "" + LightLevel.exterior_level[rs.getExteriorLevel()];
             console_level = "" + LightLevel.interior_level[rs.getConsoleLevel()];
         }
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Light Levels", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Light Levels", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -65,58 +65,67 @@ public class TARDISLightLevelsInventory implements InventoryHolder {
         // interior info
         ItemStack i_info = new ItemStack(GUILights.INTERIOR_INFO.material(), 1);
         ItemMeta iiim = i_info.getItemMeta();
-        iiim.setDisplayName("Interior Lights");
-        iiim.setLore(List.of("Set the light level", "of the interior lights"));
+        iiim.displayName(Component.text("Interior Lights"));
+        iiim.lore(List.of(
+                Component.text("Set the light level"),
+                Component.text("of the interior lights")
+        ));
         i_info.setItemMeta(iiim);
         // interior
         ItemStack interior = new ItemStack(GUILights.INTERIOR.material(), 1);
         ItemMeta inim = interior.getItemMeta();
-        inim.setDisplayName("Interior Lights");
-        inim.setLore(List.of(interior_level));
+        inim.displayName(Component.text("Interior Lights"));
+        inim.lore(List.of(Component.text(interior_level)));
         interior.setItemMeta(inim);
         // exterior info
         ItemStack e_info = new ItemStack(GUILights.EXTERIOR_INFO.material(), 1);
         ItemMeta eiim = e_info.getItemMeta();
-        eiim.setDisplayName("Exterior Lamp");
-        eiim.setLore(List.of("Set the light level", "of the exterior lamp"));
+        eiim.displayName(Component.text("Exterior Lamp"));
+        eiim.lore(List.of(
+                Component.text("Set the light level"),
+                Component.text("of the exterior lamp")
+        ));
         e_info.setItemMeta(eiim);
         // exterior
         ItemStack exterior = new ItemStack(GUILights.EXTERIOR.material(), 1);
         ItemMeta exim = exterior.getItemMeta();
-        exim.setDisplayName("Exterior Lamp");
-        exim.setLore(List.of(exterior_level));
+        exim.displayName(Component.text("Exterior Lamp"));
+        exim.lore(List.of(Component.text(exterior_level)));
         exterior.setItemMeta(exim);
         // console info
         ItemStack c_info = new ItemStack(GUILights.CONSOLE_INFO.material(), 1);
         ItemMeta ciim = c_info.getItemMeta();
-        ciim.setDisplayName("Console Lamp");
-        ciim.setLore(List.of("Set the light level", "of the console lamp"));
+        ciim.displayName(Component.text("Console Lamp"));
+        ciim.lore(List.of(
+                Component.text("Set the light level"),
+                Component.text("of the console lamp")
+        ));
         c_info.setItemMeta(ciim);
         // console
         ItemStack console = new ItemStack(GUILights.CONSOLE.material(), 1);
         ItemMeta lamp = console.getItemMeta();
-        lamp.setDisplayName("Console Lamp");
-        lamp.setLore(List.of(console_level));
+        lamp.displayName(Component.text("Console Lamp"));
+        lamp.lore(List.of(Component.text(console_level)));
         console.setItemMeta(lamp);
         // minus
         ItemStack minus = new ItemStack(GUIParticle.MINUS.material(), 1);
         ItemMeta mim = minus.getItemMeta();
-        mim.setDisplayName(plugin.getLanguage().getString("BUTTON_LESS"));
+        mim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LESS")));
         minus.setItemMeta(mim);
         // plus
         ItemStack plus = new ItemStack(GUIParticle.PLUS.material(), 1);
         ItemMeta pim = plus.getItemMeta();
-        pim.setDisplayName(plugin.getLanguage().getString("BUTTON_MORE"));
+        pim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MORE")));
         plus.setItemMeta(pim);
         // back button
         ItemStack back = new ItemStack(GUIChameleonTemplate.BACK_HELP.material(), 1);
         ItemMeta bk = back.getItemMeta();
-        bk.setDisplayName(plugin.getChameleonGuis().getString("BACK_HELP"));
+        bk.displayName(Component.text(plugin.getChameleonGuis().getString("BACK_HELP")));
         back.setItemMeta(bk);
         // close
         ItemStack close = new ItemStack(GUILights.CLOSE.material(), 1);
         ItemMeta clim = close.getItemMeta();
-        clim.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        clim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(clim);
         return new ItemStack[]{
                 null, i_info, null, null, null, null, null, e_info, null,

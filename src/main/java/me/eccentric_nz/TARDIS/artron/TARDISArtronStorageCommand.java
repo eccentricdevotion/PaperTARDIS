@@ -23,6 +23,8 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisArtron;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -76,7 +78,7 @@ public class TARDISArtronStorageCommand implements CommandExecutor {
                 return true;
             }
             ItemMeta im = is.getItemMeta();
-            if (!im.hasDisplayName() || !im.getDisplayName().endsWith("Artron Storage Cell")) {
+            if (!im.hasDisplayName() || !TARDISStringUtils.stripColour(im.displayName()).endsWith("Artron Storage Cell")) {
                 plugin.getMessenger().send(player, TardisModule.TARDIS, "CELL_IN_HAND");
                 return true;
             }
@@ -97,7 +99,7 @@ public class TARDISArtronStorageCommand implements CommandExecutor {
                     return true;
                 }
                 ItemMeta offMeta = offhand.getItemMeta();
-                if (!offMeta.hasDisplayName() || !offMeta.getDisplayName().endsWith("Artron Storage Cell")) {
+                if (!offMeta.hasDisplayName() || !TARDISStringUtils.stripColour(offMeta.displayName()).endsWith("Artron Storage Cell")) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "CELL_IN_HAND");
                     return true;
                 }
@@ -158,8 +160,8 @@ public class TARDISArtronStorageCommand implements CommandExecutor {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "CELL_NOT_ENOUGH");
                     return true;
                 }
-                List<String> lore = im.getLore();
-                int level = TARDISNumberParsers.parseInt(lore.get(1));
+                List<Component> lore = im.lore();
+                int level = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(1)));
                 if (level < 0) {
                     level = 0;
                 }
@@ -168,8 +170,8 @@ public class TARDISArtronStorageCommand implements CommandExecutor {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "CELL_NO_CHARGE", String.format("%d", (max - level)));
                     return false;
                 }
-                lore.set(1, "" + new_amount);
-                im.setLore(lore);
+                lore.set(1, Component.text(new_amount));
+                im.lore(lore);
                 im.setEnchantmentGlintOverride(true);
                 im.addItemFlags(ItemFlag.values());
                 im.setAttributeModifiers(Multimaps.forMap(Map.of()));
@@ -193,14 +195,14 @@ public class TARDISArtronStorageCommand implements CommandExecutor {
     }
 
     private int getLevel(ItemMeta im) {
-        String lore = im.getLore().get(1);
+        String lore = TARDISStringUtils.stripColour(im.lore().get(1));
         return TARDISNumberParsers.parseInt(lore);
     }
 
     private void setLevel(ItemStack is, ItemMeta im, int level, Player player, boolean main) {
-        List<String> lore = im.getLore();
-        lore.set(1, "" + level);
-        im.setLore(lore);
+        List<Component> lore = im.lore();
+        lore.set(1, Component.text(level));
+        im.lore(lore);
         // add glint if missing
         if (main && !im.hasEnchantmentGlintOverride()) {
             im.removeEnchant(Enchantment.UNBREAKING);

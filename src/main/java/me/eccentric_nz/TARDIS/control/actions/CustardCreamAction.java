@@ -19,6 +19,9 @@ package me.eccentric_nz.TARDIS.control.actions;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.artron.TARDISArtronLevels;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -55,7 +58,7 @@ public class CustardCreamAction {
         if (tardisArtronLevels.checkLevel(id, plugin.getArtronConfig().getInt("custard_cream"), player)) {
             ItemStack cookie = new ItemStack(Material.COOKIE, 1);
             ItemMeta im = cookie.getItemMeta();
-            im.setDisplayName("Custard Cream");
+            im.displayName(Component.text("Custard Cream", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
             cookie.setItemMeta(im);
             // put cookie on top of the block
             Location location = block.getLocation().add(0.5, 1.0, 0.5);

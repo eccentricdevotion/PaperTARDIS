@@ -23,7 +23,6 @@ import me.eccentric_nz.TARDIS.custommodels.keys.SwitchVariant;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -31,7 +30,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -44,7 +42,7 @@ public class TARDISTelepathicInventory implements InventoryHolder {
     public TARDISTelepathicInventory(TARDIS plugin, Player player) {
         this.plugin = plugin;
         this.player = player;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Telepathic Circuit", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Telepathic Circuit", NamedTextColor.DARK_RED));
         this.inventory.setContents(getButtons());
     }
 
@@ -59,12 +57,12 @@ public class TARDISTelepathicInventory implements InventoryHolder {
         // get current telepathic status
         ResultSetPlayerPrefs rsp = new ResultSetPlayerPrefs(plugin, player.getUniqueId().toString());
         boolean on = (rsp.resultSet() && rsp.isTelepathyOn());
-        String onOff = on ? ChatColor.GREEN + "ON" : ChatColor.RED + "OFF" ;
+        Component onOff = on ? Component.text("ON", NamedTextColor.GREEN) : Component.text("OFF", NamedTextColor.RED);
         // toggling telepathic circuit on/off
         ItemStack toggle = new ItemStack(Material.REPEATER);
         ItemMeta tim = toggle.getItemMeta();
-        tim.setDisplayName("Telepathic Circuit");
-        tim.setLore(List.of(onOff));
+        tim.displayName(Component.text("Telepathic Circuit"));
+        tim.lore(List.of(onOff));
         CustomModelDataComponent component = tim.getCustomModelDataComponent();
         component.setFloats(on ? SwitchVariant.TELEPATHIC_CIRCUIT_ON.getFloats() : SwitchVariant.TELEPATHIC_CIRCUIT_OFF.getFloats());
         tim.setCustomModelDataComponent(component);
@@ -74,8 +72,11 @@ public class TARDISTelepathicInventory implements InventoryHolder {
         if (TARDISPermission.hasPermission(player, "tardis.timetravel.cave")) {
             ItemStack cave = new ItemStack(Material.DRIPSTONE_BLOCK);
             ItemMeta cim = cave.getItemMeta();
-            cim.setDisplayName("Cave Finder");
-            cim.setLore(List.of("Search for a cave", "to travel to."));
+            cim.displayName(Component.text("Cave Finder"));
+            cim.lore(List.of(
+                    Component.text("Search for a cave"),
+                    Component.text("to travel to.")
+            ));
             cave.setItemMeta(cim);
             stack[2] = cave;
         }
@@ -83,8 +84,11 @@ public class TARDISTelepathicInventory implements InventoryHolder {
         if (TARDISPermission.hasPermission(player, "tardis.timetravel.village")) {
             ItemStack structure = new ItemStack(Material.HAY_BLOCK);
             ItemMeta sim = structure.getItemMeta();
-            sim.setDisplayName("Structure Finder");
-            sim.setLore(List.of("Search for a structure", "to travel to."));
+            sim.displayName(Component.text("Structure Finder"));
+            sim.lore(List.of(
+                    Component.text("Search for a structure"),
+                    Component.text("to travel to.")
+            ));
             structure.setItemMeta(sim);
             stack[4] = structure;
         }
@@ -92,15 +96,18 @@ public class TARDISTelepathicInventory implements InventoryHolder {
         if (TARDISPermission.hasPermission(player, "tardis.timetravel.biome")) {
             ItemStack biome = new ItemStack(Material.BAMBOO_MOSAIC);
             ItemMeta bim = biome.getItemMeta();
-            bim.setDisplayName("Biome Finder");
-            bim.setLore(List.of("Search for a biome", "to travel to."));
+            bim.displayName(Component.text("Biome Finder"));
+            bim.lore(List.of(
+                    Component.text("Search for a biome"),
+                    Component.text("to travel to.")
+            ));
             biome.setItemMeta(bim);
             stack[6] = biome;
         }
         // close
         ItemStack close = new ItemStack(GUIMap.BUTTON_CLOSE.material(), 1);
         ItemMeta gui = close.getItemMeta();
-        gui.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        gui.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         gui.setItemModel(GUIMap.BUTTON_CLOSE.key());
         close.setItemMeta(gui);
         stack[8] = close;

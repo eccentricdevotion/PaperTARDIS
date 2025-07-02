@@ -26,7 +26,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ class TARDISHumInventory implements InventoryHolder {
 
     TARDISHumInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 18, Component.text("TARDIS Interior Sounds", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 18, Component.text("TARDIS Interior Sounds", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -64,7 +63,7 @@ class TARDISHumInventory implements InventoryHolder {
         for (Hum hum : Hum.values()) {
             ItemStack is = new ItemStack(Material.BOWL, 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(hum.toString());
+            im.displayName(Component.text(hum.toString()));
             is.setItemMeta(im);
             options.add(is);
         }
@@ -80,14 +79,14 @@ class TARDISHumInventory implements InventoryHolder {
         // play / save
         ItemStack play = new ItemStack(GUIInteriorSounds.ACTION.material(), 1);
         ItemMeta save = play.getItemMeta();
-        save.setDisplayName("Action");
-        save.setLore(List.of("PLAY"));
+        save.displayName(Component.text("Action"));
+        save.lore(List.of(Component.text("PLAY")));
         play.setItemMeta(save);
         stack[GUIInteriorSounds.ACTION.slot()] = play;
         // close
         ItemStack close = new ItemStack(GUIInteriorSounds.CLOSE.material(), 1);
         ItemMeta c_im = close.getItemMeta();
-        c_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        c_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(c_im);
         stack[GUIInteriorSounds.CLOSE.slot()] = close;
 

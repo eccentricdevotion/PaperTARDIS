@@ -19,6 +19,8 @@ package me.eccentric_nz.TARDIS.customblocks;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Levelled;
@@ -217,7 +219,7 @@ public class TARDISDisplayItemUtils {
         // spawn an item display entity
         ItemStack is = new ItemStack(tdi.getMaterial(), 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + tdi.getDisplayName());
+        im.displayName(Component.text(tdi.getDisplayName(), NamedTextColor.WHITE));
         im.getPersistentDataContainer().set(TARDIS.plugin.getCustomBlockKey(), PersistentDataType.STRING, tdi.getCustomModel().getKey());
         is.setItemMeta(im);
         Location l = new Location(world, x + 0.5d, y + 0.5d, z + 0.5d);
@@ -266,7 +268,7 @@ public class TARDISDisplayItemUtils {
         Material material = (tdi == TARDISDisplayItem.CLASSIC_DOOR || tdi == TARDISDisplayItem.BONE_DOOR) ? tdi.getCraftMaterial() : tdi.getMaterial();
         ItemStack is = new ItemStack(material, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + tdi.getDisplayName());
+        im.displayName(Component.text(tdi.getDisplayName(), NamedTextColor.WHITE));
         im.getPersistentDataContainer().set(TARDIS.plugin.getCustomBlockKey(), PersistentDataType.STRING, tdi.getCustomModel().getKey());
         is.setItemMeta(im);
         double ay = (tdi == TARDISDisplayItem.DOOR || tdi == TARDISDisplayItem.CLASSIC_DOOR || tdi == TARDISDisplayItem.BONE_DOOR) ? 0.0d : 0.5d;

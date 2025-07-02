@@ -20,7 +20,9 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.custommodels.keys.SonicVariant;
 import me.eccentric_nz.TARDIS.recipes.shaped.SonicScrewdriverRecipe;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -49,7 +51,7 @@ public class BrushUpgradeRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.BLAZE_ROD, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Brush Upgrade");
+        im.displayName(Component.text("Brush Upgrade", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         List<Float> sonicModel = SonicScrewdriverRecipe.sonicModelLookup.getOrDefault(plugin.getConfig().getString("sonic.default_model").toLowerCase(Locale.ROOT), SonicVariant.ELEVENTH.getFloats());
         CustomModelDataComponent component = im.getCustomModelDataComponent();
         component.setFloats(sonicModel);
@@ -60,7 +62,7 @@ public class BrushUpgradeRecipe {
         r.addIngredient(Material.BLAZE_ROD);
         ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta em = exact.getItemMeta();
-        em.setDisplayName(ChatColor.WHITE + "Brush Circuit");
+        em.displayName(Component.text("Brush Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         CustomModelDataComponent ecomponent = em.getCustomModelDataComponent();
         ecomponent.setFloats(CircuitVariant.BRUSH.getFloats());
         em.setCustomModelDataComponent(ecomponent);

@@ -24,8 +24,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,7 +42,7 @@ public class TARDISTemporalLocatorInventory implements InventoryHolder {
 
     public TARDISTemporalLocatorInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("Temporal Locator", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("Temporal Locator", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -62,14 +62,18 @@ public class TARDISTemporalLocatorInventory implements InventoryHolder {
             ItemStack is = new ItemStack(clock.getMaterial(), 1);
             ItemMeta im = is.getItemMeta();
             if (clock.ordinal() < 4) {
-                im.setDisplayName(plugin.getLanguage().getString(clock.toString()));
+                im.displayName(Component.text(plugin.getLanguage().getString(clock.toString())));
             } else {
-                im.setDisplayName(clock.getName());
+                im.displayName(Component.text(clock.getName()));
             }
             if (clock.getLore().contains("~")) {
-                im.setLore(List.of(clock.getLore().split("~")));
+                List<Component> lore = new ArrayList<>();
+                for (String s : clock.getLore().split("~")) {
+                    lore.add(Component.text(s));
+                }
+                im.lore(lore);
             } else {
-                im.setLore(List.of(clock.getLore()));
+                im.lore(List.of(Component.text(clock.getLore())));
             }
             im.setItemModel(clock.getModel());
             is.setItemMeta(im);

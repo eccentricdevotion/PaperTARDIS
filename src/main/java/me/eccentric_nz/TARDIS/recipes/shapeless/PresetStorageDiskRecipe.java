@@ -18,7 +18,9 @@ package me.eccentric_nz.TARDIS.recipes.shapeless;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -47,25 +49,25 @@ public class PresetStorageDiskRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.MUSIC_DISC_MALL, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Preset Storage Disk");
-        im.setLore(List.of("Blank"));
+        im.displayName(Component.text("Preset Storage Disk", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.lore(List.of(Component.text("Blank")));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "preset_storage_disk");
         ShapelessRecipe r = new ShapelessRecipe(key, is);
         r.addIngredient(Material.MUSIC_DISC_STRAD);
         ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta em = exact.getItemMeta();
-        em.setDisplayName(ChatColor.WHITE + "TARDIS Chameleon Circuit");
+        em.displayName(Component.text("TARDIS Chameleon Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         CustomModelDataComponent ecomponent = em.getCustomModelDataComponent();
         ecomponent.setFloats(CircuitVariant.CHAMELEON.getFloats());
         em.setCustomModelDataComponent(ecomponent);
         // set the second line of lore
-        List<String> circuit;
-        String uses = (plugin.getConfig().getString("circuits.uses.chameleon").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
-                ? ChatColor.YELLOW + "unlimited"
-                : ChatColor.YELLOW + plugin.getConfig().getString("circuits.uses.chameleon");
-        circuit = List.of("Uses left", uses);
-        em.setLore(circuit);
+        List<Component> circuit;
+        Component uses = (plugin.getConfig().getString("circuits.uses.chameleon", "25").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
+                ? Component.text("unlimited", NamedTextColor.YELLOW)
+                : Component.text(plugin.getConfig().getString("circuits.uses.chameleon", "25"), NamedTextColor.YELLOW);
+        circuit = List.of(Component.text("Uses left"), uses);
+        em.lore(circuit);
         exact.setItemMeta(em);
         r.addIngredient(new RecipeChoice.ExactChoice(exact));
         plugin.getServer().addRecipe(r);

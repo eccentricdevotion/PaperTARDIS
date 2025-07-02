@@ -21,15 +21,15 @@ import me.eccentric_nz.TARDIS.custommodels.GUIKeyPreferences;
 import me.eccentric_nz.TARDIS.custommodels.keys.KeyVariant;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
-import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +43,7 @@ class TARDISKeyMenuInventory implements InventoryHolder {
     private final Inventory inventory;
 
     TARDISKeyMenuInventory(TARDIS plugin) {
-        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Key Prefs Menu", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Key Prefs Menu", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -70,17 +70,21 @@ class TARDISKeyMenuInventory implements InventoryHolder {
             ItemStack is = new ItemStack(key.getMaterial(), 1);
             ItemMeta im = is.getItemMeta();
             if (key == GUIKeyPreferences.CLOSE || key == GUIKeyPreferences.INSTRUCTIONS || key == GUIKeyPreferences.NAME || key == GUIKeyPreferences.DISPLAY_NAME_COLOUR) {
-                im.setDisplayName(key.getName());
+                im.displayName(Component.text(key.getName()));
             } else {
                 is.setType(material);
-                im.setDisplayName(ChatColor.WHITE + "TARDIS Key");
+                im.displayName(Component.text("TARDIS Key", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
             }
             if (!key.getLore().isEmpty()) {
                 if (key.getLore().contains("~")) {
                     String[] split = key.getLore().split("~");
-                    im.setLore(List.of(split));
+                    List<Component> components = new ArrayList<>();
+                    for (String s : split) {
+                        components.add(Component.text(s));
+                    }
+                    im.lore(components);
                 } else {
-                    im.setLore(List.of(key.getLore()));
+                    im.lore(List.of(Component.text(key.getLore())));
                 }
             }
             if (key.getSlot() < 17) {

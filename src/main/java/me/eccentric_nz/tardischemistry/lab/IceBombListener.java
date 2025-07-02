@@ -20,6 +20,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.api.Parameters;
 import me.eccentric_nz.TARDIS.enumeration.Flag;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -49,7 +50,7 @@ public class IceBombListener implements Listener {
             ProjectileSource shooter = snowball.getShooter();
             if (shooter instanceof Player player) {
                 ItemStack is = player.getInventory().getItemInMainHand();
-                if (is.getType() == Material.SNOWBALL && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && is.getItemMeta().getDisplayName().endsWith("Ice Bomb")) {
+                if (is.getType() == Material.SNOWBALL && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && TARDISStringUtils.endsWith(is.getItemMeta().displayName(), "Ice Bomb")) {
                     snowball.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, "Ice_Bomb");
                 }
             }

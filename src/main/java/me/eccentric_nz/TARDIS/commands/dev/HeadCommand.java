@@ -1,11 +1,11 @@
 package me.eccentric_nz.TARDIS.commands.dev;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
 import me.eccentric_nz.TARDIS.TARDIS;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
 
 import java.net.MalformedURLException;
@@ -31,14 +31,14 @@ public class HeadCommand {
         plugin.debug(withDashes);
         try {
             UUID uuid = UUID.fromString(withDashes);
-            PlayerProfile profile = plugin.getServer().createPlayerProfile(uuid);
+            PlayerProfile profile = plugin.getServer().createProfile(uuid);
             PlayerTextures textures = profile.getTextures();
             URL url = URI.create("http://textures.minecraft.net/texture/3583ce755f1fc238393e11f64b7214d9602075c214b9ed99cec4e35cf1e24c4").toURL();
             textures.setSkin(url);
             profile.setTextures(textures);
             ItemStack is = new ItemStack(Material.PLAYER_HEAD);
             SkullMeta im = (SkullMeta) is.getItemMeta();
-            im.setOwnerProfile(profile);
+            im.setPlayerProfile(profile);
             is.setItemMeta(im);
             player.getInventory().addItem(is);
         } catch (IllegalArgumentException | MalformedURLException e) {

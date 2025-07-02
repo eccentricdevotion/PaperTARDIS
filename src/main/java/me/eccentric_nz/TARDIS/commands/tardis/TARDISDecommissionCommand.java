@@ -26,6 +26,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.enumeration.Updateable;
 import me.eccentric_nz.TARDIS.rotors.TARDISTimeRotor;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -55,7 +56,7 @@ class TARDISDecommissionCommand {
             }
             HashMap<String, Object> where = new HashMap<>();
             UUID playerUUID = player.getUniqueId();
-            UUID uuid = (TARDISSudoTracker.SUDOERS.containsKey(playerUUID)) ? TARDISSudoTracker.SUDOERS.get(playerUUID) : playerUUID;
+            UUID uuid = TARDISSudoTracker.SUDOERS.getOrDefault(playerUUID, playerUUID);
             where.put("uuid", uuid);
             ResultSetTardis rs = new ResultSetTardis(plugin, where, "", false);
             if (!rs.resultSet()) {
@@ -101,7 +102,7 @@ class TARDISDecommissionCommand {
                             case MONITOR -> {
                                 ItemStack monitor = new ItemStack(Material.MAP);
                                 ItemMeta im = monitor.getItemMeta();
-                                im.setDisplayName("TARDIS Monitor");
+                                im.displayName(Component.text("TARDIS Monitor"));
                                 monitor.setItemMeta(im);
                                 itemFrame.setItem(monitor);
                             }
@@ -109,7 +110,7 @@ class TARDISDecommissionCommand {
                                 // reinstate display name
                                 ItemStack glass = itemFrame.getItem();
                                 ItemMeta im = glass.getItemMeta();
-                                im.setDisplayName("Monitor Frame");
+                                im.displayName(Component.text("Monitor Frame"));
                                 glass.setItemMeta(im);
                             }
                             case SONIC_DOCK -> {

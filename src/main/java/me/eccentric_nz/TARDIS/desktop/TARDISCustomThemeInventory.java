@@ -25,7 +25,6 @@ import me.eccentric_nz.TARDIS.enumeration.Schematic;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -52,7 +51,7 @@ public class TARDISCustomThemeInventory extends TARDISThemeInventory {
         this.player = player;
         this.current_console = current_console;
         this.level = level;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Upgrade Menu", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS Upgrade Menu", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -78,21 +77,28 @@ public class TARDISCustomThemeInventory extends TARDISThemeInventory {
             // info
             ItemStack info = new ItemStack(GUIChameleonConstructor.INFO.material(), 1);
             ItemMeta io = info.getItemMeta();
-            io.setDisplayName("Info");
-            io.setLore(List.of("Shift-left click", "a console block", "to transmat to a", "desktop preview.", "Type 'done' in", "chat to return."));
+            io.displayName(Component.text("Info"));
+            io.lore(List.of(
+                    Component.text("Shift-left click"),
+                    Component.text("a console block"),
+                    Component.text("to transmat to a"),
+                    Component.text("desktop preview."),
+                    Component.text("Type 'done' in"),
+                    Component.text("chat to return.")
+            ));
             info.setItemMeta(io);
             stack[GUIUpgrade.INFO.slot()] = info;
         }
         // built-in consoles page
         ItemStack custom = new ItemStack(GUIChameleonPoliceBoxes.GO_TO_PAGE_1.material(), 1);
         ItemMeta custom_im = custom.getItemMeta();
-        custom_im.setDisplayName(plugin.getLanguage().getString("BUTTON_PAGE_1"));
+        custom_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_1")));
         custom.setItemMeta(custom_im);
         stack[GUIChameleonPoliceBoxes.GO_TO_PAGE_1.slot()] = custom;
         // close
         ItemStack close = new ItemStack(GUIChameleonPoliceBoxes.CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);
         stack[GUIChameleonPoliceBoxes.CLOSE.slot()] = close;
 

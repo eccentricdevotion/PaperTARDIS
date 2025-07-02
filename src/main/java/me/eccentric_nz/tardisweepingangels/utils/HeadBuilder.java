@@ -21,7 +21,9 @@ import me.eccentric_nz.TARDIS.custommodels.keys.EmptyChildVariant;
 import me.eccentric_nz.TARDIS.custommodels.keys.K9Variant;
 import me.eccentric_nz.TARDIS.custommodels.keys.VampireOfVeniceVariant;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.EquipmentSlot;
@@ -53,7 +55,7 @@ public class HeadBuilder {
             case MIRE -> "Mire Helmet";
             default -> monster.getName() + " Head";
         };
-        im.setDisplayName(ChatColor.WHITE + head);
+        im.displayName(Component.text(head, NamedTextColor.WHITE));
         im.setItemModel(model);
         EquippableComponent component = im.getEquippable();
         component.setSlot(EquipmentSlot.HEAD);
@@ -72,7 +74,7 @@ public class HeadBuilder {
     public static ItemStack getK9() {
         ItemStack is = new ItemStack(Material.BONE);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "K9");
+        im.displayName(Component.text("K9", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         im.setItemModel(K9Variant.K9.getKey());
         is.setItemMeta(im);
         return is;

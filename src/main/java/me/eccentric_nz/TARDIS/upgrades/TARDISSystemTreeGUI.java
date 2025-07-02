@@ -20,7 +20,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.data.SystemUpgrade;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -39,7 +39,7 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
     public TARDISSystemTreeGUI(TARDIS plugin, SystemUpgrade sysData) {
         this.plugin = plugin;
         this.sysData = sysData;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS System Upgrades", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("TARDIS System Upgrades", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStacks());
     }
 
@@ -59,9 +59,12 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
             if (g.getSlot() != -1) {
                 ItemStack is = new ItemStack(g.getMaterial(), 1);
                 ItemMeta im = is.getItemMeta();
-                String prefix = (g.getBranch().equals("branch")) ? ChatColor.GOLD + "" + ChatColor.ITALIC : "";
-                im.setDisplayName(prefix + g.getName());
-                List<String> lore = new ArrayList<>(g.getLore());
+                if (g.getBranch().equals("branch")) {
+                    im.displayName(Component.text(g.getName(), NamedTextColor.GOLD).decorate(TextDecoration.ITALIC));
+                } else {
+                    im.displayName(Component.text(g.getName()));
+                }
+                List<Component> lore = new ArrayList<>(g.getLore());
                 boolean has = sysData.getUpgrades().get(g);
                 if (!has) {
                     String cost;
@@ -70,14 +73,14 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
                     } else {
                         cost = plugin.getSystemUpgradesConfig().getString(g.getBranch() + "." + g.toString().toLowerCase(Locale.ROOT));
                     }
-                    lore.add(ChatColor.AQUA + "" + ChatColor.ITALIC + "Cost: " + cost);
+                    lore.add(Component.text("Cost: " + cost, NamedTextColor.AQUA).decorate(TextDecoration.ITALIC));
                 } else if (g != SystemTree.UPGRADE_TREE) {
-                    lore.add(ChatColor.GREEN + "" + ChatColor.ITALIC + "Unlocked");
+                    lore.add(Component.text("Unlocked", NamedTextColor.GREEN).decorate(TextDecoration.ITALIC));
                 } else {
                     // add players current Artron level to UPGRADE_TREE
-                    lore.add(ChatColor.AQUA + "" + ChatColor.ITALIC + "Artron Level: " + sysData.getArtronLevel());
+                    lore.add(Component.text("Artron Level: " + sysData.getArtronLevel(), NamedTextColor.AQUA).decorate(TextDecoration.ITALIC));
                 }
-                im.setLore(lore);
+                im.lore(lore);
                 // does the player have this system upgrade?
                 im.setItemModel((has) ? g.getUnlocked() : g.getLocked());
                 is.setItemMeta(im);
@@ -87,7 +90,7 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
         // left_down
         ItemStack ld = new ItemStack(SystemTree.LEFT_DOWN.getMaterial(), 1);
         ItemMeta eft = ld.getItemMeta();
-        eft.setDisplayName(ChatColor.WHITE + "");
+        eft.displayName(Component.text("", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         eft.setItemModel(SystemTree.LEFT_DOWN.getLocked());
         ld.setItemMeta(eft);
         stacks[0] = ld;
@@ -95,7 +98,7 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
         int[] horizontal = new int[]{1, 3, 5, 7};
         ItemStack his = new ItemStack(SystemTree.H_LINE.getMaterial(), 1);
         ItemMeta him = his.getItemMeta();
-        him.setDisplayName(ChatColor.WHITE + "");
+        him.displayName(Component.text("", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         him.setItemModel(SystemTree.H_LINE.getLocked());
         his.setItemMeta(him);
         for (int h : horizontal) {
@@ -105,7 +108,7 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
         int[] both_down = new int[]{2, 6};
         ItemStack bd = new ItemStack(SystemTree.BOTH_DOWN.getMaterial(), 1);
         ItemMeta bdim = bd.getItemMeta();
-        bdim.setDisplayName(ChatColor.WHITE + "");
+        bdim.displayName(Component.text("", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         bdim.setItemModel(SystemTree.BOTH_DOWN.getLocked());
         bd.setItemMeta(bdim);
         for (int d : both_down) {
@@ -114,28 +117,28 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
         // right_down
         ItemStack rd = new ItemStack(SystemTree.RIGHT_DOWN.getMaterial(), 1);
         ItemMeta own = rd.getItemMeta();
-        own.setDisplayName(ChatColor.WHITE + "");
+        own.displayName(Component.text("", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         own.setItemModel(SystemTree.RIGHT_DOWN.getLocked());
         rd.setItemMeta(own);
         stacks[8] = rd;
         // background
         ItemStack is = new ItemStack(SystemTree.BLANK.getMaterial(), 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "");
+        im.displayName(Component.text("", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         im.setItemModel(SystemTree.BLANK.getLocked());
         is.setItemMeta(im);
         stacks[10] = is;
         // vertical
         ItemStack vert = new ItemStack(SystemTree.VERTICAL.getMaterial(), 1);
         ItemMeta ical = vert.getItemMeta();
-        ical.setDisplayName(ChatColor.WHITE + "");
+        ical.displayName(Component.text("", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         ical.setItemModel(SystemTree.VERTICAL.getLocked());
         vert.setItemMeta(ical);
         stacks[13] = vert;
         // close
         ItemStack close = new ItemStack(SystemTree.CLOSE.getMaterial(), 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close_im.setItemModel(SystemTree.CLOSE.getLocked());
         close.setItemMeta(close_im);
         stacks[45] = close;

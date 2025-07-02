@@ -37,7 +37,7 @@ class TARDISRegulatorInventory implements InventoryHolder {
     private final Inventory inventory;
 
     TARDISRegulatorInventory(TARDIS plugin) {
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Helmic Regulator", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Helmic Regulator", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -59,31 +59,31 @@ class TARDISRegulatorInventory implements InventoryHolder {
         // direction pad up
         ItemStack pad_up = new ItemStack(Material.LIME_WOOL, 1);
         ItemMeta up = pad_up.getItemMeta();
-        up.setDisplayName("Up");
+        up.displayName(Component.text("Up"));
         pad_up.setItemMeta(up);
         is[16] = pad_up;
         // regulator
         ItemStack wobb = new ItemStack(Material.BLUE_WOOL, 1);
         ItemMeta ler = wobb.getItemMeta();
-        ler.setDisplayName("Regulator");
+        ler.displayName(Component.text("Regulator"));
         wobb.setItemMeta(ler);
         is[20] = wobb;
         // direction pad left
         ItemStack pad_left = new ItemStack(Material.LIME_WOOL, 1);
         ItemMeta left = pad_left.getItemMeta();
-        left.setDisplayName("Left");
+        left.displayName(Component.text("Left"));
         pad_left.setItemMeta(left);
         is[24] = pad_left;
         // direction pad right
         ItemStack pad_right = new ItemStack(Material.LIME_WOOL, 1);
         ItemMeta right = pad_right.getItemMeta();
-        right.setDisplayName("Right");
+        right.displayName(Component.text("Right"));
         pad_right.setItemMeta(right);
         is[26] = pad_right;
         // direction pad down
         ItemStack pad_down = new ItemStack(Material.LIME_WOOL, 1);
         ItemMeta down = pad_down.getItemMeta();
-        down.setDisplayName("Down");
+        down.displayName(Component.text("Down"));
         pad_down.setItemMeta(down);
         is[34] = pad_down;
 

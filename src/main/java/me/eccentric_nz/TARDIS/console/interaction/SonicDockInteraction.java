@@ -19,6 +19,7 @@ package me.eccentric_nz.TARDIS.console.interaction;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.console.models.SonicDockModel;
 import me.eccentric_nz.TARDIS.sonic.TARDISSonicDock;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Interaction;
 import org.bukkit.entity.ItemDisplay;
@@ -44,7 +45,7 @@ public class SonicDockInteraction {
         ItemStack is = player.getInventory().getItemInMainHand();
         if (is.getType().equals(Material.BLAZE_ROD) && is.hasItemMeta()) {
             ItemMeta im = player.getInventory().getItemInMainHand().getItemMeta();
-            if (im.getDisplayName().endsWith("Sonic Screwdriver")) {
+            if (TARDISStringUtils.endsWith(im.displayName(), "Sonic Screwdriver")) {
                 new TARDISSonicDock(plugin).dock(id, interaction, player, is);
                 activate = true;
             }

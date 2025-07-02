@@ -29,7 +29,8 @@ import me.eccentric_nz.TARDIS.enumeration.Advancement;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -77,28 +78,27 @@ public class TARDISCondenserListener implements Listener {
     public void onCondenserClose(InventoryCloseEvent event) {
         InventoryView view = event.getView();
         InventoryHolder holder = event.getInventory().getHolder(false);
-        String title = view.getTitle();
-        if (holder instanceof Chest chest) {
-            if (!title.equals(ChatColor.DARK_RED + "Artron Condenser") && !title.equals(ChatColor.DARK_RED + "Server Condenser")) {
+        if (holder instanceof ArtronCondenserInventory chest) {
+            if (!chest.getTitle().equals("Artron Condenser") && !chest.getTitle().equals("Server Condenser")) {
                 return;
             }
             Player player = (Player) event.getPlayer();
-            Location loc = chest.getLocation();
-            String chest_loc = loc.toString();
+            Location location = chest.getLocation();
+            String chestLocation = location.toString();
             ResultSetTardis rs;
             boolean isCondenser;
             HashMap<String, Object> where = new HashMap<>();
-            if (title.equals(ChatColor.DARK_RED + "Artron Condenser")) {
+            if (chest.getTitle().equals("Artron Condenser")) {
                 if (plugin.getConfig().getBoolean("preferences.no_creative_condense")) {
                     switch (plugin.getWorldManager()) {
                         case MULTIVERSE -> {
-                            if (!plugin.getMVHelper().isWorldSurvival(loc.getWorld())) {
+                            if (!plugin.getMVHelper().isWorldSurvival(location.getWorld())) {
                                 plugin.getMessenger().send(player, TardisModule.TARDIS, "CONDENSE_NO_CREATIVE");
                                 return;
                             }
                         }
                         case NONE -> {
-                            if (plugin.getPlanetsConfig().getString("planets." + loc.getWorld().getName() + ".gamemode").equalsIgnoreCase("CREATIVE")) {
+                            if (plugin.getPlanetsConfig().getString("planets." + location.getWorld().getName() + ".gamemode", "SURVIVAL").equalsIgnoreCase("CREATIVE")) {
                                 plugin.getMessenger().send(player, TardisModule.TARDIS, "CONDENSE_NO_CREATIVE");
                                 return;
                             }
@@ -106,7 +106,7 @@ public class TARDISCondenserListener implements Listener {
                     }
                 }
                 where.put("type", 34);
-                where.put("location", chest_loc);
+                where.put("location", chestLocation);
                 ResultSetControls rsc = new ResultSetControls(plugin, where, false);
                 if (rsc.resultSet()) {
                     HashMap<String, Object> wheret = new HashMap<>();
@@ -119,7 +119,7 @@ public class TARDISCondenserListener implements Listener {
             } else {
                 where.put("uuid", player.getUniqueId().toString());
                 rs = new ResultSetTardis(plugin, where, "", false);
-                isCondenser = (plugin.getArtronConfig().contains("condenser") && plugin.getArtronConfig().getString("condenser").equals(chest_loc) && rs.resultSet());
+                isCondenser = (plugin.getArtronConfig().contains("condenser") && plugin.getArtronConfig().getString("condenser", "").equals(chestLocation) && rs.resultSet());
             }
             if (!isCondenser) {
                 return;
@@ -147,35 +147,35 @@ public class TARDISCondenserListener implements Listener {
                     amount += (int) (plugin.getArtronConfig().getDouble("sonic_generator.standard") * full);
                     // add extra artron for any sonic upgrades
                     if (is.getItemMeta().hasLore()) {
-                        List<String> lore = is.getItemMeta().getLore();
-                        if (lore.contains("Bio-scanner Upgrade")) {
+                        List<Component> lore = is.getItemMeta().lore();
+                        if (lore.contains(Component.text("Bio-scanner Upgrade"))) {
                             amount += (int) (plugin.getArtronConfig().getDouble("sonic_generator.bio") * full);
                         }
-                        if (lore.contains("Diamond Upgrade")) {
+                        if (lore.contains(Component.text("Diamond Upgrade"))) {
                             amount += (int) (plugin.getArtronConfig().getDouble("sonic_generator.diamond") * full);
                         }
-                        if (lore.contains("Emerald Upgrade")) {
+                        if (lore.contains(Component.text("Emerald Upgrade"))) {
                             amount += (int) (plugin.getArtronConfig().getDouble("sonic_generator.emerald") * full);
                         }
-                        if (lore.contains("Redstone Upgrade")) {
+                        if (lore.contains(Component.text("Redstone Upgrade"))) {
                             amount += (int) (plugin.getArtronConfig().getDouble("sonic_generator.bio") * full);
                         }
-                        if (lore.contains("Painter Upgrade")) {
+                        if (lore.contains(Component.text("Painter Upgrade"))) {
                             amount += (int) (plugin.getArtronConfig().getDouble("sonic_generator.painter") * full);
                         }
-                        if (lore.contains("Ignite Upgrade")) {
+                        if (lore.contains(Component.text("Ignite Upgrade"))) {
                             amount += (int) (plugin.getArtronConfig().getDouble("sonic_generator.ignite") * full);
                         }
-                        if (lore.contains("Pickup Arrows Upgrade")) {
+                        if (lore.contains(Component.text("Pickup Arrows Upgrade"))) {
                             amount += (int) (plugin.getArtronConfig().getDouble("sonic_generator.arrow") * full);
                         }
-                        if (lore.contains("Knockback Upgrade")) {
+                        if (lore.contains(Component.text("Knockback Upgrade"))) {
                             amount += (int) (plugin.getArtronConfig().getDouble("sonic_generator.knockback") * full);
                         }
-                        if (lore.contains("Brush Upgrade")) {
+                        if (lore.contains(Component.text("Brush Upgrade"))) {
                             amount += (int) (plugin.getArtronConfig().getDouble("sonic_generator.brush") * full);
                         }
-                        if (lore.contains("Conversion Upgrade")) {
+                        if (lore.contains(Component.text("Conversion Upgrade"))) {
                             amount += (int) (plugin.getArtronConfig().getDouble("sonic_generator.conversion") * full);
                         }
                     }
@@ -345,9 +345,9 @@ public class TARDISCondenserListener implements Listener {
             // give one partially filled cell
             ItemStack leftover = result.clone();
             ItemMeta lim = leftover.getItemMeta();
-            List<String> lore = lim.getLore();
-            lore.set(1, "" + remainder);
-            lim.setLore(lore);
+            List<Component> lore = lim.lore();
+            lore.set(1, Component.text(remainder));
+            lim.lore(lore);
             lim.setEnchantmentGlintOverride(true);
             lim.addItemFlags(ItemFlag.values());
             lim.setAttributeModifiers(Multimaps.forMap(Map.of()));
@@ -358,9 +358,9 @@ public class TARDISCondenserListener implements Listener {
             // give full cells
             result.setAmount(finalFullCellCount);
             ItemMeta im = result.getItemMeta();
-            List<String> lore = im.getLore();
-            lore.set(1, "" + full);
-            im.setLore(lore);
+            List<Component> lore = im.lore();
+            lore.set(1, Component.text(full));
+            im.lore(lore);
             im.setEnchantmentGlintOverride(true);
             im.addItemFlags(ItemFlag.values());
             im.setAttributeModifiers(Multimaps.forMap(Map.of()));
@@ -393,7 +393,7 @@ public class TARDISCondenserListener implements Listener {
                 if (!plugin.getArtronConfig().contains("condenser")) {
                     return;
                 }
-                if (plugin.getArtronConfig().getString("condenser").equals(loc.toString())) {
+                if (plugin.getArtronConfig().getString("condenser", "").equals(loc.toString())) {
                     event.setCancelled(true);
                     openCondenser(b, event.getPlayer(), "Server Condenser");
                 }
@@ -401,17 +401,10 @@ public class TARDISCondenserListener implements Listener {
         }
     }
 
-    private void openCondenser(Block b, Player p, String title) {
-        InventoryHolder holder = (Chest) b.getState();
-        ItemStack[] is = holder.getInventory().getContents();
-        // check inv size
-        int inv_size = (is.length > 27) ? 54 : 27;
-        holder.getInventory().clear();
-        Inventory aec = plugin.getServer().createInventory(holder, inv_size, ChatColor.DARK_RED + title);
-        // set the contents to what was in the chest
-        aec.setContents(is);
-        p.playSound(p.getLocation(), Sound.BLOCK_CHEST_OPEN, 0.5f, 1);
-        p.openInventory(aec);
+    private void openCondenser(Block block, Player player, String title) {
+        InventoryHolder holder = (Chest) block.getState();
+        player.playSound(player.getLocation(), Sound.BLOCK_CHEST_OPEN, 0.5f, 1);
+        player.openInventory(new ArtronCondenserInventory(plugin, holder, title, block.getLocation()).getInventory());
     }
 
     private boolean isBlueprint(ItemStack is) {
@@ -421,7 +414,7 @@ public class TARDISCondenserListener implements Listener {
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
             if (im.hasDisplayName()) {
-                return im.getDisplayName().endsWith("TARDIS Blueprint Disk");
+                return TARDISStringUtils.stripColour(im.displayName()).endsWith("TARDIS Blueprint Disk");
             }
         }
         return false;

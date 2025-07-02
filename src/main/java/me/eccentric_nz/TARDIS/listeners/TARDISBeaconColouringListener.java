@@ -19,7 +19,6 @@ package me.eccentric_nz.TARDIS.listeners;
 import com.destroystokyo.paper.MaterialTags;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISMaterials;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;

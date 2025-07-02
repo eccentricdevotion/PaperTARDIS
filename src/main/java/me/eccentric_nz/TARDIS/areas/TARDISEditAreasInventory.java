@@ -28,7 +28,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TARDISEditAreasInventory implements InventoryHolder {
@@ -40,7 +39,7 @@ public class TARDISEditAreasInventory implements InventoryHolder {
     public TARDISEditAreasInventory(TARDIS plugin, int area_id) {
         this.plugin = plugin;
         this.area_id = area_id;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Area Locations", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Area Locations", NamedTextColor.DARK_RED));
         this.inventory.setContents(getLocations());
     }
 
@@ -58,14 +57,14 @@ public class TARDISEditAreasInventory implements InventoryHolder {
                 if (i < 45) {
                     ItemStack is = new ItemStack(Material.MAP);
                     ItemMeta im = is.getItemMeta();
-                    im.setDisplayName("Location " + (i + 1));
-                    List<String> lore = new ArrayList<>();
-                    lore.add(l.getWorld().getName());
-                    lore.add("x: " + l.getBlockX());
-                    lore.add("y: " + l.getBlockY());
-                    lore.add("z: " + l.getBlockZ());
-                    lore.add("id: " + area_id);
-                    im.setLore(lore);
+                    im.displayName(Component.text("Location " + (i + 1)));
+                    im.lore(List.of(
+                            Component.text(l.getWorld().getName()),
+                            Component.text("x: " + l.getBlockX()),
+                            Component.text("y: " + l.getBlockY()),
+                            Component.text("z: " + l.getBlockZ()),
+                            Component.text("id: " + area_id)
+                    ));
                     is.setItemMeta(im);
                     stacks[i] = is;
                     i++;
@@ -75,36 +74,36 @@ public class TARDISEditAreasInventory implements InventoryHolder {
         // Info
         ItemStack info = new ItemStack(Material.BOOK, 1);
         ItemMeta ii = info.getItemMeta();
-        ii.setDisplayName("Info");
-        ArrayList<String> info_lore = new ArrayList<>();
-        info_lore.add("To REMOVE a location");
-        info_lore.add("select a location map");
-        info_lore.add("then click the Remove");
-        info_lore.add("button (bucket).");
-        info_lore.add("To ADD the location");
-        info_lore.add("where you are standing");
-        info_lore.add("click the Add button");
-        info_lore.add("(nether star).");
-        ii.setLore(info_lore);
+        ii.displayName(Component.text("Info"));
+        ii.lore(List.of(
+                Component.text("To REMOVE a location"),
+                Component.text("select a location map"),
+                Component.text("then click the Remove"),
+                Component.text("button (bucket)."),
+                Component.text("To ADD the location"),
+                Component.text("where you are standing"),
+                Component.text("click the Add button"),
+                Component.text("(nether star).")
+        ));
         info.setItemMeta(ii);
         stacks[45] = info;
         // add
         ItemStack add = new ItemStack(Material.NETHER_STAR, 1);
         ItemMeta er = add.getItemMeta();
-        er.setDisplayName("Add");
-        er.setLore(List.of("area_id: " + area_id));
+        er.displayName(Component.text("Add"));
+        er.lore(List.of(Component.text("area_id: " + area_id)));
         add.setItemMeta(er);
         stacks[48] = add;
         // remove
         ItemStack del = new ItemStack(Material.BUCKET, 1);
         ItemMeta dd = del.getItemMeta();
-        dd.setDisplayName("Remove");
+        dd.displayName(Component.text("Remove"));
         del.setItemMeta(dd);
         stacks[50] = del;
         // close
         ItemStack close = new ItemStack(GUIMap.BUTTON_CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);
         stacks[53] = close;
         return stacks;

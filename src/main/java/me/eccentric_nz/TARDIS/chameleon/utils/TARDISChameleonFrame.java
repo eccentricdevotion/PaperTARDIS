@@ -18,6 +18,7 @@ package me.eccentric_nz.TARDIS.chameleon.utils;
 
 import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
@@ -35,7 +36,7 @@ public class TARDISChameleonFrame {
                     if (compareLocations(e.getLocation(), location)) {
                         ItemStack is = new ItemStack(preset.getGuiDisplay());
                         ItemMeta im = is.getItemMeta();
-                        im.setDisplayName(preset.toString());
+                        im.displayName(Component.text(preset.toString()));
                         is.setItemMeta(im);
                         frame.setItem(is, true);
                         break;

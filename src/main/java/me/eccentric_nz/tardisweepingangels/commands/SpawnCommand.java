@@ -35,6 +35,7 @@ import me.eccentric_nz.tardisweepingangels.monsters.silent.SilentEquipment;
 import me.eccentric_nz.tardisweepingangels.monsters.toclafane.ToclafaneEquipment;
 import me.eccentric_nz.tardisweepingangels.nms.MonsterSpawner;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
+import net.kyori.adventure.text.Component;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -126,7 +127,7 @@ public class SpawnCommand {
                                 }
                                 ItemStack helmet = new ItemStack(Material.SLIME_BALL, 1);
                                 ItemMeta headMeta = helmet.getItemMeta();
-                                headMeta.setDisplayName("Dalek Head");
+                                headMeta.displayName(Component.text("Dalek Head"));
                                 headMeta.setItemModel(head);
                                 helmet.setItemMeta(headMeta);
                                 EntityEquipment ee = a.getEquipment();
@@ -169,7 +170,7 @@ public class SpawnCommand {
                     PigZombie strax = (PigZombie) a;
                     strax.setAngry(false);
                     new Equipper(monster, a, false).setHelmetAndInvisibility();
-                    a.setCustomName("Strax");
+                    a.customName(Component.text("Strax"));
                 }
                 case TOCLAFANE -> ToclafaneEquipment.set(a, false);
                 // WEEPING_ANGEL, CYBERMAN, CYBERSHADE, HATH, HEAVENLY_HOST, MIRE, NIMON, OMEGA, SEA_DEVIL,

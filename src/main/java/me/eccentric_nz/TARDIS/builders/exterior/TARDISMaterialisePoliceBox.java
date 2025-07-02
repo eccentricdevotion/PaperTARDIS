@@ -31,6 +31,7 @@ import me.eccentric_nz.TARDIS.flight.vehicle.VehicleUtility;
 import me.eccentric_nz.TARDIS.particles.Emitter;
 import me.eccentric_nz.TARDIS.utility.TARDISBlockSetters;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -240,8 +241,9 @@ public class TARDISMaterialisePoliceBox implements Runnable {
             im.setItemModel(model);
             if (bd.shouldAddSign()) {
                 String name = bd.getPlayer().getName() + "'s " + pb;
-                im.setDisplayName(name);
-                stand.setCustomName(name);
+                Component custom = Component.text(name);
+                im.displayName(custom);
+                stand.customName(custom);
                 stand.setCustomNameVisible(true);
             }
             if (model == ColouredVariant.TINTED_CLOSED.getKey() && preset == ChameleonPreset.COLOURED && colour != null) {

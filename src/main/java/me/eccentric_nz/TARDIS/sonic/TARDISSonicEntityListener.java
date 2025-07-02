@@ -21,7 +21,8 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetControls;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.sonic.actions.TARDISSonicSound;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
@@ -33,9 +34,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
@@ -63,20 +62,14 @@ public class TARDISSonicEntityListener implements Listener {
         Entity ent = event.getRightClicked();
         if (is.getType().equals(Material.BLAZE_ROD) && is.hasItemMeta()) {
             ItemMeta im = player.getInventory().getItemInMainHand().getItemMeta();
-            if (im.getDisplayName().endsWith("Sonic Screwdriver")) {
-                List<String> lore = im.getLore();
+            if (TARDISStringUtils.stripColour(im.displayName()).endsWith("Sonic Screwdriver")) {
+                List<Component> lore = im.lore();
                 if (ent instanceof Player scanned) {
                     TARDISSonicSound.playSonicSound(plugin, player, now, 3050L, "sonic_screwdriver");
-                    if (TARDISPermission.hasPermission(player, "tardis.sonic.admin") && lore != null && lore.contains("Admin Upgrade") && player.isSneaking()) {
+                    if (TARDISPermission.hasPermission(player, "tardis.sonic.admin") && lore != null && lore.contains(Component.text("Admin Upgrade")) && player.isSneaking()) {
                         plugin.getMessenger().send(player, TardisModule.TARDIS, "SONIC_INV");
-                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                            PlayerInventory pinv = scanned.getInventory();
-                            ItemStack[] items = pinv.getStorageContents();
-                            Inventory menu = plugin.getServer().createInventory(player, items.length, ChatColor.DARK_RED + scanned.getName() + "'s Inventory");
-                            menu.setContents(items);
-                            player.openInventory(menu);
-                        }, 40L);
-                    } else if (TARDISPermission.hasPermission(player, "tardis.sonic.bio") && lore != null && lore.contains("Bio-scanner Upgrade")) {
+                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.openInventory(new TARDISViewPlayerInventory(plugin, scanned).getInventory()), 40L);
+                    } else if (TARDISPermission.hasPermission(player, "tardis.sonic.bio") && lore != null && lore.contains(Component.text("Bio-scanner Upgrade"))) {
                         // save scanned player to sonic table
                         new TARDISSonicData().saveOrUpdate(plugin, scanned.getUniqueId().toString(), 1, is, player);
                         // message player
@@ -142,8 +135,7 @@ public class TARDISSonicEntityListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInventoryViewClick(InventoryClickEvent event) {
-        String title = event.getView().getTitle();
-        if (title.startsWith(ChatColor.DARK_RED + "") && title.endsWith("'s Inventory")) {
+        if (event.getInventory().getHolder() instanceof TARDISViewPlayerInventory) {
             event.setCancelled(true);
         }
     }

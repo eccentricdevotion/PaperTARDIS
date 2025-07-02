@@ -24,13 +24,11 @@ import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.travel.save.TARDISSavesPlanetInventory;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -76,7 +74,7 @@ public class TARDISAreaSignListener extends TARDISMenuListener {
                 return;
             }
             ItemMeta im = is.getItemMeta();
-            String area = im.getDisplayName();
+            String area = TARDISStringUtils.stripColour(im.displayName());
             HashMap<String, Object> wherea = new HashMap<>();
             wherea.put("area_name", area);
             ResultSetAreas rsa = new ResultSetAreas(plugin, wherea, false, false);

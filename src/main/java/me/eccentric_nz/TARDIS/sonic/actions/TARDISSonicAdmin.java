@@ -23,6 +23,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetDoors;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTravellers;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Location;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
@@ -82,7 +83,7 @@ public class TARDISSonicAdmin {
                     data.forEach((s) -> {
                         Player p = plugin.getServer().getPlayer(s);
                         if (p != null) {
-                            plugin.getMessenger().message(player, p.getDisplayName());
+                            plugin.getMessenger().message(player, TARDISStringUtils.stripColour(p.displayName()));
                         } else {
                             plugin.getMessenger().message(player, plugin.getServer().getOfflinePlayer(s).getName() + " (Offline)");
                         }

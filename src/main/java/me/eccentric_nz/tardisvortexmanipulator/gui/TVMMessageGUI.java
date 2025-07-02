@@ -31,7 +31,7 @@ public class TVMMessageGUI implements InventoryHolder {
         this.start = start;
         this.finish = finish;
         this.uuid = uuid;
-        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("VM Messages", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("VM Messages", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -62,9 +62,13 @@ public class TVMMessageGUI implements InventoryHolder {
                     mess = new ItemStack(Material.WRITABLE_BOOK, 1);
                 }
                 ItemMeta age = mess.getItemMeta();
-                age.setDisplayName("#" + (i + start + 1));
+                age.displayName(Component.text("#" + (i + start + 1)));
                 String from = plugin.getServer().getOfflinePlayer(m.getWho()).getName();
-                age.setLore(List.of("From: " + from, "Date: " + m.getDate(), "" + m.getId()));
+                age.lore(List.of(
+                        Component.text("From: " + from),
+                        Component.text("Date: " + m.getDate()),
+                        Component.text(m.getId())
+                ));
                 mess.setItemMeta(age);
                 stack[i] = mess;
                 i++;
@@ -75,20 +79,20 @@ public class TVMMessageGUI implements InventoryHolder {
         // page number
         ItemStack page = new ItemStack(Material.BOWL, 1);
         ItemMeta num = page.getItemMeta();
-        num.setDisplayName("Page " + n);
+        num.displayName(Component.text("Page " + n));
         page.setItemMeta(num);
         stack[45] = page;
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta win = close.getItemMeta();
-        win.setDisplayName("Close");
+        win.displayName(Component.text("Close"));
         close.setItemMeta(win);
         stack[46] = close;
         // previous screen (only if needed)
         if (start > 0) {
             ItemStack prev = new ItemStack(Material.ARROW, 1);
             ItemMeta een = prev.getItemMeta();
-            een.setDisplayName("Previous page");
+            een.displayName(Component.text("Previous page"));
             prev.setItemMeta(een);
             stack[48] = prev;
         }
@@ -96,20 +100,20 @@ public class TVMMessageGUI implements InventoryHolder {
         if (finish > 44) {
             ItemStack next = new ItemStack(Material.ARROW, 1);
             ItemMeta scr = next.getItemMeta();
-            scr.setDisplayName("Next page");
+            scr.displayName(Component.text("Next page"));
             next.setItemMeta(scr);
             stack[49] = next;
         }
         // read
         ItemStack read = new ItemStack(Material.BOWL, 1);
         ItemMeta daer = read.getItemMeta();
-        daer.setDisplayName("Read");
+        daer.displayName(Component.text("Read"));
         read.setItemMeta(daer);
         stack[51] = read;
         // delete
         ItemStack del = new ItemStack(Material.BUCKET, 1);
         ItemMeta ete = del.getItemMeta();
-        ete.setDisplayName("Delete");
+        ete.displayName(Component.text("Delete"));
         del.setItemMeta(ete);
         stack[53] = del;
 

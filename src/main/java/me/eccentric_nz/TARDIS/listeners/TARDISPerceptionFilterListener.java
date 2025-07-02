@@ -19,6 +19,7 @@ package me.eccentric_nz.TARDIS.listeners;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -65,7 +66,7 @@ public class TARDISPerceptionFilterListener implements Listener {
         if ((is.getType().equals(Material.OMINOUS_TRIAL_KEY) || is.getType().equals(material)) && event.getAction().equals(Action.RIGHT_CLICK_AIR)) {
             if (is.hasItemMeta()) {
                 ItemMeta im = is.getItemMeta();
-                if (im.hasDisplayName() && im.getDisplayName().endsWith("Perception Filter")) {
+                if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "Perception Filter")) {
                     if (TARDISPermission.hasPermission(player, "tardis.filter")) {
                         ItemStack chestPlate = player.getInventory().getChestplate();
                         if (chestPlate == null) {
@@ -97,7 +98,7 @@ public class TARDISPerceptionFilterListener implements Listener {
                 if (is != null) {
                     if (is.hasItemMeta()) {
                         ItemMeta im = is.getItemMeta();
-                        if (im.hasDisplayName() && im.getDisplayName().endsWith("Perception Filter")) {
+                        if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "Perception Filter")) {
                             if (event.getAction().equals(InventoryAction.PICKUP_ALL) || event.getAction().equals(InventoryAction.PLACE_ALL)) {
                                 plugin.getFilter().removePerceptionFilter((Player) event.getWhoClicked());
                             }

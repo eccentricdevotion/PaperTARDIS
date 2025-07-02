@@ -33,7 +33,7 @@ public class TARDISLightEmittingInventory implements InventoryHolder {
 
     public TARDISLightEmittingInventory(TARDIS plugin) {
         this.plugin = plugin;
-        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("Light Emitting Blocks", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("Light Emitting Blocks", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -57,13 +57,13 @@ public class TARDISLightEmittingInventory implements InventoryHolder {
         // back button
         ItemStack back = new ItemStack(GUIChameleonTemplate.BACK_HELP.material(), 1);
         ItemMeta bk = back.getItemMeta();
-        bk.setDisplayName("Back");
+        bk.displayName(Component.text("Back"));
         back.setItemMeta(bk);
         stacks[24] = back;
         // 26 close
         ItemStack close = new ItemStack(GUILights.CLOSE.material(), 1);
         ItemMeta clim = close.getItemMeta();
-        clim.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        clim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(clim);
         stacks[26] = close;
         return stacks;

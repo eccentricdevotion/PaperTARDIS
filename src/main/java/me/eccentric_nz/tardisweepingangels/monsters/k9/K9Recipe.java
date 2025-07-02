@@ -19,6 +19,7 @@ package me.eccentric_nz.tardisweepingangels.monsters.k9;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.K9Variant;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -35,7 +36,7 @@ public class K9Recipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.BONE);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName("K9");
+        im.displayName(Component.text("K9"));
         im.setItemModel(K9Variant.K9.getKey());
         is.setItemMeta(im);
         ShapedRecipe recipe = new ShapedRecipe(TARDISWeepingAngels.K9, is);

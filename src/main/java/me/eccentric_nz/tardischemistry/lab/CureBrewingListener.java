@@ -19,7 +19,14 @@ package me.eccentric_nz.tardischemistry.lab;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.keys.CureVariant;
-import org.bukkit.*;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Levelled;
@@ -98,7 +105,7 @@ public class CureBrewingListener implements Listener {
                                     if (type.equals(Material.FEATHER) && is.hasItemMeta()) {
                                         ItemMeta im = is.getItemMeta();
                                         if (im.hasDisplayName() && im.hasItemModel()) {
-                                            String dn = im.getDisplayName();
+                                            String dn = TARDISStringUtils.stripColour(im.displayName());
                                             items.add(type + (elements.contains(dn) ? ":" + dn : ""));
                                         } else {
                                             items.add(type.toString());
@@ -173,19 +180,19 @@ public class CureBrewingListener implements Listener {
                                             ItemMeta im = is.getItemMeta();
                                             switch (potionType) {
                                                 case AWKWARD -> {
-                                                    im.setDisplayName(ChatColor.WHITE + "Antidote");
+                                                    im.displayName(Component.text("Antidote", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
                                                     im.setItemModel(CureVariant.ANTIDOTE.getKey());
                                                 }
                                                 case MUNDANE -> {
-                                                    im.setDisplayName(ChatColor.WHITE + "Elixir");
+                                                    im.displayName(Component.text("Elixir", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
                                                     im.setItemModel(CureVariant.ELIXIR.getKey());
                                                 }
                                                 case THICK -> {
-                                                    im.setDisplayName(ChatColor.WHITE + "Eye drops");
+                                                    im.displayName(Component.text("Eye drops", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
                                                     im.setItemModel(CureVariant.EYEDROPS.getKey());
                                                 }
                                                 default -> { // UNCRAFTABLE
-                                                    im.setDisplayName(ChatColor.WHITE + "Tonic");
+                                                    im.displayName(Component.text("Tonic", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
                                                     im.setItemModel(CureVariant.TONIC.getKey());
                                                 }
                                             }

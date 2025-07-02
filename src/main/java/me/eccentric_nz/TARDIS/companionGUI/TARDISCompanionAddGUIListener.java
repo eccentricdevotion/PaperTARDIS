@@ -22,15 +22,14 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisCompanions;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -124,12 +123,12 @@ public class TARDISCompanionAddGUIListener extends TARDISMenuListener {
                     int id = tardis.getTardisId();
                     String comps = tardis.getCompanions();
                     ItemMeta m = is.getItemMeta();
-                    List<String> l = m.getLore();
-                    String u = l.getFirst();
+                    List<Component> l = m.lore();
+                    String u = TARDISStringUtils.stripColour(l.getFirst());
                     addCompanion(id, comps, u);
                     if (plugin.isWorldGuardOnServer() && plugin.getConfig().getBoolean("preferences.use_worldguard")) {
                         String[] data = tardis.getChunk().split(":");
-                        addToRegion(data[0], tardis.getOwner(), m.getDisplayName());
+                        addToRegion(data[0], tardis.getOwner(), TARDISStringUtils.stripColour(m.displayName()));
                         // set entry and exit flags to deny
                         plugin.getWorldGuardUtils().setEntryExitFlags(data[0], player.getName(), false);
                     }

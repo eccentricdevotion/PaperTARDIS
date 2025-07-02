@@ -16,20 +16,22 @@
  */
 package me.eccentric_nz.TARDIS.skins.tv;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
+import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.skins.CyberSkins;
 import me.eccentric_nz.TARDIS.skins.Skin;
 import me.eccentric_nz.TARDIS.skins.SkinUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.profile.PlayerProfile;
 
 public class TVCyberInventory extends TVGUI {
 
-    private final ItemStack[] menu;
-
-    public TVCyberInventory() {
-        menu = getItemStack();
+    public TVCyberInventory(TARDIS plugin) {
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Cyberman Skins", NamedTextColor.DARK_RED));
+        this.inventory.setContents(getItemStack());
     }
 
     /**
@@ -45,8 +47,8 @@ public class TVCyberInventory extends TVGUI {
                 ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(variant);
-                im.setOwnerProfile(profile);
-                im.setDisplayName(variant.name());
+                im.setPlayerProfile(profile);
+                im.displayName(Component.text(variant.name()));
                 is.setItemMeta(im);
                 // cache the item stack
                 PlayerHeadCache.CYBERS.add(is);
@@ -61,9 +63,5 @@ public class TVCyberInventory extends TVGUI {
         }
         addDefaults(stack);
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

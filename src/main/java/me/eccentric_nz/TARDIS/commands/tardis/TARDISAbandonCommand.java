@@ -40,6 +40,7 @@ import me.eccentric_nz.TARDIS.doors.outer.OuterMinecraftDoorCloser;
 import me.eccentric_nz.TARDIS.enumeration.COMPASS;
 import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -311,7 +312,7 @@ public class TARDISAbandonCommand {
                                         default -> new NamespacedKey(plugin, TARDISBuilderUtility.getCustomModelPath(is.getType().toString()) + "_closed");
                                     };
                                     im.setItemModel(model);
-                                    im.setDisplayName("");
+                                    im.displayName(Component.empty());
                                     is.setItemMeta(im);
                                     frame.setItem(is, false);
                                     break;
@@ -322,9 +323,9 @@ public class TARDISAbandonCommand {
                             if (sign != null) {
                                 SignSide front = sign.getSide(Side.FRONT);
                                 switch (preset) {
-                                    case GRAVESTONE -> front.setLine(3, "");
-                                    case ANGEL, JAIL -> front.setLine(2, "");
-                                    default -> front.setLine(0, "");
+                                    case GRAVESTONE -> front.line(3, Component.empty());
+                                    case ANGEL, JAIL -> front.line(2, Component.empty());
+                                    default -> front.line(0, Component.empty());
                                 }
                                 sign.update();
                             }

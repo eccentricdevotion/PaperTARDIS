@@ -21,6 +21,7 @@ import me.eccentric_nz.TARDIS.custommodels.keys.SonicVariant;
 import me.eccentric_nz.TARDIS.enumeration.SonicScrewdriver;
 import me.eccentric_nz.TARDIS.recipes.shaped.SonicScrewdriverRecipe;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -57,7 +58,7 @@ public class TARDISSonicSound {
                 ItemStack is = player.getInventory().getItemInMainHand();
                 if (is.hasItemMeta()) {
                     ItemMeta meta = is.getItemMeta();
-                    if (meta.hasDisplayName() && meta.getDisplayName().endsWith("Sonic Screwdriver")) {
+                    if (meta.hasDisplayName() && TARDISStringUtils.endsWith(meta.displayName(), "Sonic Screwdriver")) {
                         player.getInventory().getItemInMainHand().getEnchantments().keySet().forEach((e) -> player.getInventory().getItemInMainHand().removeEnchantment(e));
                         meta.setEnchantmentGlintOverride(null);
                         CustomModelDataComponent scomponent = meta.getCustomModelDataComponent();
@@ -86,7 +87,7 @@ public class TARDISSonicSound {
             return;
         }
         ItemMeta meta = stack.getItemMeta();
-        if (meta.hasDisplayName() && meta.getDisplayName().endsWith("Sonic Screwdriver")) {
+        if (meta.hasDisplayName() && TARDISStringUtils.endsWith(meta.displayName(), "Sonic Screwdriver")) {
             CustomModelDataComponent component = meta.getCustomModelDataComponent();
             component.setFloats(model);
             meta.setCustomModelDataComponent(component);

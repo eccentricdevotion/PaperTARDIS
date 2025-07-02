@@ -20,6 +20,8 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.sonic.actions.TARDISSonicReplant;
 import me.eccentric_nz.TARDIS.utility.TARDISMaterials;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
@@ -70,7 +72,7 @@ public class TARDISFarmBlockListener implements Listener {
         ItemStack stack = inv.getItemInMainHand();
         if (stack.getType().equals(Material.BLAZE_ROD) && stack.hasItemMeta()) {
             ItemMeta im = stack.getItemMeta();
-            if (im.hasDisplayName() && im.getDisplayName().endsWith("Sonic Screwdriver") && im.hasLore() && im.getLore().contains("Emerald Upgrade")) {
+            if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "Sonic Screwdriver") && im.hasLore() && im.lore().contains(Component.text("Emerald Upgrade"))) {
                 if ((material.equals(sc)) && inv.contains(sc)) {
                     // SUGAR_CANE
                     processHarvest(player, sc, block);

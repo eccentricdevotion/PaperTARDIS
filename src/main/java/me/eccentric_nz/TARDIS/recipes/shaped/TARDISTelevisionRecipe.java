@@ -20,7 +20,9 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
 import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -57,13 +59,13 @@ public class TARDISTelevisionRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.BROWN_STAINED_GLASS, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "TARDIS Television");
+        im.displayName(Component.text("TARDIS Television", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, RecipeItem.TARDIS_TELEVISION.getModel().getKey());
         is.setItemMeta(im);
         // exact choice
         ItemStack capac = new ItemStack(Material.BUCKET, 1);
         ItemMeta itor = capac.getItemMeta();
-        itor.setDisplayName(ChatColor.WHITE + "Artron Capacitor");
+        itor.displayName(Component.text("Artron Capacitor", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         capac.setItemMeta(itor);
         NamespacedKey key = new NamespacedKey(plugin, "tardis_television");
         ShapedRecipe r = new ShapedRecipe(key, is);
@@ -72,17 +74,15 @@ public class TARDISTelevisionRecipe {
             // exact choice
             ItemStack chameleon = new ItemStack(Material.GLOWSTONE_DUST, 1);
             ItemMeta circuit = chameleon.getItemMeta();
-            circuit.setDisplayName(ChatColor.WHITE + "TARDIS Chameleon Circuit");
+            circuit.displayName(Component.text("TARDIS Chameleon Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
             CustomModelDataComponent ecomponent = circuit.getCustomModelDataComponent();
             ecomponent.setFloats(CircuitVariant.CHAMELEON.getFloats());
             circuit.setCustomModelDataComponent(ecomponent);
             // set the second line of lore
-            List<String> lore;
-            String uses = (plugin.getConfig().getString("circuits.uses.chameleon").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
-                    ? ChatColor.YELLOW + "unlimited"
-                    : ChatColor.YELLOW + plugin.getConfig().getString("circuits.uses.chameleon");
-            lore = List.of("Uses left", uses);
-            circuit.setLore(lore);
+            Component uses = (plugin.getConfig().getString("circuits.uses.chameleon", "25").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))
+                    ? Component.text("unlimited", NamedTextColor.YELLOW)
+                    : Component.text(plugin.getConfig().getString("circuits.uses.chameleon", "25"), NamedTextColor.YELLOW);
+            circuit.lore(List.of(Component.text("Uses left"), uses));
             chameleon.setItemMeta(circuit);
             r.setIngredient('C', new RecipeChoice.ExactChoice(chameleon));
         } else {

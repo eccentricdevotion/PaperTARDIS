@@ -16,20 +16,23 @@
  */
 package me.eccentric_nz.TARDIS.skins.tv;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
+import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.skins.CompanionSkins;
 import me.eccentric_nz.TARDIS.skins.Skin;
 import me.eccentric_nz.TARDIS.skins.SkinUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.profile.PlayerProfile;
 
 public class TVCompanionsInventory extends TVGUI {
 
-    private final ItemStack[] menu;
+    public TVCompanionsInventory(TARDIS plugin) {
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Companion Skins", NamedTextColor.DARK_RED));
+        this.inventory.setContents(getItemStack());
 
-    public TVCompanionsInventory() {
-        menu = getItemStack();
     }
 
     /**
@@ -45,8 +48,8 @@ public class TVCompanionsInventory extends TVGUI {
                 ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(companion);
-                im.setOwnerProfile(profile);
-                im.setDisplayName(companion.name());
+                im.setPlayerProfile(profile);
+                im.displayName(Component.text(companion.name()));
                 is.setItemMeta(im);
                 // cache the item stack
                 PlayerHeadCache.COMPANIONS.add(is);
@@ -61,9 +64,5 @@ public class TVCompanionsInventory extends TVGUI {
         }
         addDefaults(stack);
         return stack;
-    }
-
-    public ItemStack[] getMenu() {
-        return menu;
     }
 }

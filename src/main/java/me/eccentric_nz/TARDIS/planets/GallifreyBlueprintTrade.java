@@ -24,6 +24,7 @@ import me.eccentric_nz.TARDIS.blueprints.BlueprintConsole;
 import me.eccentric_nz.TARDIS.blueprints.BlueprintRoom;
 import me.eccentric_nz.TARDIS.enumeration.Consoles;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -97,9 +98,13 @@ public class GallifreyBlueprintTrade {
         PersistentDataContainer pdc = im.getPersistentDataContainer();
         pdc.set(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID(), UUID.randomUUID());
         pdc.set(plugin.getBlueprintKey(), PersistentDataType.STRING, perm);
-        im.setDisplayName("TARDIS Blueprint Disk");
-        List<String> lore = List.of(TARDISStringUtils.capitalise(name), "Valid only for", "the trading player");
-        im.setLore(lore);
+        im.displayName(Component.text("TARDIS Blueprint Disk"));
+        List<Component> lore = List.of(
+                Component.text(TARDISStringUtils.capitalise(name)),
+                Component.text("Valid only for"),
+                Component.text("the trading player")
+        );
+        im.lore(lore);
         im.addItemFlags(ItemFlag.values());
         im.setAttributeModifiers(Multimaps.forMap(Map.of()));
         is.setItemMeta(im);

@@ -22,27 +22,38 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIMap;
 import me.eccentric_nz.TARDIS.travel.TARDISStructureTravel;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import org.bukkit.Art;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.Registry;
 import org.bukkit.generator.structure.Structure;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 
 import java.util.List;
 
-public class TARDISTelepathicStructure {
+public class TARDISTelepathicStructure implements InventoryHolder {
 
     private final TARDIS plugin;
     private final Registry<Structure> structures = RegistryAccess.registryAccess().getRegistry(RegistryKey.STRUCTURE);
+    private final Inventory inventory;
 
     public TARDISTelepathicStructure(TARDIS plugin) {
         this.plugin = plugin;
+        this.inventory = plugin.getServer().createInventory(this, 54, Component.text("Telepathic Structure Finder", NamedTextColor.DARK_RED));
+        this.inventory.setContents(getButtons());
     }
 
-    public ItemStack[] getButtons() {
+    @Override
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    private ItemStack[] getButtons() {
         // structure finder
         ItemStack[] stack = new ItemStack[54];
         int i = 0;
@@ -61,7 +72,7 @@ public class TARDISTelepathicStructure {
         // close
         ItemStack close = new ItemStack(GUIMap.BUTTON_CLOSE.material(), 1);
         ItemMeta gui = close.getItemMeta();
-        gui.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        gui.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         gui.setItemModel(GUIMap.BUTTON_CLOSE.key());
         close.setItemMeta(gui);
         stack[53] = close;
@@ -76,7 +87,7 @@ public class TARDISTelepathicStructure {
             component.setColors(List.of(Color.GREEN));
             im.setCustomModelDataComponent(component);
         }
-        im.setDisplayName(TARDISStringUtils.capitalise(structures.getKey(structure).getKey()));
+        im.displayName(Component.text(TARDISStringUtils.capitalise(structures.getKey(structure).getKey())));
         is.setItemMeta(im);
         return is;
     }

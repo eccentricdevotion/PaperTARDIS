@@ -24,6 +24,7 @@ package me.eccentric_nz.TARDIS.sonic;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.TARDIS.utility.protection.TARDISLWCChecker;
 import me.eccentric_nz.TARDIS.utility.protection.TARDISTownyChecker;
 import nl.rutgerkok.blocklocker.BlockLockerAPIv2;
@@ -134,7 +135,7 @@ public class TARDISSonicSorterListener implements Listener {
             ItemStack is = player.getInventory().getItemInMainHand();
             if (is.hasItemMeta()) {
                 ItemMeta im = is.getItemMeta();
-                if (im.hasDisplayName() && im.getDisplayName().endsWith("Sonic Screwdriver")) {
+                if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "Sonic Screwdriver")) {
                     Block block = event.getClickedBlock();
                     if (block != null && sortables.contains(block.getType())) {
                         boolean allow = true;

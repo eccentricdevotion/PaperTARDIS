@@ -28,6 +28,8 @@ import me.eccentric_nz.TARDIS.monitor.MonitorSnapshot;
 import me.eccentric_nz.TARDIS.monitor.MonitorUtils;
 import me.eccentric_nz.TARDIS.monitor.Snapshot;
 import me.eccentric_nz.TARDIS.rotors.TARDISTimeRotor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Rotation;
@@ -155,7 +157,7 @@ public class TARDISItemFrameUpdateListener implements Listener {
                                 if (glass.getType() == Material.GLASS && glass.hasItemMeta() && glass.getItemMeta().hasItemModel()) {
                                     // remove display name
                                     ItemMeta gm = glass.getItemMeta();
-                                    gm.setDisplayName(null);
+                                    gm.displayName(null);
                                     glass.setItemMeta(gm);
                                     // get the monitor item frame, from the same block location
                                     ItemFrame mapFrame = MonitorUtils.getItemFrameFromLocation(l, frame.getUniqueId());
@@ -231,7 +233,7 @@ public class TARDISItemFrameUpdateListener implements Listener {
                                     case Control.LIGHT_LEVEL -> "Light";
                                     default -> "Console";
                                 };
-                                im.setDisplayName(dn);
+                                im.displayName(Component.text(dn));
                                 sp.lamp().setItemMeta(im);
                                 frame.setItem(sp.lamp());
                                 plugin.getTrackerKeeper().getUpdatePlayers().remove(uuid);
@@ -284,7 +286,7 @@ public class TARDISItemFrameUpdateListener implements Listener {
         if (!im.hasDisplayName()) {
             return new SwitchPair(false, lampSwitch);
         }
-        return new SwitchPair(im.hasItemModel() && im.getDisplayName().endsWith("Switch"), lampSwitch);
+        return new SwitchPair(im.hasItemModel() && TARDISStringUtils.stripColour(im.displayName()).endsWith("Switch"), lampSwitch);
     }
 
     private record SwitchPair(boolean b, ItemStack lamp) {

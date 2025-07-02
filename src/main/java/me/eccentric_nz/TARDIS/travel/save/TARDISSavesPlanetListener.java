@@ -28,13 +28,14 @@ import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
 import me.eccentric_nz.TARDIS.travel.TravelCostAndType;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import org.bukkit.ChatColor;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -64,116 +65,124 @@ public class TARDISSavesPlanetListener extends TARDISMenuListener {
     @EventHandler(ignoreCancelled = true)
     public void onSavesPlanetClick(InventoryClickEvent event) {
         InventoryView view = event.getView();
-        if (view.getTitle().startsWith(ChatColor.DARK_RED + "TARDIS Dimension Map")) {
-            Player player = (Player) event.getWhoClicked();
-            UUID uuid = player.getUniqueId();
-            // get the TARDIS the player is in
-            int id = -1;
-            if (plugin.getTrackerKeeper().getJunkPlayers().containsKey(uuid)) {
-                // junk mode
-                id = plugin.getTrackerKeeper().getJunkPlayers().get(uuid);
-            } else if (plugin.getTrackerKeeper().getSavesIds().containsKey(uuid)) {
-                // player wants own saves
-                id = plugin.getTrackerKeeper().getSavesIds().get(uuid);
-            } else {
-                // saves for the tardis the player is in
-                HashMap<String, Object> wheres = new HashMap<>();
-                wheres.put("uuid", uuid.toString());
-                ResultSetTravellers rst = new ResultSetTravellers(plugin, wheres, false);
-                if (rst.resultSet()) {
-                    id = rst.getTardis_id();
-                }
+        if (!(event.getInventory().getHolder(false) instanceof TARDISSavesPlanetInventory)) {
+            return;
+        }
+        Player player = (Player) event.getWhoClicked();
+        UUID uuid = player.getUniqueId();
+        // get the TARDIS the player is in
+        int id = -1;
+        if (plugin.getTrackerKeeper().getJunkPlayers().containsKey(uuid)) {
+            // junk mode
+            id = plugin.getTrackerKeeper().getJunkPlayers().get(uuid);
+        } else if (plugin.getTrackerKeeper().getSavesIds().containsKey(uuid)) {
+            // player wants own saves
+            id = plugin.getTrackerKeeper().getSavesIds().get(uuid);
+        } else {
+            // saves for the tardis the player is in
+            HashMap<String, Object> wheres = new HashMap<>();
+            wheres.put("uuid", uuid.toString());
+            ResultSetTravellers rst = new ResultSetTravellers(plugin, wheres, false);
+            if (rst.resultSet()) {
+                id = rst.getTardis_id();
             }
-            event.setCancelled(true);
-            int slot = event.getRawSlot();
-            event.setCancelled(true);
-            if (slot == 0 || slot == 2) {
-                // home location
-                ItemStack is = view.getItem(slot);
-                if (is == null) {
-                    return;
-                }
-                ItemMeta im = is.getItemMeta();
-                List<String> lore = im.getLore();
-                World w = TARDISAliasResolver.getWorldFromAlias(lore.getFirst());
-                if (w == null) {
-                    close(player);
-                    return;
-                }
-                int x = TARDISNumberParsers.parseInt(lore.get(1));
-                int y = TARDISNumberParsers.parseInt(lore.get(2));
-                int z = TARDISNumberParsers.parseInt(lore.get(3));
-                Location save_dest = new Location(w, x, y, z);
-                // get tardis artron level
-                ResultSetTardisArtron rs = new ResultSetTardisArtron(plugin);
-                if (!rs.fromID(id)) {
-                    close(player);
-                    return;
-                }
-                int level = rs.getArtronLevel();
-                int travel = plugin.getArtronConfig().getInt("travel");
-                if (level < travel) {
-                    plugin.getMessenger().send(player, TardisModule.TARDIS, "NOT_ENOUGH_ENERGY");
-                    close(player);
-                    return;
-                }
-                Location exterior = null;
-                ResultSetCurrentFromId rsc = new ResultSetCurrentFromId(plugin, id);
-                if (rsc.resultSet()) {
-                    exterior = rsc.getCurrent().location();
-                }
-                if (!save_dest.equals(exterior) || plugin.getTrackerKeeper().getDestinationVortex().containsKey(id)) {
-                    HashMap<String, Object> set = new HashMap<>();
-                    set.put("world", lore.getFirst());
-                    set.put("x", TARDISNumberParsers.parseInt(lore.get(1)));
-                    set.put("y", TARDISNumberParsers.parseInt(lore.get(2)));
-                    set.put("z", TARDISNumberParsers.parseInt(lore.get(3)));
-                    int l_size = lore.size();
-                    if (l_size >= 5) {
-                        if (!lore.get(4).isEmpty() && !lore.get(4).equals(ChatColor.GOLD + "Current location")) {
-                            set.put("direction", lore.get(4));
-                        }
-                        if (l_size > 5 && !lore.get(5).isEmpty() && lore.get(5).equals("true")) {
+        }
+        event.setCancelled(true);
+        int slot = event.getRawSlot();
+        event.setCancelled(true);
+        if (slot == 0 || slot == 2) {
+            // home location
+            ItemStack is = view.getItem(slot);
+            if (is == null) {
+                return;
+            }
+            ItemMeta im = is.getItemMeta();
+            List<Component> lore = im.lore();
+            World w = TARDISAliasResolver.getWorldFromAlias(TARDISStringUtils.stripColour(lore.getFirst()));
+            if (w == null) {
+                close(player);
+                return;
+            }
+            int x = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(1)));
+            int y = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(2)));
+            int z = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(3)));
+            Location save_dest = new Location(w, x, y, z);
+            // get tardis artron level
+            ResultSetTardisArtron rs = new ResultSetTardisArtron(plugin);
+            if (!rs.fromID(id)) {
+                close(player);
+                return;
+            }
+            int level = rs.getArtronLevel();
+            int travel = plugin.getArtronConfig().getInt("travel");
+            if (level < travel) {
+                plugin.getMessenger().send(player, TardisModule.TARDIS, "NOT_ENOUGH_ENERGY");
+                close(player);
+                return;
+            }
+            Location exterior = null;
+            ResultSetCurrentFromId rsc = new ResultSetCurrentFromId(plugin, id);
+            if (rsc.resultSet()) {
+                exterior = rsc.getCurrent().location();
+            }
+            if (!save_dest.equals(exterior) || plugin.getTrackerKeeper().getDestinationVortex().containsKey(id)) {
+                HashMap<String, Object> set = new HashMap<>();
+                set.put("world", lore.getFirst());
+                set.put("x", TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(1))));
+                set.put("y", TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(2))));
+                set.put("z", TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(3))));
+                int l_size = lore.size();
+                if (l_size >= 5) {
+                    String four = TARDISStringUtils.stripColour(lore.get(4));
+                    if (!four.isEmpty() && !four.equals("Current location")) {
+                        set.put("direction", four);
+                    }
+                    if (l_size > 5) {
+                        String five = TARDISStringUtils.stripColour(lore.get(5));
+                        if (five.equals("true")) {
                             set.put("submarine", 1);
                         } else {
                             set.put("submarine", 0);
                         }
                     }
-                    if (l_size >= 7 && !lore.get(6).equals(ChatColor.GOLD + "Current location")) {
+                }
+                if (l_size >= 7) {
+                    String six = TARDISStringUtils.stripColour(lore.get(6));
+                    if (!six.equals("Current location")) {
                         HashMap<String, Object> sett = new HashMap<>();
-                        sett.put("chameleon_preset", lore.get(6));
+                        sett.put("chameleon_preset", six);
                         // set chameleon adaption to OFF
                         sett.put("adapti_on", 0);
                         HashMap<String, Object> wheret = new HashMap<>();
                         wheret.put("tardis_id", id);
                         plugin.getQueryFactory().doSyncUpdate("tardis", sett, wheret);
                     }
-                    HashMap<String, Object> wheret = new HashMap<>();
-                    wheret.put("tardis_id", id);
-                    plugin.getQueryFactory().doSyncUpdate("next", set, wheret);
-                    TravelType travelType = (is.getItemMeta().getDisplayName().equals("Home")) ? TravelType.HOME : TravelType.SAVE;
-                    plugin.getTrackerKeeper().getHasDestination().put(id, new TravelCostAndType(travel, travelType));
-                    plugin.getTrackerKeeper().getRescue().remove(id);
-                    close(player);
-                    plugin.getMessenger().sendJoined(player, "DEST_SET_TERMINAL", im.getDisplayName(), !plugin.getTrackerKeeper().getDestinationVortex().containsKey(id));
-                    if (plugin.getTrackerKeeper().getDestinationVortex().containsKey(id)) {
-                        new TARDISLand(plugin, id, player).exitVortex();
-                        plugin.getPM().callEvent(new TARDISTravelEvent(player, null, travelType, id));
-                    }
-                } else if (!lore.contains(ChatColor.GOLD + "Current location")) {
-                    lore.add(ChatColor.GOLD + "Current location");
-                    im.setLore(lore);
-                    is.setItemMeta(im);
                 }
+                HashMap<String, Object> wheret = new HashMap<>();
+                wheret.put("tardis_id", id);
+                plugin.getQueryFactory().doSyncUpdate("next", set, wheret);
+                TravelType travelType = (TARDISStringUtils.stripColour(im.displayName()).equals("Home")) ? TravelType.HOME : TravelType.SAVE;
+                plugin.getTrackerKeeper().getHasDestination().put(id, new TravelCostAndType(travel, travelType));
+                plugin.getTrackerKeeper().getRescue().remove(id);
+                close(player);
+                plugin.getMessenger().sendJoined(player, "DEST_SET_TERMINAL", TARDISStringUtils.stripColour(im.displayName()), !plugin.getTrackerKeeper().getDestinationVortex().containsKey(id));
+                if (plugin.getTrackerKeeper().getDestinationVortex().containsKey(id)) {
+                    new TARDISLand(plugin, id, player).exitVortex();
+                    plugin.getPM().callEvent(new TARDISTravelEvent(player, null, travelType, id));
+                }
+            } else if (!lore.contains(Component.text("Current location", NamedTextColor.GOLD))) {
+                lore.add(Component.text("Current location", NamedTextColor.GOLD));
+                im.lore(lore);
+                is.setItemMeta(im);
             }
-            if (slot >= 8 && slot < 45) {
-                ItemStack is = view.getItem(slot);
-                if (is != null) {
-                    ItemMeta im = is.getItemMeta();
-                    String alias = im.getDisplayName();
-                    String world = TARDISAliasResolver.getWorldNameFromAlias(alias);
-                    player.openInventory(new TARDISSavesInventory(plugin, id, world).getInventory());
-                }
+        }
+        if (slot >= 8 && slot < 45) {
+            ItemStack is = view.getItem(slot);
+            if (is != null) {
+                ItemMeta im = is.getItemMeta();
+                String alias = TARDISStringUtils.stripColour(im.displayName());
+                String world = TARDISAliasResolver.getWorldNameFromAlias(alias);
+                player.openInventory(new TARDISSavesInventory(plugin, id, world).getInventory());
             }
         }
     }

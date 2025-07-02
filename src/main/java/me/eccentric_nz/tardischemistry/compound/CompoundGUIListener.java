@@ -18,8 +18,8 @@ package me.eccentric_nz.tardischemistry.compound;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardischemistry.element.Element;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -27,7 +27,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -62,6 +61,7 @@ public class CompoundGUIListener extends TARDISMenuListener {
         } else {
             ClickType click = event.getClick();
             if (click.equals(ClickType.SHIFT_RIGHT) || click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.DOUBLE_CLICK)) {
+                TARDIS.plugin.debug("CompoundGUIListener");
                 event.setCancelled(true);
             }
         }
@@ -75,7 +75,7 @@ public class CompoundGUIListener extends TARDISMenuListener {
                 ItemMeta im = is.getItemMeta();
                 if (im.hasDisplayName()) {
                     try {
-                        Element element = Element.valueOf(im.getDisplayName());
+                        Element element = Element.valueOf(TARDISStringUtils.stripColour(im.displayName()));
                         int amount = is.getAmount();
                         formula.append(element).append(":").append(amount).append("-");
                     } catch (IllegalArgumentException e) {

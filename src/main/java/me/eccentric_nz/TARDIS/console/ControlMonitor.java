@@ -24,7 +24,10 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetScreen;
 import me.eccentric_nz.TARDIS.enumeration.WorldManager;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.ComponentBuilder;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Color;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.Entity;
@@ -69,14 +72,14 @@ public class ControlMonitor implements Runnable {
         textDisplay.setSeeThrough(false);
         // get text
         ResultSetScreen rss = new ResultSetScreen(plugin, id);
-        StringBuilder builder = new StringBuilder();
+        ComponentBuilder<TextComponent, TextComponent.Builder> builder = Component.text();
         if (plugin.getTrackerKeeper().getDestinationVortex().containsKey(id)) {
-            builder.append(ChatColor.DARK_PURPLE)
-                    .append("Drifting\n")
-                    .append("in the\n")
-                    .append("time\n")
-                    .append("vortex...");
-            textDisplay.setText(builder.toString());
+            builder.color(NamedTextColor.DARK_PURPLE)
+                    .append(Component.text("Drifting\n"))
+                    .append(Component.text("in the\n"))
+                    .append(Component.text("time\n"))
+                    .append(Component.text("vortex..."));
+            textDisplay.text(builder.build());
         } else if (coords) {
             rss.locationAsync((hasResult, resultSetConsole) -> {
                 if (hasResult) {
@@ -84,40 +87,35 @@ public class ControlMonitor implements Runnable {
                     if (!plugin.getPlanetsConfig().getBoolean("planets." + resultSetConsole.getWorld() + ".enabled") && plugin.getWorldManager().equals(WorldManager.MULTIVERSE) && !worldName.isEmpty()) {
                         worldName = plugin.getMVHelper().getAlias(worldName);
                     }
-                    builder.append(ChatColor.DARK_PURPLE)
-                            .append(worldName)
-                            .append("\n")
-                            .append(ChatColor.WHITE)
-                            .append(resultSetConsole.getX())
-                            .append("\n")
-                            .append(resultSetConsole.getY())
-                            .append("\n")
-                            .append(resultSetConsole.getZ());
-                    textDisplay.setText(builder.toString());
+                    builder.append(Component.text(worldName))
+                            .append(Component.text("\n"))
+                            .append(Component.text(resultSetConsole.getX(), NamedTextColor.WHITE))
+                            .append(Component.text("\n"))
+                            .append(Component.text(resultSetConsole.getY(), NamedTextColor.WHITE))
+                            .append(Component.text("\n"))
+                            .append(Component.text(resultSetConsole.getZ(), NamedTextColor.WHITE));
+                    textDisplay.text(builder.build());
                 }
             });
         } else {
             // get the artron data
             rss.artronAsync((hasResult, resultSetConsole) -> {
                 if (hasResult) {
-                    builder.append(ChatColor.WHITE)
-                            .append(plugin.getLanguage().getString("ARTRON_DISPLAY"))
-                            .append("\n")
-                            .append(ChatColor.AQUA)
-                            .append(resultSetConsole.getArtronLevel())
-                            .append("\n")
-                            .append(ChatColor.WHITE)
-                            .append(plugin.getLanguage().getString("CHAM_DISPLAY"))
-                            .append("\n");
-                    String preset;
+                    builder.append(Component.text(plugin.getLanguage().getString("ARTRON_DISPLAY", "Artron Energy"), NamedTextColor.WHITE))
+                            .append(Component.text("\n"))
+                            .append(Component.text(resultSetConsole.getArtronLevel(), NamedTextColor.AQUA))
+                            .append(Component.text("\n"))
+                            .append(Component.text(plugin.getLanguage().getString("CHAM_DISPLAY", "Exterior"), NamedTextColor.WHITE))
+                            .append(Component.text("\n"));
+                    Component preset;
                     if (resultSetConsole.getPreset().startsWith("POLICE_BOX_")) {
-                        ChatColor colour = TARDISStaticUtils.policeBoxToChatColor(resultSetConsole.getPreset());
-                        preset = colour + "POLICE_BOX";
+                        NamedTextColor colour = TARDISStaticUtils.policeBoxToNamedTextColor(resultSetConsole.getPreset());
+                        preset = Component.text("POLICE_BOX", colour);
                     } else {
-                        preset = ChatColor.BLUE + resultSetConsole.getPreset().replace("ITEM:", "");
+                        preset = Component.text(resultSetConsole.getPreset().replace("ITEM:", ""), NamedTextColor.BLUE);
                     }
                     builder.append(preset);
-                    textDisplay.setText(builder.toString());
+                    textDisplay.text(builder.build());
                 }
             });
         }

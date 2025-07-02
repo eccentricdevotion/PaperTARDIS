@@ -35,6 +35,8 @@ import me.eccentric_nz.TARDIS.travel.TARDISEPSRunnable;
 import me.eccentric_nz.TARDIS.travel.TravelCostAndType;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -59,13 +61,13 @@ public class TARDISAuthorisedControlDisk {
 
     private final TARDIS plugin;
     private final UUID uuid;
-    private final List<String> lore;
+    private final List<Component> lore;
     private final int id;
     private final Player player;
     private final String eps;
     private final String creeper;
 
-    TARDISAuthorisedControlDisk(TARDIS plugin, UUID uuid, List<String> lore, int id, Player player, String eps, String creeper) {
+    TARDISAuthorisedControlDisk(TARDIS plugin, UUID uuid, List<Component> lore, int id, Player player, String eps, String creeper) {
         this.plugin = plugin;
         this.uuid = uuid;
         this.lore = lore;
@@ -87,7 +89,7 @@ public class TARDISAuthorisedControlDisk {
         TravelType travelType = TravelType.SAVE;
         if (lore.size() > 3) {
             // has a stored save
-            String save = lore.get(3);
+            String save = TARDISStringUtils.stripColour(lore.get(3));
             HashMap<String, Object> where = new HashMap<>();
             where.put("tardis_id", id);
             if (save.equals("Home")) {

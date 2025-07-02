@@ -25,7 +25,6 @@ import me.eccentric_nz.TARDIS.handles.TARDISHandlesRequest;
 import me.eccentric_nz.TARDIS.howto.TARDISSeedsInventory;
 import me.eccentric_nz.TARDIS.travel.ComehereAction;
 import me.eccentric_nz.TARDIS.travel.ComehereRequest;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -33,8 +32,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Locale;

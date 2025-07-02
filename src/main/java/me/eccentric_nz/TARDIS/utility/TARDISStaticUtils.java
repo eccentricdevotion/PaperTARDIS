@@ -18,6 +18,8 @@ package me.eccentric_nz.TARDIS.utility;
 
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItemUtils;
@@ -25,6 +27,9 @@ import me.eccentric_nz.TARDIS.database.data.Tardis;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
@@ -37,6 +42,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -46,52 +52,52 @@ public class TARDISStaticUtils {
 
     private static final UUID ZERO_UUID = UUID.fromString("00000000-0000-0000-0000-000000000000");
 
-    public static ChatColor policeBoxToChatColor(String preset) {
+    public static NamedTextColor policeBoxToNamedTextColor(String preset) {
         switch (preset) {
             case "POLICE_BOX_WHITE" -> {
-                return ChatColor.WHITE;
+                return NamedTextColor.WHITE;
             }
             case "POLICE_BOX_BROWN", "POLICE_BOX_ORANGE" -> {
-                return ChatColor.GOLD;
+                return NamedTextColor.GOLD;
             }
             case "POLICE_BOX_BLACK" -> {
-                return ChatColor.BLACK;
+                return NamedTextColor.BLACK;
             }
             case "POLICE_BOX_CYAN" -> {
-                return ChatColor.DARK_AQUA;
+                return NamedTextColor.DARK_AQUA;
             }
             case "POLICE_BOX_LIGHT_BLUE" -> {
-                return ChatColor.BLUE;
+                return NamedTextColor.BLUE;
             }
             case "POLICE_BOX_GRAY" -> {
-                return ChatColor.DARK_GRAY;
+                return NamedTextColor.DARK_GRAY;
             }
             case "POLICE_BOX_GREEN" -> {
-                return ChatColor.DARK_GREEN;
+                return NamedTextColor.DARK_GREEN;
             }
             case "POLICE_BOX_PURPLE" -> {
-                return ChatColor.DARK_PURPLE;
+                return NamedTextColor.DARK_PURPLE;
             }
             case "POLICE_BOX_RED" -> {
-                return ChatColor.DARK_RED;
+                return NamedTextColor.DARK_RED;
             }
             case "POLICE_BOX_LIGHT_GRAY" -> {
-                return ChatColor.GRAY;
+                return NamedTextColor.GRAY;
             }
             case "POLICE_BOX_LIME" -> {
-                return ChatColor.GREEN;
+                return NamedTextColor.GREEN;
             }
             case "POLICE_BOX_PINK" -> {
-                return ChatColor.LIGHT_PURPLE;
+                return NamedTextColor.LIGHT_PURPLE;
             }
             case "POLICE_BOX_MAGENTA" -> {
-                return ChatColor.RED;
+                return NamedTextColor.RED;
             }
             case "POLICE_BOX_YELLOW" -> {
-                return ChatColor.YELLOW;
+                return NamedTextColor.YELLOW;
             }
             default -> {
-                return ChatColor.DARK_BLUE;
+                return NamedTextColor.DARK_BLUE;
             }
         }
     }
@@ -239,7 +245,7 @@ public class TARDISStaticUtils {
                 Block cc = l.getBlock();
                 if (Tag.SIGNS.isTagged(cc.getType())) {
                     Sign sign = (Sign) cc.getState();
-                    sign.getSide(Side.FRONT).setLine(line, text);
+                    sign.getSide(Side.FRONT).line(line, Component.text(text));
                     sign.update();
                 } else {
                     TARDIS.plugin.getMessenger().send(p, TardisModule.TARDIS, "CHAM", " " + text);
@@ -304,7 +310,7 @@ public class TARDISStaticUtils {
         if (is != null && is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
             if (im.hasDisplayName()) {
-                return (im.getDisplayName().endsWith("Sonic Screwdriver"));
+                return TARDISStringUtils.stripColour(im.displayName()).endsWith("Sonic Screwdriver");
             }
         }
         return false;
@@ -321,20 +327,21 @@ public class TARDISStaticUtils {
      * Gets the chat colour from a display name. Used by Key and Sonic preference GUIs.
      *
      * @param input the display name of the item
-     * @return a ChatColor
+     * @return a NamedTextColor
      */
-    public static ChatColor getColor(String input) {
-        char COLOR_CHAR = '\u00A7';
-        int length = input.length();
-        // Search backwards from the end as it is faster
-        for (int index = length - 1; index > -1; index--) {
-            char section = input.charAt(index);
-            if (section == COLOR_CHAR && index < length - 1) {
-                // check normal color
-                char c = input.charAt(index + 1);
-                return ChatColor.getByChar(c);
+    public static NamedTextColor getColor(Component input) {
+        NamedTextColor colour = NamedTextColor.WHITE;
+        GsonComponentSerializer serializer = GsonComponentSerializer.gson();
+        String json = serializer.serialize(input);
+//        TARDIS.plugin.debug(json);
+        if (json.startsWith("{")) {
+            JsonObject object = JsonParser.parseString(json).getAsJsonObject();
+            if (object.has("color")) {
+                String c = object.get("color").getAsString();
+                TARDIS.plugin.debug(c.toUpperCase(Locale.ROOT));
+                colour = NamedTextColor.NAMES.value(c.toUpperCase(Locale.ROOT));
             }
         }
-        return ChatColor.WHITE;
+        return colour;
     }
 }

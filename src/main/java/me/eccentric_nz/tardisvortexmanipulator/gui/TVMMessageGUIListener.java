@@ -7,10 +7,11 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetMessageById;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -79,8 +80,8 @@ public class TVMMessageGUIListener extends TARDISMenuListener {
         if (selectedSlot != -1) {
             ItemStack is = view.getItem(selectedSlot);
             ItemMeta im = is.getItemMeta();
-            List<String> lore = im.getLore();
-            int message_id = TARDISNumberParsers.parseInt(lore.get(2));
+            List<Component> lore = im.lore();
+            int message_id = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(2)));
             TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, message_id);
             if (rsm.resultSet()) {
                 close(player);
@@ -97,8 +98,8 @@ public class TVMMessageGUIListener extends TARDISMenuListener {
         if (selectedSlot != -1) {
             ItemStack is = view.getItem(selectedSlot);
             ItemMeta im = is.getItemMeta();
-            List<String> lore = im.getLore();
-            int message_id = TARDISNumberParsers.parseInt(lore.get(2));
+            List<Component> lore = im.lore();
+            int message_id = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(2)));
             TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, message_id);
             if (rsm.resultSet()) {
                 close(player);

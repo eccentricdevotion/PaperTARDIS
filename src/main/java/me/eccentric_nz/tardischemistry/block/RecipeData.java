@@ -17,11 +17,15 @@
 package me.eccentric_nz.tardischemistry.block;
 
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 
 import java.util.List;
 
-public record RecipeData(String displayName, String nameSpacedKey, List<String> lore, Material craftMaterial,
+public record RecipeData(String displayName,
+                         String nameSpacedKey,
+                         List<Component> lore,
+                         Material craftMaterial,
                          TARDISDisplayItem displayItem) {
 
 }

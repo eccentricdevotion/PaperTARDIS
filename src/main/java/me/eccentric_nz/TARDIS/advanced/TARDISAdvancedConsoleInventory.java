@@ -3,6 +3,7 @@ package me.eccentric_nz.TARDIS.advanced;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetDiskStorage;
 import me.eccentric_nz.TARDIS.enumeration.GlowstoneCircuit;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
@@ -25,7 +26,7 @@ public class TARDISAdvancedConsoleInventory implements InventoryHolder {
         this.plugin = plugin;
         this.uuid = uuid;
         this.id = id;
-        this.inventory = plugin.getServer().createInventory(this, 18, Component.text("TARDIS Console", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 18, Component.text("TARDIS Console", NamedTextColor.DARK_RED));
         this.inventory.setContents(getContents());
     }
 
@@ -49,7 +50,7 @@ public class TARDISAdvancedConsoleInventory implements InventoryHolder {
                             ItemMeta cm = circuit.getItemMeta();
                             if (circuit.getType().equals(Material.FILLED_MAP)) {
                                 if (cm.hasDisplayName()) {
-                                    GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(cm.getDisplayName());
+                                    GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(TARDISStringUtils.stripColour(cm.displayName()));
                                     if (glowstone != null) {
                                         circuit.setType(Material.GLOWSTONE_DUST);
                                     }
@@ -72,7 +73,7 @@ public class TARDISAdvancedConsoleInventory implements InventoryHolder {
 
     private ItemStack[] create(int id) {
         HashMap<String, Object> setstore = new HashMap<>();
-        setstore.put("uuid", uuid.toString());
+        setstore.put("uuid", uuid);
         setstore.put("tardis_id", id);
         plugin.getQueryFactory().doInsert("storage", setstore);
         return new ItemStack[18];

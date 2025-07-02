@@ -43,7 +43,7 @@ public class TARDISHandlesEventListener implements Listener {
             for (ItemStack is : stack) {
                 // find the ARTRON / DO
                 if (is != null) {
-                    TARDISHandlesBlock thb = TARDISHandlesBlock.BY_NAME.get(is.getItemMeta().getDisplayName());
+                    TARDISHandlesBlock thb = TARDISHandlesBlock.BY_NAME.get(is.getItemMeta().displayName());
                     TARDISHandlesProcessor processor = new TARDISHandlesProcessor(TARDIS.plugin, program, player, program.getProgram_id());
                     switch (thb) {
                         case ARTRON -> {

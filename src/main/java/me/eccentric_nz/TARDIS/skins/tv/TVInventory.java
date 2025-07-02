@@ -27,14 +27,13 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
-import org.jetbrains.annotations.NotNull;
 
 public class TVInventory implements InventoryHolder {
 
     private final Inventory inventory;
 
     public TVInventory(TARDIS plugin) {
-        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("TARDIS Television", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("TARDIS Television", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -60,7 +59,7 @@ public class TVInventory implements InventoryHolder {
         for (GUIData tv : GUITelevision.values()) {
             ItemStack is = new ItemStack(tv.material(), 1);
             ItemMeta im = is.getItemMeta();
-            im.setDisplayName(tv.name());
+            im.displayName(Component.text(tv.name()));
             if (tv == GUITelevision.DOWNLOAD) {
                 CustomModelDataComponent component = im.getCustomModelDataComponent();
                 component.setFloats(SwitchVariant.DOWNLOAD_OFF.getFloats());

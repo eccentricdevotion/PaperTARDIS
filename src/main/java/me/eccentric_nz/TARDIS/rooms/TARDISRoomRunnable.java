@@ -42,6 +42,7 @@ import me.eccentric_nz.TARDIS.schematic.setters.TARDISItemFrameSetter;
 import me.eccentric_nz.TARDIS.schematic.setters.TARDISSignSetter;
 import me.eccentric_nz.TARDIS.utility.*;
 import me.eccentric_nz.tardischunkgenerator.custombiome.BiomeHelper;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -652,7 +653,7 @@ public class TARDISRoomRunnable implements Runnable {
                     ItemDisplay display = (ItemDisplay) world.spawnEntity(item, EntityType.ITEM_DISPLAY);
                     ItemStack is = new ItemStack(Material.MAGMA_BLOCK);
                     ItemMeta im = is.getItemMeta();
-                    im.setDisplayName("Sphere Normal");
+                    im.displayName(Component.text("Sphere Normal"));
                     is.setItemMeta(im);
                     display.setItemStack(is);
                     display.setItemDisplayTransform(ItemDisplay.ItemDisplayTransform.GROUND);

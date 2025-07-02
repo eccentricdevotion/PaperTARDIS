@@ -16,8 +16,6 @@
  */
 package me.eccentric_nz.TARDIS.planets;
 
-import org.mvplugins.multiverse.inventories.MultiverseInventoriesApi;
-import org.mvplugins.multiverse.inventories.profile.group.WorldGroup;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.InventoryManager;
 import me.eccentric_nz.TARDIS.utility.TARDISGroupManagerHandler;
@@ -25,6 +23,8 @@ import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
+import org.mvplugins.multiverse.inventories.MultiverseInventoriesApi;
+import org.mvplugins.multiverse.inventories.profile.group.WorldGroup;
 
 /**
  * The Time Vortex is the dimension through which all time travellers pass. The Vortex was built by the Time Lords as a

@@ -16,26 +16,24 @@
  */
 package me.eccentric_nz.TARDIS.commands;
 
-import com.google.common.collect.Multimaps;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
-import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
-import me.eccentric_nz.TARDIS.custommodels.keys.SonicVariant;
-import me.eccentric_nz.TARDIS.enumeration.*;
+import me.eccentric_nz.TARDIS.enumeration.RecipeCategory;
+import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
+import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.messaging.TARDISRecipeLister;
 import me.eccentric_nz.TARDIS.recipes.TARDISRecipeCategoryInventory;
+import me.eccentric_nz.TARDIS.recipes.TARDISShowSeedRecipeInventory;
+import me.eccentric_nz.TARDIS.recipes.TARDISShowShapedRecipeInventory;
+import me.eccentric_nz.TARDIS.recipes.TARDISShowShapelessRecipeInventory;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.*;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.components.CustomModelDataComponent;
-import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.ShapelessRecipe;
 
 import java.util.*;
 
@@ -219,233 +217,20 @@ public class TARDISRecipeCommands implements CommandExecutor {
         player.discoverRecipe(recipe.getKey());
         player.closeInventory();
         plugin.getTrackerKeeper().getRecipeViewers().add(player.getUniqueId());
-        Inventory inv = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + str + " recipe");
-        String[] recipeShape = recipe.getShape();
-        Map<Character, ItemStack> ingredientMap = recipe.getIngredientMap();
-        int glowstoneCount = 0;
-        for (int j = 0; j < recipeShape.length; j++) {
-            for (int k = 0; k < recipeShape[j].length(); k++) {
-                ItemStack item = ingredientMap.get(recipeShape[j].toCharArray()[k]);
-                if (item == null) {
-                    continue;
-                }
-                ItemMeta im = item.getItemMeta();
-                if (item.getType().equals(Material.GLOWSTONE_DUST) && !str.endsWith("Tie")) {
-                    String dn = getDisplayName(str, glowstoneCount);
-                    im.setDisplayName(ChatColor.WHITE + dn);
-                    glowstoneCount++;
-                }
-                if (str.endsWith("TARDIS Remote Key")) {
-                    Material material;
-                    try {
-                        material = Material.valueOf(plugin.getConfig().getString("preferences.key"));
-                    } catch (IllegalArgumentException e) {
-                        material = Material.GOLD_NUGGET;
-                    }
-                    if (item.getType().equals(material)) {
-                        im.setDisplayName(ChatColor.WHITE + "TARDIS Key");
-                    }
-                }
-                if (str.equals("Acid Battery") && item.getType().equals(Material.WATER_BUCKET)) {
-                    im.setDisplayName(ChatColor.WHITE + "Acid Bucket");
-                }
-                if (str.equals("Rift Manipulator") && item.getType().equals(Material.NETHER_BRICK)) {
-                    im.setDisplayName(ChatColor.WHITE + "Acid Battery");
-                }
-                if (str.equals("Rust Plague Sword") && item.getType().equals(Material.LAVA_BUCKET)) {
-                    im.setDisplayName(ChatColor.WHITE + "Rust Bucket");
-                }
-                item.setItemMeta(im);
-                inv.setItem(j * 9 + k, item);
-            }
-        }
-        ItemStack result = recipe.getResult();
-        ItemMeta im = result.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + str);
-        if (str.equals("TARDIS Invisibility Circuit")) {
-            // set the second line of lore
-            List<String> lore = im.getLore();
-            String uses = (plugin.getConfig().getString("circuits.uses.invisibility").equals("0") || !plugin.getConfig().getBoolean("circuits.damage")) ? ChatColor.YELLOW + "unlimited" : ChatColor.YELLOW + plugin.getConfig().getString("circuits.uses.invisibility");
-            lore.set(1, uses);
-            im.setLore(lore);
-        }
-        if (str.equals("Blank Storage Disk") || str.equals("Save Storage Disk") || str.equals("Preset Storage Disk") || str.equals("Biome Storage Disk") || str.equals("Player Storage Disk") || str.equals("Authorised Control Disk")) {
-            im.addItemFlags(ItemFlag.values());
-            im.setAttributeModifiers(Multimaps.forMap(Map.of()));
-        }
-        result.setAmount(1);
-        result.setItemMeta(im);
-        inv.setItem(17, result);
-        player.openInventory(inv);
+        player.openInventory(new TARDISShowShapedRecipeInventory(plugin, recipe, str).getInventory());
     }
 
     private void showShapelessRecipe(Player player, String str) {
         ShapelessRecipe recipe = plugin.getIncomposita().getShapelessRecipes().get(str);
         player.discoverRecipe(recipe.getKey());
-        List<ItemStack> ingredients = recipe.getIngredientList();
+        player.closeInventory();
         plugin.getTrackerKeeper().getRecipeViewers().add(player.getUniqueId());
-        Inventory inv = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + str + " recipe");
-        int glowstoneCount = 0;
-        for (int i = 0; i < ingredients.size(); i++) {
-            ItemMeta im = ingredients.get(i).getItemMeta();
-            if (ingredients.get(i).getType().equals(Material.GLOWSTONE_DUST)) {
-                String dn = getDisplayName(str, glowstoneCount);
-                im.setDisplayName(dn);
-                glowstoneCount++;
-            }
-            if (ingredients.get(i).getType().equals(Material.MUSIC_DISC_STRAD)) {
-                im.setDisplayName("Blank Storage Disk");
-                im.addItemFlags(ItemFlag.values());
-                im.setAttributeModifiers(Multimaps.forMap(Map.of()));
-            }
-            if (ingredients.get(i).getType().equals(Material.BLAZE_ROD)) {
-                im.setDisplayName("Sonic Screwdriver");
-                CustomModelDataComponent component = im.getCustomModelDataComponent();
-                component.setFloats(SonicVariant.TENTH.getFloats());
-                im.setCustomModelDataComponent(component);
-            }
-            ingredients.get(i).setItemMeta(im);
-            inv.setItem(i * 9, ingredients.get(i));
-        }
-        ItemStack result = recipe.getResult();
-        ItemMeta im = result.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + str);
-        if (str.equals("Blank Storage Disk") || str.equals("Save Storage Disk") || str.equals("Preset Storage Disk") || str.equals("Biome Storage Disk") || str.equals("Player Storage Disk") || str.equals("Authorised Control Disk")) {
-            im.addItemFlags(ItemFlag.values());
-            im.setAttributeModifiers(Multimaps.forMap(Map.of()));
-        }
-        RecipeItem recipeItem = RecipeItem.getByName(str);
-        if (recipeItem != RecipeItem.NOT_FOUND) {
-            if (recipeItem.getCategory().equals(RecipeCategory.SONIC_UPGRADES)) {
-                im.setDisplayName(ChatColor.WHITE + "Sonic Screwdriver");
-                im.setLore(List.of("Upgrades:", str));
-            }
-        }
-        result.setAmount(1);
-        result.setItemMeta(im);
-        inv.setItem(17, result);
-        player.openInventory(inv);
+        player.openInventory(new TARDISShowShapelessRecipeInventory(plugin, recipe, str).getInventory());
     }
 
     private void showTARDISRecipe(Player player, String type) {
+        player.closeInventory();
         plugin.getTrackerKeeper().getRecipeViewers().add(player.getUniqueId());
-        Inventory inv = plugin.getServer().createInventory(player, 27, ChatColor.DARK_RED + "TARDIS " + type + " seed recipe");
-        // redstone torch
-        ItemStack red = new ItemStack(Material.REDSTONE_TORCH, 1);
-        // lapis block
-        ItemStack lapis = new ItemStack(Material.LAPIS_BLOCK, 1);
-        // interior wall
-        ItemStack in_wall = new ItemStack(Material.ORANGE_WOOL, 1);
-        ItemMeta in_meta = in_wall.getItemMeta();
-        in_meta.setDisplayName("Interior walls");
-        in_meta.setLore(List.of("Any valid Wall/Floor block"));
-        in_wall.setItemMeta(in_meta);
-        // interior floor
-        ItemStack in_floor = new ItemStack(Material.LIGHT_GRAY_WOOL, 1);
-        ItemMeta fl_meta = in_floor.getItemMeta();
-        fl_meta.setDisplayName("Interior floors");
-        fl_meta.setLore(List.of("Any valid Wall/Floor block"));
-        in_floor.setItemMeta(fl_meta);
-        // seed block
-        ItemStack block = new ItemStack(t.get(type), 1);
-        // tardis type
-        Schematic schm = Consoles.getBY_NAMES().get(type);
-        ItemStack tardis;
-        NamespacedKey model = TARDISDisplayItem.CUSTOM.getCustomModel();
-        if (schm.isCustom()) {
-            tardis = new ItemStack(schm.getSeedMaterial(), 1);
-        } else {
-            try {
-                TARDISDisplayItem tdi = TARDISDisplayItem.valueOf(type);
-                tardis = new ItemStack(tdi.getMaterial(), 1);
-                model = tdi.getCustomModel();
-            } catch (IllegalArgumentException e) {
-                tardis = new ItemStack(TARDISDisplayItem.CUSTOM.getMaterial(), 1);
-            }
-        }
-        ItemMeta seed = tardis.getItemMeta();
-        seed.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, model.getKey());
-        // set display name
-        seed.setDisplayName(ChatColor.GOLD + "TARDIS Seed Block");
-        List<String> lore = new ArrayList<>();
-        lore.add(type);
-        lore.add("Walls: ORANGE_WOOL");
-        lore.add("Floors: LIGHT_GRAY_WOOL");
-        lore.add("Chameleon: FACTORY");
-        seed.setLore(lore);
-        tardis.setItemMeta(seed);
-        inv.setItem(0, red);
-        inv.setItem(9, lapis);
-        inv.setItem(11, in_wall);
-        inv.setItem(17, tardis);
-        inv.setItem(18, block);
-        inv.setItem(20, in_floor);
-        player.openInventory(inv);
-    }
-
-    private String getDisplayName(String recipe, int quartzCount) {
-        switch (recipe) {
-            case "TARDIS Locator" -> {
-                return ChatColor.WHITE + "TARDIS Locator Circuit"; // 1965
-            }
-            case "Stattenheim Remote" -> {
-                return ChatColor.WHITE + "TARDIS Stattenheim Circuit"; // 1963
-            }
-            case "TARDIS Chameleon Circuit", "TARDIS Remote Key" -> {
-                return ChatColor.WHITE + "TARDIS Materialisation Circuit"; // 1964
-            }
-            case "TARDIS Invisibility Circuit", "Perception Filter" -> {
-                return ChatColor.WHITE + "Perception Circuit"; // 1978
-            }
-            case "Sonic Screwdriver", "Server Admin Circuit", "Sonic Dock" -> {
-                return ChatColor.WHITE + "Sonic Oscillator"; // 1967
-            }
-            case "Fob Watch", "Preset Storage Disk", "TARDIS Television" -> {
-                return ChatColor.WHITE + "TARDIS Chameleon Circuit"; // 1966
-            }
-            case "TARDIS Biome Reader", "Emerald Upgrade" -> {
-                return ChatColor.WHITE + "Emerald Environment Circuit"; // 1972
-            }
-            case "Rift Manipulator" -> {
-                return ChatColor.WHITE + "Rift Circuit"; // 1983
-            }
-            case "Admin Upgrade" -> {
-                return ChatColor.WHITE + "Server Admin Circuit";
-            }
-            case "Bio-scanner Upgrade" -> {
-                return ChatColor.WHITE + "Bio-scanner Circuit";
-            }
-            case "Redstone Upgrade" -> {
-                return ChatColor.WHITE + "Redstone Activator Circuit";
-            }
-            case "Diamond Upgrade" -> {
-                return ChatColor.WHITE + "Diamond Disruptor Circuit";
-            }
-            case "Painter Upgrade" -> {
-                return ChatColor.WHITE + "Painter Circuit";
-            }
-            case "Ignite Upgrade" -> {
-                return ChatColor.WHITE + "Ignite Circuit";
-            }
-            case "Pickup Arrows Upgrade" -> {
-                return ChatColor.WHITE + "Pickup Arrows Circuit";
-            }
-            case "Knockback Upgrade" -> {
-                return ChatColor.WHITE + "Knockback Circuit";
-            }
-            case "Brush Upgrade" -> {
-                return ChatColor.WHITE + "Brush Circuit";
-            }
-            case "Conversion Upgrade" -> {
-                return ChatColor.WHITE + "Conversion Circuit";
-            }
-            default -> {  // TARDIS Stattenheim Circuit"
-                if (quartzCount == 0) {
-                    return ChatColor.WHITE + "TARDIS Locator Circuit"; // 1965
-                } else {
-                    return ChatColor.WHITE + "TARDIS Materialisation Circuit"; // 1964
-                }
-            }
-        }
+        player.openInventory(new TARDISShowSeedRecipeInventory(plugin, type, t.get(type)).getInventory());
     }
 }

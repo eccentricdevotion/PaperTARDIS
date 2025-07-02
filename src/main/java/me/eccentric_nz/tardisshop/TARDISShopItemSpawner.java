@@ -19,7 +19,8 @@ package me.eccentric_nz.tardisshop;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.EntityType;
@@ -53,7 +54,7 @@ public class TARDISShopItemSpawner {
                 component.setFloats(si.getFloats());
                 im.setCustomModelDataComponent(component);
             }
-            im.setDisplayName(what.item());
+            im.displayName(Component.text(what.item()));
             im.getPersistentDataContainer().set(plugin.getShopSettings().getItemKey(), PersistentDataType.INTEGER, 10001);
             is.setItemMeta(im);
             ItemDisplay display = (ItemDisplay) location.getWorld().spawnEntity(location.clone().add(0.5d, 1.25d, 0.5d), EntityType.ITEM_DISPLAY);
@@ -63,7 +64,7 @@ public class TARDISShopItemSpawner {
             display.setInvulnerable(true);
             TextDisplay text = (TextDisplay) location.getWorld().spawnEntity(location.clone().add(0.5d, 1.65d, 0.5d), EntityType.TEXT_DISPLAY);
             text.setAlignment(TextDisplay.TextAlignment.CENTER);
-            text.setText(what.item() + "\n" + ChatColor.RED + "Cost:" + ChatColor.RESET + String.format(" %.2f", what.cost()));
+            text.text(Component.text(what.item() + "\n").append( Component.text("Cost:", NamedTextColor.RED)).append(Component.text(String.format(" %.2f", what.cost()), NamedTextColor.WHITE)));
             text.setTransformation(new Transformation(TARDISConstants.VECTOR_ZERO, TARDISConstants.AXIS_ANGLE_ZERO, TARDISConstants.VECTOR_QUARTER, TARDISConstants.AXIS_ANGLE_ZERO));
             text.setBillboard(Display.Billboard.VERTICAL);
         } catch (IllegalArgumentException e) {

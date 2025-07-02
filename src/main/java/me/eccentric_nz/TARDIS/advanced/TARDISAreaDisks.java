@@ -22,6 +22,8 @@ import me.eccentric_nz.TARDIS.database.data.Area;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetAreas;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetDiskStorage;
 import me.eccentric_nz.TARDIS.enumeration.Storage;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -65,11 +67,11 @@ class TARDISAreaDisks {
                 if (TARDISPermission.hasPermission(p, "tardis.area." + name) || TARDISPermission.hasPermission(p, "tardis.area.*")) {
                     ItemStack is = new ItemStack(Material.MUSIC_DISC_BLOCKS, 1);
                     ItemMeta im = is.getItemMeta();
-                    im.setDisplayName("Area Storage Disk");
-                    List<String> lore = new ArrayList<>();
-                    lore.add(name);
-                    lore.add(a.world());
-                    im.setLore(lore);
+                    im.displayName(Component.text("Area Storage Disk"));
+                    im.lore(List.of(
+                            Component.text(name),
+                            Component.text(a.world())
+                    ));
                     is.setItemMeta(im);
                     areas.add(is);
                 }
@@ -105,15 +107,15 @@ class TARDISAreaDisks {
         ResultSetDiskStorage rs = new ResultSetDiskStorage(plugin, where);
         if (rs.resultSet()) {
             List<String> player_has = new ArrayList<>();
-            String serilized_areas = rs.getAreas();
+            String serialized_areas = rs.getAreas();
             try {
                 // check storage inventory
-                ItemStack[] areas = TARDISSerializeInventory.itemStacksFromString(serilized_areas);
+                ItemStack[] areas = TARDISSerializeInventory.itemStacksFromString(serialized_areas);
                 for (ItemStack a : areas) {
                     if (a != null && a.getType().equals(Material.MUSIC_DISC_BLOCKS) && a.hasItemMeta()) {
                         ItemMeta ima = a.getItemMeta();
                         if (ima.hasLore()) {
-                            player_has.add(ima.getLore().getFirst());
+                            player_has.add(TARDISStringUtils.stripColour(ima.lore().getFirst()));
                         }
                     }
                 }
@@ -123,7 +125,7 @@ class TARDISAreaDisks {
                     if (c != null && c.getType().equals(Material.MUSIC_DISC_BLOCKS) && c.hasItemMeta()) {
                         ItemMeta imc = c.getItemMeta();
                         if (imc.hasLore()) {
-                            player_has.add(imc.getLore().getFirst());
+                            player_has.add(TARDISStringUtils.stripColour(imc.lore().getFirst()));
                         }
                     }
                 }
@@ -133,7 +135,7 @@ class TARDISAreaDisks {
                     if (y != null && y.getType().equals(Material.MUSIC_DISC_BLOCKS) && y.hasItemMeta()) {
                         ItemMeta imy = y.getItemMeta();
                         if (imy.hasLore()) {
-                            player_has.add(imy.getLore().getFirst());
+                            player_has.add(TARDISStringUtils.stripColour(imy.lore().getFirst()));
                         }
                     }
                 }
@@ -151,11 +153,11 @@ class TARDISAreaDisks {
                             if (empty != -1) {
                                 ItemStack is = new ItemStack(Material.MUSIC_DISC_BLOCKS, 1);
                                 ItemMeta im = is.getItemMeta();
-                                im.setDisplayName("Area Storage Disk");
-                                List<String> lore = new ArrayList<>();
-                                lore.add(name);
-                                lore.add(map.world());
-                                im.setLore(lore);
+                                im.displayName(Component.text("Area Storage Disk"));
+                                im.lore(List.of(
+                                        Component.text(name),
+                                        Component.text(map.world())
+                                ));
                                 is.setItemMeta(im);
                                 inv.setItem(empty, is);
                                 count++;
@@ -167,7 +169,7 @@ class TARDISAreaDisks {
                 if (count > 0) {
                     return TARDISSerializeInventory.itemStacksToString(inv.getContents());
                 } else {
-                    return serilized_areas;
+                    return serialized_areas;
                 }
             } catch (IOException ex) {
                 plugin.debug("Could not get NEW Area Disk Inventory: " + ex);

@@ -40,6 +40,9 @@ import me.eccentric_nz.TARDIS.utility.Handbrake;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
 import me.eccentric_nz.TARDIS.utility.protection.TARDISLWCChecker;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import nl.rutgerkok.blocklocker.BlockLockerAPIv2;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -324,7 +327,7 @@ public class TARDISSonicDock {
         ItemMeta im = dock.getItemMeta();
         im.setItemModel(model);
         if (setDisplay) {
-            im.setDisplayName("Sonic Dock");
+            im.displayName(Component.text("Sonic Dock", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         }
         dock.setItemMeta(im);
         frame.setItem(dock);

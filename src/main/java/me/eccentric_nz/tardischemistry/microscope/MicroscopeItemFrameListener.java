@@ -18,7 +18,7 @@ package me.eccentric_nz.tardischemistry.microscope;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Rotation;
@@ -30,8 +30,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -98,7 +96,7 @@ public class MicroscopeItemFrameListener implements Listener {
                     ItemStack slide = new ItemStack(Material.GLASS, 1);
                     ItemMeta slideMeta = slide.getItemMeta();
                     String[] split = key.split("/");
-                    slideMeta.setDisplayName(TARDISStringUtils.sentenceCase(split[1]));
+                    slideMeta.displayName(Component.text(TARDISStringUtils.sentenceCase(split[1])));
                     slideMeta.setItemModel(new NamespacedKey(plugin, key));
                     slide.setItemMeta(slideMeta);
                     plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.getInventory().setItemInMainHand(slide), 1L);
@@ -129,7 +127,7 @@ public class MicroscopeItemFrameListener implements Listener {
                     ItemStack screen = new ItemStack(Material.LIME_STAINED_GLASS, 1);
                     ItemMeta screenMeta = screen.getItemMeta();
                     String[] split = key.split("/");
-                    screenMeta.setDisplayName(TARDISStringUtils.sentenceCase(split[1]));
+                    screenMeta.displayName(Component.text(TARDISStringUtils.sentenceCase(split[1])));
                     screenMeta.setItemModel(new NamespacedKey(plugin, key));
                     screen.setItemMeta(screenMeta);
                     plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.getInventory().setItemInMainHand(screen), 1L);
@@ -160,7 +158,7 @@ public class MicroscopeItemFrameListener implements Listener {
                     ItemStack helmet = new ItemStack(Material.GRAY_STAINED_GLASS, 1);
                     ItemMeta helmetMeta = helmet.getItemMeta();
                     String[] split = key.split("/");
-                    helmetMeta.setDisplayName(TARDISStringUtils.sentenceCase(split[1]));
+                    helmetMeta.displayName(Component.text(TARDISStringUtils.sentenceCase(split[1])));
                     helmetMeta.setItemModel(new NamespacedKey(plugin, key));
                     helmet.setItemMeta(helmetMeta);
                     plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> player.getInventory().setItemInMainHand(helmet), 1L);

@@ -20,7 +20,9 @@ import io.papermc.paper.datacomponent.DataComponentTypes;
 import io.papermc.paper.datacomponent.item.Weapon;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -56,8 +58,8 @@ public class RustPlagueSwordRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.IRON_SWORD, 1);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.WHITE + "Rust Plague Sword");
-        im.setLore(List.of("Dalek Virus Dispenser"));
+        im.displayName(Component.text("Rust Plague Sword", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.lore(List.of(Component.text("Dalek Virus Dispenser")));
         is.setItemMeta(im);
         // set weapon component
         Weapon weapon = Weapon.weapon()
@@ -68,7 +70,7 @@ public class RustPlagueSwordRecipe {
         ShapedRecipe r = new ShapedRecipe(key, is);
         ItemStack exact = new ItemStack(Material.LAVA_BUCKET, 1);
         ItemMeta em = exact.getItemMeta();
-        em.setDisplayName(ChatColor.WHITE + "Rust Bucket");
+        em.displayName(Component.text("Rust Bucket", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
         exact.setItemMeta(em);
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
             r.shape("RIR", "RIR", "DSD");

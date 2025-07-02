@@ -23,7 +23,6 @@ import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -47,7 +46,7 @@ public class TARDISRecipeInventory implements InventoryHolder {
         }
         this.plugin = plugin;
         this.category = category;
-        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Recipes", NamedTextColor.RED));
+        this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Recipes", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
@@ -61,20 +60,24 @@ public class TARDISRecipeInventory implements InventoryHolder {
         // back
         ItemStack back = new ItemStack(Material.BOWL, 1);
         ItemMeta but = back.getItemMeta();
-        but.setDisplayName("Back");
+        but.displayName(Component.text("Back"));
         back.setItemMeta(but);
         stack[0] = back;
         // info
         ItemStack info = new ItemStack(Material.BOWL, 1);
         ItemMeta info_im = info.getItemMeta();
-        info_im.setDisplayName("Info");
-        info_im.setLore(List.of("Click a button below", "to see the recipe", "for that item"));
+        info_im.displayName(Component.text("Info"));
+        info_im.lore(List.of(
+                Component.text("Click a button below"),
+                Component.text("to see the recipe"),
+                Component.text("for that item")
+        ));
         info.setItemMeta(info_im);
         stack[4] = info;
         // close
         ItemStack close = new ItemStack(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
-        close_im.setDisplayName(plugin.getLanguage().getString("BUTTON_CLOSE"));
+        close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);
         stack[8] = close;
         int i = 9;
@@ -102,8 +105,8 @@ public class TARDISRecipeInventory implements InventoryHolder {
                         }
                     }
                     ItemMeta im = result.getItemMeta();
-                    im.setDisplayName(ChatColor.WHITE + str);
-                    im.setLore(List.of("/trecipe " + arg));
+                    im.displayName(Component.text(str, NamedTextColor.WHITE));
+                    im.lore(List.of(Component.text("/trecipe " + arg)));
                     im.addItemFlags(ItemFlag.values());
                     im.setAttributeModifiers(Multimaps.forMap(Map.of()));
                     result.setItemMeta(im);

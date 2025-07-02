@@ -23,7 +23,8 @@ import me.eccentric_nz.TARDIS.custommodels.keys.EmptyChildVariant;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
 import me.eccentric_nz.tardisweepingangels.monsters.cybermen.CyberType;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
@@ -68,14 +69,14 @@ public class ArmourEquipper {
             case MIRE -> "Mire Helmet";
             default -> monster.getName() + " Head";
         };
-        headMeta.setDisplayName(ChatColor.WHITE + name);
+        headMeta.displayName(Component.text(name, NamedTextColor.WHITE));
         head.setItemMeta(headMeta);
         entity.getEquipment().setHelmet(head);
         // chest
         ItemStack body = new ItemStack(monster.getMaterial());
         ItemMeta bodyMeta = body.getItemMeta();
         bodyMeta.setItemModel(ArmourVariant.CHESTPLATE.getKey());
-        bodyMeta.setDisplayName(monster.getName() + " Chestplate");
+        bodyMeta.displayName(Component.text(monster.getName() + " Chestplate"));
         EquippableComponent bodyComponent = bodyMeta.getEquippable();
         bodyComponent.setDamageOnHurt(false);
         bodyComponent.setAllowedEntities(List.of(monster.getEntityType(), EntityType.PLAYER));
@@ -89,7 +90,7 @@ public class ArmourEquipper {
         ItemStack legs = new ItemStack(monster.getMaterial());
         ItemMeta legsMeta = legs.getItemMeta();
         legsMeta.setItemModel(ArmourVariant.LEGGINGS.getKey());
-        legsMeta.setDisplayName(monster.getName() + " Leggings");
+        legsMeta.displayName(Component.text(monster.getName() + " Leggings"));
         EquippableComponent legsComponent = legsMeta.getEquippable();
         legsComponent.setDamageOnHurt(false);
         legsComponent.setAllowedEntities(List.of(monster.getEntityType(), EntityType.PLAYER));

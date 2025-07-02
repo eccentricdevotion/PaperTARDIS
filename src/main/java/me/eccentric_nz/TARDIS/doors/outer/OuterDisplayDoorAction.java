@@ -35,10 +35,10 @@ import me.eccentric_nz.TARDIS.mobfarming.TARDISPetsAndFollowers;
 import me.eccentric_nz.TARDIS.move.TARDISDoorListener;
 import me.eccentric_nz.TARDIS.sonic.actions.TARDISSonicSound;
 import me.eccentric_nz.TARDIS.travel.TARDISDoorLocation;
-import me.eccentric_nz.TARDIS.utility.TARDISMaterials;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -182,8 +182,8 @@ public class OuterDisplayDoorAction extends TARDISDoorListener {
                                             TARDISSounds.playDoorSound(true, location);
                                         } else if (TARDISStaticUtils.isSonic(hand) && MaterialTags.DYES.isTagged(dye.getType()) && tardis.getUuid().equals(uuid)) {
                                             ItemMeta im = hand.getItemMeta();
-                                            List<String> lore = im.getLore();
-                                            if (TARDISPermission.hasPermission(player, "tardis.sonic.paint") && lore != null && lore.contains("Painter Upgrade")) {
+                                            List<Component> lore = im.lore();
+                                            if (TARDISPermission.hasPermission(player, "tardis.sonic.paint") && lore != null && lore.contains(Component.text("Painter Upgrade"))) {
                                                 // check for dye in slot
                                                 PlayerInventory inv = player.getInventory();
                                                 ItemStack colour = inv.getItem(8);

@@ -17,12 +17,15 @@
 package me.eccentric_nz.TARDIS.utility;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Soon after taking Amy Pond on board for the first time, the TARDIS console provided the Doctor with a new sonic
@@ -53,14 +56,13 @@ public class TARDISItemRenamer {
         if (im == null) {
             TARDIS.plugin.debug("ItemMeta was null for ItemStack: " + itemStack);
         } else {
-            im.setDisplayName(name);
+            im.displayName(Component.text(name));
             if (setlore) {
-                ArrayList<String> lore = new ArrayList<>();
-                lore.add("Enter and exit your TARDIS");
-                String format = ChatColor.AQUA + "" + ChatColor.ITALIC;
-                lore.add(format + "This key belongs to");
-                lore.add(format + player.getName());
-                im.setLore(lore);
+                List<Component> lore = new ArrayList<>();
+                lore.add(Component.text("Enter and exit your TARDIS"));
+                lore.add(Component.text("This key belongs to", NamedTextColor.AQUA).decorate(TextDecoration.ITALIC));
+                lore.add(Component.text(player.getName(), NamedTextColor.AQUA).decorate(TextDecoration.ITALIC));
+                im.lore(lore);
                 im.getPersistentDataContainer().set(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID(), player.getUniqueId());
             }
             itemStack.setItemMeta(im);
