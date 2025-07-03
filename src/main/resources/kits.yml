@@ -27,3 +27,11 @@ kits:
         - TARDIS Scanner Circuit
         - TARDIS Telepathic Circuit
         - TARDIS Temporal Circuit
+    blueprints:
+        - BLUEPRINT_BASE_UPDATE
+        - BLUEPRINT_CONSOLE_ROTOR
+        - BLUEPRINT_FEATURE_FORCEFIELD
+        - BLUEPRINT_PRESET_ANGEL
+        - BLUEPRINT_ROOM_VAULT
+        - BLUEPRINT_SONIC_KNOCKBACK
+        - BLUEPRINT_TRAVEL_VILLAGE

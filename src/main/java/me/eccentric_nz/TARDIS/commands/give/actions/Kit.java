@@ -18,6 +18,7 @@ package me.eccentric_nz.TARDIS.commands.give.actions;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
+import me.eccentric_nz.tardisshop.ShopItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -38,11 +39,11 @@ public class Kit {
     }
 
     public void give(String item, Player player) {
-        ItemStack result;
+        ItemStack result = null;
         if (plugin.getIncomposita().getShapelessRecipes().containsKey(item)) {
             ShapelessRecipe recipe = plugin.getIncomposita().getShapelessRecipes().get(item);
             result = recipe.getResult();
-        } else {
+        } else if (plugin.getFigura().getShapedRecipes().containsKey(item)) {
             ShapedRecipe recipe = plugin.getFigura().getShapedRecipes().get(item);
             result = recipe.getResult();
             if (result.hasItemMeta()) {
@@ -62,9 +63,14 @@ public class Kit {
                     }
                 }
             }
+        } else {
+            // blueprint
+            result = plugin.getTardisAPI().getTARDISBlueprintItem(item, player);
         }
-        result.setAmount(1);
-        player.getInventory().addItem(result);
-        player.updateInventory();
+        if (result != null) {
+            result.setAmount(1);
+            player.getInventory().addItem(result);
+            player.updateInventory();
+        }
     }
 }

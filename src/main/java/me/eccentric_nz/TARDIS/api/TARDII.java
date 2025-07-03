@@ -585,7 +585,7 @@ public class TARDII implements TardisAPI {
                 PersistentDataContainer pdc = im.getPersistentDataContainer();
                 pdc.set(TARDIS.plugin.getTimeLordUuidKey(), TARDIS.plugin.getPersistentDataTypeUUID(), player.getUniqueId());
                 pdc.set(TARDIS.plugin.getBlueprintKey(), PersistentDataType.STRING, perm);
-                im.displayName(Component.text("TARDIS Blueprint Disk"));
+                im.displayName(ComponentUtils.toWhite("TARDIS Blueprint Disk"));
                 List<Component> lore = List.of(
                         Component.text(TARDISStringUtils.capitalise(item)),
                         Component.text("Valid only for"),

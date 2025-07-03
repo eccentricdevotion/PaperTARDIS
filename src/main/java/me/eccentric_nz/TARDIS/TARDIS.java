@@ -1396,6 +1396,7 @@ public class TARDIS extends JavaPlugin {
         customDoorsConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "custom_doors.yml"));
         customRotorsConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "custom_time_rotors.yml"));
         kitsConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "kits.yml"));
+        new TARDISKitsUpdater(this, kitsConfig).checkKits();
         achievementConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "achievements.yml"));
         tagConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "tag.yml"));
         handlesConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "handles.yml"));
