@@ -22,6 +22,7 @@ import me.eccentric_nz.TARDIS.database.data.Tardis;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -29,7 +30,6 @@ import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashMap;
 
@@ -40,7 +40,7 @@ public class TARDISDisplayBlockRoomConverter implements Runnable {
 
     private final TARDIS plugin;
     private final Player owner;
-    private final int startx, starty, startz;
+    private final int startX, startY, startZ;
     private final int c = 16;
     private final int h = 16;
     private final int w = 16;
@@ -53,9 +53,9 @@ public class TARDISDisplayBlockRoomConverter implements Runnable {
     public TARDISDisplayBlockRoomConverter(TARDIS plugin, Player owner, TARDISARSSlot slot) {
         this.plugin = plugin;
         this.owner = owner;
-        this.startx = slot.getX();
-        this.starty = slot.getY();
-        this.startz = slot.getZ();
+        this.startX = slot.getX();
+        this.startY = slot.getY();
+        this.startZ = slot.getZ();
     }
 
     @Override
@@ -79,34 +79,47 @@ public class TARDISDisplayBlockRoomConverter implements Runnable {
         } else {
             // check a row of blocks
             for (int col = 0; col < c; col++) {
-                int x = startx + row;
-                int y = starty + level;
-                int z = startz + col;
+                int x = startX + row;
+                int y = startY + level;
+                int z = startZ + col;
                 Block block = world.getBlockAt(x, y, z);
-                if (isCustomBlock(block)) {
-                    ItemDisplay display = TARDISDisplayItemUtils.getFromBoundingBox(block);
-                    if (display != null && display.getPersistentDataContainer().has(plugin.getCustomBlockKey(), PersistentDataType.INTEGER)) {
-                        // get the item stack
-                        ItemStack is = display.getItemStack();
-                        // if the item stack is not null
-                        if (is != null && is.hasItemMeta()) {
-                            ItemMeta im = is.getItemMeta();
-                            // get the custom name
-                            if (im.hasDisplayName()) {
-                                String name = ComponentUtils.toEnumUppercase(im.displayName());
-                                // look up the name to get the TDI
-                                TARDISDisplayItem tdi = TARDISDisplayItem.valueOf(name);
-                                if (tdi != null) {
-                                    plugin.debug(tdi.getName());
-                                    // set the item stack's item model from TDI
-                                    im.setItemModel(null);
-                                    is.setItemMeta(im);
-                                    // set the display item's item stack
-                                    display.setItemStack(is);
-                                }
-                            }
-                        }
-                    }
+                if (!isCustomBlock(block)) {
+                    continue;
+                }
+                ItemDisplay display = TARDISDisplayItemUtils.getFromBoundingBox(block);
+                if (display == null) {
+                    continue;
+                }
+                // get the item stack
+                ItemStack is = display.getItemStack();
+                // if the item stack is not null
+                if (is.getType().isAir() || !is.hasItemMeta()) {
+                    continue;
+                }
+                ItemMeta im = is.getItemMeta();
+                // get the custom name
+                if (!im.hasDisplayName()) {
+                    continue;
+                }
+                Component component = im.displayName();
+                if (component == null) {
+                    continue;
+                }
+                String name = ComponentUtils.toEnumUppercase(component);
+                if (!component.children().isEmpty()) {
+                    name = ComponentUtils.toEnumUppercase(component.children().getFirst());
+                }
+                // look up the name to get the TDI
+                try {
+                    TARDISDisplayItem tdi = TARDISDisplayItem.valueOf(name);
+                    // set the item stack's item model from TDI
+                    im.setItemModel(null);
+                    // set the displayname
+                    im.displayName(ComponentUtils.toWhite(tdi.getDisplayName()));
+                    is.setItemMeta(im);
+                    // set the display item's item stack
+                    display.setItemStack(is);
+                } catch (IllegalArgumentException ignored) {
                 }
             }
             if (row < w) {
