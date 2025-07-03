@@ -286,7 +286,7 @@ public class TARDISItemFrameUpdateListener implements Listener {
         if (!im.hasDisplayName()) {
             return new SwitchPair(false, lampSwitch);
         }
-        return new SwitchPair(im.hasItemModel() && ComponentUtils.stripColour(im.displayName()).endsWith("Switch"), lampSwitch);
+        return new SwitchPair(im.hasItemModel() && ComponentUtils.endsWith(im.displayName(), "Switch"), lampSwitch);
     }
 
     private record SwitchPair(boolean b, ItemStack lamp) {

@@ -57,6 +57,6 @@ public class UntemperedSchism {
         if (!im.hasDisplayName() || !im.hasItemModel()) {
             return false;
         }
-        return ComponentUtils.stripColour(im.displayName()).endsWith("Untempered Schism");
+        return ComponentUtils.endsWith(im.displayName(), "Untempered Schism");
     }
 }

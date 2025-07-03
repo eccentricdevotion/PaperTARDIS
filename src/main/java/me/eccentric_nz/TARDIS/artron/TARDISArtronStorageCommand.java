@@ -78,7 +78,7 @@ public class TARDISArtronStorageCommand implements CommandExecutor {
                 return true;
             }
             ItemMeta im = is.getItemMeta();
-            if (!im.hasDisplayName() || !ComponentUtils.stripColour(im.displayName()).endsWith("Artron Storage Cell")) {
+            if (!im.hasDisplayName() || !ComponentUtils.endsWith(im.displayName(), "Artron Storage Cell")) {
                 plugin.getMessenger().send(player, TardisModule.TARDIS, "CELL_IN_HAND");
                 return true;
             }
@@ -99,7 +99,7 @@ public class TARDISArtronStorageCommand implements CommandExecutor {
                     return true;
                 }
                 ItemMeta offMeta = offhand.getItemMeta();
-                if (!offMeta.hasDisplayName() || !ComponentUtils.stripColour(offMeta.displayName()).endsWith("Artron Storage Cell")) {
+                if (!offMeta.hasDisplayName() || !ComponentUtils.endsWith(offMeta.displayName(), "Artron Storage Cell")) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "CELL_IN_HAND");
                     return true;
                 }

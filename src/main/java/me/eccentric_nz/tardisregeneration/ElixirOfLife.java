@@ -81,6 +81,6 @@ public class ElixirOfLife {
         if (!im.hasDisplayName()) {
             return false;
         }
-        return ComponentUtils.stripColour(im.displayName()).endsWith("Elixir of Life");
+        return ComponentUtils.endsWith(im.displayName(), "Elixir of Life");
     }
 }

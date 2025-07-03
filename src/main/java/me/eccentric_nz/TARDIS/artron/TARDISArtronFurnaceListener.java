@@ -154,7 +154,7 @@ public class TARDISArtronFurnaceListener implements Listener {
         if (!event.getItemInHand().getItemMeta().hasDisplayName()) {
             return;
         }
-        if (!ComponentUtils.stripColour(event.getItemInHand().getItemMeta().displayName()).endsWith("TARDIS Artron Furnace")) {
+        if (!ComponentUtils.endsWith(event.getItemInHand().getItemMeta().displayName(), "TARDIS Artron Furnace")) {
             return;
         }
         Player player = event.getPlayer();

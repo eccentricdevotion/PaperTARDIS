@@ -61,7 +61,7 @@ public class TARDISFobWatchListener implements Listener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (!im.hasDisplayName() || !ComponentUtils.stripColour(im.displayName()).endsWith("Fob Watch")) {
+        if (!im.hasDisplayName() || !ComponentUtils.endsWith(im.displayName(), "Fob Watch")) {
             return;
         }
         Player player = event.getPlayer();

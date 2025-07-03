@@ -229,7 +229,7 @@ public class TARDISSonicGeneratorListener implements Listener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("Sonic Generator")) {
+        if (im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "Sonic Generator")) {
             Player p = event.getPlayer();
             String uuid = p.getUniqueId().toString();
             Block block = event.getBlock();

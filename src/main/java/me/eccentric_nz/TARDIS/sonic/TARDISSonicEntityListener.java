@@ -62,7 +62,7 @@ public class TARDISSonicEntityListener implements Listener {
         Entity ent = event.getRightClicked();
         if (is.getType().equals(Material.BLAZE_ROD) && is.hasItemMeta()) {
             ItemMeta im = player.getInventory().getItemInMainHand().getItemMeta();
-            if (ComponentUtils.stripColour(im.displayName()).endsWith("Sonic Screwdriver")) {
+            if (ComponentUtils.endsWith(im.displayName(), "Sonic Screwdriver")) {
                 List<Component> lore = im.lore();
                 if (ent instanceof Player scanned) {
                     TARDISSonicSound.playSonicSound(plugin, player, now, 3050L, "sonic_screwdriver");

@@ -86,7 +86,7 @@ public class TARDISHandlesListener implements Listener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("Handles")) {
+        if (im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "Handles")) {
             // can only be placed in an item frame
             event.setCancelled(true);
             plugin.getMessenger().send(event.getPlayer(), TardisModule.TARDIS, "HANDLES_FRAME");

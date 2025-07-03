@@ -233,7 +233,7 @@ public class TARDISHandlesFrameListener implements Listener {
     private boolean isHandles(ItemStack is) {
         if (is != null && is.getType().equals(Material.BIRCH_BUTTON) && is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            return im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("Handles");
+            return im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "Handles");
         }
         return false;
     }

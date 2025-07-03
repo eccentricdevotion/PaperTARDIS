@@ -67,7 +67,7 @@ public class TARDISDiskWriterCommand {
         }
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("Save Storage Disk")) {
+            if (im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "Save Storage Disk")) {
                 List<Component> lore = im.lore();
                 if (!lore.getFirst().equals(Component.text("Blank"))) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "DISK_ONLY_BLANK");
@@ -192,7 +192,7 @@ public class TARDISDiskWriterCommand {
         ItemStack is = player.getInventory().getItemInMainHand();
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("Player Storage Disk")) {
+            if (im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "Player Storage Disk")) {
                 List<Component> lore = im.lore();
                 if (!ComponentUtils.stripColour(lore.getFirst()).equals("Blank")) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "DISK_ONLY_BLANK");
@@ -245,7 +245,7 @@ public class TARDISDiskWriterCommand {
         ItemStack is = player.getInventory().getItemInMainHand();
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("Authorised Control Disk")
+            if (im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "Authorised Control Disk")
                     && im.getPersistentDataContainer().has(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID())) {
                 if (args.length < 2) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "TOO_FEW_ARGS");

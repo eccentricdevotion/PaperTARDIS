@@ -310,7 +310,7 @@ public class TARDISStaticUtils {
         if (is != null && is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
             if (im.hasDisplayName()) {
-                return ComponentUtils.stripColour(im.displayName()).endsWith("Sonic Screwdriver");
+                return ComponentUtils.endsWith(im.displayName(),"Sonic Screwdriver");
             }
         }
         return false;

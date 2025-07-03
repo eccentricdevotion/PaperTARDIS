@@ -133,6 +133,6 @@ public class TARDISHumListener extends TARDISMenuListener {
     private boolean isPlay(InventoryView view) {
         ItemStack play = view.getItem(15);
         ItemMeta save = play.getItemMeta();
-        return (ComponentUtils.stripColour(save.lore().getFirst()).endsWith("PLAY"));
+        return (ComponentUtils.endsWith(save.lore().getFirst(), "PLAY"));
     }
 }

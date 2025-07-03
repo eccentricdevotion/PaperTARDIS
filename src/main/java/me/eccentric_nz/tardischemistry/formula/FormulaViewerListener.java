@@ -17,6 +17,7 @@
 package me.eccentric_nz.tardischemistry.formula;
 
 import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardischemistry.compound.Compound;
 import org.bukkit.entity.Player;
@@ -35,18 +36,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public class FormulaViewerListener implements Listener {
+public class FormulaViewerListener extends TARDISMenuListener {
 
     private final List<UUID> viewers = new ArrayList<>();
     private final TARDIS plugin;
 
     public FormulaViewerListener(TARDIS plugin) {
+        super(plugin);
         this.plugin = plugin;
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onFormulaViewerOpen(InventoryOpenEvent event) {
-        if (event.getView().getTitle().endsWith("Formula")) {
+        if (event.getInventory().getHolder() instanceof FormulaViewer) {
             Player player = (Player) event.getPlayer();
             UUID uuid = player.getUniqueId();
             viewers.add(uuid);
@@ -93,9 +95,5 @@ public class FormulaViewerListener implements Listener {
                 p.updateInventory();
             }
         }
-    }
-
-    public void close(Player p) {
-        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, p::closeInventory, 1L);
     }
 }

@@ -114,7 +114,7 @@ public class TARDISTelepathicListener implements Listener {
                 return;
             }
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("TARDIS Telepathic Circuit")) {
+            if (im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "TARDIS Telepathic Circuit")) {
                 Block up = event.getClickedBlock().getRelative(BlockFace.UP);
                 if (!up.getType().isAir()) {
                     return;
@@ -170,7 +170,7 @@ public class TARDISTelepathicListener implements Listener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("TARDIS Telepathic Circuit")) {
+        if (im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "TARDIS Telepathic Circuit")) {
             UUID uuid = event.getPlayer().getUniqueId();
             String l = event.getBlock().getLocation().toString();
             plugin.getTrackerKeeper().getTelepathicPlacements().put(uuid, l);

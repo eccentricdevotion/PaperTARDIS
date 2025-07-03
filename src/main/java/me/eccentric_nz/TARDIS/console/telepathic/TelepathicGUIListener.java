@@ -86,7 +86,7 @@ public class TelepathicGUIListener extends TARDISMenuListener {
                 // toggle telepathy on/off
                 case 0 -> {
                     ItemMeta im = choice.getItemMeta();
-                    int b = (im.hasLore() && ComponentUtils.stripColour(im.lore().getFirst()).endsWith("ON")) ? 0 : 1;
+                    int b = (im.hasLore() && ComponentUtils.endsWith(im.lore().getFirst(), "ON")) ? 0 : 1;
                     // update database
                     HashMap<String, Object> set = new HashMap<>();
                     HashMap<String, Object> whereu = new HashMap<>();

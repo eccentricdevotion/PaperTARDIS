@@ -343,7 +343,7 @@ public class TARDISConsoleCloseListener implements Listener {
                     } else {
                         plugin.getMessenger().send(p, TardisModule.TARDIS, "ADV_BLANK");
                     }
-                } else if (mat.equals(Material.MUSIC_DISC_STRAD) && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && ComponentUtils.stripColour(is.getItemMeta().displayName()).endsWith("Blank Storage Disk")) {
+                } else if (mat.equals(Material.MUSIC_DISC_STRAD) && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && ComponentUtils.endsWith(is.getItemMeta().displayName(), "Blank Storage Disk")) {
                     // Blank Disk - get a random location
                     Location l = new TARDISRandomiserCircuit(plugin).getRandomlocation(p, current.direction());
                     if (l == null) {

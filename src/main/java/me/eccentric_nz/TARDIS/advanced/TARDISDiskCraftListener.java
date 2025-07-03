@@ -75,7 +75,7 @@ public class TARDISDiskCraftListener implements Listener {
                     return;
                 }
                 ItemMeta im = is.getItemMeta();
-                if (!im.hasDisplayName() || !ComponentUtils.stripColour(im.displayName()).endsWith("Biome Storage Disk") || !im.hasLore()) {
+                if (!im.hasDisplayName() || !ComponentUtils.endsWith(im.displayName(), "Biome Storage Disk") || !im.hasLore()) {
                     return;
                 }
                 List<Component> lore = im.lore();
@@ -107,7 +107,7 @@ public class TARDISDiskCraftListener implements Listener {
                     return;
                 }
                 ItemMeta im = is.getItemMeta();
-                if (!im.hasDisplayName() || !ComponentUtils.stripColour(im.displayName()).endsWith("Preset Storage Disk") || !im.hasLore()) {
+                if (!im.hasDisplayName() || !ComponentUtils.endsWith(im.displayName(), "Preset Storage Disk") || !im.hasLore()) {
                     return;
                 }
                 List<Component> lore = im.lore();

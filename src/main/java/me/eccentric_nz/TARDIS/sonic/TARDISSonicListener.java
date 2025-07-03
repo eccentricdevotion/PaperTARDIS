@@ -279,7 +279,7 @@ public class TARDISSonicListener implements Listener {
         ItemStack is = item.getItemStack();
         if (is.getType().equals(Material.BLAZE_ROD) && is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (ComponentUtils.stripColour(im.displayName()).endsWith("Sonic Screwdriver")) {
+            if (ComponentUtils.endsWith(im.displayName(), "Sonic Screwdriver")) {
                 // set to off state
                 CustomModelDataComponent component = im.getCustomModelDataComponent();
                 if (!component.getFloats().isEmpty()) {

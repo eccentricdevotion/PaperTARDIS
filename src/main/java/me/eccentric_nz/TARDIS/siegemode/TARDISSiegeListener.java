@@ -393,7 +393,7 @@ public class TARDISSiegeListener implements Listener {
         }
         ItemMeta im = is.getItemMeta();
         if (im != null) {
-            return (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("TARDIS Siege Cube")) || (im.hasItemModel() && Whoniverse.SIEGE_CUBE.getKey().equals(im.getItemModel()));
+            return (im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "TARDIS Siege Cube")) || (im.hasItemModel() && Whoniverse.SIEGE_CUBE.getKey().equals(im.getItemModel()));
         }
         return false;
     }
@@ -413,6 +413,6 @@ public class TARDISSiegeListener implements Listener {
     }
 
     private boolean hasSiegeCubeName(ItemStack is) {
-        return (is.hasItemMeta() && is.getItemMeta().hasDisplayName() && ComponentUtils.stripColour(is.getItemMeta().displayName()).endsWith("TARDIS Siege Cube"));
+        return (is.hasItemMeta() && is.getItemMeta().hasDisplayName() && ComponentUtils.endsWith(is.getItemMeta().displayName(), "TARDIS Siege Cube"));
     }
 }

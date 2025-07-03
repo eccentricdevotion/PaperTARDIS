@@ -480,7 +480,7 @@ public class TARDISDisplayBlockListener implements Listener {
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
             if (im.hasDisplayName()) {
-                if (ComponentUtils.stripColour(im.displayName()).endsWith("Sonic Screwdriver")) {
+                if (ComponentUtils.endsWith(im.displayName(), "Sonic Screwdriver")) {
                     List<Component> lore = im.lore();
                     return lore != null && lore.contains(Component.text("Redstone Upgrade"));
                 }

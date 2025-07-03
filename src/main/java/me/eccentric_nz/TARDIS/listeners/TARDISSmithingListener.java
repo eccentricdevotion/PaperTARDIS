@@ -135,7 +135,7 @@ public class TARDISSmithingListener implements Listener {
         if (!im.hasDisplayName()) {
             return false;
         }
-        if (!ComponentUtils.stripColour(im.displayName()).endsWith("Artron Capacitor")) {
+        if (!ComponentUtils.endsWith(im.displayName(), "Artron Capacitor")) {
             return false;
         }
         return !im.hasItemModel() || im.getItemModel().equals(Whoniverse.ARTRON_CAPACITOR_DAMAGED.getKey());
