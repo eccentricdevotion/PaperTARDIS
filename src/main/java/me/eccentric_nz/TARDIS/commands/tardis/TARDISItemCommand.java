@@ -21,7 +21,6 @@ import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -54,12 +53,16 @@ public class TARDISItemCommand {
                 plugin.getMessenger().send(player, TardisModule.TARDIS, "ITEM_IN_HAND");
                 return true;
             }
+            Component component = im.displayName();
             // strip color codes
-            String stripped = ComponentUtils.stripColour(im.displayName());
+            String stripped = ComponentUtils.stripColour(component);
+            if (!component.children().isEmpty()) {
+                stripped = ComponentUtils.stripColour(component.children().getFirst());
+            }
             // look up display name
             RecipeItem recipeItem = RecipeItem.getByName(stripped);
             if (!recipeItem.equals(RecipeItem.NOT_FOUND)) {
-                im.displayName(Component.text(stripped, NamedTextColor.WHITE));
+                im.displayName(ComponentUtils.toWhite(stripped));
                 im.setItemModel(null);
                 inHand.setItemMeta(im);
                 player.updateInventory();
@@ -71,12 +74,16 @@ public class TARDISItemCommand {
                 if (is != null && is.hasItemMeta()) {
                     ItemMeta im = is.getItemMeta();
                     if (im.hasDisplayName()) {
+                        Component component = im.displayName();
                         // strip color codes
-                        String stripped = ComponentUtils.stripColour(im.displayName());
+                        String stripped = ComponentUtils.stripColour(component);
+                        if (!component.children().isEmpty()) {
+                            stripped = ComponentUtils.stripColour(component.children().getFirst());
+                        }
                         // look up display name
                         RecipeItem recipeItem = RecipeItem.getByName(stripped);
                         if (!recipeItem.equals(RecipeItem.NOT_FOUND)) {
-                            im.displayName(Component.text(stripped, NamedTextColor.WHITE));
+                            im.displayName(ComponentUtils.toWhite(stripped));
                             im.setItemModel(null);
                             is.setItemMeta(im);
                             i++;

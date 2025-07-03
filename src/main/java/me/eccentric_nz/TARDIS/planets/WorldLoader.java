@@ -72,8 +72,8 @@ public class WorldLoader {
                         if (gameRule != null) {
                             w.setGameRule(gameRule, plugin.getPlanetsConfig().getBoolean("planets." + world + ".gamerules." + rule));
                         } else {
-                            plugin.getServer().getLogger().log(Level.WARNING, "Invalid game rule detected in planets.yml!");
-                            plugin.getServer().getLogger().log(Level.WARNING, "The rule was '" + rule + "' in world '" + world + "'.");
+                            plugin.getLogger().log(Level.WARNING, "Invalid game rule detected in planets.yml!");
+                            plugin.getLogger().log(Level.WARNING, "The rule was '" + rule + "' in world '" + world + "'.");
                         }
                     }
                 }

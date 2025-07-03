@@ -21,10 +21,7 @@ public class ComponentUtils {
     }
 
     public static String stripColour(Component component) {
-        // or just?
         return ((TextComponent) component).content();
-//        PlainTextComponentSerializer plainSerializer = PlainTextComponentSerializer.plainText();
-//        return plainSerializer.serialize(component);
     }
 
     public static boolean endsWith(Component component, String end) {

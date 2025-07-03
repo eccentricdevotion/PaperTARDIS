@@ -20,6 +20,7 @@ import me.eccentric_nz.TARDIS.custommodels.keys.ArmourVariant;
 import me.eccentric_nz.TARDIS.custommodels.keys.CybermanVariant;
 import me.eccentric_nz.TARDIS.custommodels.keys.DroidVariant;
 import me.eccentric_nz.TARDIS.custommodels.keys.EmptyChildVariant;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
 import me.eccentric_nz.tardisweepingangels.monsters.cybermen.CyberType;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
@@ -69,7 +70,7 @@ public class ArmourEquipper {
             case MIRE -> "Mire Helmet";
             default -> monster.getName() + " Head";
         };
-        headMeta.displayName(Component.text(name, NamedTextColor.WHITE));
+        headMeta.displayName(ComponentUtils.toWhite(name));
         head.setItemMeta(headMeta);
         entity.getEquipment().setHelmet(head);
         // chest

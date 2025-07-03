@@ -56,7 +56,7 @@ public class HeadBuilder {
             case MIRE -> "Mire Helmet";
             default -> monster.getName() + " Head";
         };
-        im.displayName(Component.text(head, NamedTextColor.WHITE));
+        im.displayName(ComponentUtils.toWhite(head));
         im.setItemModel(model);
         EquippableComponent component = im.getEquippable();
         component.setSlot(EquipmentSlot.HEAD);
