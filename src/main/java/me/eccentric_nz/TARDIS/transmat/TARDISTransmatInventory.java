@@ -88,7 +88,7 @@ public class TARDISTransmatInventory implements InventoryHolder {
             // info
             ItemStack info = new ItemStack(GUITransmat.INFO.material(), 1);
             ItemMeta meta = info.getItemMeta();
-            meta.displayName(Component.text(plugin.getChameleonGuis().getString("INFO")));
+            meta.displayName(Component.text(plugin.getChameleonGuis().getString("INFO", "Info")));
             List<Component> metaLore = new ArrayList<>();
             for (String s : plugin.getChameleonGuis().getStringList("INFO_TRANSMAT")) {
                 metaLore.add(Component.text(s));
@@ -99,14 +99,14 @@ public class TARDISTransmatInventory implements InventoryHolder {
             // delete
             ItemStack delete = new ItemStack(GUITransmat.DELETE.material(), 1);
             ItemMeta dim = delete.getItemMeta();
-            dim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_DELETE")));
+            dim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_DELETE", "Delete")));
             delete.setItemMeta(dim);
             stack[GUITransmat.DELETE.slot()] = delete;
         }
         // teleport
         ItemStack tele = new ItemStack(GUITransmat.TRANSMAT.material(), 1);
         ItemMeta port = tele.getItemMeta();
-        port.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TRANSMAT")));
+        port.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TRANSMAT", "Transmat")));
         tele.setItemMeta(port);
         stack[GUITransmat.TRANSMAT.slot()] = tele;
         // rooms world

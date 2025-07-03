@@ -18,6 +18,7 @@ package me.eccentric_nz.TARDIS.upgrades;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.data.SystemUpgrade;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -90,7 +91,7 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
         // left_down
         ItemStack ld = new ItemStack(SystemTree.LEFT_DOWN.getMaterial(), 1);
         ItemMeta eft = ld.getItemMeta();
-        eft.displayName(Component.text("", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        eft.displayName(ComponentUtils.toWhite(""));
         eft.setItemModel(SystemTree.LEFT_DOWN.getLocked());
         ld.setItemMeta(eft);
         stacks[0] = ld;
@@ -98,7 +99,7 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
         int[] horizontal = new int[]{1, 3, 5, 7};
         ItemStack his = new ItemStack(SystemTree.H_LINE.getMaterial(), 1);
         ItemMeta him = his.getItemMeta();
-        him.displayName(Component.text("", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        him.displayName(ComponentUtils.toWhite(""));
         him.setItemModel(SystemTree.H_LINE.getLocked());
         his.setItemMeta(him);
         for (int h : horizontal) {
@@ -108,7 +109,7 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
         int[] both_down = new int[]{2, 6};
         ItemStack bd = new ItemStack(SystemTree.BOTH_DOWN.getMaterial(), 1);
         ItemMeta bdim = bd.getItemMeta();
-        bdim.displayName(Component.text("", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        bdim.displayName(ComponentUtils.toWhite(""));
         bdim.setItemModel(SystemTree.BOTH_DOWN.getLocked());
         bd.setItemMeta(bdim);
         for (int d : both_down) {
@@ -117,21 +118,21 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
         // right_down
         ItemStack rd = new ItemStack(SystemTree.RIGHT_DOWN.getMaterial(), 1);
         ItemMeta own = rd.getItemMeta();
-        own.displayName(Component.text("", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        own.displayName(ComponentUtils.toWhite(""));
         own.setItemModel(SystemTree.RIGHT_DOWN.getLocked());
         rd.setItemMeta(own);
         stacks[8] = rd;
         // background
         ItemStack is = new ItemStack(SystemTree.BLANK.getMaterial(), 1);
         ItemMeta im = is.getItemMeta();
-        im.displayName(Component.text("", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite(""));
         im.setItemModel(SystemTree.BLANK.getLocked());
         is.setItemMeta(im);
         stacks[10] = is;
         // vertical
         ItemStack vert = new ItemStack(SystemTree.VERTICAL.getMaterial(), 1);
         ItemMeta ical = vert.getItemMeta();
-        ical.displayName(Component.text("", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        ical.displayName(ComponentUtils.toWhite(""));
         ical.setItemModel(SystemTree.VERTICAL.getLocked());
         vert.setItemMeta(ical);
         stacks[13] = vert;

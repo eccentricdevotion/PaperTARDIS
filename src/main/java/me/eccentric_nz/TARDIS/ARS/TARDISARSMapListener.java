@@ -25,7 +25,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.move.TARDISDoorListener;
 import me.eccentric_nz.TARDIS.travel.TARDISDoorLocation;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -98,7 +98,7 @@ public class TARDISARSMapListener extends TARDISARSMethods implements Listener {
                     setMap(md.getY(), md.getE(), md.getS(), playerUUID, view);
                     setLore(view, slot, null);
                 } else {
-                    setLore(view, slot, plugin.getLanguage().getString("ARS_LOAD"));
+                    setLore(view, slot, plugin.getLanguage().getString("ARS_LOAD", "You need to load the map first!"));
                 }
             }
             case 46 -> {
@@ -120,7 +120,7 @@ public class TARDISARSMapListener extends TARDISARSMethods implements Listener {
                         }
                     }
                 } else {
-                    setLore(view, slot, plugin.getLanguage().getString("ARS_LOAD"));
+                    setLore(view, slot, plugin.getLanguage().getString("ARS_LOAD", "You need to load the map first!"));
                 }
             }
             default -> {
@@ -129,7 +129,7 @@ public class TARDISARSMapListener extends TARDISARSMethods implements Listener {
                     ItemStack is = view.getItem(slot);
                     if (is != null) {
                         ItemMeta im = is.getItemMeta();
-                        String dn = TARDISStringUtils.stripColour(im.displayName());
+                        String dn = ComponentUtils.stripColour(im.displayName());
                         if (!dn.equals("Empty slot")) {
                             selectedLocation.put(playerUUID, is.getType().toString());
                             // get selected slot
@@ -139,7 +139,7 @@ public class TARDISARSMapListener extends TARDISARSMethods implements Listener {
                         }
                     }
                 } else {
-                    setLore(view, slot, plugin.getLanguage().getString("ARS_LOAD"));
+                    setLore(view, slot, plugin.getLanguage().getString("ARS_LOAD", "You need to load the map first!"));
                 }
             }
         }
@@ -203,7 +203,7 @@ public class TARDISARSMapListener extends TARDISARSMethods implements Listener {
                 is.setItemMeta(im);
             }
         } else {
-            setLore(view, 47, plugin.getLanguage().getString("ARS_LOAD"));
+            setLore(view, 47, plugin.getLanguage().getString("ARS_LOAD", "You need to load the map first!"));
         }
     }
 

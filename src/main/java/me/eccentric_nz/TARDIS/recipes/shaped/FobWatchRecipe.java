@@ -19,9 +19,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -57,13 +57,13 @@ public class FobWatchRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.CLOCK, 1);
         ItemMeta im = is.getItemMeta();
-        im.displayName(Component.text("Fob Watch", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("Fob Watch"));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "fob_watch");
         ShapedRecipe r = new ShapedRecipe(key, is);
         ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta em = exact.getItemMeta();
-        em.displayName(Component.text("TARDIS Chameleon Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        em.displayName(ComponentUtils.toWhite("TARDIS Chameleon Circuit"));
         CustomModelDataComponent component = em.getCustomModelDataComponent();
         component.setFloats(CircuitVariant.CHAMELEON.getFloats());
         em.setCustomModelDataComponent(component);

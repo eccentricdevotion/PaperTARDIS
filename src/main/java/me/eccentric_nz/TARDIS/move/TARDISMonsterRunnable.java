@@ -24,10 +24,7 @@ import me.eccentric_nz.TARDIS.builders.interior.TARDISTIPSData;
 import me.eccentric_nz.TARDIS.database.resultset.*;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.lazarus.LazarusVariants;
-import me.eccentric_nz.TARDIS.utility.TARDISDalekDisguiser;
-import me.eccentric_nz.TARDIS.utility.TARDISSounds;
-import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.*;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
 import org.bukkit.Difficulty;
 import org.bukkit.Location;
@@ -141,7 +138,7 @@ public class TARDISMonsterRunnable implements Runnable {
                             tm.setAnger(pigzombie.getAnger());
                             tm.setEquipment(pigzombie.getEquipment());
                             if (twa && pigzombie.getEquipment().getHelmet() != null && pigzombie.getEquipment().getHelmet().hasItemMeta() && pigzombie.getEquipment().getHelmet().getItemMeta().hasDisplayName()) {
-                                String name = TARDISStringUtils.stripColour(pigzombie.getEquipment().getHelmet().getItemMeta().displayName());
+                                String name = ComponentUtils.stripColour(pigzombie.getEquipment().getHelmet().getItemMeta().displayName());
                                 if (name.equals("Ice Warrior Head") || name.equals("Strax Head")) {
                                     dn = name.substring(0, name.length() - 5);
                                 }
@@ -153,7 +150,7 @@ public class TARDISMonsterRunnable implements Runnable {
                             AbstractSkeleton skeleton = (AbstractSkeleton) e;
                             tm.setEquipment(skeleton.getEquipment());
                             if (twa && skeleton.getEquipment().getHelmet() != null && skeleton.getEquipment().getHelmet().hasItemMeta() && skeleton.getEquipment().getHelmet().getItemMeta().hasDisplayName()) {
-                                String name = TARDISStringUtils.stripColour(skeleton.getEquipment().getHelmet().getItemMeta().displayName());
+                                String name = ComponentUtils.stripColour(skeleton.getEquipment().getHelmet().getItemMeta().displayName());
                                 if (name.equals("Dalek Head") || name.equals("Silurian Head") || name.equals("Weeping Angel Head")) {
                                     dn = name.substring(0, name.length() - 5);
                                 }
@@ -171,7 +168,7 @@ public class TARDISMonsterRunnable implements Runnable {
                             tm.setBaby(!zombie.isAdult());
                             tm.setEquipment(zombie.getEquipment());
                             if (twa && zombie.getEquipment().getHelmet() != null && zombie.getEquipment().getHelmet().hasItemMeta() && zombie.getEquipment().getHelmet().getItemMeta().hasDisplayName()) {
-                                String name = TARDISStringUtils.stripColour(zombie.getEquipment().getHelmet().getItemMeta().displayName());
+                                String name = ComponentUtils.stripColour(zombie.getEquipment().getHelmet().getItemMeta().displayName());
                                 if (name.equals("Cyberman Head") || name.equals("Empty Child Head") || name.equals("Sontaran Head") || name.equals("Vashta Nerada Head") || name.equals("Zygon Head")) {
                                     dn = name.substring(0, name.length() - 5);
                                 }

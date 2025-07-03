@@ -19,9 +19,8 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -59,7 +58,7 @@ public class StattenheimRemoteRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.FLINT, 1);
         ItemMeta im = is.getItemMeta();
-        im.displayName(Component.text("Stattenheim Remote", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("Stattenheim Remote"));
         String uses = plugin.getConfig().getString("circuits.uses.stattenheim", "15");
         if (uses.equals("0")) {
             uses = "1000";
@@ -77,7 +76,7 @@ public class StattenheimRemoteRecipe {
             r.shape("OBO", "OLO", "RRR");
             ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
             ItemMeta em = exact.getItemMeta();
-            em.displayName(Component.text("TARDIS Stattenheim Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+            em.displayName(ComponentUtils.toWhite("TARDIS Stattenheim Circuit"));
             CustomModelDataComponent component = em.getCustomModelDataComponent();
             component.setFloats(CircuitVariant.STATTENHEIM.getFloats());
             em.setCustomModelDataComponent(component);

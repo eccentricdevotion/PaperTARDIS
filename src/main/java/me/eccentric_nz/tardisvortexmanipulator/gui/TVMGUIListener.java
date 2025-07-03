@@ -10,7 +10,7 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.Flag;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import net.kyori.adventure.text.Component;
@@ -275,7 +275,7 @@ public class TVMGUIListener extends TARDISMenuListener {
     private void usePredictive(InventoryView view) {
         ItemStack is = view.getItem(6);
         ItemMeta im = is.getItemMeta();
-        String world = TARDISStringUtils.stripColour(im.lore().getFirst());
+        String world = ComponentUtils.stripColour(im.lore().getFirst());
         components.set(0, world);
         ItemStack display = view.getItem(4);
         ItemMeta dim = display.getItemMeta();
@@ -348,7 +348,7 @@ public class TVMGUIListener extends TARDISMenuListener {
         ItemStack display = view.getItem(4);
         ItemMeta dim = display.getItemMeta();
         List<Component> lore = dim.lore();
-        String name = TARDISStringUtils.stripColour(lore.getFirst());
+        String name = ComponentUtils.stripColour(lore.getFirst());
         if (name.isEmpty()) {
             plugin.getMessenger().send(player, TardisModule.VORTEX_MANIPULATOR, "VM_NEED");
             return;
@@ -385,7 +385,7 @@ public class TVMGUIListener extends TARDISMenuListener {
         ItemStack display = view.getItem(4);
         ItemMeta dim = display.getItemMeta();
         List<Component> lore = dim.lore();
-        String pname = TARDISStringUtils.stripColour(lore.getFirst()).trim();
+        String pname = ComponentUtils.stripColour(lore.getFirst()).trim();
         if (pname.isEmpty()) {
             plugin.getMessenger().send(player, TardisModule.VORTEX_MANIPULATOR, "SCAN_ENTS");
             // scan nearby entities
@@ -522,7 +522,7 @@ public class TVMGUIListener extends TARDISMenuListener {
         ItemMeta dim = display.getItemMeta();
         List<Component> lore = dim.lore();
         List<String> dest;
-        String first = TARDISStringUtils.stripColour(lore.getFirst()).trim();
+        String first = ComponentUtils.stripColour(lore.getFirst()).trim();
         if (!first.isEmpty()) {
             dest = List.of(first.split(" "));
         } else {

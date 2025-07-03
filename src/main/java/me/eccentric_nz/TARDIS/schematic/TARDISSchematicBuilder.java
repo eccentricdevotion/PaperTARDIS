@@ -23,10 +23,10 @@ import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetControls;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.schematic.actions.SchematicSave;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -197,12 +197,12 @@ public class TARDISSchematicBuilder {
                                         }
                                         if (im.hasDisplayName()) {
                                             // TODO need to store display name as json element
-                                            frame.addProperty("name", TARDISStringUtils.stripColour(im.displayName()));
+                                            frame.addProperty("name", ComponentUtils.stripColour(im.displayName()));
                                         }
                                         if (im.hasLore()) {
                                             JsonArray lore = new JsonArray();
                                             for (Component s : im.lore()) {
-                                                lore.add(TARDISStringUtils.stripColour(s));
+                                                lore.add(ComponentUtils.stripColour(s));
                                             }
                                             frame.add("lore", lore);
                                         }

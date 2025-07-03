@@ -18,6 +18,7 @@ package me.eccentric_nz.TARDIS.console.telepathic;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -104,7 +105,7 @@ public class TelepathicBiomeListener extends TARDISMenuListener {
                 if (choice != null) {
                     // get the biome
                     ItemMeta im = choice.getItemMeta();
-                    String enumStr = TARDISStringUtils.toEnumUppercase(TARDISStringUtils.stripColour(im.displayName()));
+                    String enumStr = ComponentUtils.toEnumUppercase(im.displayName());
                     player.performCommand("tardistravel biome " + enumStr);
                     close(player);
                 }

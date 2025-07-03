@@ -31,10 +31,10 @@ import me.eccentric_nz.TARDIS.doors.outer.OuterDoor;
 import me.eccentric_nz.TARDIS.doors.outer.OuterMinecraftDoorCloser;
 import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -89,7 +89,7 @@ public class TARDISRemoteKeyListener implements Listener {
         }
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "TARDIS Remote Key")) {
+            if (im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "TARDIS Remote Key")) {
                 String uuid = player.getUniqueId().toString();
                 // has TARDIS?
                 HashMap<String, Object> where = new HashMap<>();

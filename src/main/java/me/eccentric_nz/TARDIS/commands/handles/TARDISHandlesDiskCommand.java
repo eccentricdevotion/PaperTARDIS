@@ -19,8 +19,8 @@ package me.eccentric_nz.TARDIS.commands.handles;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -49,9 +49,9 @@ class TARDISHandlesDiskCommand {
         ItemStack disk = player.getInventory().getItemInMainHand();
         if (disk.getType().equals(Material.MUSIC_DISC_WARD) && disk.hasItemMeta()) {
             ItemMeta dim = disk.getItemMeta();
-            if (dim.hasDisplayName() && TARDISStringUtils.stripColour(dim.displayName()).equals("Handles Program Disk")) {
+            if (dim.hasDisplayName() && ComponentUtils.stripColour(dim.displayName()).equals("Handles Program Disk")) {
                 // get the program_id from the disk
-                int pid = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(dim.lore().get(1)));
+                int pid = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(dim.lore().get(1)));
                 // get the name - must be 32 chars or fewer
                 String name = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
                 if (name.length() < 3 || name.length() > 32) {

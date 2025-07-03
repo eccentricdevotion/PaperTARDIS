@@ -23,7 +23,7 @@ import me.eccentric_nz.TARDIS.commands.preferences.TARDISPrefsMenuInventory;
 import me.eccentric_nz.TARDIS.custommodels.keys.SonicVariant;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.sonic.actions.*;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -112,7 +112,7 @@ public class TARDISSonicListener implements Listener {
         ItemStack is = player.getInventory().getItemInMainHand();
         if (is.getType().equals(Material.BLAZE_ROD) && is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (TARDISStringUtils.endsWith(im.displayName(), "Sonic Screwdriver")) {
+            if (ComponentUtils.endsWith(im.displayName(), "Sonic Screwdriver")) {
                 // check they have charge
                 if (plugin.getConfig().getBoolean("sonic.charge")) {
                     // get sonic UUID
@@ -279,7 +279,7 @@ public class TARDISSonicListener implements Listener {
         ItemStack is = item.getItemStack();
         if (is.getType().equals(Material.BLAZE_ROD) && is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (TARDISStringUtils.stripColour(im.displayName()).endsWith("Sonic Screwdriver")) {
+            if (ComponentUtils.stripColour(im.displayName()).endsWith("Sonic Screwdriver")) {
                 // set to off state
                 CustomModelDataComponent component = im.getCustomModelDataComponent();
                 if (!component.getFloats().isEmpty()) {

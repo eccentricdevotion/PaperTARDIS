@@ -39,7 +39,7 @@ public class MicroscopeGUIListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onInventoryClick(InventoryClickEvent event) {
-        InventoryHolder holder = event.getClickedInventory().getHolder(false);
+        InventoryHolder holder = event.getInventory().getHolder(false);
         if (!(holder instanceof SlideInventory) && !(holder instanceof ComputerInventory) && !(holder instanceof FileCabinetInventory)) {
             return;
         }

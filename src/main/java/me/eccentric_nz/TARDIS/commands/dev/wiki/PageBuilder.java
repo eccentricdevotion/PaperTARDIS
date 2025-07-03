@@ -19,6 +19,7 @@ package me.eccentric_nz.TARDIS.commands.dev.wiki;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
@@ -86,7 +87,7 @@ public class PageBuilder {
                 }
                 default -> {
                     ItemMeta im = is.getItemMeta();
-                    String dn = TARDISStringUtils.stripColour(im.displayName());
+                    String dn = ComponentUtils.stripColour(im.displayName());
                     RecipeItem recipeItem = RecipeItem.getByName(dn);
                     String folder = recipeItem.getCategory().toString().toLowerCase(Locale.ROOT);
                     String WIKI = "[%s](/recipes/%s/%s)";

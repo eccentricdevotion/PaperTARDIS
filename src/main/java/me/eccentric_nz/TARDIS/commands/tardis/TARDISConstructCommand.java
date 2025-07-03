@@ -20,8 +20,8 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetConstructSign;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.entity.Player;
@@ -70,7 +70,7 @@ class TARDISConstructCommand {
         int l = TARDISNumberParsers.parseInt(args[1]);
         Component raw = LegacyComponentSerializer.legacyAmpersand().deserialize(String.join(" ", Arrays.copyOfRange(args, 2, args.length)));
         // strip color codes and check length
-        if (TARDISStringUtils.stripColour(raw).length() > 16) {
+        if (ComponentUtils.stripColour(raw).length() > 16) {
             plugin.getMessenger().send(player, TardisModule.TARDIS, "CONSTRUCT_LINE_LEN");
             return true;
         }

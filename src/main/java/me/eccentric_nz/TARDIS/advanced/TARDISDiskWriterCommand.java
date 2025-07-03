@@ -22,7 +22,7 @@ import me.eccentric_nz.TARDIS.database.data.Tardis;
 import me.eccentric_nz.TARDIS.database.resultset.*;
 import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -67,7 +67,7 @@ public class TARDISDiskWriterCommand {
         }
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && TARDISStringUtils.stripColour(im.displayName()).endsWith("Save Storage Disk")) {
+            if (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("Save Storage Disk")) {
                 List<Component> lore = im.lore();
                 if (!lore.getFirst().equals(Component.text("Blank"))) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "DISK_ONLY_BLANK");
@@ -192,9 +192,9 @@ public class TARDISDiskWriterCommand {
         ItemStack is = player.getInventory().getItemInMainHand();
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && TARDISStringUtils.stripColour(im.displayName()).endsWith("Player Storage Disk")) {
+            if (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("Player Storage Disk")) {
                 List<Component> lore = im.lore();
-                if (!TARDISStringUtils.stripColour(lore.getFirst()).equals("Blank")) {
+                if (!ComponentUtils.stripColour(lore.getFirst()).equals("Blank")) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "DISK_ONLY_BLANK");
                     return true;
                 }
@@ -245,7 +245,7 @@ public class TARDISDiskWriterCommand {
         ItemStack is = player.getInventory().getItemInMainHand();
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && TARDISStringUtils.stripColour(im.displayName()).endsWith("Authorised Control Disk")
+            if (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("Authorised Control Disk")
                     && im.getPersistentDataContainer().has(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID())) {
                 if (args.length < 2) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "TOO_FEW_ARGS");

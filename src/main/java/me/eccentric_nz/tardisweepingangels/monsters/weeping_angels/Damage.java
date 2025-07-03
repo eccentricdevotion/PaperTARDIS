@@ -19,8 +19,8 @@ package me.eccentric_nz.tardisweepingangels.monsters.weeping_angels;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
 import me.eccentric_nz.tardisweepingangels.utils.MonsterTargetListener;
 import org.bukkit.Chunk;
@@ -141,7 +141,7 @@ public class Damage implements Listener {
             if (stack != null) {
                 if (stack.hasItemMeta()) {
                     ItemMeta im = stack.getItemMeta();
-                    if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "TARDIS Key")) {
+                    if (im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "TARDIS Key")) {
                         int amount = stack.getAmount();
                         if (amount > 1) {
                             stack.setAmount(amount - 1);

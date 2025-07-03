@@ -30,9 +30,9 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTravellers;
 import me.eccentric_nz.TARDIS.enumeration.*;
 import me.eccentric_nz.TARDIS.flight.TARDISLand;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -393,7 +393,7 @@ public class TARDISTerminalListener implements Listener {
         boolean found = false;
         for (int i : slots) {
             if (view.getItem(i).getItemMeta().hasLore()) {
-                String world = TARDISStringUtils.stripColour(view.getItem(i).getItemMeta().lore().getFirst());
+                String world = ComponentUtils.stripColour(view.getItem(i).getItemMeta().lore().getFirst());
                 if (!world.equals("No permission")) {
                     found = true;
                     World w = (!plugin.getPlanetsConfig().getBoolean("planets." + world + ".enabled")
@@ -461,7 +461,7 @@ public class TARDISTerminalListener implements Listener {
                             // check submarine
                             ItemMeta subim = view.getItem(44).getItemMeta();
                             loc.setY(starty);
-                            if (subim.hasLore() && TARDISStringUtils.stripColour(subim.lore().getFirst()).equals("true") && TARDISStaticUtils.isOceanBiome(loc.getBlock().getBiome())) {
+                            if (subim.hasLore() && ComponentUtils.stripColour(subim.lore().getFirst()).equals("true") && TARDISStaticUtils.isOceanBiome(loc.getBlock().getBiome())) {
                                 Location subloc = tt.submarine(loc.getBlock(), d);
                                 if (subloc != null) {
                                     safe = 0;

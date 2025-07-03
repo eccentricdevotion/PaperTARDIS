@@ -36,7 +36,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.enumeration.Updateable;
 import me.eccentric_nz.TARDIS.sonic.actions.TARDISSonicLight;
 import me.eccentric_nz.TARDIS.update.UpdateDoor;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -96,7 +96,7 @@ public class TARDISDisplayBlockListener implements Listener {
         if (!im.hasDisplayName() || !im.getPersistentDataContainer().has(plugin.getCustomBlockKey(), PersistentDataType.STRING)) {
             return;
         }
-        if (im.displayName().equals(ChatColor.GOLD + "TARDIS Seed Block") || TARDISStringUtils.endsWith(im.displayName(), "Console")) {
+        if (im.displayName().equals(ChatColor.GOLD + "TARDIS Seed Block") || ComponentUtils.endsWith(im.displayName(), "Console")) {
             return;
         }
         String key = im.getPersistentDataContainer().get(plugin.getCustomBlockKey(), PersistentDataType.STRING);
@@ -480,7 +480,7 @@ public class TARDISDisplayBlockListener implements Listener {
         if (is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
             if (im.hasDisplayName()) {
-                if (TARDISStringUtils.stripColour(im.displayName()).endsWith("Sonic Screwdriver")) {
+                if (ComponentUtils.stripColour(im.displayName()).endsWith("Sonic Screwdriver")) {
                     List<Component> lore = im.lore();
                     return lore != null && lore.contains(Component.text("Redstone Upgrade"));
                 }
@@ -526,7 +526,7 @@ public class TARDISDisplayBlockListener implements Listener {
                                         Material variable = vis.getType();
                                         ItemStack ret = new ItemStack(Material.GLASS, 1);
                                         ItemMeta im = ret.getItemMeta();
-                                        im.displayName(Component.text("Variable Light", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                                        im.displayName(ComponentUtils.toWhite("Variable Light"));
                                         im.lore(List.of(Component.text(variable.toString())));
                                         im.getPersistentDataContainer().set(TARDIS.plugin.getCustomBlockKey(), PersistentDataType.INTEGER, 1003);
                                         ret.setItemMeta(im);

@@ -21,7 +21,7 @@ import me.eccentric_nz.TARDIS.api.event.TARDISChameleonArchEvent;
 import me.eccentric_nz.TARDIS.api.event.TARDISChameleonArchOffEvent;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -61,7 +61,7 @@ public class TARDISFobWatchListener implements Listener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (!im.hasDisplayName() || !TARDISStringUtils.stripColour(im.displayName()).endsWith("Fob Watch")) {
+        if (!im.hasDisplayName() || !ComponentUtils.stripColour(im.displayName()).endsWith("Fob Watch")) {
             return;
         }
         Player player = event.getPlayer();

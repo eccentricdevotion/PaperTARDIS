@@ -20,7 +20,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.keys.SonicVariant;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
@@ -60,11 +60,11 @@ public class TARDISSonicUpgradeListener implements Listener {
                 ItemMeta im = is.getItemMeta();
                 // get the upgrade
                 boolean found = false;
-                String upgrade = TARDISStringUtils.stripColour(im.displayName());
+                String upgrade = ComponentUtils.stripColour(im.displayName());
                 for (ItemStack glowstone : ci.getContents()) {
                     if (glowstone != null && glowstone.getType().equals(Material.GLOWSTONE_DUST) && glowstone.hasItemMeta()) {
                         ItemMeta rm = glowstone.getItemMeta();
-                        String displayName = TARDISStringUtils.stripColour(rm.displayName());
+                        String displayName = ComponentUtils.stripColour(rm.displayName());
                         upgrade = SonicUpgradeData.displayNames.get(displayName);
                         found = true;
                     }
@@ -102,7 +102,7 @@ public class TARDISSonicUpgradeListener implements Listener {
                     if (sim.hasCustomModelDataComponent()) {
                         floats = sim.getCustomModelDataComponent().getFloats();
                     }
-                    String dn = TARDISStringUtils.stripColour(sim.displayName());
+                    String dn = ComponentUtils.stripColour(sim.displayName());
                     List<Component> lore;
                     if (sim.hasLore()) {
                         // get the current sonic's upgrades
@@ -123,11 +123,11 @@ public class TARDISSonicUpgradeListener implements Listener {
                 }
             }
         } else if (recipe instanceof ShapedRecipe) {
-            if (is == null || !is.hasItemMeta() || !is.getItemMeta().hasDisplayName() || !TARDISStringUtils.endsWith(is.getItemMeta().displayName(), "TARDIS Remote Key")) {
+            if (is == null || !is.hasItemMeta() || !is.getItemMeta().hasDisplayName() || !ComponentUtils.endsWith(is.getItemMeta().displayName(), "TARDIS Remote Key")) {
                 return;
             }
             ItemStack key = ci.getItem(5);
-            if (!key.hasItemMeta() || !key.getItemMeta().hasDisplayName() || !TARDISStringUtils.endsWith(key.getItemMeta().displayName(), "TARDIS Key")) {
+            if (!key.hasItemMeta() || !key.getItemMeta().hasDisplayName() || !ComponentUtils.endsWith(key.getItemMeta().displayName(), "TARDIS Key")) {
                 ci.setResult(null);
                 TARDIS.plugin.getMessenger().send(event.getView().getPlayer(), TardisModule.TARDIS, "REMOTE_KEY");
             }

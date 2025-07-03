@@ -19,9 +19,7 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -54,20 +52,20 @@ public class RiftManipulatorRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.BEACON, 1);
         ItemMeta im = is.getItemMeta();
-        im.displayName(Component.text("Rift Manipulator", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("Rift Manipulator"));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "rift_manipulator");
         ShapedRecipe r = new ShapedRecipe(key, is);
         ItemStack rift = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta em = rift.getItemMeta();
-        em.displayName(Component.text("Rift Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        em.displayName(ComponentUtils.toWhite("Rift Circuit"));
         CustomModelDataComponent component = em.getCustomModelDataComponent();
         component.setFloats(CircuitVariant.RIFT.getFloats());
         em.setCustomModelDataComponent(component);
         rift.setItemMeta(em);
         ItemStack acid = new ItemStack(Material.NETHER_BRICK, 1);
         ItemMeta aim = acid.getItemMeta();
-        aim.displayName(Component.text("Acid Battery", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        aim.displayName(ComponentUtils.toWhite("Acid Battery"));
         acid.setItemMeta(aim);
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
             r.shape(" A ", "ACA", "NAN");

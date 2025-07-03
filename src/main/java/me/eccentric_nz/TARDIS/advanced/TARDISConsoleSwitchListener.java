@@ -30,7 +30,7 @@ import me.eccentric_nz.TARDIS.travel.TARDISTerminalInventory;
 import me.eccentric_nz.TARDIS.travel.save.TARDISSavesPlanetInventory;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -99,7 +99,7 @@ public class TARDISConsoleSwitchListener implements Listener {
         if (!im.hasDisplayName()) {
             return;
         }
-        String dn = TARDISStringUtils.stripColour(im.displayName());
+        String dn = ComponentUtils.stripColour(im.displayName());
         if (!gui_circuits.contains(dn)) {
             return;
         }

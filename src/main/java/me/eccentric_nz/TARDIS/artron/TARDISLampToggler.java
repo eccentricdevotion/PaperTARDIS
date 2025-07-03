@@ -22,6 +22,7 @@ import me.eccentric_nz.TARDIS.builders.utility.LightLevel;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItemUtils;
 import me.eccentric_nz.TARDIS.database.resultset.*;
 import me.eccentric_nz.TARDIS.enumeration.TardisLight;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
@@ -88,7 +89,7 @@ public class TARDISLampToggler {
                         if (display != null) {
                             ItemStack is = new ItemStack(light.getOff().getMaterial());
                             ItemMeta im = is.getItemMeta();
-                            im.displayName(Component.text(light.getOff().getDisplayName(), NamedTextColor.WHITE));
+                            im.displayName(ComponentUtils.toWhite(light.getOff().getDisplayName()));
                             NamespacedKey model = light.getOff().getCustomModel();
                             if (model != null) {
                                 im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, model.getKey());
@@ -110,7 +111,7 @@ public class TARDISLampToggler {
                     if (display != null) {
                         ItemStack is = new ItemStack(light.getOn().getMaterial());
                         ItemMeta im = is.getItemMeta();
-                        im.displayName(Component.text(light.getOn().getDisplayName(), NamedTextColor.WHITE));
+                        im.displayName(ComponentUtils.toWhite(light.getOn().getDisplayName()));
                         NamespacedKey model = light.getOn().getCustomModel();
                         if (model != null) {
                             im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, model.getKey());

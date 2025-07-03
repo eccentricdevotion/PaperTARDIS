@@ -466,7 +466,7 @@ public class TARDISARSMethods {
             md.setS(us);
             map_data.put(playerUUID, md);
         } else {
-            setLore(view, slot, plugin.getLanguage().getString("ARS_LOAD"));
+            setLore(view, slot, plugin.getLanguage().getString("ARS_LOAD", "You need to load the map first!"));
         }
     }
 

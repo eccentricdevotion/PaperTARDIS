@@ -21,6 +21,7 @@ import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
 import me.eccentric_nz.TARDIS.enumeration.Consoles;
 import me.eccentric_nz.TARDIS.enumeration.Schematic;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -98,7 +99,7 @@ public class Seed {
                 ItemMeta im = is.getItemMeta();
                 im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, model.getKey());
                 // set display name
-                im.displayName(Component.text("TARDIS Seed Block", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+                im.displayName(ComponentUtils.toGold("TARDIS Seed Block"));
                 im.lore(List.of(
                         Component.text(type),
                         Component.text("Walls: " + wall),

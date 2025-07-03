@@ -1,6 +1,7 @@
 package me.eccentric_nz.tardischemistry;
 
 import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardischemistry.block.ChemistryBlock;
 import me.eccentric_nz.tardischemistry.block.RecipeData;
 import net.kyori.adventure.text.Component;
@@ -44,7 +45,7 @@ public class TARDISChemistryRecipeInventory implements InventoryHolder {
         RecipeData data = ChemistryBlock.RECIPES.get(which);
         ItemStack result = new ItemStack(data.displayItem().getMaterial(), 1);
         ItemMeta im = result.getItemMeta();
-        im.displayName(Component.text(data.displayName(), NamedTextColor.WHITE));
+        im.displayName(ComponentUtils.toWhite(data.displayName()));
         im.lore(data.lore());
         im.setItemModel(data.displayItem().getCustomModel());
         result.setItemMeta(im);

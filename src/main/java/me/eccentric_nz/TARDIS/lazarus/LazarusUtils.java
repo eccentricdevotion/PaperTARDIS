@@ -18,7 +18,7 @@ package me.eccentric_nz.TARDIS.lazarus;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.skins.*;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -51,7 +51,7 @@ public class LazarusUtils {
         } else {
             ItemStack helmet = player.getInventory().getHelmet();
             if (helmet != null && helmet.hasItemMeta() && helmet.getItemMeta().hasDisplayName()) {
-                String metaName = TARDISStringUtils.stripColour(helmet.getItemMeta().displayName());
+                String metaName = ComponentUtils.stripColour(helmet.getItemMeta().displayName());
                 if (twaHelmets.contains(metaName)) {
                     TARDIS.plugin.getServer().dispatchCommand(TARDIS.plugin.getConsole(), "twa disguise WEEPING_ANGEL off " + uuid);
                 }

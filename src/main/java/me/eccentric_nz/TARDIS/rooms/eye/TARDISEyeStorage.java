@@ -19,6 +19,7 @@ package me.eccentric_nz.TARDIS.rooms.eye;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIArtronStorage;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetArtronStorage;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -63,7 +64,7 @@ public class TARDISEyeStorage implements InventoryHolder {
         // right arrow
         ItemStack r_arrow = new ItemStack(GUIArtronStorage.ARROW_RIGHT.material(), 1);
         ItemMeta r_arrow_im = r_arrow.getItemMeta();
-        r_arrow_im.displayName(Component.text("", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        r_arrow_im.displayName(ComponentUtils.toWhite(""));
         r_arrow.setItemMeta(r_arrow_im);
         stacks[GUIArtronStorage.ARROW_RIGHT.slot()] = r_arrow;
         ResultSetArtronStorage rs = new ResultSetArtronStorage(plugin);
@@ -74,7 +75,7 @@ public class TARDISEyeStorage implements InventoryHolder {
             for (int i = 2; i < 2 + count; i++) {
                 ItemStack is = new ItemStack(Material.BUCKET, 1);
                 ItemMeta im = is.getItemMeta();
-                im.displayName(Component.text(i > (2 + count) - damaged ? "Damaged Artron Capacitor" : "Artron Capacitor", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                im.displayName(ComponentUtils.toWhite(i > (2 + count) - damaged ? "Damaged Artron Capacitor" : "Artron Capacitor"));
                 is.setItemMeta(im);
                 stacks[i] = is;
             }
@@ -82,7 +83,7 @@ public class TARDISEyeStorage implements InventoryHolder {
         // left arrow
         ItemStack l_arrow = new ItemStack(GUIArtronStorage.ARROW_LEFT.material(), 1);
         ItemMeta l_arrow_im = l_arrow.getItemMeta();
-        l_arrow_im.displayName(Component.text(" ", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        l_arrow_im.displayName(ComponentUtils.toWhite(" "));
         l_arrow.setItemMeta(l_arrow_im);
         stacks[GUIArtronStorage.ARROW_LEFT.slot()] = l_arrow;
         // close

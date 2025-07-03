@@ -17,7 +17,7 @@
 package me.eccentric_nz.tardisregeneration;
 
 import me.eccentric_nz.TARDIS.custommodels.keys.Schism;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -40,7 +40,7 @@ public class UntemperedSchism {
         ItemStack untempered = new ItemStack(Material.ANCIENT_DEBRIS);
         ItemMeta im = untempered.getItemMeta();
         im.setItemModel(Schism.UNTEMPERED_SCHISM_BLOCK.getKey());
-        im.displayName(Component.text("Untempered Schism", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("Untempered Schism"));
         im.lore(List.of(
                 Component.text("Renew regenerations when"),
                 Component.text("you have used them all.")
@@ -57,6 +57,6 @@ public class UntemperedSchism {
         if (!im.hasDisplayName() || !im.hasItemModel()) {
             return false;
         }
-        return TARDISStringUtils.stripColour(im.displayName()).endsWith("Untempered Schism");
+        return ComponentUtils.stripColour(im.displayName()).endsWith("Untempered Schism");
     }
 }

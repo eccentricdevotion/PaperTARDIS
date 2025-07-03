@@ -19,6 +19,7 @@ package me.eccentric_nz.TARDIS.commands.preferences;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIKeyPreferences;
 import me.eccentric_nz.TARDIS.custommodels.keys.KeyVariant;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -73,7 +74,7 @@ class TARDISKeyMenuInventory implements InventoryHolder {
                 im.displayName(Component.text(key.getName()));
             } else {
                 is.setType(material);
-                im.displayName(Component.text("TARDIS Key", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                im.displayName(ComponentUtils.toWhite("TARDIS Key"));
             }
             if (!key.getLore().isEmpty()) {
                 if (key.getLore().contains("~")) {

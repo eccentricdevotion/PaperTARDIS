@@ -57,7 +57,7 @@ public class TARDISChameleonHelpGUI implements InventoryHolder {
         // help
         ItemStack info = new ItemStack(GUIChameleonHelp.INFO_HELP_1.material(), 1);
         ItemMeta io = info.getItemMeta();
-        io.displayName(Component.text(plugin.getChameleonGuis().getString("INFO")));
+        io.displayName(Component.text(plugin.getChameleonGuis().getString("INFO", "Info")));
         List<Component> ioLore = new ArrayList<>();
         for (String s : plugin.getChameleonGuis().getStringList("INFO_HELP_1")) {
             ioLore.add(Component.text(s));
@@ -67,7 +67,7 @@ public class TARDISChameleonHelpGUI implements InventoryHolder {
         // help
         ItemStack info2 = new ItemStack(GUIChameleonHelp.INFO_HELP_2.material(), 1);
         ItemMeta io2 = info2.getItemMeta();
-        io2.displayName(Component.text(plugin.getChameleonGuis().getString("INFO")));
+        io2.displayName(Component.text(plugin.getChameleonGuis().getString("INFO", "Info")));
         List<Component> io2Lore = new ArrayList<>();
         for (String s : plugin.getChameleonGuis().getStringList("INFO_HELP_2")) {
             io2Lore.add(Component.text(s));
@@ -131,7 +131,7 @@ public class TARDISChameleonHelpGUI implements InventoryHolder {
         // grid
         ItemStack grid = new ItemStack(GUIChameleonHelp.INFO_HELP_3.material(), 1);
         ItemMeta gd = grid.getItemMeta();
-        gd.displayName(Component.text(plugin.getChameleonGuis().getString("INFO")));
+        gd.displayName(Component.text(plugin.getChameleonGuis().getString("INFO", "Info")));
         List<Component> gdLore = new ArrayList<>();
         for (String s : plugin.getChameleonGuis().getStringList("INFO_HELP_3")) {
             gdLore.add(Component.text(s));
@@ -141,7 +141,7 @@ public class TARDISChameleonHelpGUI implements InventoryHolder {
         // grid
         ItemStack column = new ItemStack(GUIChameleonHelp.INFO_HELP_4.material(), 1);
         ItemMeta cn = column.getItemMeta();
-        cn.displayName(Component.text(plugin.getChameleonGuis().getString("INFO")));
+        cn.displayName(Component.text(plugin.getChameleonGuis().getString("INFO", "Info")));
         List<Component> cnLore = new ArrayList<>();
         for (String s : plugin.getChameleonGuis().getStringList("INFO_HELP_4")) {
             cnLore.add(Component.text(s));

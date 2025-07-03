@@ -19,7 +19,7 @@ package me.eccentric_nz.TARDIS.info;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -1885,7 +1885,7 @@ public class TARDISInformationSystemListener implements Listener {
         UUID uuid = p.getUniqueId();
         if (plugin.getTrackerKeeper().getInfoMenu().containsKey(uuid)) {
             event.setCancelled(true);
-            String chat = TARDISStringUtils.stripColour(event.message());
+            String chat = ComponentUtils.stripColour(event.message());
             // always exit if 'e' is pressed
             if (chat.equalsIgnoreCase("E")) {
                 exit(p, plugin);

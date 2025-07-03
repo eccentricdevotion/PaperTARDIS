@@ -22,8 +22,8 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisArtron;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.recipes.shaped.SonicScrewdriverRecipe;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -160,7 +160,7 @@ public class TARDISSonicGeneratorMenuListener extends TARDISMenuListener {
                 if (lore != null && !lore.contains(upgrade_name)) {
                     lore.add(upgrade_name);
                     sonic_im.lore(lore);
-                    setCost(view, getCost(view) + costs.get(TARDISStringUtils.stripColour(upgrade_name)));
+                    setCost(view, getCost(view) + costs.get(ComponentUtils.stripColour(upgrade_name)));
                 }
                 sonic.setItemMeta(sonic_im);
                 if (slotWasNull) {
@@ -176,7 +176,7 @@ public class TARDISSonicGeneratorMenuListener extends TARDISMenuListener {
                 }
                 sonic_im = sonic.getItemMeta();
                 if (slotWasNull) {
-                    sonic_im.displayName(Component.text("Sonic Screwdriver", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                    sonic_im.displayName(ComponentUtils.toWhite("Sonic Screwdriver"));
                     view.setItem(49, sonic);
                 } else {
                     // remove lore
@@ -260,7 +260,7 @@ public class TARDISSonicGeneratorMenuListener extends TARDISMenuListener {
     private int getCost(InventoryView view) {
         ItemStack is = view.getItem(45);
         ItemMeta im = is.getItemMeta();
-        String c = TARDISStringUtils.stripColour(im.lore().getFirst());
+        String c = ComponentUtils.stripColour(im.lore().getFirst());
         return TARDISNumberParsers.parseInt(c);
     }
 

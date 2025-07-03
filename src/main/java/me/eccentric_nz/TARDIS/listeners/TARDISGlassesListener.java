@@ -18,7 +18,7 @@ package me.eccentric_nz.TARDIS.listeners;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -105,7 +105,7 @@ public class TARDISGlassesListener implements Listener {
     private boolean is3DGlasses(ItemStack is) {
         if (is != null && is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            return im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "3-D Glasses");
+            return im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "3-D Glasses");
         }
         return false;
     }

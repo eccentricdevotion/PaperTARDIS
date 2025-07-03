@@ -18,7 +18,7 @@ package me.eccentric_nz.TARDIS.listeners;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -61,7 +61,7 @@ public class TARDISCraftListener implements Listener {
             if (is.hasItemMeta()) {
                 ItemMeta im = is.getItemMeta();
                 if (im.hasDisplayName()) {
-                    String dn = TARDISStringUtils.stripColour(im.displayName());
+                    String dn = ComponentUtils.stripColour(im.displayName());
                     if (dn.equals("TARDIS Seed Block")) {
                         List<Component> lore = im.lore();
                         lore.add(Component.text("Walls: " + ci.getItem(6).getType()));

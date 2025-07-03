@@ -18,8 +18,8 @@ package me.eccentric_nz.TARDIS.areas;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -56,7 +56,7 @@ public class TARDISEditAreasGUIListener extends TARDISMenuListener {
          */
         HashMap<String, Object> where = new HashMap<>();
         where.put("area_id", getValueFromLore(lore.get(4)));
-        where.put("world", TARDISStringUtils.stripColour(lore.getFirst()));
+        where.put("world", ComponentUtils.stripColour(lore.getFirst()));
         where.put("x", getValueFromLore(lore.get(1)));
         where.put("y", getValueFromLore(lore.get(2)));
         where.put("z", getValueFromLore(lore.get(3)));
@@ -113,7 +113,7 @@ public class TARDISEditAreasGUIListener extends TARDISMenuListener {
     }
 
     private Object getValueFromLore(Component s) {
-        String[] split = TARDISStringUtils.stripColour(s).split(": ");
+        String[] split = ComponentUtils.stripColour(s).split(": ");
         return TARDISNumberParsers.parseInt(split[1]);
     }
 }

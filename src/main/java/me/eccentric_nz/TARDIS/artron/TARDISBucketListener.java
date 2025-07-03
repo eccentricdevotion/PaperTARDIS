@@ -2,7 +2,7 @@ package me.eccentric_nz.TARDIS.artron;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
@@ -42,7 +42,7 @@ public class TARDISBucketListener implements Listener {
         }
         ItemMeta im = bucket.getItemMeta();
         if (im.hasDisplayName()) {
-            if (TARDISStringUtils.endsWith(im.displayName(), "Artron Storage Cell") || TARDISStringUtils.endsWith(im.displayName(), "Artron Capacitor")) {
+            if (ComponentUtils.endsWith(im.displayName(), "Artron Storage Cell") || ComponentUtils.endsWith(im.displayName(), "Artron Capacitor")) {
                 event.setCancelled(true);
                 plugin.getMessenger().send(event.getPlayer(), TardisModule.TARDIS, "ARTRON_FILL", material.toString());
             }
@@ -65,7 +65,7 @@ public class TARDISBucketListener implements Listener {
         }
         ItemMeta im = bucket.getItemMeta();
         if (im.hasDisplayName()) {
-            if (TARDISStringUtils.endsWith(im.displayName(), "Artron Storage Cell") || TARDISStringUtils.endsWith(im.displayName(), "Artron Capacitor")) {
+            if (ComponentUtils.endsWith(im.displayName(), "Artron Storage Cell") || ComponentUtils.endsWith(im.displayName(), "Artron Capacitor")) {
                 event.setCancelled(true);
                 plugin.getMessenger().send(event.getPlayer(), TardisModule.TARDIS, "ARTRON_FILL", "MILK");
             }

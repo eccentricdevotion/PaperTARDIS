@@ -18,7 +18,7 @@ package me.eccentric_nz.tardischemistry.compound;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardischemistry.element.Element;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -75,7 +75,7 @@ public class CompoundGUIListener extends TARDISMenuListener {
                 ItemMeta im = is.getItemMeta();
                 if (im.hasDisplayName()) {
                     try {
-                        Element element = Element.valueOf(TARDISStringUtils.stripColour(im.displayName()));
+                        Element element = Element.valueOf(ComponentUtils.stripColour(im.displayName()));
                         int amount = is.getAmount();
                         formula.append(element).append(":").append(amount).append("-");
                     } catch (IllegalArgumentException e) {

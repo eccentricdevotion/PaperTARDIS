@@ -18,7 +18,7 @@ package me.eccentric_nz.tardischemistry.reducer;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardischemistry.compound.Compound;
 import me.eccentric_nz.tardischemistry.element.Element;
 import me.eccentric_nz.tardischemistry.element.ElementBuilder;
@@ -76,7 +76,7 @@ public class ReducerGUIListener extends TARDISMenuListener {
             if (material.equals(Material.GLASS_BOTTLE) && is.hasItemMeta()) {
                 ItemMeta im = is.getItemMeta();
                 if (im.hasDisplayName()) {
-                    String c = TARDISStringUtils.stripColour(im.displayName()).replace(" ", "_");
+                    String c = ComponentUtils.stripColour(im.displayName()).replace(" ", "_");
                     for (Compound compound : Compound.values()) {
                         if (compound.toString().equals(c)) {
                             reduce(compound.getFormula(), inventory, player);

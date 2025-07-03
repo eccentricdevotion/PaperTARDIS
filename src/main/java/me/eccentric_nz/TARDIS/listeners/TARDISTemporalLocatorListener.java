@@ -22,8 +22,8 @@ import me.eccentric_nz.TARDIS.advanced.TARDISCircuitDamager;
 import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.travel.TARDISTemporalLocatorInventory;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -89,7 +89,7 @@ public class TARDISTemporalLocatorListener extends TARDISMenuListener {
      * @return the destination string
      */
     private long getTime(List<Component> lore) {
-        String[] data = TARDISStringUtils.stripColour(lore.getFirst()).split(" ");
+        String[] data = ComponentUtils.stripColour(lore.getFirst()).split(" ");
         return TARDISNumberParsers.parseLong(data[0]);
     }
 }

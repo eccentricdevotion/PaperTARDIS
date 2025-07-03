@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.particles;
 
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -70,7 +71,7 @@ public class ParticleColour {
     }
 
     public static NamedTextColor fromString(Component str) {
-        String clean = TARDISStringUtils.stripColour(str);
+        String clean = ComponentUtils.stripColour(str);
         switch (clean) {
             case "White" -> { return NamedTextColor.WHITE; }
             case "Aqua" -> { return NamedTextColor.AQUA; }

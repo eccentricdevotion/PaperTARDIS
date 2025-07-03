@@ -9,7 +9,7 @@ import me.eccentric_nz.TARDIS.api.Parameters;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.Flag;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
@@ -77,7 +77,7 @@ public class TVMEquipListener implements Listener {
             return;
         }
         ItemStack is = player.getInventory().getItemInMainHand();
-        if (is.hasItemMeta() && is.getItemMeta().hasDisplayName() && TARDISStringUtils.endsWith(is.getItemMeta().displayName(), "Vortex Manipulator")) {
+        if (is.hasItemMeta() && is.getItemMeta().hasDisplayName() && ComponentUtils.endsWith(is.getItemMeta().displayName(), "Vortex Manipulator")) {
             // get tachyon level
             TVMResultSetManipulator rs = new TVMResultSetManipulator(plugin, player.getUniqueId().toString());
             if (rs.resultSet()) {

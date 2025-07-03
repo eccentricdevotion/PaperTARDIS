@@ -6,7 +6,7 @@ package me.eccentric_nz.tardisvortexmanipulator.gui;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetWarpByName;
@@ -84,7 +84,7 @@ public class TVMSavesGUIListener extends TARDISMenuListener {
         if (selectedSlot != -1) {
             ItemStack is = view.getItem(selectedSlot);
             ItemMeta im = is.getItemMeta();
-            String save_name = TARDISStringUtils.stripColour(im.displayName());
+            String save_name = ComponentUtils.stripColour(im.displayName());
             TVMResultSetWarpByName rss = new TVMResultSetWarpByName(plugin, player.getUniqueId().toString(), save_name);
             if (rss.resultSet()) {
                 close(player);
@@ -102,7 +102,7 @@ public class TVMSavesGUIListener extends TARDISMenuListener {
         if (selectedSlot != -1) {
             ItemStack is = view.getItem(selectedSlot);
             ItemMeta im = is.getItemMeta();
-            String save_name = TARDISStringUtils.stripColour(im.displayName());
+            String save_name = ComponentUtils.stripColour(im.displayName());
             TVMResultSetWarpByName rss = new TVMResultSetWarpByName(plugin, player.getUniqueId().toString(), save_name);
             if (rss.resultSet()) {
                 close(player);

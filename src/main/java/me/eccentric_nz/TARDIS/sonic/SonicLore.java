@@ -17,7 +17,7 @@
 package me.eccentric_nz.TARDIS.sonic;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -39,7 +39,7 @@ public class SonicLore {
             if (im.hasLore()) {
                 lore = im.lore();
                 for (int i = lore.size() - 1; i >= 0; i--) {
-                    if (TARDISStringUtils.stripColour(lore.get(i)).startsWith("Charge: ")) {
+                    if (ComponentUtils.stripColour(lore.get(i)).startsWith("Charge: ")) {
                         index = i;
                         break;
                     }
@@ -61,7 +61,7 @@ public class SonicLore {
         int index = -1;
         Component charge = null;
         for (int i = lore.size() - 1; i >= 0; i--) {
-            if (TARDISStringUtils.stripColour(lore.get(i)).startsWith("Charge: ")) {
+            if (ComponentUtils.stripColour(lore.get(i)).startsWith("Charge: ")) {
                 charge = lore.get(i);
                 index = i;
                 break;

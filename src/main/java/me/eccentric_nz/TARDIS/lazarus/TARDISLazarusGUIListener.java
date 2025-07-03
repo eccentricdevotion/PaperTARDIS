@@ -28,9 +28,9 @@ import me.eccentric_nz.TARDIS.lazarus.disguise.MUSHROOM_COW;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.skins.Skin;
 import me.eccentric_nz.TARDIS.skins.SkinUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -119,7 +119,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
             if (is != null) {
                 ItemMeta im = is.getItemMeta();
                 // remember selection
-                String display = TARDISStringUtils.stripColour(im.displayName());
+                String display = ComponentUtils.stripColour(im.displayName());
                 if (twaOnly.contains(display) && !plugin.getConfig().getBoolean("modules.weeping_angels")) {
                     im.lore(List.of(Component.text("Genetic modification not available!")));
                     is.setItemMeta(im);
@@ -141,7 +141,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
                     ItemStack pageButton = view.getItem(slot);
                     ItemMeta pageMeta = pageButton.getItemMeta();
                     // go to page one or two
-                    if (TARDISStringUtils.stripColour(pageMeta.displayName()).equals(plugin.getLanguage().getString("BUTTON_PAGE_1"))) {
+                    if (ComponentUtils.stripColour(pageMeta.displayName()).equals(plugin.getLanguage().getString("BUTTON_PAGE_1"))) {
                         ih = new TARDISLazarusInventory(plugin);
                     } else {
                         ih = new TARDISLazarusPageTwoInventory(plugin);
@@ -153,7 +153,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
                     ItemStack skinsButton = view.getItem(slot);
                     ItemMeta skinsMeta = skinsButton.getItemMeta();
                     // go to skins or page two
-                    if (TARDISStringUtils.stripColour(skinsMeta.displayName()).equals(plugin.getLanguage().getString("BUTTON_PAGE_2"))) {
+                    if (ComponentUtils.stripColour(skinsMeta.displayName()).equals(plugin.getLanguage().getString("BUTTON_PAGE_2"))) {
                         ih = new TARDISLazarusPageTwoInventory(plugin);
                     } else {
                         ih = new TARDISTelevisionInventory(plugin);
@@ -165,7 +165,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
                     ItemStack monstersButton = view.getItem(slot);
                     ItemMeta monstersMeta = monstersButton.getItemMeta();
                     // go to monsters or page two
-                    if (TARDISStringUtils.stripColour(monstersMeta.displayName()).equals("TARDIS Television")) {
+                    if (ComponentUtils.stripColour(monstersMeta.displayName()).equals("TARDIS Television")) {
                         ih = new TARDISTelevisionInventory(plugin);
                     } else {
                         ih = new TARDISWeepingAngelsMonstersInventory(plugin);
@@ -177,7 +177,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
                     ItemMeta masterMeta = masterButton.getItemMeta();
                     if (TARDISPermission.hasPermission(player, "tardis.themaster")) {
                         if (plugin.getTrackerKeeper().getImmortalityGate().isEmpty()) {
-                            boolean isOff = TARDISStringUtils.stripColour(masterMeta.lore().getFirst()).equals(plugin.getLanguage().getString("SET_OFF"));
+                            boolean isOff = ComponentUtils.stripColour(masterMeta.lore().getFirst()).equals(plugin.getLanguage().getString("SET_OFF", "OFF"));
                             Component onoff = isOff ? Component.text(plugin.getLanguage().getString("SET_ON", "ON")) : Component.text(plugin.getLanguage().getString("SET_OFF", "OFF"));
                             masterMeta.lore(List.of(onoff));
                             CustomModelDataComponent component = masterMeta.getCustomModelDataComponent();
@@ -201,7 +201,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
                 case 47 -> { // adult / baby
                     ItemStack ageButton = view.getItem(slot);
                     ItemMeta ageMeta = ageButton.getItemMeta();
-                    String onoff = (TARDISStringUtils.stripColour(ageMeta.lore().getFirst()).equals("ADULT")) ? "BABY" : "ADULT";
+                    String onoff = (ComponentUtils.stripColour(ageMeta.lore().getFirst()).equals("ADULT")) ? "BABY" : "ADULT";
                     ageMeta.lore(List.of(Component.text(onoff)));
                     ageButton.setItemMeta(ageMeta);
                 }
@@ -215,7 +215,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
                     ItemMeta optionsMeta = optionsButton.getItemMeta();
                     List<Component> lore = optionsMeta.lore();
                     int pos = lore.size() - 1;
-                    Component truefalse = (TARDISStringUtils.stripColour(lore.get(pos)).equals("FALSE")) ? Component.text("TRUE", NamedTextColor.GREEN) : Component.text("FALSE", NamedTextColor.RED);
+                    Component truefalse = (ComponentUtils.stripColour(lore.get(pos)).equals("FALSE")) ? Component.text("TRUE", NamedTextColor.GREEN) : Component.text("FALSE", NamedTextColor.RED);
                     lore.set(pos, truefalse);
                     optionsMeta.lore(lore);
                     optionsButton.setItemMeta(optionsMeta);
@@ -721,14 +721,14 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
     private boolean isReversedPolarity(InventoryView i) {
         ItemStack is = i.getItem(45);
         ItemMeta im = is.getItemMeta();
-        return TARDISStringUtils.stripColour(im.lore().getFirst()).equals(plugin.getLanguage().getString("SET_ON", "ON"));
+        return ComponentUtils.stripColour(im.lore().getFirst()).equals(plugin.getLanguage().getString("SET_ON", "ON"));
     }
 
     private DyeColor getColor(InventoryView i) {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
         try {
-            return DyeColor.valueOf(TARDISStringUtils.stripColour(im.lore().getFirst()));
+            return DyeColor.valueOf(ComponentUtils.stripColour(im.lore().getFirst()));
         } catch (IllegalArgumentException e) {
             return DyeColor.WHITE;
         }
@@ -738,7 +738,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
         try {
-            return Horse.Color.valueOf(TARDISStringUtils.stripColour(im.lore().getFirst()));
+            return Horse.Color.valueOf(ComponentUtils.stripColour(im.lore().getFirst()));
         } catch (IllegalArgumentException e) {
             return Horse.Color.WHITE;
         }
@@ -748,7 +748,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
         try {
-            return MushroomCow.Variant.valueOf(TARDISStringUtils.stripColour(im.lore().getFirst()));
+            return MushroomCow.Variant.valueOf(ComponentUtils.stripColour(im.lore().getFirst()));
         } catch (IllegalArgumentException e) {
             return MushroomCow.Variant.RED;
         }
@@ -758,7 +758,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
         try {
-            return Llama.Color.valueOf(TARDISStringUtils.stripColour(im.lore().getFirst()));
+            return Llama.Color.valueOf(ComponentUtils.stripColour(im.lore().getFirst()));
         } catch (IllegalArgumentException e) {
             return org.bukkit.entity.Llama.Color.CREAMY;
         }
@@ -768,7 +768,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
         try {
-            return Axolotl.Variant.valueOf(TARDISStringUtils.stripColour(im.lore().getFirst()));
+            return Axolotl.Variant.valueOf(ComponentUtils.stripColour(im.lore().getFirst()));
         } catch (IllegalArgumentException e) {
             return Axolotl.Variant.WILD;
         }
@@ -777,20 +777,20 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
     private Frog.Variant getFrogVariant(InventoryView i) {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
-        return LazarusVariants.FROG_VARIANTS.getOrDefault(TARDISStringUtils.stripColour(im.lore().getFirst()), Frog.Variant.TEMPERATE);
+        return LazarusVariants.FROG_VARIANTS.getOrDefault(ComponentUtils.stripColour(im.lore().getFirst()), Frog.Variant.TEMPERATE);
     }
 
     private Cat.Type getCatType(InventoryView i) {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
-        return LazarusVariants.CAT_VARIANTS.getOrDefault(TARDISStringUtils.stripColour(im.lore().getFirst()), Cat.Type.TABBY);
+        return LazarusVariants.CAT_VARIANTS.getOrDefault(ComponentUtils.stripColour(im.lore().getFirst()), Cat.Type.TABBY);
     }
 
     private Fox.Type getFoxType(InventoryView i) {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
         try {
-            return Fox.Type.valueOf(TARDISStringUtils.stripColour(im.lore().getFirst()));
+            return Fox.Type.valueOf(ComponentUtils.stripColour(im.lore().getFirst()));
         } catch (IllegalArgumentException e) {
             return Fox.Type.RED;
         }
@@ -800,7 +800,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
         try {
-            return Panda.Gene.valueOf(TARDISStringUtils.stripColour(im.lore().getFirst()));
+            return Panda.Gene.valueOf(ComponentUtils.stripColour(im.lore().getFirst()));
         } catch (IllegalArgumentException e) {
             return Panda.Gene.NORMAL;
         }
@@ -810,7 +810,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
         try {
-            return Parrot.Variant.valueOf(TARDISStringUtils.stripColour(im.lore().getFirst()));
+            return Parrot.Variant.valueOf(ComponentUtils.stripColour(im.lore().getFirst()));
         } catch (IllegalArgumentException e) {
             return Parrot.Variant.GRAY;
         }
@@ -820,7 +820,7 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
         try {
-            return Rabbit.Type.valueOf(TARDISStringUtils.stripColour(im.lore().getFirst()));
+            return Rabbit.Type.valueOf(ComponentUtils.stripColour(im.lore().getFirst()));
         } catch (IllegalArgumentException e) {
             return Rabbit.Type.BROWN;
         }
@@ -829,44 +829,44 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
     private Wolf.Variant getWolfVariant(InventoryView i) {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
-        return LazarusVariants.WOLF_VARIANTS.getOrDefault(TARDISStringUtils.stripColour(im.lore().getFirst()), Wolf.Variant.PALE);
+        return LazarusVariants.WOLF_VARIANTS.getOrDefault(ComponentUtils.stripColour(im.lore().getFirst()), Wolf.Variant.PALE);
     }
 
     private Chicken.Variant getChickenVariant(InventoryView i) {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
-        return LazarusVariants.CHICKEN_VARIANTS.getOrDefault(TARDISStringUtils.stripColour(im.lore().getFirst()), Chicken.Variant.TEMPERATE);
+        return LazarusVariants.CHICKEN_VARIANTS.getOrDefault(ComponentUtils.stripColour(im.lore().getFirst()), Chicken.Variant.TEMPERATE);
     }
 
     private Cow.Variant getCowVariant(InventoryView i) {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
-        return LazarusVariants.COW_VARIANTS.getOrDefault(TARDISStringUtils.stripColour(im.lore().getFirst()), Cow.Variant.TEMPERATE);
+        return LazarusVariants.COW_VARIANTS.getOrDefault(ComponentUtils.stripColour(im.lore().getFirst()), Cow.Variant.TEMPERATE);
     }
 
     private Pig.Variant getPigVariant(InventoryView i) {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
-        return LazarusVariants.PIG_VARIANTS.getOrDefault(TARDISStringUtils.stripColour(im.lore().getFirst()), Pig.Variant.TEMPERATE);
+        return LazarusVariants.PIG_VARIANTS.getOrDefault(ComponentUtils.stripColour(im.lore().getFirst()), Pig.Variant.TEMPERATE);
     }
 
     private Villager.Profession getProfession(InventoryView i) {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
-        return LazarusVariants.PROFESSIONS.getOrDefault(TARDISStringUtils.stripColour(im.lore().getFirst()), Villager.Profession.FARMER);
+        return LazarusVariants.PROFESSIONS.getOrDefault(ComponentUtils.stripColour(im.lore().getFirst()), Villager.Profession.FARMER);
     }
 
     private int getSlimeSize(InventoryView i) {
         ItemStack is = i.getItem(48);
         ItemMeta im = is.getItemMeta();
-        int size = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(im.lore().getFirst()));
+        int size = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(im.lore().getFirst()));
         return (size == 0) ? 2 : size;
     }
 
     private boolean getBaby(InventoryView i) {
         ItemStack is = i.getItem(47);
         ItemMeta im = is.getItemMeta();
-        return TARDISStringUtils.stripColour(im.lore().getFirst()).equals("BABY");
+        return ComponentUtils.stripColour(im.lore().getFirst()).equals("BABY");
     }
 
     private boolean getBoolean(InventoryView i) {
@@ -874,6 +874,6 @@ public class TARDISLazarusGUIListener extends TARDISMenuListener {
         ItemMeta im = is.getItemMeta();
         List<Component> lore = im.lore();
         int pos = lore.size() - 1;
-        return TARDISStringUtils.stripColour(lore.get(pos)).equals("TRUE");
+        return ComponentUtils.stripColour(lore.get(pos)).equals("TRUE");
     }
 }

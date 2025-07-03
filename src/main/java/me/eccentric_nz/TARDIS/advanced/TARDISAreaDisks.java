@@ -22,7 +22,7 @@ import me.eccentric_nz.TARDIS.database.data.Area;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetAreas;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetDiskStorage;
 import me.eccentric_nz.TARDIS.enumeration.Storage;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -115,7 +115,7 @@ class TARDISAreaDisks {
                     if (a != null && a.getType().equals(Material.MUSIC_DISC_BLOCKS) && a.hasItemMeta()) {
                         ItemMeta ima = a.getItemMeta();
                         if (ima.hasLore()) {
-                            player_has.add(TARDISStringUtils.stripColour(ima.lore().getFirst()));
+                            player_has.add(ComponentUtils.stripColour(ima.lore().getFirst()));
                         }
                     }
                 }
@@ -125,7 +125,7 @@ class TARDISAreaDisks {
                     if (c != null && c.getType().equals(Material.MUSIC_DISC_BLOCKS) && c.hasItemMeta()) {
                         ItemMeta imc = c.getItemMeta();
                         if (imc.hasLore()) {
-                            player_has.add(TARDISStringUtils.stripColour(imc.lore().getFirst()));
+                            player_has.add(ComponentUtils.stripColour(imc.lore().getFirst()));
                         }
                     }
                 }
@@ -135,7 +135,7 @@ class TARDISAreaDisks {
                     if (y != null && y.getType().equals(Material.MUSIC_DISC_BLOCKS) && y.hasItemMeta()) {
                         ItemMeta imy = y.getItemMeta();
                         if (imy.hasLore()) {
-                            player_has.add(TARDISStringUtils.stripColour(imy.lore().getFirst()));
+                            player_has.add(ComponentUtils.stripColour(imy.lore().getFirst()));
                         }
                     }
                 }

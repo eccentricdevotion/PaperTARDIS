@@ -17,7 +17,7 @@
 package me.eccentric_nz.TARDIS.arch;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -54,7 +54,7 @@ public class TARDISSelectWatchListener implements Listener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (!im.hasDisplayName() || !TARDISStringUtils.endsWith(im.displayName(), "Fob Watch")) {
+        if (!im.hasDisplayName() || !ComponentUtils.endsWith(im.displayName(), "Fob Watch")) {
             return;
         }
         // move the fob watch

@@ -99,7 +99,7 @@ public class TARDISNumberParsers {
     }
 
     public static boolean isNumber(String str) {
-        if (TARDISStringUtils.isEmpty(str)) {
+        if (str.isEmpty()) {
             return false;
         } else {
             char[] chars = str.toCharArray();

@@ -30,11 +30,11 @@ import me.eccentric_nz.TARDIS.database.data.Tardis;
 import me.eccentric_nz.TARDIS.database.resultset.*;
 import me.eccentric_nz.TARDIS.enumeration.COMPASS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Registry;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -87,7 +87,7 @@ public class TARDISHandlesRequest {
                     }
                     PlayerInventory pi = player.getInventory();
                     ItemStack communicator = pi.getHelmet();
-                    if (communicator == null || !communicator.hasItemMeta() || !communicator.getType().equals(Material.LEATHER_HELMET) || !TARDISStringUtils.endsWith(communicator.getItemMeta().displayName(), "TARDIS Communicator")) {
+                    if (communicator == null || !communicator.hasItemMeta() || !communicator.getType().equals(Material.LEATHER_HELMET) || !ComponentUtils.endsWith(communicator.getItemMeta().displayName(), "TARDIS Communicator")) {
                         plugin.getMessenger().send(player, TardisModule.TARDIS, "HANDLES_COMMUNICATOR");
                         return;
                     }
@@ -98,7 +98,7 @@ public class TARDISHandlesRequest {
                 for (ItemStack is : player.getInventory().getContents()) {
                     if (is != null && is.getType().equals(Material.BIRCH_BUTTON) && is.hasItemMeta()) {
                         ItemMeta im = is.getItemMeta();
-                        if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "Handles")) {
+                        if (im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "Handles")) {
                             found = true;
                         }
                     }
@@ -175,7 +175,7 @@ public class TARDISHandlesRequest {
                     case "say" -> {
                         if (groups != null) {
                             String g = groups.getFirst();
-                            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> plugin.getServer().dispatchCommand(plugin.getConsole(), "handles say " + uuid + " " + TARDISStringUtils.normalizeSpace(g)), 1L);
+                            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> plugin.getServer().dispatchCommand(plugin.getConsole(), "handles say " + uuid + " " + StringUtils.normalizeSpace(g)), 1L);
                         }
                     }
                     case "name" ->

@@ -58,7 +58,7 @@ class TARDISChameleonTemplateGUI implements InventoryHolder {
         // info
         ItemStack info = new ItemStack(GUIChameleonTemplate.INFO_TEMPLATE.material(), 1);
         ItemMeta io = info.getItemMeta();
-        io.displayName(Component.text(plugin.getChameleonGuis().getString("INFO")));
+        io.displayName(Component.text(plugin.getChameleonGuis().getString("INFO", "Info")));
         List<Component> ioLore = new ArrayList<>();
         for (String s : plugin.getChameleonGuis().getStringList("INFO_TEMPLATE")) {
             ioLore.add(Component.text(s));

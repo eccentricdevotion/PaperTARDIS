@@ -23,7 +23,6 @@ import me.eccentric_nz.tardisvortexmanipulator.gui.TVMGUIListener;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMMessageGUIListener;
 import me.eccentric_nz.tardisvortexmanipulator.gui.TVMSavesGUIListener;
 import me.eccentric_nz.tardisvortexmanipulator.listeners.*;
-import org.bukkit.inventory.ShapedRecipe;
 
 public class TARDISVortexManipulator {
 
@@ -38,9 +37,7 @@ public class TARDISVortexManipulator {
         new VortexManipulatorConfig(plugin).checkConfig();
         registerListeners();
         registerCommand();
-        ShapedRecipe recipe = new TVMRecipe(plugin).makeRecipe();
-        plugin.getServer().addRecipe(recipe);
-        plugin.getFigura().getShapedRecipes().put("Vortex Manipulator", recipe);
+        new TVMRecipe(plugin).addRecipe();
         startRecharger();
     }
 

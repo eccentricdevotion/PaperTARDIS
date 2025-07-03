@@ -18,9 +18,7 @@ package me.eccentric_nz.TARDIS.recipes.smithing;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -55,7 +53,7 @@ public class PickupArrowsRepairRecipe {
         // addition
         ItemStack isa = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta ima = isa.getItemMeta();
-        ima.displayName(Component.text("Pickup Arrows Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        ima.displayName(ComponentUtils.toWhite("Pickup Arrows Circuit"));
         CustomModelDataComponent ecomponent = ima.getCustomModelDataComponent();
         ecomponent.setFloats(CircuitVariant.PICKUP.getFloats());
         ima.setCustomModelDataComponent(ecomponent);

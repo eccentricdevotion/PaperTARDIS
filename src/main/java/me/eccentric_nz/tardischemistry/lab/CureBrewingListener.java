@@ -19,7 +19,7 @@ package me.eccentric_nz.tardischemistry.lab;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.keys.CureVariant;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -105,7 +105,7 @@ public class CureBrewingListener implements Listener {
                                     if (type.equals(Material.FEATHER) && is.hasItemMeta()) {
                                         ItemMeta im = is.getItemMeta();
                                         if (im.hasDisplayName() && im.hasItemModel()) {
-                                            String dn = TARDISStringUtils.stripColour(im.displayName());
+                                            String dn = ComponentUtils.stripColour(im.displayName());
                                             items.add(type + (elements.contains(dn) ? ":" + dn : ""));
                                         } else {
                                             items.add(type.toString());
@@ -180,19 +180,19 @@ public class CureBrewingListener implements Listener {
                                             ItemMeta im = is.getItemMeta();
                                             switch (potionType) {
                                                 case AWKWARD -> {
-                                                    im.displayName(Component.text("Antidote", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                                                    im.displayName(ComponentUtils.toWhite("Antidote"));
                                                     im.setItemModel(CureVariant.ANTIDOTE.getKey());
                                                 }
                                                 case MUNDANE -> {
-                                                    im.displayName(Component.text("Elixir", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                                                    im.displayName(ComponentUtils.toWhite("Elixir"));
                                                     im.setItemModel(CureVariant.ELIXIR.getKey());
                                                 }
                                                 case THICK -> {
-                                                    im.displayName(Component.text("Eye drops", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                                                    im.displayName(ComponentUtils.toWhite("Eye drops"));
                                                     im.setItemModel(CureVariant.EYEDROPS.getKey());
                                                 }
                                                 default -> { // UNCRAFTABLE
-                                                    im.displayName(Component.text("Tonic", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                                                    im.displayName(ComponentUtils.toWhite("Tonic"));
                                                     im.setItemModel(CureVariant.TONIC.getKey());
                                                 }
                                             }

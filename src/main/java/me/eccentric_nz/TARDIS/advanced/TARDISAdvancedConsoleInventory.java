@@ -3,7 +3,7 @@ package me.eccentric_nz.TARDIS.advanced;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetDiskStorage;
 import me.eccentric_nz.TARDIS.enumeration.GlowstoneCircuit;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
@@ -50,7 +50,7 @@ public class TARDISAdvancedConsoleInventory implements InventoryHolder {
                             ItemMeta cm = circuit.getItemMeta();
                             if (circuit.getType().equals(Material.FILLED_MAP)) {
                                 if (cm.hasDisplayName()) {
-                                    GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(TARDISStringUtils.stripColour(cm.displayName()));
+                                    GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(ComponentUtils.stripColour(cm.displayName()));
                                     if (glowstone != null) {
                                         circuit.setType(Material.GLOWSTONE_DUST);
                                     }

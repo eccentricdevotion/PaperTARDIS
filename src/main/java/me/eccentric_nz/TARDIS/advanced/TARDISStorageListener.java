@@ -24,7 +24,7 @@ import me.eccentric_nz.TARDIS.enumeration.Storage;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.handles.TARDISHandlesProgramInventory;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -91,7 +91,7 @@ public class TARDISStorageListener extends TARDISMenuListener {
                     return;
                 }
                 ItemMeta ims = stack.getItemMeta();
-                if (!ims.hasDisplayName() || !TARDISStringUtils.endsWith(ims.displayName(), "Area Storage Disk")) {
+                if (!ims.hasDisplayName() || !ComponentUtils.endsWith(ims.displayName(), "Area Storage Disk")) {
                     return;
                 }
                 Player p = (Player) event.getPlayer();
@@ -216,7 +216,7 @@ public class TARDISStorageListener extends TARDISMenuListener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (im == null || !im.hasDisplayName() || !TARDISStringUtils.endsWith(im.displayName(), "Area Storage Disk")) {
+        if (im == null || !im.hasDisplayName() || !ComponentUtils.endsWith(im.displayName(), "Area Storage Disk")) {
             return;
         }
         event.setCancelled(true);

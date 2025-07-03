@@ -19,9 +19,7 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
 import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -56,13 +54,13 @@ public class ArtronCapacitorStorageRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.GRAY_SHULKER_BOX, 1);
         ItemMeta im = is.getItemMeta();
-        im.displayName(Component.text("Artron Capacitor Storage", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("Artron Capacitor Storage"));
         im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, RecipeItem.ARTRON_CAPACITOR_STORAGE.getModel().getKey());
         is.setItemMeta(im);
         // exact choice
         ItemStack capac = new ItemStack(Material.BUCKET, 1);
         ItemMeta itor = capac.getItemMeta();
-        itor.displayName(Component.text("Artron Capacitor", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        itor.displayName(ComponentUtils.toWhite("Artron Capacitor"));
         capac.setItemMeta(itor);
         NamespacedKey key = new NamespacedKey(plugin, "artron_capacitor_storage");
         ShapedRecipe r = new ShapedRecipe(key, is);

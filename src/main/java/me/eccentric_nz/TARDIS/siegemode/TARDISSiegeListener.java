@@ -32,9 +32,9 @@ import me.eccentric_nz.TARDIS.enumeration.COMPASS;
 import me.eccentric_nz.TARDIS.enumeration.SpaceTimeThrottle;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.travel.TARDISTimeTravel;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -134,7 +134,7 @@ public class TARDISSiegeListener implements Listener {
         String tl = tardis.getOwner();
         ItemStack is = new ItemStack(TARDISDisplayItem.SIEGE_CUBE.getMaterial(), 1);
         ItemMeta im = is.getItemMeta();
-        im.displayName(Component.text("TARDIS Siege Cube", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("TARDIS Siege Cube"));
         im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, TARDISDisplayItem.SIEGE_CUBE.getCustomModel().getKey());
         List<Component> lore = new ArrayList<>();
         lore.add(Component.text("Time Lord: " + tl));
@@ -206,7 +206,7 @@ public class TARDISSiegeListener implements Listener {
                 plugin.getMessenger().send(p, TardisModule.TARDIS, "SIEGE_NO_ID");
                 return;
             }
-            String[] line2 = TARDISStringUtils.stripColour(lore.get(1)).split(": ");
+            String[] line2 = ComponentUtils.stripColour(lore.get(1)).split(": ");
             int id = TARDISNumberParsers.parseInt(line2[1]);
             // turn the drop into a block
             item.remove();
@@ -393,7 +393,7 @@ public class TARDISSiegeListener implements Listener {
         }
         ItemMeta im = is.getItemMeta();
         if (im != null) {
-            return (im.hasDisplayName() && TARDISStringUtils.stripColour(im.displayName()).endsWith("TARDIS Siege Cube")) || (im.hasItemModel() && Whoniverse.SIEGE_CUBE.getKey().equals(im.getItemModel()));
+            return (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("TARDIS Siege Cube")) || (im.hasItemModel() && Whoniverse.SIEGE_CUBE.getKey().equals(im.getItemModel()));
         }
         return false;
     }
@@ -413,6 +413,6 @@ public class TARDISSiegeListener implements Listener {
     }
 
     private boolean hasSiegeCubeName(ItemStack is) {
-        return (is.hasItemMeta() && is.getItemMeta().hasDisplayName() && TARDISStringUtils.stripColour(is.getItemMeta().displayName()).endsWith("TARDIS Siege Cube"));
+        return (is.hasItemMeta() && is.getItemMeta().hasDisplayName() && ComponentUtils.stripColour(is.getItemMeta().displayName()).endsWith("TARDIS Siege Cube"));
     }
 }

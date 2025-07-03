@@ -22,7 +22,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisCompanions;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -124,11 +124,11 @@ public class TARDISCompanionAddGUIListener extends TARDISMenuListener {
                     String comps = tardis.getCompanions();
                     ItemMeta m = is.getItemMeta();
                     List<Component> l = m.lore();
-                    String u = TARDISStringUtils.stripColour(l.getFirst());
+                    String u = ComponentUtils.stripColour(l.getFirst());
                     addCompanion(id, comps, u);
                     if (plugin.isWorldGuardOnServer() && plugin.getConfig().getBoolean("preferences.use_worldguard")) {
                         String[] data = tardis.getChunk().split(":");
-                        addToRegion(data[0], tardis.getOwner(), TARDISStringUtils.stripColour(m.displayName()));
+                        addToRegion(data[0], tardis.getOwner(), ComponentUtils.stripColour(m.displayName()));
                         // set entry and exit flags to deny
                         plugin.getWorldGuardUtils().setEntryExitFlags(data[0], player.getName(), false);
                     }

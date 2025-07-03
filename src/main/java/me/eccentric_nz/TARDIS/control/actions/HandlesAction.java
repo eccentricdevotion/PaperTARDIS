@@ -22,9 +22,9 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetProgram;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.handles.TARDISHandlesProcessor;
 import me.eccentric_nz.TARDIS.handles.TARDISHandlesProgramInventory;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -58,9 +58,9 @@ public class HandlesAction {
             ItemStack disk = player.getInventory().getItemInMainHand();
             if (disk.getType().equals(Material.MUSIC_DISC_WARD) && disk.hasItemMeta()) {
                 ItemMeta dim = disk.getItemMeta();
-                if (dim.hasDisplayName() && TARDISStringUtils.stripColour(dim.displayName()).equals("Handles Program Disk")) {
+                if (dim.hasDisplayName() && ComponentUtils.stripColour(dim.displayName()).equals("Handles Program Disk")) {
                     // get the program_id from the disk
-                    int pid = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(dim.lore().get(1)));
+                    int pid = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(dim.lore().get(1)));
                     // query the database
                     ResultSetProgram rsp = new ResultSetProgram(plugin, pid);
                     if (rsp.resultSet()) {

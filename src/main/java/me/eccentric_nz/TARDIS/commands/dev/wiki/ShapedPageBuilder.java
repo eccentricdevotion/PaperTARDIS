@@ -18,6 +18,7 @@ package me.eccentric_nz.TARDIS.commands.dev.wiki;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.info.TARDISDescription;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.RecipeChoice;
@@ -143,7 +144,7 @@ public class ShapedPageBuilder extends PageBuilder {
                                 }
                                 default -> {
                                     ItemMeta im = is.getItemMeta();
-                                    dashed = TARDISStringUtils.toLowercaseDashed(TARDISStringUtils.stripColour(im.displayName()));
+                                    dashed = TARDISStringUtils.toLowercaseDashed(ComponentUtils.stripColour(im.displayName()));
                                 }
                             }
                         }

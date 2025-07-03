@@ -21,7 +21,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisArtron;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.ClickType;
@@ -76,7 +76,7 @@ public class TelepathicStructureListener extends TARDISMenuListener {
                 }
                 // get the structure
                 ItemMeta im = choice.getItemMeta();
-                String enumStr = TARDISStringUtils.toEnumUppercase(TARDISStringUtils.stripColour(im.displayName()));
+                String enumStr = ComponentUtils.toEnumUppercase(im.displayName());
                 player.performCommand("tardistravel structure " + enumStr);
                 close(player);
             }

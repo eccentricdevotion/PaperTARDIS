@@ -72,7 +72,7 @@ public class TARDISARSInventory implements InventoryHolder {
         // black wool
         ItemStack black = new ItemStack(GUIArs.BUTTON_MAP_ON.material(), 1);
         ItemMeta wool = black.getItemMeta();
-        wool.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MAP_NO")));
+        wool.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MAP_NO", "Load the map!")));
         black.setItemMeta(wool);
         for (int j = 0; j < 37; j += 9) {
             for (int k = 0; k < 5; k++) {
@@ -89,7 +89,7 @@ public class TARDISARSInventory implements InventoryHolder {
         // load map
         ItemStack map = new ItemStack(GUIArs.BUTTON_MAP.material(), 1);
         ItemMeta load = map.getItemMeta();
-        load.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MAP")));
+        load.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MAP", "Load map")));
         map.setItemMeta(load);
         is[GUIArs.BUTTON_MAP.slot()] = map;
         // direction pad right
@@ -113,37 +113,37 @@ public class TARDISARSInventory implements InventoryHolder {
         // level bottom
         ItemStack level_bot = new ItemStack(GUIArs.BUTTON_LEVEL_B.material(), 1);
         ItemMeta bot = level_bot.getItemMeta();
-        bot.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL_B")));
+        bot.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL_B", "Bottom level")));
         level_bot.setItemMeta(bot);
         is[GUIArs.BUTTON_LEVEL_B.slot()] = level_bot;
         // level selected
         ItemStack level_sel = new ItemStack(GUIArs.BUTTON_LEVEL.material(), 1);
         ItemMeta main = level_sel.getItemMeta();
-        main.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL")));
+        main.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL", "Main level")));
         level_sel.setItemMeta(main);
         is[GUIArs.BUTTON_LEVEL.slot()] = level_sel;
         // level top
         ItemStack level_top = new ItemStack(GUIArs.BUTTON_LEVEL_T.material(), 1);
         ItemMeta top = level_top.getItemMeta();
-        top.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL_T")));
+        top.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL_T", "Top level")));
         level_top.setItemMeta(top);
         is[GUIArs.BUTTON_LEVEL_T.slot()] = level_top;
         // reset
         ItemStack reset = new ItemStack(GUIArs.BUTTON_RESET.material(), 1);
         ItemMeta cobble = reset.getItemMeta();
-        cobble.displayName(Component.text(plugin.getLanguage().getString("BUTTON_RESET")));
+        cobble.displayName(Component.text(plugin.getLanguage().getString("BUTTON_RESET", "Reset selected")));
         reset.setItemMeta(cobble);
         is[GUIArs.BUTTON_RESET.slot()] = reset;
         // scroll left
         ItemStack scroll_left = new ItemStack(GUIArs.BUTTON_SCROLL_L.material(), 1);
         ItemMeta nim = scroll_left.getItemMeta();
-        nim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_L")));
+        nim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_L", "Scroll left")));
         scroll_left.setItemMeta(nim);
         is[GUIArs.BUTTON_SCROLL_L.slot()] = scroll_left;
         // scroll right
         ItemStack scroll_right = new ItemStack(GUIArs.BUTTON_SCROLL_R.material(), 1);
         ItemMeta pim = scroll_right.getItemMeta();
-        pim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_R")));
+        pim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_R", "Scroll right")));
         scroll_right.setItemMeta(pim);
         is[GUIArs.BUTTON_SCROLL_R.slot()] = scroll_right;
         // jettison

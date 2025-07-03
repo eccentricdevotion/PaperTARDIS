@@ -36,6 +36,7 @@ import me.eccentric_nz.TARDIS.rotors.TARDISTimeRotor;
 import me.eccentric_nz.TARDIS.sonic.actions.SonicRecharge;
 import me.eccentric_nz.TARDIS.travel.TARDISTimeTravel;
 import me.eccentric_nz.TARDIS.travel.TravelCostAndType;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.Handbrake;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
@@ -327,7 +328,7 @@ public class TARDISSonicDock {
         ItemMeta im = dock.getItemMeta();
         im.setItemModel(model);
         if (setDisplay) {
-            im.displayName(Component.text("Sonic Dock", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+            im.displayName(ComponentUtils.toWhite("Sonic Dock"));
         }
         dock.setItemMeta(im);
         frame.setItem(dock);

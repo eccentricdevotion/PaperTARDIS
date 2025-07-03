@@ -17,7 +17,7 @@
 package me.eccentric_nz.tardischemistry.formula;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardischemistry.compound.Compound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -69,7 +69,7 @@ public class FormulaViewerListener implements Listener {
                     if (is != null && is.hasItemMeta() && Objects.requireNonNull(is.getItemMeta()).hasDisplayName()) {
                         // is it a compound?
                         try {
-                            Compound compound = Compound.valueOf(TARDISStringUtils.stripColour(is.getItemMeta().displayName()).replace(" ", "_"));
+                            Compound compound = Compound.valueOf(ComponentUtils.stripColour(is.getItemMeta().displayName()).replace(" ", "_"));
                             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> new FormulaViewer(plugin, player).getCompoundFormula(compound), 2L);
                         } catch (IllegalArgumentException e) {
                             // don't know what it is

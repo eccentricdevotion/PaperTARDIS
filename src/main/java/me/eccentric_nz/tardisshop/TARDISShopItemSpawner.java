@@ -64,7 +64,7 @@ public class TARDISShopItemSpawner {
             display.setInvulnerable(true);
             TextDisplay text = (TextDisplay) location.getWorld().spawnEntity(location.clone().add(0.5d, 1.65d, 0.5d), EntityType.TEXT_DISPLAY);
             text.setAlignment(TextDisplay.TextAlignment.CENTER);
-            text.text(Component.text(what.item() + "\n").append( Component.text("Cost:", NamedTextColor.RED)).append(Component.text(String.format(" %.2f", what.cost()), NamedTextColor.WHITE)));
+            text.text(Component.text(what.item(), NamedTextColor.WHITE).append(Component.newline()).append( Component.text("Cost:", NamedTextColor.RED)).append(Component.text(String.format(" %.2f", what.cost()), NamedTextColor.WHITE)));
             text.setTransformation(new Transformation(TARDISConstants.VECTOR_ZERO, TARDISConstants.AXIS_ANGLE_ZERO, TARDISConstants.VECTOR_QUARTER, TARDISConstants.AXIS_ANGLE_ZERO));
             text.setBillboard(Display.Billboard.VERTICAL);
         } catch (IllegalArgumentException e) {

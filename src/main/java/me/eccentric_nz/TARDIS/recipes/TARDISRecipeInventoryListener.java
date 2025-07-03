@@ -18,7 +18,7 @@ package me.eccentric_nz.TARDIS.recipes;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -56,7 +56,7 @@ public class TARDISRecipeInventoryListener extends TARDISMenuListener {
             case 4 -> { } // info
             case 8 -> close(player); // close
             default -> {
-                String command = TARDISStringUtils.stripColour(is.getItemMeta().lore().getFirst()).substring(1);
+                String command = ComponentUtils.stripColour(is.getItemMeta().lore().getFirst()).substring(1);
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                     player.performCommand(command);
                     plugin.getTrackerKeeper().getRecipeViewers().add(player.getUniqueId());

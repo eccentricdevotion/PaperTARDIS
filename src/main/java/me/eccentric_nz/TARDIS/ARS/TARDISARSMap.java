@@ -77,27 +77,27 @@ public class TARDISARSMap implements InventoryHolder {
         // level selected
         ItemStack level_sel = new ItemStack(GUIMap.BUTTON_LEVEL.material(), 1);
         ItemMeta main = level_sel.getItemMeta();
-        main.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL")));
+        main.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL", "Main level")));
         level_sel.setItemMeta(main);
         // level top
         ItemStack level_top = new ItemStack(GUIMap.BUTTON_LEVEL_T.material(), 1);
         ItemMeta top = level_top.getItemMeta();
-        top.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL_T")));
+        top.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL_T", "Top level")));
         level_top.setItemMeta(top);
         // level top
         ItemStack level_bot = new ItemStack(GUIMap.BUTTON_LEVEL_B.material(), 1);
         ItemMeta bot = level_bot.getItemMeta();
-        bot.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL_B")));
+        bot.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LEVEL_B", "Bottom level")));
         level_bot.setItemMeta(bot);
         // stone
         ItemStack black = new ItemStack(GUIMap.BUTTON_MAP_ON.material(), 1);
         ItemMeta wool = black.getItemMeta();
-        wool.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MAP")));
+        wool.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MAP", "Load map")));
         black.setItemMeta(wool);
         // load map
         ItemStack loa = new ItemStack(GUIMap.BUTTON_MAP.material(), 1);
         ItemMeta der = loa.getItemMeta();
-        der.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MAP_NO")));
+        der.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MAP_NO", "Load the map!")));
         loa.setItemMeta(der);
         // close
         ItemStack close = new ItemStack(GUIMap.BUTTON_CLOSE.material(), 1);
@@ -107,7 +107,7 @@ public class TARDISARSMap implements InventoryHolder {
         // transmat
         ItemStack tran = new ItemStack(GUIMap.BUTTON_TRANSMAT.material(), 1);
         ItemMeta smat = tran.getItemMeta();
-        smat.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TRANSMAT")));
+        smat.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TRANSMAT", "Transmat")));
         tran.setItemMeta(smat);
         // where am I?
         ItemStack where = new ItemStack(GUIMap.BUTTON_WHERE.material(), 1);

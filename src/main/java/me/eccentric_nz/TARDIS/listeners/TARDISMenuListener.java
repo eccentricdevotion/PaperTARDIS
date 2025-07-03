@@ -19,8 +19,8 @@ package me.eccentric_nz.TARDIS.listeners;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.commands.sudo.TARDISSudoTracker;
 import me.eccentric_nz.TARDIS.enumeration.Storage;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -84,7 +84,7 @@ public class TARDISMenuListener implements Listener {
     public int getPageNumber(InventoryView view) {
         ItemStack is = view.getItem(45);
         ItemMeta im = is.getItemMeta();
-        String[] split = TARDISStringUtils.stripColour(im.displayName()).split(" ");
+        String[] split = ComponentUtils.stripColour(im.displayName()).split(" ");
         return TARDISNumberParsers.parseInt(split[1]);
     }
 

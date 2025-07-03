@@ -17,7 +17,7 @@
 package me.eccentric_nz.TARDIS.commands.give.actions;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -48,7 +48,7 @@ public class Kit {
             if (result.hasItemMeta()) {
                 ItemMeta im = result.getItemMeta();
                 if (im.hasDisplayName()) {
-                    String dn = TARDISStringUtils.stripColour(im.displayName());
+                    String dn = ComponentUtils.stripColour(im.displayName());
                     if (dn.contains("Key") || dn.contains("Authorised Control Disk")) {
                         im.getPersistentDataContainer().set(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID(), player.getUniqueId());
                         if (im.hasLore()) {

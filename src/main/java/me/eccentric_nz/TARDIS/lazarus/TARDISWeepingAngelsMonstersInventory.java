@@ -85,7 +85,7 @@ public class TARDISWeepingAngelsMonstersInventory implements InventoryHolder {
         ItemStack the = new ItemStack(GUIGeneticManipulator.BUTTON_MASTER.material(), 1);
         ItemMeta master = the.getItemMeta();
         master.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MASTER")));
-        master.lore(List.of(Component.text(plugin.getLanguage().getString("SET_OFF"))));
+        master.lore(List.of(Component.text(plugin.getLanguage().getString("SET_OFF", "OFF"))));
         CustomModelDataComponent component = master.getCustomModelDataComponent();
         component.setFloats(List.of(152f));
         master.setCustomModelDataComponent(component);

@@ -50,8 +50,8 @@ import me.eccentric_nz.TARDIS.travel.TARDISTerminalInventory;
 import me.eccentric_nz.TARDIS.travel.save.TARDISSavesPlanetInventory;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -424,7 +424,7 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                 // update the lore
                 ItemStack spt = view.getItem(51);
                 ItemMeta im = spt.getItemMeta();
-                String currentThrottle = TARDISStringUtils.stripColour(im.lore().getFirst());
+                String currentThrottle = ComponentUtils.stripColour(im.lore().getFirst());
                 int delay = SpaceTimeThrottle.valueOf(currentThrottle).getDelay() - 1;
                 if (delay < 1) {
                     delay = 4;

@@ -19,7 +19,7 @@ package me.eccentric_nz.tardischemistry.constructor;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.HandlesVariant;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardischemistry.element.Element;
 import me.eccentric_nz.tardischemistry.element.ElementBuilder;
 import net.kyori.adventure.text.Component;
@@ -122,17 +122,16 @@ public class ConstructorGUIListener extends TARDISMenuListener {
         int oneInt, tenInt = 0, hundredInt = 0;
         ItemStack ones = view.getItem(3 + offset);
         ItemMeta oneMeta = ones.getItemMeta();
-        // TODO add parse int from component
-        oneInt = Integer.parseInt(TARDISStringUtils.stripColour(oneMeta.displayName()));
+        oneInt = ComponentUtils.parseInt(oneMeta.displayName());
         ItemStack tens = view.getItem(2 + offset);
         if (tens != null) {
             ItemMeta tenMeta = tens.getItemMeta();
-            tenInt = Integer.parseInt(TARDISStringUtils.stripColour(tenMeta.displayName())) * 10;
+            tenInt = ComponentUtils.parseInt(tenMeta.displayName()) * 10;
         }
         ItemStack hundreds = view.getItem(1 + offset);
         if (hundreds != null) {
             ItemMeta hundredMeta = hundreds.getItemMeta();
-            hundredInt = Integer.parseInt(TARDISStringUtils.stripColour(hundredMeta.displayName())) * 100;
+            hundredInt = ComponentUtils.parseInt(hundredMeta.displayName()) * 100;
         }
         return oneInt + tenInt + hundredInt;
     }

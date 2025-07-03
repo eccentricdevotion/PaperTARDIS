@@ -25,8 +25,8 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetCurrentFromId;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetThrottle;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
@@ -76,7 +76,7 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
             ItemStack is = view.getItem(slot);
             if (is != null) {
                 ItemMeta im = is.getItemMeta();
-                String display = TARDISStringUtils.stripColour(im.displayName());
+                String display = ComponentUtils.stripColour(im.displayName());
                 switch (slot) {
                     case 1, 2, 3, 4, 5, 6, 7 -> setShape(view, slot, display, uuid); // particle shape
                     case 10, 11, 12, 13, 14, 15, 16,
@@ -224,26 +224,26 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
             for (int s = 10; s < 44; s++) {
                 ItemStack eis = view.getItem(s);
                 if (eis != null && eis.getType() == Material.REDSTONE_ORE) {
-                    effect = ParticleEffect.valueOf(TARDISStringUtils.stripColour(eis.getItemMeta().displayName()).toUpperCase(Locale.ROOT));
+                    effect = ParticleEffect.valueOf(ComponentUtils.stripColour(eis.getItemMeta().displayName()).toUpperCase(Locale.ROOT));
                 }
             }
             for (int s = 1; s < 8; s++) {
                 ItemStack sis = view.getItem(s);
                 if (sis != null && sis.getType() == Material.LAPIS_ORE) {
-                    shape = ParticleShape.valueOf(TARDISStringUtils.stripColour(sis.getItemMeta().displayName()).toUpperCase(Locale.ROOT));
+                    shape = ParticleShape.valueOf(ComponentUtils.stripColour(sis.getItemMeta().displayName()).toUpperCase(Locale.ROOT));
                 }
             }
         } catch (IllegalArgumentException ignored) {
         }
         ItemStack dis = view.getItem(GUIParticle.DENSITY.slot());
-        String d = TARDISStringUtils.stripColour(dis.getItemMeta().lore().getFirst());
+        String d = ComponentUtils.stripColour(dis.getItemMeta().lore().getFirst());
         int density = TARDISNumberParsers.parseInt(d);
         ItemStack spis = view.getItem(GUIParticle.SPEED.slot());
-        String s = TARDISStringUtils.stripColour(spis.getItemMeta().lore().getFirst());
+        String s = ComponentUtils.stripColour(spis.getItemMeta().lore().getFirst());
         ItemStack cis = view.getItem(GUIParticle.COLOUR.slot());
-        String colour = TARDISStringUtils.stripColour(cis.getItemMeta().lore().getFirst());
+        String colour = ComponentUtils.stripColour(cis.getItemMeta().lore().getFirst());
         ItemStack bis = view.getItem(GUIParticle.BLOCK.slot());
-        String block = TARDISStringUtils.stripColour(bis.getItemMeta().lore().getFirst());
+        String block = ComponentUtils.stripColour(bis.getItemMeta().lore().getFirst());
         double speed = TARDISNumberParsers.parseInt(s) / 10.0d;
         return new ParticleData(effect, shape, density, speed, colour, block, b);
     }
@@ -254,7 +254,7 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
         ItemStack is = view.getItem(slot);
         ItemMeta im = is.getItemMeta();
         List<Component> lore = im.lore();
-        int level = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.getFirst()));
+        int level = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.getFirst()));
         level -= 1;
         if (level >= min) {
             lore.set(0, Component.text(level, NamedTextColor.AQUA));
@@ -276,7 +276,7 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
         ItemStack is = view.getItem(slot);
         ItemMeta im = is.getItemMeta();
         List<Component> lore = im.lore();
-        int level = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.getFirst()));
+        int level = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.getFirst()));
         level += 1;
         if (level <= max) {
             lore.set(0, Component.text(level, NamedTextColor.AQUA));

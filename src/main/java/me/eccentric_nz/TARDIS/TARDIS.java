@@ -110,7 +110,6 @@ public class TARDIS extends JavaPlugin {
     private final HashMap<String, String> versions = new HashMap<>();
     private final String versionRegex = "(\\d+[.])+\\d+";
     private final Pattern versionPattern = Pattern.compile(versionRegex);
-    private final String serverStr = "1.21.5";
     private TARDISMessage messenger;
     private TARDISChatGUI jsonKeeper;
     private SkinChanger skinChanger;
@@ -182,9 +181,6 @@ public class TARDIS extends JavaPlugin {
     private NamespacedKey microscopeKey;
     private PersistentDataType<byte[], UUID> persistentDataTypeUUID;
     private QueryFactory queryFactory;
-    private boolean updateFound = false;
-    private int buildNumber = 0;
-    private int updateNumber = 0;
     private TARDISBlockLogger blockLogger;
     private TARDISMapper tardisMapper;
     private ShopSettings shopSettings;
@@ -268,7 +264,7 @@ public class TARDIS extends JavaPlugin {
         persistentDataTypeUUID = new TARDISUUIDDataType();
         console = getServer().getConsoleSender();
         ModuleDescriptor.Version serverVersion = getServerVersion(getServer().getVersion());
-        ModuleDescriptor.Version minVersion = ModuleDescriptor.Version.parse(serverStr);
+        ModuleDescriptor.Version minVersion = ModuleDescriptor.Version.parse("1.21.7");
         // check server version
         if (serverVersion.compareTo(minVersion) >= 0) {
             // don't start if TARDISChunkGenerator is present
@@ -1184,60 +1180,6 @@ public class TARDIS extends JavaPlugin {
     }
 
     /**
-     * Gets whether an update was found
-     *
-     * @return true if an update was found
-     */
-    public boolean isUpdateFound() {
-        return updateFound;
-    }
-
-    /**
-     * Sets whether an update was found
-     *
-     * @param updateFound true if an update was found
-     */
-    public void setUpdateFound(boolean updateFound) {
-        this.updateFound = updateFound;
-    }
-
-    /**
-     * Gets the Build Number
-     *
-     * @return the Build Number
-     */
-    public int getBuildNumber() {
-        return buildNumber;
-    }
-
-    /**
-     * Sets the Build Number
-     *
-     * @param buildNumber the build number to set
-     */
-    public void setBuildNumber(int buildNumber) {
-        this.buildNumber = buildNumber;
-    }
-
-    /**
-     * Gets the Update Number
-     *
-     * @return the Update Number
-     */
-    public int getUpdateNumber() {
-        return updateNumber;
-    }
-
-    /**
-     * Sets the Update Number
-     *
-     * @param updateNumber the update number to set
-     */
-    public void setUpdateNumber(int updateNumber) {
-        this.updateNumber = updateNumber;
-    }
-
-    /**
      * Gets the TARDIS Block Logger
      *
      * @return the TARDIS Block Logger
@@ -1542,7 +1484,6 @@ public class TARDIS extends JavaPlugin {
      */
     private void loadMultiverse() {
         if (worldManager.equals(WorldManager.MULTIVERSE)) {
-            Plugin mvplugin = pm.getPlugin("Multiverse-Core");
             debug("Hooking into Multiverse-Core!");
             mvHelper = new TARDISMultiverseHelper();
         }
@@ -1677,9 +1618,5 @@ public class TARDIS extends JavaPlugin {
             set.put("time", time);
             getQueryFactory().doSyncInsert("tag", set);
         }
-    }
-
-    public String getServerStr() {
-        return serverStr;
     }
 }

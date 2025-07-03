@@ -18,9 +18,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -57,7 +57,7 @@ public class TARDISStattenheimCircuitRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta im = is.getItemMeta();
-        im.displayName(Component.text("TARDIS Stattenheim Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("TARDIS Stattenheim Circuit"));
         CustomModelDataComponent component = im.getCustomModelDataComponent();
         component.setFloats(CircuitVariant.STATTENHEIM.getFloats());
         im.setCustomModelDataComponent(component);
@@ -66,7 +66,7 @@ public class TARDISStattenheimCircuitRecipe {
         ShapedRecipe r = new ShapedRecipe(key, is);
         ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta em = exact.getItemMeta();
-        em.displayName(Component.text("TARDIS Materialisation Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        em.displayName(ComponentUtils.toWhite("TARDIS Materialisation Circuit"));
         CustomModelDataComponent ecomponent = em.getCustomModelDataComponent();
         ecomponent.setFloats(CircuitVariant.MATERIALISATION.getFloats());
         em.setCustomModelDataComponent(ecomponent);
@@ -78,7 +78,7 @@ public class TARDISStattenheimCircuitRecipe {
         exact.setItemMeta(em);
         ItemStack locator = new ItemStack(Material.GLOWSTONE_DUST, 1);
         ItemMeta lim = locator.getItemMeta();
-        lim.displayName(Component.text("TARDIS Locator Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        lim.displayName(ComponentUtils.toWhite("TARDIS Locator Circuit"));
         CustomModelDataComponent lcomponent = lim.getCustomModelDataComponent();
         lcomponent.setFloats(CircuitVariant.LOCATOR.getFloats());
         lim.setCustomModelDataComponent(lcomponent);

@@ -34,8 +34,8 @@ import me.eccentric_nz.TARDIS.travel.TARDISRandomiserCircuit;
 import me.eccentric_nz.TARDIS.travel.TARDISRescue;
 import me.eccentric_nz.TARDIS.travel.TARDISTimeTravel;
 import me.eccentric_nz.TARDIS.travel.TravelCostAndType;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardischunkgenerator.custombiome.BiomeUtilities;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
@@ -134,7 +134,7 @@ public class TARDISConsoleCloseListener implements Listener {
                     if (lore == null) {
                         return;
                     }
-                    String first = TARDISStringUtils.stripColour(lore.getFirst());
+                    String first = ComponentUtils.stripColour(lore.getFirst());
                     if (!first.equals("Blank")) {
                         TravelType travelType = TravelType.SAVE;
                         switch (mat) {
@@ -271,10 +271,10 @@ public class TARDISConsoleCloseListener implements Listener {
                             }
                             case MUSIC_DISC_CHIRP -> { // save
                                 if (TARDISPermission.hasPermission(p, "tardis.save")) {
-                                    String world = TARDISStringUtils.stripColour(lore.get(1));
-                                    int x = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(2)));
-                                    int y = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(3)));
-                                    int z = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(4)));
+                                    String world = ComponentUtils.stripColour(lore.get(1));
+                                    int x = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(2)));
+                                    int y = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(3)));
+                                    int z = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(4)));
                                     if (current.location().getWorld().getName().equals(world) && current.location().getBlockX() == x && current.location().getBlockZ() == z) {
                                         continue;
                                     }
@@ -284,9 +284,9 @@ public class TARDISConsoleCloseListener implements Listener {
                                     set_next.put("y", y);
                                     set_next.put("z", z);
                                     set_next.put("direction", lore.get(6));
-                                    boolean sub = Boolean.parseBoolean(TARDISStringUtils.stripColour(lore.get(7)));
+                                    boolean sub = Boolean.parseBoolean(ComponentUtils.stripColour(lore.get(7)));
                                     set_next.put("submarine", (sub) ? 1 : 0);
-                                    String five = TARDISStringUtils.stripColour(lore.get(5));
+                                    String five = ComponentUtils.stripColour(lore.get(5));
                                     if (five.startsWith("ITEM")) {
                                         String[] split = five.split(":");
                                         if (plugin.getCustomModelConfig().getConfigurationSection("models").getKeys(false).contains(split[1])) {
@@ -343,7 +343,7 @@ public class TARDISConsoleCloseListener implements Listener {
                     } else {
                         plugin.getMessenger().send(p, TardisModule.TARDIS, "ADV_BLANK");
                     }
-                } else if (mat.equals(Material.MUSIC_DISC_STRAD) && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && TARDISStringUtils.stripColour(is.getItemMeta().displayName()).endsWith("Blank Storage Disk")) {
+                } else if (mat.equals(Material.MUSIC_DISC_STRAD) && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && ComponentUtils.stripColour(is.getItemMeta().displayName()).endsWith("Blank Storage Disk")) {
                     // Blank Disk - get a random location
                     Location l = new TARDISRandomiserCircuit(plugin).getRandomlocation(p, current.direction());
                     if (l == null) {

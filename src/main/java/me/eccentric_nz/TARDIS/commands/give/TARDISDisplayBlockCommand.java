@@ -23,6 +23,7 @@ import me.eccentric_nz.TARDIS.custommodels.keys.ClassicDoorVariant;
 import me.eccentric_nz.TARDIS.custommodels.keys.TardisDoorVariant;
 import me.eccentric_nz.TARDIS.doors.Door;
 import me.eccentric_nz.TARDIS.rotors.Rotor;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -45,7 +46,7 @@ public class TARDISDisplayBlockCommand {
             Door door = Door.byName.get(display);
             ItemStack is = new ItemStack(door.getMaterial(), 1);
             ItemMeta im = is.getItemMeta();
-            im.displayName(Component.text("Door " + TARDISStringUtils.capitalise(door.getName())));
+            im.displayName(ComponentUtils.toWhite("Door " + TARDISStringUtils.capitalise(door.getName())));
             NamespacedKey key = switch (door.getMaterial()) {
                 case IRON_DOOR -> TardisDoorVariant.TARDIS_DOOR_CLOSED.getKey();
                 case BIRCH_DOOR -> BoneDoorVariant.BONE_DOOR_CLOSED.getKey();
@@ -59,7 +60,7 @@ public class TARDISDisplayBlockCommand {
             Rotor rotor = Rotor.byName.get(display);
             ItemStack is = new ItemStack(Material.LIGHT_GRAY_DYE, 1);
             ItemMeta im = is.getItemMeta();
-            im.displayName(Component.text("Time Rotor " + rotor.name()));
+            im.displayName(ComponentUtils.toWhite("Time Rotor " + rotor.name()));
             im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, rotor.offModel().getKey());
             is.setItemMeta(im);
             return is;
@@ -68,7 +69,7 @@ public class TARDISDisplayBlockCommand {
                 TARDISDisplayItem tdi = TARDISDisplayItem.valueOf(display);
                 ItemStack is = new ItemStack(tdi.getMaterial(), 1);
                 ItemMeta im = is.getItemMeta();
-                im.displayName(Component.text(tdi.getDisplayName()));
+                im.displayName(ComponentUtils.toWhite(tdi.getDisplayName()));
                 if (tdi.getCustomModel() != null) {
                     im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, tdi.getCustomModel().getKey());
                 }

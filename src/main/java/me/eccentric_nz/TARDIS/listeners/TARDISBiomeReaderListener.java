@@ -21,7 +21,7 @@ import me.eccentric_nz.TARDIS.advanced.TARDISSerializeInventory;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetDiskStorage;
 import me.eccentric_nz.TARDIS.enumeration.Storage;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -80,7 +80,7 @@ public class TARDISBiomeReaderListener implements Listener {
         ItemStack is = player.getInventory().getItemInMainHand();
         if (is.getType().equals(Material.BRICK) && is.hasItemMeta()) {
             ItemMeta im = is.getItemMeta();
-            if (im.hasDisplayName() && TARDISStringUtils.stripColour(im.displayName()).endsWith("TARDIS Biome Reader")) {
+            if (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("TARDIS Biome Reader")) {
                 UUID uuid = player.getUniqueId();
                 Biome biome = event.getClickedBlock().getBiome();
                 if (biome.equals(Biome.THE_VOID)) {
@@ -110,7 +110,7 @@ public class TARDISBiomeReaderListener implements Listener {
                             if (!hasBiomeDisk(disks2, biomeKey)) {
                                 ItemStack bd = new ItemStack(Material.MUSIC_DISC_CAT, 1);
                                 ItemMeta dim = bd.getItemMeta();
-                                dim.displayName(Component.text("Biome Storage Disk", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                                dim.displayName(ComponentUtils.toWhite("Biome Storage Disk"));
                                 List<Component> disk_lore = new ArrayList<>();
                                 disk_lore.add(Component.text(biomeKey));
                                 dim.lore(disk_lore);

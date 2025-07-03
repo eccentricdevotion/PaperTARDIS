@@ -17,7 +17,7 @@
 package me.eccentric_nz.TARDIS.lazarus.disguise;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.protocol.game.ClientboundRemoveEntitiesPacket;
@@ -113,7 +113,7 @@ public class TARDISDisguiser {
         entity.setPos(location.getX(), location.getY(), location.getZ());
         entity.setId(player.getEntityId());
         if (TARDISDisguiser.nameVisible) {
-            entity.setCustomName(Component.literal(TARDISStringUtils.stripColour(player.displayName())));
+            entity.setCustomName(Component.literal(ComponentUtils.stripColour(player.displayName())));
             entity.setCustomNameVisible(true);
         }
         entity.setYRot(fixYaw(location.getYaw()));

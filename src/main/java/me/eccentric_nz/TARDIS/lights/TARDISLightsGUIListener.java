@@ -25,6 +25,7 @@ import me.eccentric_nz.TARDIS.desktop.TARDISWallsInventory;
 import me.eccentric_nz.TARDIS.enumeration.TardisLight;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -143,7 +144,7 @@ public class TARDISLightsGUIListener extends TARDISMenuListener {
                         default -> {
                             ItemMeta im = is.getItemMeta();
                             // save preference
-                            String light = TARDISStringUtils.toUnderscoredUppercase(TARDISStringUtils.stripColour(im.displayName()));
+                            String light = TARDISStringUtils.toUnderscoredUppercase(ComponentUtils.stripColour(im.displayName()));
                             HashMap<String, Object> set = new HashMap<>();
                             set.put("light", light);
                             HashMap<String, Object> wheret = new HashMap<>();

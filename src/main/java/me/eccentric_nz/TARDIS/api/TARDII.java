@@ -36,10 +36,7 @@ import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
 import me.eccentric_nz.TARDIS.rooms.TARDISWalls;
 import me.eccentric_nz.TARDIS.travel.TARDISPluginRespect;
 import me.eccentric_nz.TARDIS.travel.TravelCostAndType;
-import me.eccentric_nz.TARDIS.utility.TARDISLocationGetters;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import me.eccentric_nz.TARDIS.utility.TARDISUtils;
-import me.eccentric_nz.TARDIS.utility.WeightedChoice;
+import me.eccentric_nz.TARDIS.utility.*;
 import me.eccentric_nz.tardisweepingangels.equip.Equipper;
 import me.eccentric_nz.tardisweepingangels.equip.MonsterEquipment;
 import me.eccentric_nz.tardisweepingangels.equip.RemoveEquipment;
@@ -506,7 +503,7 @@ public class TARDII implements TardisAPI {
             ItemMeta im = is.getItemMeta();
             im.getPersistentDataContainer().set(TARDIS.plugin.getCustomBlockKey(), PersistentDataType.STRING, model.getKey());
             // set display name
-            im.displayName(Component.text("TARDIS Seed Block", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+            im.displayName(ComponentUtils.toGold("TARDIS Seed Block"));
             List<Component> lore = new ArrayList<>();
             lore.add(Component.text(schematic));
             lore.add(Component.text("Walls: ORANGE_WOOL"));

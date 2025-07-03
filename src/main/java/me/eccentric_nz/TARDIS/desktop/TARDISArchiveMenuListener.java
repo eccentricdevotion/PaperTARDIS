@@ -26,8 +26,8 @@ import me.eccentric_nz.TARDIS.enumeration.Schematic;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.schematic.ArchiveUpdate;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
@@ -95,7 +95,7 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
                 String t;
                 String b;
                 int s;
-                int o = ConsoleSize.valueOf(TARDISStringUtils.stripColour(lores.getFirst())).ordinal();
+                int o = ConsoleSize.valueOf(ComponentUtils.stripColour(lores.getFirst())).ordinal();
                 s = (o < 2) ? o + 1 : 0;
                 t = ConsoleSize.values()[s].toString();
                 b = ConsoleSize.values()[s].getBlocks();
@@ -116,7 +116,7 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
                     UUID uuid = p.getUniqueId();
                     TARDISUpgradeData tud = plugin.getTrackerKeeper().getUpgrades().get(uuid);
                     ItemMeta im = template.getItemMeta();
-                    String dn = TARDISStringUtils.stripColour(im.displayName());
+                    String dn = ComponentUtils.stripColour(im.displayName());
                     String size = dn.toLowerCase(Locale.ROOT);
                     int upgrade = plugin.getArtronConfig().getInt("upgrades.template." + size);
                     if (tud.getLevel() >= upgrade) {
@@ -150,13 +150,13 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
                     }
                     int upgrade = plugin.getArtronConfig().getInt("upgrades.archive.tall");
                     for (Component l : lore) {
-                        String c = TARDISStringUtils.stripColour(l);
+                        String c = ComponentUtils.stripColour(l);
                         if (c.startsWith("Cost")) {
                             upgrade = TARDISNumberParsers.parseInt(c.replace("Cost: ", ""));
                         }
                     }
                     if (tud.getLevel() >= upgrade) {
-                        new ArchiveUpdate(plugin, uuid.toString(), TARDISStringUtils.stripColour(im.displayName())).setInUse();
+                        new ArchiveUpdate(plugin, uuid.toString(), ComponentUtils.stripColour(im.displayName())).setInUse();
                         tud.setSchematic(schm);
                         tud.setWall("ORANGE_WOOL");
                         tud.setFloor("LIGHT_GRAY_WOOL");
@@ -191,7 +191,7 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
     private void scan(Player p, InventoryView view) {
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             List<Component> lore = getSizeLore(view);
-            String size = TARDISStringUtils.stripColour(lore.getFirst());
+            String size = ComponentUtils.stripColour(lore.getFirst());
             p.closeInventory();
             p.performCommand("tardis archive scan " + size);
         }, 1L);
@@ -205,7 +205,7 @@ public class TARDISArchiveMenuListener extends TARDISMenuListener {
     private void archive(Player p, InventoryView view) {
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             List<Component> lore = getSizeLore(view);
-            String size = TARDISStringUtils.stripColour(lore.getFirst());
+            String size = ComponentUtils.stripColour(lore.getFirst());
             p.closeInventory();
             // generate random name
             String name = TARDISRandomArchiveName.getRandomName();

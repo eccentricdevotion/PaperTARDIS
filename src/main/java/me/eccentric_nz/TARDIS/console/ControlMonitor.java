@@ -88,11 +88,11 @@ public class ControlMonitor implements Runnable {
                         worldName = plugin.getMVHelper().getAlias(worldName);
                     }
                     builder.append(Component.text(worldName))
-                            .append(Component.text("\n"))
+                            .append(Component.newline())
                             .append(Component.text(resultSetConsole.getX(), NamedTextColor.WHITE))
-                            .append(Component.text("\n"))
+                            .append(Component.newline())
                             .append(Component.text(resultSetConsole.getY(), NamedTextColor.WHITE))
-                            .append(Component.text("\n"))
+                            .append(Component.newline())
                             .append(Component.text(resultSetConsole.getZ(), NamedTextColor.WHITE));
                     textDisplay.text(builder.build());
                 }
@@ -102,11 +102,11 @@ public class ControlMonitor implements Runnable {
             rss.artronAsync((hasResult, resultSetConsole) -> {
                 if (hasResult) {
                     builder.append(Component.text(plugin.getLanguage().getString("ARTRON_DISPLAY", "Artron Energy"), NamedTextColor.WHITE))
-                            .append(Component.text("\n"))
+                            .append(Component.newline())
                             .append(Component.text(resultSetConsole.getArtronLevel(), NamedTextColor.AQUA))
-                            .append(Component.text("\n"))
+                            .append(Component.newline())
                             .append(Component.text(plugin.getLanguage().getString("CHAM_DISPLAY", "Exterior"), NamedTextColor.WHITE))
-                            .append(Component.text("\n"));
+                            .append(Component.newline());
                     Component preset;
                     if (resultSetConsole.getPreset().startsWith("POLICE_BOX_")) {
                         NamedTextColor colour = TARDISStaticUtils.policeBoxToNamedTextColor(resultSetConsole.getPreset());

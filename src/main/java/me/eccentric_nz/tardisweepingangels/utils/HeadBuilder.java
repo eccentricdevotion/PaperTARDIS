@@ -20,6 +20,7 @@ import me.eccentric_nz.TARDIS.custommodels.keys.DalekVariant;
 import me.eccentric_nz.TARDIS.custommodels.keys.EmptyChildVariant;
 import me.eccentric_nz.TARDIS.custommodels.keys.K9Variant;
 import me.eccentric_nz.TARDIS.custommodels.keys.VampireOfVeniceVariant;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -74,7 +75,7 @@ public class HeadBuilder {
     public static ItemStack getK9() {
         ItemStack is = new ItemStack(Material.BONE);
         ItemMeta im = is.getItemMeta();
-        im.displayName(Component.text("K9", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("K9"));
         im.setItemModel(K9Variant.K9.getKey());
         is.setItemMeta(im);
         return is;

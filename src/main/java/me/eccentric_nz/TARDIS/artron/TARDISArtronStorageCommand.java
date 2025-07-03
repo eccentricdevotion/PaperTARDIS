@@ -22,8 +22,8 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisArtron;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -78,7 +78,7 @@ public class TARDISArtronStorageCommand implements CommandExecutor {
                 return true;
             }
             ItemMeta im = is.getItemMeta();
-            if (!im.hasDisplayName() || !TARDISStringUtils.stripColour(im.displayName()).endsWith("Artron Storage Cell")) {
+            if (!im.hasDisplayName() || !ComponentUtils.stripColour(im.displayName()).endsWith("Artron Storage Cell")) {
                 plugin.getMessenger().send(player, TardisModule.TARDIS, "CELL_IN_HAND");
                 return true;
             }
@@ -99,7 +99,7 @@ public class TARDISArtronStorageCommand implements CommandExecutor {
                     return true;
                 }
                 ItemMeta offMeta = offhand.getItemMeta();
-                if (!offMeta.hasDisplayName() || !TARDISStringUtils.stripColour(offMeta.displayName()).endsWith("Artron Storage Cell")) {
+                if (!offMeta.hasDisplayName() || !ComponentUtils.stripColour(offMeta.displayName()).endsWith("Artron Storage Cell")) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "CELL_IN_HAND");
                     return true;
                 }
@@ -161,7 +161,7 @@ public class TARDISArtronStorageCommand implements CommandExecutor {
                     return true;
                 }
                 List<Component> lore = im.lore();
-                int level = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(1)));
+                int level = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(1)));
                 if (level < 0) {
                     level = 0;
                 }
@@ -195,7 +195,7 @@ public class TARDISArtronStorageCommand implements CommandExecutor {
     }
 
     private int getLevel(ItemMeta im) {
-        String lore = TARDISStringUtils.stripColour(im.lore().get(1));
+        String lore = ComponentUtils.stripColour(im.lore().get(1));
         return TARDISNumberParsers.parseInt(lore);
     }
 

@@ -21,7 +21,7 @@ import io.papermc.paper.datacomponent.item.Consumable;
 import io.papermc.paper.datacomponent.item.consumable.ItemUseAnimation;
 import io.papermc.paper.registry.keys.SoundEventKeys;
 import me.eccentric_nz.TARDIS.custommodels.keys.Whoniverse;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -56,7 +56,7 @@ public class ElixirOfLife {
         foodComponent.setSaturation(1.0f);
         im.setFood(foodComponent);
         im.setItemModel(Whoniverse.ELIXIR_OF_LIFE.getKey());
-        im.displayName(Component.text("Elixir of Life", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("Elixir of Life"));
         im.lore(List.of(
                 Component.text("Use to trigger a"),
                 Component.text("Time Lord regeneration")
@@ -81,6 +81,6 @@ public class ElixirOfLife {
         if (!im.hasDisplayName()) {
             return false;
         }
-        return TARDISStringUtils.stripColour(im.displayName()).endsWith("Elixir of Life");
+        return ComponentUtils.stripColour(im.displayName()).endsWith("Elixir of Life");
     }
 }

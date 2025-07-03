@@ -24,9 +24,9 @@ import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItemUtils;
 import me.eccentric_nz.TARDIS.custommodels.keys.Whoniverse;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -85,9 +85,9 @@ public class TARDISArtronFurnaceListener implements Listener {
             ItemStack is = event.getFuel().clone();
             if (is.hasItemMeta()) {
                 ItemMeta im = is.getItemMeta();
-                if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "Artron Storage Cell")) {
+                if (im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "Artron Storage Cell")) {
                     List<Component> lore = im.lore();
-                    String one = TARDISStringUtils.stripColour(lore.get(1));
+                    String one = ComponentUtils.stripColour(lore.get(1));
                     if (!one.equals("0")) {
                         // track furnace
                         plugin.getTrackerKeeper().getArtronFurnaces().add(l);
@@ -154,7 +154,7 @@ public class TARDISArtronFurnaceListener implements Listener {
         if (!event.getItemInHand().getItemMeta().hasDisplayName()) {
             return;
         }
-        if (!TARDISStringUtils.stripColour(event.getItemInHand().getItemMeta().displayName()).endsWith("TARDIS Artron Furnace")) {
+        if (!ComponentUtils.stripColour(event.getItemInHand().getItemMeta().displayName()).endsWith("TARDIS Artron Furnace")) {
             return;
         }
         Player player = event.getPlayer();
@@ -194,7 +194,7 @@ public class TARDISArtronFurnaceListener implements Listener {
             }
             ItemStack is = new ItemStack(Material.FURNACE, 1);
             ItemMeta im = is.getItemMeta();
-            im.displayName(Component.text("TARDIS Artron Furnace", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+            im.displayName(ComponentUtils.toWhite("TARDIS Artron Furnace"));
             is.setItemMeta(im);
             TARDISDisplayItemUtils.remove(block);
             block.setBlockData(TARDISConstants.AIR);

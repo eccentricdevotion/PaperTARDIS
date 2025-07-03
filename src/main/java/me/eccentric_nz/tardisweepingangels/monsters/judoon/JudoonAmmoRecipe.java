@@ -18,6 +18,7 @@ package me.eccentric_nz.tardisweepingangels.monsters.judoon;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.ArrowVariant;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -38,7 +39,7 @@ public class JudoonAmmoRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.ARROW, 2);
         ItemMeta im = is.getItemMeta();
-        im.displayName(Component.text("Judoon Ammunition", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("Judoon Ammunition"));
         im.setItemModel(ArrowVariant.JUDOON_AMMO.getKey());
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "judoon_ammunition");

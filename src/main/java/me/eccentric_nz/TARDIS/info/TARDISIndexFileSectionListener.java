@@ -18,7 +18,7 @@ package me.eccentric_nz.TARDIS.info;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -59,7 +59,7 @@ public class TARDISIndexFileSectionListener extends TARDISMenuListener {
             case 53 -> close(p);
             default -> {
                 ItemMeta im = is.getItemMeta();
-                String name = TARDISStringUtils.toEnumUppercase(TARDISStringUtils.stripColour(im.displayName()));
+                String name = ComponentUtils.toEnumUppercase(im.displayName());
                 try {
                     TARDISInfoMenu tim = TARDISInfoMenu.valueOf(name);
                     TISCategory category = plugin.getTrackerKeeper().getInfoGUI().get(p.getUniqueId());

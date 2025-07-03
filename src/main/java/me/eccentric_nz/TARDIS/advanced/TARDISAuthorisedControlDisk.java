@@ -33,9 +33,9 @@ import me.eccentric_nz.TARDIS.flight.TARDISMaterialseFromVortex;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
 import me.eccentric_nz.TARDIS.travel.TARDISEPSRunnable;
 import me.eccentric_nz.TARDIS.travel.TravelCostAndType;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -89,7 +89,7 @@ public class TARDISAuthorisedControlDisk {
         TravelType travelType = TravelType.SAVE;
         if (lore.size() > 3) {
             // has a stored save
-            String save = TARDISStringUtils.stripColour(lore.get(3));
+            String save = ComponentUtils.stripColour(lore.get(3));
             HashMap<String, Object> where = new HashMap<>();
             where.put("tardis_id", id);
             if (save.equals("Home")) {

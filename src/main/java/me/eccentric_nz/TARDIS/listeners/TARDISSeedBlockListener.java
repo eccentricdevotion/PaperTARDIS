@@ -31,6 +31,7 @@ import me.eccentric_nz.TARDIS.enumeration.Consoles;
 import me.eccentric_nz.TARDIS.enumeration.Schematic;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -81,7 +82,7 @@ public class TARDISSeedBlockListener implements Listener {
         if (!im.hasDisplayName() || !im.hasLore()) {
             return;
         }
-        String dn = TARDISStringUtils.stripColour(im.displayName());
+        String dn = ComponentUtils.stripColour(im.displayName());
         if (dn.equals("TARDIS Seed Block")) {
             Block block = event.getBlockPlaced();
             if (im.getPersistentDataContainer().has(plugin.getCustomBlockKey(), PersistentDataType.STRING)) {
@@ -95,9 +96,9 @@ public class TARDISSeedBlockListener implements Listener {
                 TARDISDisplayItemUtils.setSeed(tdi, block, im);
             }
             List<Component> lore = im.lore();
-            Schematic schm = Consoles.getBY_NAMES().get(TARDISStringUtils.stripColour(lore.getFirst()));
-            Material wall = Material.valueOf(TARDISStringUtils.getValuesFromWallString(TARDISStringUtils.stripColour(lore.get(1))));
-            Material floor = Material.valueOf(TARDISStringUtils.getValuesFromWallString(TARDISStringUtils.stripColour(lore.get(2))));
+            Schematic schm = Consoles.getBY_NAMES().get(ComponentUtils.stripColour(lore.getFirst()));
+            Material wall = Material.valueOf(TARDISStringUtils.getValuesFromWallString(ComponentUtils.stripColour(lore.get(1))));
+            Material floor = Material.valueOf(TARDISStringUtils.getValuesFromWallString(ComponentUtils.stripColour(lore.get(2))));
             TARDISBuildData seed = new TARDISBuildData();
             seed.setSchematic(schm);
             seed.setWallType(wall);
@@ -134,7 +135,7 @@ public class TARDISSeedBlockListener implements Listener {
             }
         } else if (dn.endsWith("Variable Light") && is.getType() == Material.GLASS) {
             List<Component> lore = im.lore();
-            Material variable = Material.valueOf(TARDISStringUtils.stripColour(lore.getFirst()));
+            Material variable = Material.valueOf(ComponentUtils.stripColour(lore.getFirst()));
             // place the variable light
             new VariableLight(variable, event.getBlockPlaced().getLocation().add(0.5d, 0.5d, 0.5d)).set();
         }
@@ -175,7 +176,7 @@ public class TARDISSeedBlockListener implements Listener {
                     return;
                 }
                 im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, model.getKey());
-                im.displayName(Component.text("TARDIS Seed Block", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+                im.displayName(ComponentUtils.toGold("TARDIS Seed Block"));
                 List<Component> lore = new ArrayList<>();
                 lore.add(Component.text(console));
                 lore.add(Component.text("Walls: " + data.getWallType().toString()));

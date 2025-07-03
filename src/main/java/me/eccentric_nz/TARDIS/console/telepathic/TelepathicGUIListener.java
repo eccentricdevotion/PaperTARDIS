@@ -24,7 +24,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -86,7 +86,7 @@ public class TelepathicGUIListener extends TARDISMenuListener {
                 // toggle telepathy on/off
                 case 0 -> {
                     ItemMeta im = choice.getItemMeta();
-                    int b = (im.hasLore() && TARDISStringUtils.stripColour(im.lore().getFirst()).endsWith("ON")) ? 0 : 1;
+                    int b = (im.hasLore() && ComponentUtils.stripColour(im.lore().getFirst()).endsWith("ON")) ? 0 : 1;
                     // update database
                     HashMap<String, Object> set = new HashMap<>();
                     HashMap<String, Object> whereu = new HashMap<>();

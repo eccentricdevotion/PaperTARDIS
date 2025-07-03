@@ -23,6 +23,7 @@ import me.eccentric_nz.TARDIS.commands.give.TARDISDisplayBlockCommand;
 import me.eccentric_nz.TARDIS.enumeration.RecipeCategory;
 import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardischemistry.lab.Lab;
 import me.eccentric_nz.tardischemistry.lab.LabBuilder;
@@ -156,7 +157,7 @@ public class TARDISItem {
             if (im == null) {
                 im = result.getItemMeta();
             }
-            im.displayName(Component.text(Give.items.get(item), NamedTextColor.WHITE));
+            im.displayName(ComponentUtils.toWhite(Give.items.get(item)));
             result.setItemMeta(im);
             result.setAmount(amount);
             player.getInventory().addItem(result);

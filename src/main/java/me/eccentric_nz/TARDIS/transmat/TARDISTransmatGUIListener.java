@@ -22,7 +22,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTravellers;
 import me.eccentric_nz.TARDIS.desktop.PreviewData;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -130,7 +130,7 @@ public class TARDISTransmatGUIListener extends TARDISMenuListener {
             default:
                 // select
                 ItemMeta im = is.getItemMeta();
-                selectedLocation.put(player.getUniqueId(), TARDISStringUtils.stripColour(im.displayName()));
+                selectedLocation.put(player.getUniqueId(), ComponentUtils.stripColour(im.displayName()));
                 break;
         }
     }

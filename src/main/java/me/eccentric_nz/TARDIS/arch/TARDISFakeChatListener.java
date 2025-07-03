@@ -18,7 +18,7 @@ package me.eccentric_nz.TARDIS.arch;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
 import me.eccentric_nz.TARDIS.TARDIS;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -42,7 +42,7 @@ public class TARDISFakeChatListener implements Listener {
         if (!plugin.getTrackerKeeper().getJohnSmith().containsKey(player.getUniqueId())) {
             return;
         }
-        String currentDisplayName = TARDISStringUtils.stripColour(player.displayName());
+        String currentDisplayName = ComponentUtils.stripColour(player.displayName());
         String newDisplayName = currentDisplayName.replace(player.getName(), plugin.getTrackerKeeper().getJohnSmith().get(player.getUniqueId()).getName());
         player.displayName(Component.text(newDisplayName));
     }

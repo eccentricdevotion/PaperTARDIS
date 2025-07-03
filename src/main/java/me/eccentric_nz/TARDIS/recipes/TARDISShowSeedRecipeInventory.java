@@ -4,9 +4,9 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
 import me.eccentric_nz.TARDIS.enumeration.Consoles;
 import me.eccentric_nz.TARDIS.enumeration.Schematic;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.Inventory;
@@ -76,7 +76,7 @@ public class TARDISShowSeedRecipeInventory implements InventoryHolder {
         ItemMeta seed = tardis.getItemMeta();
         seed.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, model.getKey());
         // set display name
-        seed.displayName(Component.text("TARDIS Seed Block", NamedTextColor.GOLD).decoration(TextDecoration.ITALIC, false));
+        seed.displayName(ComponentUtils.toGold("TARDIS Seed Block"));
         List<Component> lore = new ArrayList<>();
         lore.add(Component.text(type));
         lore.add(Component.text("Walls: ORANGE_WOOL"));

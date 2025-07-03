@@ -17,9 +17,7 @@
 package me.eccentric_nz.TARDIS.recipes.shaped;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -46,7 +44,7 @@ public class BlankStorageDiskRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.MUSIC_DISC_STRAD, 1);
         ItemMeta im = is.getItemMeta();
-        im.displayName(Component.text("Blank Storage Disk", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("Blank Storage Disk"));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "blank_storage_disk");
         ShapedRecipe r = new ShapedRecipe(key, is);

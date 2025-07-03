@@ -23,10 +23,9 @@ import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.schematic.TARDISSchematicGZip;
 import me.eccentric_nz.TARDIS.schematic.getters.DataPackPainting;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
-//import org.bukkit.*;
 import org.bukkit.*;
 import org.bukkit.block.*;
 import org.bukkit.block.sign.Side;
@@ -37,7 +36,7 @@ import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.BoundingBox;
-import com.destroystokyo.paper.profile.PlayerProfile;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -179,12 +178,12 @@ public class SchematicSave {
                                             frame.addProperty("cmd", im.getItemModel().getKey());
                                         }
                                         if (im.hasDisplayName()) {
-                                            frame.addProperty("name", TARDISStringUtils.stripColour(im.displayName()));
+                                            frame.addProperty("name", ComponentUtils.stripColour(im.displayName()));
                                         }
                                         if (im.hasLore()) {
                                             JsonArray lore = new JsonArray();
                                             for (Component component : im.lore()) {
-                                                lore.add(TARDISStringUtils.stripColour(component));
+                                                lore.add(ComponentUtils.stripColour(component));
                                             }
                                             frame.add("lore", lore);
                                         }
@@ -263,19 +262,19 @@ public class SchematicSave {
                         Sign sign = (Sign) b.getState();
                         SignSide front = sign.getSide(Side.FRONT);
                         if (!front.lines().isEmpty()) {
-                            text.addProperty("line0", TARDISStringUtils.stripColour(front.line(0)));
-                            text.addProperty("line1", TARDISStringUtils.stripColour(front.line(1)));
-                            text.addProperty("line2", TARDISStringUtils.stripColour(front.line(2)));
-                            text.addProperty("line3", TARDISStringUtils.stripColour(front.line(3)));
+                            text.addProperty("line0", ComponentUtils.stripColour(front.line(0)));
+                            text.addProperty("line1", ComponentUtils.stripColour(front.line(1)));
+                            text.addProperty("line2", ComponentUtils.stripColour(front.line(2)));
+                            text.addProperty("line3", ComponentUtils.stripColour(front.line(3)));
                             text.addProperty("glowing", front.isGlowingText());
                             text.addProperty("colour", front.getColor().toString());
                             text.addProperty("editable", sign.isWaxed());
                             JsonObject side = new JsonObject();
                             SignSide back = sign.getSide(Side.BACK);
-                            side.addProperty("line0", TARDISStringUtils.stripColour(back.line(0)));
-                            side.addProperty("line1", TARDISStringUtils.stripColour(back.line(1)));
-                            side.addProperty("line2", TARDISStringUtils.stripColour(back.line(2)));
-                            side.addProperty("line3", TARDISStringUtils.stripColour(back.line(3)));
+                            side.addProperty("line0", ComponentUtils.stripColour(back.line(0)));
+                            side.addProperty("line1", ComponentUtils.stripColour(back.line(1)));
+                            side.addProperty("line2", ComponentUtils.stripColour(back.line(2)));
+                            side.addProperty("line3", ComponentUtils.stripColour(back.line(3)));
                             side.addProperty("glowing", back.isGlowingText());
                             side.addProperty("colour", back.getColor().toString());
                             text.add("back", side);

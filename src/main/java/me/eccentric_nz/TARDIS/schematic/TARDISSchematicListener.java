@@ -18,7 +18,7 @@ package me.eccentric_nz.TARDIS.schematic;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -77,6 +77,6 @@ public class TARDISSchematicListener implements Listener {
         if (!im.hasDisplayName()) {
             return false;
         }
-        return TARDISStringUtils.endsWith(im.displayName(), "TARDIS Schematic Wand");
+        return ComponentUtils.endsWith(im.displayName(), "TARDIS Schematic Wand");
     }
 }

@@ -57,12 +57,12 @@ class TARDISBuildCommand {
         HashMap<String, Object> setp = new HashMap<>();
         HashMap<String, Object> wherep = new HashMap<>();
         wherep.put("uuid", player.getUniqueId().toString());
-        if (args[1].equalsIgnoreCase(plugin.getLanguage().getString("SET_ON")) || args[1].equalsIgnoreCase("on")) {
+        if (args[1].equalsIgnoreCase(plugin.getLanguage().getString("SET_ON", "ON")) || args[1].equalsIgnoreCase("on")) {
             setp.put("build_on", 1);
             plugin.getTrackerKeeper().getAntiBuild().remove(id);
             plugin.getMessenger().send(player, TardisModule.TARDIS, "ANTIBUILD_ON");
         }
-        if (args[1].equalsIgnoreCase(plugin.getLanguage().getString("SET_OFF")) || args[1].equalsIgnoreCase("off")) {
+        if (args[1].equalsIgnoreCase(plugin.getLanguage().getString("SET_OFF", "OFF")) || args[1].equalsIgnoreCase("off")) {
             setp.put("build_on", 0);
             TARDISAntiBuild tab = new TARDISAntiBuild();
             String[] data = tardis.getChunk().split(":");

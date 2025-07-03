@@ -28,8 +28,8 @@ import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.enumeration.Control;
 import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -127,7 +127,7 @@ public class TARDISPoliceBoxListener extends TARDISMenuListener {
             case 53 -> close(player);
             default -> {
                 // custom model exterior
-                String custom = TARDISStringUtils.stripColour(is.getItemMeta().displayName());
+                String custom = ComponentUtils.stripColour(is.getItemMeta().displayName());
                 set.put("chameleon_preset", "ITEM:" + custom);
                 if (hasSign) {
                     updateChameleonSign(rsc.getData(), custom, player);

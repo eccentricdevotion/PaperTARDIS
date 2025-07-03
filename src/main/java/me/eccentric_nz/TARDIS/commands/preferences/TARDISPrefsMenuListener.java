@@ -40,8 +40,8 @@ import me.eccentric_nz.TARDIS.particles.TARDISParticleInventory;
 import me.eccentric_nz.TARDIS.sonic.TARDISSonicConfiguratorInventory;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -106,7 +106,7 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
         Player p = (Player) event.getWhoClicked();
         UUID uuid = p.getUniqueId();
         ItemMeta im = is.getItemMeta();
-        if (slot == GUIPlayerPreferences.FORCE_FIELD.getSlot() && TARDISStringUtils.stripColour(im.displayName()).equals("Force Field")) {
+        if (slot == GUIPlayerPreferences.FORCE_FIELD.getSlot() && ComponentUtils.stripColour(im.displayName()).equals("Force Field")) {
             // toggle force field on / off
             if (TARDISPermission.hasPermission(p, "tardis.forcefield")) {
                 // check they have upgrade
@@ -115,7 +115,7 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
                     return;
                 }
                 List<Component> lore = im.lore();
-                boolean bool = (TARDISStringUtils.stripColour(lore.getFirst()).equals(plugin.getLanguage().getString("SET_OFF")));
+                boolean bool = (ComponentUtils.stripColour(lore.getFirst()).equals(plugin.getLanguage().getString("SET_OFF", "OFF")));
                 if (bool) {
                     // check power
                     ResultSetArtronLevel rsal = new ResultSetArtronLevel(plugin, uuid.toString());
@@ -141,10 +141,10 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
             }
             return;
         }
-        if (slot == GUIPlayerPreferences.FLIGHT_MODE.getSlot() && TARDISStringUtils.stripColour(im.displayName()).equals("Flight Mode")) {
+        if (slot == GUIPlayerPreferences.FLIGHT_MODE.getSlot() && ComponentUtils.stripColour(im.displayName()).equals("Flight Mode")) {
             List<Component> lore = im.lore();
             // cycle through flight modes
-            FlightMode flight = FlightMode.valueOf(TARDISStringUtils.stripColour(lore.getFirst()));
+            FlightMode flight = FlightMode.valueOf(ComponentUtils.stripColour(lore.getFirst()));
             int mode = flight.getMode() + 1;
             int limit = (TARDISPermission.hasPermission(p,"tardis.fly")) ? 4 : 3;
             if (mode > limit) {
@@ -161,7 +161,7 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
             plugin.getQueryFactory().doUpdate("player_prefs", setf, wheref);
             return;
         }
-        if (slot == GUIPlayerPreferences.INTERIOR_HUM_SOUND.getSlot() && TARDISStringUtils.stripColour(im.displayName()).equals("Interior Hum Sound")) {
+        if (slot == GUIPlayerPreferences.INTERIOR_HUM_SOUND.getSlot() && ComponentUtils.stripColour(im.displayName()).equals("Interior Hum Sound")) {
             // close this gui and load the sounds GUI
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                 // close inventory
@@ -171,10 +171,10 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
             }, 1L);
             return;
         }
-        if (slot == GUIPlayerPreferences.HANDBRAKE.getSlot() && TARDISStringUtils.stripColour(im.displayName()).equals("Handbrake")) {
+        if (slot == GUIPlayerPreferences.HANDBRAKE.getSlot() && ComponentUtils.stripColour(im.displayName()).equals("Handbrake")) {
             // you can only set it to ON!
             List<Component> lore = im.lore();
-            if (TARDISStringUtils.stripColour(lore.getFirst()).equals(plugin.getLanguage().getString("SET_OFF"))) {
+            if (ComponentUtils.stripColour(lore.getFirst()).equals(plugin.getLanguage().getString("SET_OFF", "OFF"))) {
                 // get this player's TARDIS
                 ResultSetTardisID rs = new ResultSetTardisID(plugin);
                 if (rs.fromUUID(uuid.toString())) {
@@ -223,7 +223,7 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
             }
             return;
         }
-        if (slot == GUIPlayerPreferences.TARDIS_MAP.getSlot() && TARDISStringUtils.stripColour(im.displayName()).equals("TARDIS Map")) {
+        if (slot == GUIPlayerPreferences.TARDIS_MAP.getSlot() && ComponentUtils.stripColour(im.displayName()).equals("TARDIS Map")) {
             // must be in the TARDIS
             HashMap<String, Object> where = new HashMap<>();
             where.put("uuid", uuid.toString());
@@ -245,7 +245,7 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
             }
             return;
         }
-        if (slot == GUIPlayerPreferences.AUTONOMOUS_PREFERENCES.getSlot() && TARDISStringUtils.stripColour(im.displayName()).equals("Autonomous Preferences")) {
+        if (slot == GUIPlayerPreferences.AUTONOMOUS_PREFERENCES.getSlot() && ComponentUtils.stripColour(im.displayName()).equals("Autonomous Preferences")) {
             // close this gui and load the TARDIS Autonomous Menu
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                 // close inventory
@@ -255,7 +255,7 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
             }, 1L);
             return;
         }
-        if (slot == GUIPlayerPreferences.FARMING_PREFERENCES.getSlot() && TARDISStringUtils.stripColour(im.displayName()).equals("Farming Preferences")) {
+        if (slot == GUIPlayerPreferences.FARMING_PREFERENCES.getSlot() && ComponentUtils.stripColour(im.displayName()).equals("Farming Preferences")) {
             // close this gui and load the TARDIS Farming Menu
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                 // close inventory
@@ -265,7 +265,7 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
             }, 1L);
             return;
         }
-        if (slot == GUIPlayerPreferences.SONIC_CONFIGURATOR.getSlot() && TARDISStringUtils.stripColour(im.displayName()).equals("Sonic Configurator")) {
+        if (slot == GUIPlayerPreferences.SONIC_CONFIGURATOR.getSlot() && ComponentUtils.stripColour(im.displayName()).equals("Sonic Configurator")) {
             // close this gui and load the Sonic Configurator
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                 // close inventory
@@ -275,7 +275,7 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
             }, 1L);
             return;
         }
-        if (slot == GUIPlayerPreferences.PARTICLES.getSlot() && TARDISStringUtils.stripColour(im.displayName()).equals("Materialisation Particles")) {
+        if (slot == GUIPlayerPreferences.PARTICLES.getSlot() && ComponentUtils.stripColour(im.displayName()).equals("Materialisation Particles")) {
             // close this gui and load the Particle Preferences
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                 // close inventory
@@ -285,17 +285,17 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
             }, 1L);
             return;
         }
-        if (slot == GUIPlayerPreferences.ADMIN_MENU.getSlot() && TARDISStringUtils.stripColour(im.displayName()).equals("Admin Config Menu")) {
+        if (slot == GUIPlayerPreferences.ADMIN_MENU.getSlot() && ComponentUtils.stripColour(im.displayName()).equals("Admin Config Menu")) {
             // close this gui and load the Admin Menu
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
                     p.openInventory(new TARDISConfigMenuInventory(plugin).getInventory()), 1L);
             return;
         }
         List<Component> lore = im.lore();
-        boolean bool = (TARDISStringUtils.stripColour(lore.getFirst()).equals(plugin.getLanguage().getString("SET_ON")));
-        String value = (bool) ? plugin.getLanguage().getString("SET_OFF") : plugin.getLanguage().getString("SET_ON");
+        boolean bool = (ComponentUtils.stripColour(lore.getFirst()).equals(plugin.getLanguage().getString("SET_ON", "ON")));
+        String value = (bool) ? plugin.getLanguage().getString("SET_OFF", "OFF") : plugin.getLanguage().getString("SET_ON", "ON");
         int b = (bool) ? 0 : 1;
-        String which = TARDISStringUtils.stripColour(im.displayName());
+        String which = ComponentUtils.stripColour(im.displayName());
         switch (which) {
             case "Junk TARDIS" -> {
                 // must be on the outside of the TARDIS
@@ -405,11 +405,11 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
                 HashMap<String, Object> set = new HashMap<>();
                 HashMap<String, Object> where = new HashMap<>();
                 where.put("uuid", uuid.toString());
-                if (TARDISStringUtils.stripColour(im.displayName()).equals("HADS Type")) {
-                    value = (TARDISStringUtils.stripColour(lore.getFirst()).equals("DISPLACEMENT")) ? "DISPERSAL" : "DISPLACEMENT";
+                if (ComponentUtils.stripColour(im.displayName()).equals("HADS Type")) {
+                    value = (ComponentUtils.stripColour(lore.getFirst()).equals("DISPLACEMENT")) ? "DISPERSAL" : "DISPLACEMENT";
                     set.put("hads_type", value);
                 } else {
-                    set.put(lookup.get(TARDISStringUtils.stripColour(im.displayName())), b);
+                    set.put(lookup.get(ComponentUtils.stripColour(im.displayName())), b);
                 }
                 plugin.getQueryFactory().doUpdate("player_prefs", set, where);
             }
@@ -418,10 +418,10 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
         im.lore(lore);
         GUIPlayerPreferences gui = GUIPlayerPreferences.fromString(which);
         CustomModelDataComponent component = im.getCustomModelDataComponent();
-        component.setFloats(value.equals(plugin.getLanguage().getString("SET_ON")) ? gui.getOnFloats() : gui.getOffFloats());
+        component.setFloats(value.equals(plugin.getLanguage().getString("SET_ON", "ON")) ? gui.getOnFloats() : gui.getOffFloats());
         im.setCustomModelDataComponent(component);
         is.setItemMeta(im);
-        if (TARDISStringUtils.stripColour(im.displayName()).equals("Beacon")) {
+        if (ComponentUtils.stripColour(im.displayName()).equals("Beacon")) {
             // get tardis id
             ResultSetTardisID rsi = new ResultSetTardisID(plugin);
             if (rsi.fromUUID(uuid.toString())) {

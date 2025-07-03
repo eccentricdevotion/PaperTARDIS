@@ -19,8 +19,8 @@ package me.eccentric_nz.TARDIS.handles;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
@@ -75,7 +75,7 @@ public class TARDISHandlesSavedListener extends TARDISMenuListener {
                         ItemMeta im = disk.getItemMeta();
                         List<Component> lore = im.lore();
                         // ckeck in
-                        int pid = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(1)));
+                        int pid = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(1)));
                         HashMap<String, Object> set = new HashMap<>();
                         set.put("checked", 0);
                         HashMap<String, Object> where = new HashMap<>();
@@ -102,7 +102,7 @@ public class TARDISHandlesSavedListener extends TARDISMenuListener {
             // load program
             if (selectedSlot.containsKey(uuid)) {
                 ItemStack is = view.getItem(selectedSlot.get(uuid));
-                int pid = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(is.getItemMeta().lore().get(1)));
+                int pid = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(is.getItemMeta().lore().get(1)));
                 selectedSlot.put(uuid, null);
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
                         player.openInventory(new TARDISHandlesProgramInventory(plugin, pid).getInventory()), 2L);
@@ -114,7 +114,7 @@ public class TARDISHandlesSavedListener extends TARDISMenuListener {
             // deactivate program
             if (selectedSlot.containsKey(uuid)) {
                 ItemStack is = view.getItem(selectedSlot.get(uuid));
-                int pid = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(is.getItemMeta().lore().get(1)));
+                int pid = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(is.getItemMeta().lore().get(1)));
                 HashMap<String, Object> where = new HashMap<>();
                 where.put("program_id", pid);
                 HashMap<String, Object> set = new HashMap<>();
@@ -135,7 +135,7 @@ public class TARDISHandlesSavedListener extends TARDISMenuListener {
             // delete program
             if (selectedSlot.containsKey(uuid)) {
                 ItemStack is = view.getItem(selectedSlot.get(uuid));
-                int pid = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(is.getItemMeta().lore().get(1)));
+                int pid = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(is.getItemMeta().lore().get(1)));
                 HashMap<String, Object> where = new HashMap<>();
                 where.put("program_id", pid);
                 plugin.getQueryFactory().doDelete("programs", where);
@@ -154,7 +154,7 @@ public class TARDISHandlesSavedListener extends TARDISMenuListener {
                 if (is != null) {
                     ItemMeta im = is.getItemMeta();
                     List<Component> lore = im.lore();
-                    if (TARDISStringUtils.stripColour(lore.get(2)).equals("Checked OUT")) {
+                    if (ComponentUtils.stripColour(lore.get(2)).equals("Checked OUT")) {
                         plugin.getMessenger().send(player, TardisModule.TARDIS, "HANDLES_CHECKED");
                         return;
                     }
@@ -166,7 +166,7 @@ public class TARDISHandlesSavedListener extends TARDISMenuListener {
                     ItemStack clone = is.clone();
                     player.getWorld().dropItemNaturally(player.getLocation(), clone);
                     // check out
-                    int pid = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(1)));
+                    int pid = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(1)));
                     HashMap<String, Object> set = new HashMap<>();
                     set.put("checked", 1);
                     HashMap<String, Object> where = new HashMap<>();

@@ -24,8 +24,8 @@ import me.eccentric_nz.TARDIS.control.actions.LightLevelAction;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetLightLevel;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.ArrayUtils;
 import org.bukkit.entity.Player;
@@ -150,7 +150,7 @@ public class TARDISLightLevelsGUIListener extends TARDISMenuListener {
     private Pair<Boolean, Integer> getNewState(InventoryView view, int slot, boolean next) {
         ItemStack is = view.getItem(slot);
         ItemMeta im = is.getItemMeta();
-        String lore = TARDISStringUtils.stripColour(im.lore().getFirst());
+        String lore = ComponentUtils.stripColour(im.lore().getFirst());
         int state = TARDISNumberParsers.parseInt(lore);
         int index;
         if (slot == 16) {

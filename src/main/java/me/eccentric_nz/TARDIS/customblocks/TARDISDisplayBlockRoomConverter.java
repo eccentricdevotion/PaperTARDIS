@@ -20,8 +20,8 @@ import me.eccentric_nz.TARDIS.ARS.TARDISARSSlot;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.data.Tardis;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -93,7 +93,7 @@ public class TARDISDisplayBlockRoomConverter implements Runnable {
                             ItemMeta im = is.getItemMeta();
                             // get the custom name
                             if (im.hasDisplayName()) {
-                                String name = TARDISStringUtils.toEnumUppercase(TARDISStringUtils.stripColour(im.displayName()));
+                                String name = ComponentUtils.toEnumUppercase(im.displayName());
                                 // look up the name to get the TDI
                                 TARDISDisplayItem tdi = TARDISDisplayItem.valueOf(name);
                                 if (tdi != null) {

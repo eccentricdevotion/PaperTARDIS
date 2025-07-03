@@ -20,7 +20,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.BiomeLookup;
 import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
@@ -75,11 +75,11 @@ public class TARDISDiskCraftListener implements Listener {
                     return;
                 }
                 ItemMeta im = is.getItemMeta();
-                if (!im.hasDisplayName() || !TARDISStringUtils.stripColour(im.displayName()).endsWith("Biome Storage Disk") || !im.hasLore()) {
+                if (!im.hasDisplayName() || !ComponentUtils.stripColour(im.displayName()).endsWith("Biome Storage Disk") || !im.hasLore()) {
                     return;
                 }
                 List<Component> lore = im.lore();
-                if (!TARDISStringUtils.stripColour(lore.getFirst()).equals("Blank")) {
+                if (!ComponentUtils.stripColour(lore.getFirst()).equals("Blank")) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "DISK_BLANK_BIOME");
                     return;
                 }
@@ -107,11 +107,11 @@ public class TARDISDiskCraftListener implements Listener {
                     return;
                 }
                 ItemMeta im = is.getItemMeta();
-                if (!im.hasDisplayName() || !TARDISStringUtils.stripColour(im.displayName()).endsWith("Preset Storage Disk") || !im.hasLore()) {
+                if (!im.hasDisplayName() || !ComponentUtils.stripColour(im.displayName()).endsWith("Preset Storage Disk") || !im.hasLore()) {
                     return;
                 }
                 List<Component> lore = im.lore();
-                if (!TARDISStringUtils.stripColour(lore.getFirst()).equals("Blank")) {
+                if (!ComponentUtils.stripColour(lore.getFirst()).equals("Blank")) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "DISK_BLANK_PRESET");
                     return;
                 }

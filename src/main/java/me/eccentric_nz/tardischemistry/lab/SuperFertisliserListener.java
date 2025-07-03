@@ -20,7 +20,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.api.Parameters;
 import me.eccentric_nz.TARDIS.enumeration.Flag;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.TreeType;
@@ -80,7 +80,7 @@ public class SuperFertisliserListener implements Listener {
         Player player = event.getPlayer();
         if (player != null) {
             ItemStack is = player.getInventory().getItemInMainHand();
-            if (is.getType() == Material.BONE_MEAL && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && TARDISStringUtils.endsWith(is.getItemMeta().displayName(), "Super Fertiliser") && is.getItemMeta().hasItemModel()) {
+            if (is.getType() == Material.BONE_MEAL && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && ComponentUtils.endsWith(is.getItemMeta().displayName(), "Super Fertiliser") && is.getItemMeta().hasItemModel()) {
                 event.setCancelled(true);
                 Block block = event.getBlock();
                 boolean removeItem = false;
@@ -139,7 +139,7 @@ public class SuperFertisliserListener implements Listener {
         if (block != null && TREES.contains(block.getType())) {
             Player player = event.getPlayer();
             ItemStack is = player.getInventory().getItemInMainHand();
-            if (is.getType() == Material.BONE_MEAL && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && TARDISStringUtils.endsWith(is.getItemMeta().displayName(), "Super Fertiliser") && is.getItemMeta().hasItemModel()) {
+            if (is.getType() == Material.BONE_MEAL && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && ComponentUtils.endsWith(is.getItemMeta().displayName(), "Super Fertiliser") && is.getItemMeta().hasItemModel()) {
                 event.setCancelled(true);
                 TreeType treeType = TREE_LOOKUP.get(block.getType());
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {

@@ -19,8 +19,8 @@ package me.eccentric_nz.TARDIS.listeners;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.custommodels.keys.Whoniverse;
 import me.eccentric_nz.TARDIS.sonic.SonicUpgradeData;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
@@ -60,7 +60,7 @@ public class TARDISSmithingListener implements Listener {
                 ItemStack glowstone = inventory.getItem(2);
                 if (glowstone != null && glowstone.getType().equals(Material.GLOWSTONE_DUST) && glowstone.hasItemMeta()) {
                     ItemMeta rm = glowstone.getItemMeta();
-                    upgrade = SonicUpgradeData.displayNames.get(TARDISStringUtils.stripColour(rm.displayName()));
+                    upgrade = SonicUpgradeData.displayNames.get(ComponentUtils.stripColour(rm.displayName()));
                     found = true;
                 }
                 // is it a valid upgrade?
@@ -98,7 +98,7 @@ public class TARDISSmithingListener implements Listener {
                     int index = -1;
                     Component charge = null;
                     for (int i = lore.size() - 1; i >= 0; i--) {
-                        if (TARDISStringUtils.stripColour(lore.get(i)).startsWith("Charge: ")) {
+                        if (ComponentUtils.stripColour(lore.get(i)).startsWith("Charge: ")) {
                             charge = lore.get(i);
                             index = i;
                             break;
@@ -135,7 +135,7 @@ public class TARDISSmithingListener implements Listener {
         if (!im.hasDisplayName()) {
             return false;
         }
-        if (!TARDISStringUtils.stripColour(im.displayName()).endsWith("Artron Capacitor")) {
+        if (!ComponentUtils.stripColour(im.displayName()).endsWith("Artron Capacitor")) {
             return false;
         }
         return !im.hasItemModel() || im.getItemModel().equals(Whoniverse.ARTRON_CAPACITOR_DAMAGED.getKey());

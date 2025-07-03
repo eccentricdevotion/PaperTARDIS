@@ -17,7 +17,7 @@
 package me.eccentric_nz.tardisweepingangels.utils;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
 import me.eccentric_nz.tardisweepingangels.equip.Equipper;
 import me.eccentric_nz.tardisweepingangels.monsters.empty_child.EmptyChildEquipment;
@@ -58,7 +58,7 @@ public class ChunkListener implements Listener {
                 case Drowned drowned -> {
                     if (drowned.getEquipment().getHelmet() != null) {
                         ItemMeta im = drowned.getEquipment().getHelmet().getItemMeta();
-                        if (im != null && im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), " Head")) {
+                        if (im != null && im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), " Head")) {
                             if (pdc.has(TARDISWeepingAngels.DEVIL, PersistentDataType.INTEGER)) {
                                 new Equipper(Monster.SEA_DEVIL, drowned, false).setHelmetAndInvisibility();
                             } else {

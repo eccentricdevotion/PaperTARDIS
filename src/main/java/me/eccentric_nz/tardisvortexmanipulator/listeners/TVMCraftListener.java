@@ -4,7 +4,7 @@
 package me.eccentric_nz.tardisvortexmanipulator.listeners;
 
 import me.eccentric_nz.TARDIS.TARDIS;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetManipulator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -32,7 +32,7 @@ public class TVMCraftListener implements Listener {
     public void onCraftManipulator(CraftItemEvent event) {
         Recipe recipe = event.getRecipe();
         ItemStack is = recipe.getResult();
-        if (is.getType().equals(Material.CLOCK) && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && TARDISStringUtils.endsWith(is.getItemMeta().displayName(), "Vortex Manipulator")) {
+        if (is.getType().equals(Material.CLOCK) && is.hasItemMeta() && is.getItemMeta().hasDisplayName() && ComponentUtils.endsWith(is.getItemMeta().displayName(), "Vortex Manipulator")) {
             Player player = (Player) event.getWhoClicked();
             String uuid = player.getUniqueId().toString();
             // check if they have a manipulator record

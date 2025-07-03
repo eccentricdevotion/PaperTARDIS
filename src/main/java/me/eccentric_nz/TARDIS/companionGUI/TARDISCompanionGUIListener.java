@@ -21,7 +21,7 @@ import me.eccentric_nz.TARDIS.database.data.Tardis;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardis;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -120,7 +120,7 @@ public class TARDISCompanionGUIListener extends TARDISMenuListener {
                         ItemStack h = event.getView().getItem(selected_head.get(uuid));
                         ItemMeta m = h.getItemMeta();
                         List<Component> l = m.lore();
-                        String u = TARDISStringUtils.stripColour(l.getFirst());
+                        String u = ComponentUtils.stripColour(l.getFirst());
                         removeCompanion(id, comps, u, player);
                         if (plugin.isWorldGuardOnServer() && plugin.getConfig().getBoolean("preferences.use_worldguard")) {
                             if (!comps.equalsIgnoreCase("everyone")) {

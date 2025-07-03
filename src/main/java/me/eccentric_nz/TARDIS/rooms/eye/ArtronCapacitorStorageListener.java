@@ -20,7 +20,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.Whoniverse;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTravellers;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -68,12 +68,12 @@ public class ArtronCapacitorStorageListener extends TARDISMenuListener {
                 continue;
             }
             ItemMeta im = stack.getItemMeta();
-            if (!im.hasDisplayName() || !TARDISStringUtils.endsWith(im.displayName(), "Artron Capacitor")) {
+            if (!im.hasDisplayName() || !ComponentUtils.endsWith(im.displayName(), "Artron Capacitor")) {
                 continue;
             }
             if (!im.hasItemModel()) {
                 // check name
-                if (TARDISStringUtils.startsWith(im.displayName(), "Damaged")) {
+                if (ComponentUtils.startsWith(im.displayName(), "Damaged")) {
                     damaged++;
                 }
             } else {

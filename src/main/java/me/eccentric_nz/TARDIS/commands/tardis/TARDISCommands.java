@@ -29,7 +29,7 @@ import me.eccentric_nz.TARDIS.travel.ComehereAction;
 import me.eccentric_nz.TARDIS.travel.ComehereRequest;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -312,7 +312,7 @@ public class TARDISCommands implements CommandExecutor {
             complexBool = true;
         } else if (!is.getItemMeta().hasDisplayName()) {
             complexBool = true;
-        } else if (!TARDISStringUtils.endsWith(is.getItemMeta().displayName(), dn)) {
+        } else if (!ComponentUtils.endsWith(is.getItemMeta().displayName(), dn)) {
             complexBool = true;
         }
         return complexBool;

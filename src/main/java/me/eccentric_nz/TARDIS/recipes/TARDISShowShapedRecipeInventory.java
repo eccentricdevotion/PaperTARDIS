@@ -2,9 +2,9 @@ package me.eccentric_nz.TARDIS.recipes;
 
 import com.google.common.collect.Multimaps;
 import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -52,7 +52,7 @@ public class TARDISShowShapedRecipeInventory implements InventoryHolder {
                 ItemMeta im = item.getItemMeta();
                 if (item.getType().equals(Material.GLOWSTONE_DUST) && !str.endsWith("Tie")) {
                     String dn = getDisplayName(str, glowstoneCount);
-                    im.displayName(Component.text(dn, NamedTextColor.WHITE));
+                    im.displayName(ComponentUtils.toWhite(dn));
                     glowstoneCount++;
                 }
                 if (str.endsWith("TARDIS Remote Key")) {
@@ -63,17 +63,17 @@ public class TARDISShowShapedRecipeInventory implements InventoryHolder {
                         material = Material.GOLD_NUGGET;
                     }
                     if (item.getType().equals(material)) {
-                        im.displayName(Component.text("TARDIS Key", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                        im.displayName(ComponentUtils.toWhite("TARDIS Key"));
                     }
                 }
                 if (str.equals("Acid Battery") && item.getType().equals(Material.WATER_BUCKET)) {
-                    im.displayName(Component.text("Acid Bucket", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                    im.displayName(ComponentUtils.toWhite("Acid Bucket"));
                 }
                 if (str.equals("Rift Manipulator") && item.getType().equals(Material.NETHER_BRICK)) {
-                    im.displayName(Component.text("Acid Battery", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                    im.displayName(ComponentUtils.toWhite("Acid Battery"));
                 }
                 if (str.equals("Rust Plague Sword") && item.getType().equals(Material.LAVA_BUCKET)) {
-                    im.displayName(Component.text("Rust Bucket", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                    im.displayName(ComponentUtils.toWhite("Rust Bucket"));
                 }
                 item.setItemMeta(im);
                 stacks[j * 9 + k] = item;
@@ -81,7 +81,7 @@ public class TARDISShowShapedRecipeInventory implements InventoryHolder {
         }
         ItemStack result = recipe.getResult();
         ItemMeta im = result.getItemMeta();
-        im.displayName(Component.text(str, NamedTextColor.WHITE));
+        im.displayName(ComponentUtils.toWhite(str));
         if (str.equals("TARDIS Invisibility Circuit")) {
             // set the second line of lore
             List<Component> lore = im.lore();

@@ -28,6 +28,7 @@ import me.eccentric_nz.TARDIS.messaging.TARDISUpdateLister;
 import me.eccentric_nz.TARDIS.monitor.MonitorUtils;
 import me.eccentric_nz.TARDIS.rotors.TARDISTimeRotor;
 import me.eccentric_nz.TARDIS.update.TARDISUpdateableChecker;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -124,7 +125,7 @@ class SudoUpdate {
                             // reinstate display name
                             ItemStack glass = itemFrame.getItem();
                             ItemMeta im = glass.getItemMeta();
-                            im.displayName(Component.text("Monitor Frame", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                            im.displayName(ComponentUtils.toWhite("Monitor Frame"));
                             glass.setItemMeta(im);
                         }
                         default -> {

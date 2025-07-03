@@ -19,8 +19,8 @@ package me.eccentric_nz.TARDIS.commands.preferences;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -106,7 +106,7 @@ public class TARDISHumListener extends TARDISMenuListener {
                         close(p);
                         plugin.getMessenger().send(p, TardisModule.TARDIS, "HUM_WAIT");
                     } else {
-                        TARDISSounds.playTARDISSound(p, "tardis_hum_" + TARDISStringUtils.stripColour(im.displayName()).toLowerCase(Locale.ROOT), 5L);
+                        TARDISSounds.playTARDISSound(p, "tardis_hum_" + ComponentUtils.stripColour(im.displayName()).toLowerCase(Locale.ROOT), 5L);
                         last.put(uuid, slot);
                         cooldown.put(uuid, System.currentTimeMillis());
                     }
@@ -114,7 +114,7 @@ public class TARDISHumListener extends TARDISMenuListener {
                     HashMap<String, Object> set = new HashMap<>();
                     HashMap<String, Object> where = new HashMap<>();
                     where.put("uuid", uuid.toString());
-                    set.put("hum", TARDISStringUtils.stripColour(im.displayName()).toLowerCase(Locale.ROOT));
+                    set.put("hum", ComponentUtils.stripColour(im.displayName()).toLowerCase(Locale.ROOT));
                     plugin.getQueryFactory().doUpdate("player_prefs", set, where);
                     close(p);
                     plugin.getMessenger().send(p, TardisModule.TARDIS, "HUM_SAVED");
@@ -133,6 +133,6 @@ public class TARDISHumListener extends TARDISMenuListener {
     private boolean isPlay(InventoryView view) {
         ItemStack play = view.getItem(15);
         ItemMeta save = play.getItemMeta();
-        return (TARDISStringUtils.stripColour(save.lore().getFirst()).endsWith("PLAY"));
+        return (ComponentUtils.stripColour(save.lore().getFirst()).endsWith("PLAY"));
     }
 }

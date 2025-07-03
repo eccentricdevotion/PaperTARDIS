@@ -21,8 +21,8 @@ import me.eccentric_nz.TARDIS.database.data.ConfiguredSonic;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetConfiguredSonic;
 import me.eccentric_nz.TARDIS.enumeration.SonicConfig;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -183,7 +183,7 @@ public class TARDISSonicConfiguratorMenuListener extends TARDISMenuListener {
             List<Component> lore = im.lore();
             if (lore != null) {
                 for (int i = 1; i < lore.size(); i++) {
-                    String upgrade = TARDISStringUtils.stripColour(lore.get(i));
+                    String upgrade = ComponentUtils.stripColour(lore.get(i));
                     switch (upgrade) {
                         case "Bio-scanner Upgrade" -> configuredSonic.setBio(SonicConfig.ENABLED);
                         case "Diamond Upgrade" -> configuredSonic.setDiamond(SonicConfig.ENABLED);

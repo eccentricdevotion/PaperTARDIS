@@ -6,8 +6,8 @@ package me.eccentric_nz.tardisvortexmanipulator.gui;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardisvortexmanipulator.TVMUtils;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMQueryFactory;
 import me.eccentric_nz.tardisvortexmanipulator.database.TVMResultSetMessageById;
@@ -81,7 +81,7 @@ public class TVMMessageGUIListener extends TARDISMenuListener {
             ItemStack is = view.getItem(selectedSlot);
             ItemMeta im = is.getItemMeta();
             List<Component> lore = im.lore();
-            int message_id = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(2)));
+            int message_id = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(2)));
             TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, message_id);
             if (rsm.resultSet()) {
                 close(player);
@@ -99,7 +99,7 @@ public class TVMMessageGUIListener extends TARDISMenuListener {
             ItemStack is = view.getItem(selectedSlot);
             ItemMeta im = is.getItemMeta();
             List<Component> lore = im.lore();
-            int message_id = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(2)));
+            int message_id = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(2)));
             TVMResultSetMessageById rsm = new TVMResultSetMessageById(plugin, message_id);
             if (rsm.resultSet()) {
                 close(player);

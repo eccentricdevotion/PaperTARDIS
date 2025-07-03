@@ -20,7 +20,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.control.TARDISAtmosphericExcitation;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetCurrentLocation;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -38,9 +38,9 @@ public class TARDISSonicAtmospheric {
         // check the text on the sign
         Sign sign = (Sign) b.getState();
         SignSide front = sign.getSide(Side.FRONT);
-        String line0 = TARDISStringUtils.stripColour(front.line(0));
-        String line1 = TARDISStringUtils.stripColour(front.line(1));
-        String line2 = TARDISStringUtils.stripColour(front.line(2));
+        String line0 = ComponentUtils.stripColour(front.line(0));
+        String line1 = ComponentUtils.stripColour(front.line(1));
+        String line2 = ComponentUtils.stripColour(front.line(2));
         if (isPresetSign(plugin, line0, line1, line2)) {
             // get TARDIS id
             ResultSetTardisID rs = new ResultSetTardisID(plugin);

@@ -27,7 +27,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetSonic;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisArtron;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTravellers;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -116,7 +116,7 @@ public class TARDISSonicGeneratorListener implements Listener {
             int level = rs.getArtronLevel();
             ItemStack sonic = new ItemStack(Material.BLAZE_ROD, 1);
             ItemMeta screw = sonic.getItemMeta();
-            screw.displayName(Component.text("Sonic Screwdriver", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+            screw.displayName(ComponentUtils.toWhite("Sonic Screwdriver"));
             List<Component> upgrades = new ArrayList<>();
             if (s.hasKnockback()) {
                 upgrades.add(Component.text("Knockback Upgrade"));
@@ -229,7 +229,7 @@ public class TARDISSonicGeneratorListener implements Listener {
             return;
         }
         ItemMeta im = is.getItemMeta();
-        if (im.hasDisplayName() && TARDISStringUtils.stripColour(im.displayName()).endsWith("Sonic Generator")) {
+        if (im.hasDisplayName() && ComponentUtils.stripColour(im.displayName()).endsWith("Sonic Generator")) {
             Player p = event.getPlayer();
             String uuid = p.getUniqueId().toString();
             Block block = event.getBlock();

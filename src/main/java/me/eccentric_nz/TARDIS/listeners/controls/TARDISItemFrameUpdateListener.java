@@ -28,7 +28,7 @@ import me.eccentric_nz.TARDIS.monitor.MonitorSnapshot;
 import me.eccentric_nz.TARDIS.monitor.MonitorUtils;
 import me.eccentric_nz.TARDIS.monitor.Snapshot;
 import me.eccentric_nz.TARDIS.rotors.TARDISTimeRotor;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -286,7 +286,7 @@ public class TARDISItemFrameUpdateListener implements Listener {
         if (!im.hasDisplayName()) {
             return new SwitchPair(false, lampSwitch);
         }
-        return new SwitchPair(im.hasItemModel() && TARDISStringUtils.stripColour(im.displayName()).endsWith("Switch"), lampSwitch);
+        return new SwitchPair(im.hasItemModel() && ComponentUtils.stripColour(im.displayName()).endsWith("Switch"), lampSwitch);
     }
 
     private record SwitchPair(boolean b, ItemStack lamp) {

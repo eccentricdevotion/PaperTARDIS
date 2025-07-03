@@ -17,6 +17,7 @@
 package me.eccentric_nz.TARDIS.customblocks;
 
 import me.eccentric_nz.TARDIS.custommodels.keys.*;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -236,7 +237,7 @@ public enum TARDISDisplayItem {
 
     public static TARDISDisplayItem getByDisplayName(Component name) {
         for (TARDISDisplayItem tdi : values()) {
-            if (tdi.getCustomModel() != null && TARDISStringUtils.stripColour(name).equals(tdi.getDisplayName())) {
+            if (tdi.getCustomModel() != null && ComponentUtils.stripColour(name).equals(tdi.getDisplayName())) {
                 return tdi;
             }
         }

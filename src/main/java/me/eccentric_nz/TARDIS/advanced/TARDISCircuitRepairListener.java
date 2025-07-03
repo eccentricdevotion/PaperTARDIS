@@ -18,8 +18,8 @@ package me.eccentric_nz.TARDIS.advanced;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
@@ -91,11 +91,11 @@ public class TARDISCircuitRepairListener implements Listener {
             return;
         }
         // get the display name
-        String dnf = TARDISStringUtils.stripColour(fim.displayName());
+        String dnf = ComponentUtils.stripColour(fim.displayName());
         if (dnf.startsWith("TARDIS") && dnf.endsWith("Circuit") && fim.hasLore()) {
             // get the lore
             List<Component> flore = fim.lore();
-            String stripped = TARDISStringUtils.stripColour(flore.get(1));
+            String stripped = ComponentUtils.stripColour(flore.get(1));
             if (stripped.equals("unlimited")) {
                 return;
             }

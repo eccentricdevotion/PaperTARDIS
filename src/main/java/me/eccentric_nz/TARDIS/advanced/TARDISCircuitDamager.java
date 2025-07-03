@@ -20,7 +20,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetDiskStorage;
 import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
@@ -83,7 +83,7 @@ public class TARDISCircuitDamager {
                     if (is != null && is.hasItemMeta()) {
                         ItemMeta im = is.getItemMeta();
                         if (im.hasDisplayName()) {
-                            String dn = TARDISStringUtils.stripColour(im.displayName());
+                            String dn = ComponentUtils.stripColour(im.displayName());
                             if (dn.endsWith(c)) {
                                 if (destroy) {
                                     clone[i] = null;

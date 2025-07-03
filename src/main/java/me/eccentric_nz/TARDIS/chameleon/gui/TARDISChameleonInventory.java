@@ -164,7 +164,7 @@ public class TARDISChameleonInventory implements InventoryHolder {
         boolean isFactoryOff = preset.equals(ChameleonPreset.FACTORY) && adapt.equals(Adaption.OFF);
         ItemStack fac = isFactoryOff ? on.clone() : off.clone();
         ItemMeta tory = fac.getItemMeta();
-        Component donoff = isFactoryOff ? Component.text(plugin.getLanguage().getString("DISABLED", "Disabled"), NamedTextColor.RED) : Component.text(plugin.getLanguage().getString("SET_ON"), NamedTextColor.GREEN);
+        Component donoff = isFactoryOff ? Component.text(plugin.getLanguage().getString("DISABLED", "Disabled"), NamedTextColor.RED) : Component.text(plugin.getLanguage().getString("SET_ON", "ON"), NamedTextColor.GREEN);
         tory.displayName(donoff);
         fac.setItemMeta(tory);
         // Adaptive radio button
@@ -200,7 +200,7 @@ public class TARDISChameleonInventory implements InventoryHolder {
         // Construct radio button
         ItemStack bui = (preset.equals(ChameleonPreset.CONSTRUCT)) ? on.clone() : off.clone();
         ItemMeta lder = bui.getItemMeta();
-        Component conoff = (preset.equals(ChameleonPreset.CONSTRUCT)) ? Component.text(plugin.getLanguage().getString("SET_ON", "ON"), NamedTextColor.GREEN) : Component.text(plugin.getLanguage().getString("SET_OFF"), NamedTextColor.RED);
+        Component conoff = (preset.equals(ChameleonPreset.CONSTRUCT)) ? Component.text(plugin.getLanguage().getString("SET_ON", "ON"), NamedTextColor.GREEN) : Component.text(plugin.getLanguage().getString("SET_OFF", "OFF"), NamedTextColor.RED);
         lder.displayName(conoff);
         bui.setItemMeta(lder);
         // Cancel / close

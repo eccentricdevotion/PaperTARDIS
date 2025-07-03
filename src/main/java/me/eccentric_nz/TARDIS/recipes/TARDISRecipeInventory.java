@@ -21,6 +21,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.RecipeCategory;
 import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
@@ -105,7 +106,7 @@ public class TARDISRecipeInventory implements InventoryHolder {
                         }
                     }
                     ItemMeta im = result.getItemMeta();
-                    im.displayName(Component.text(str, NamedTextColor.WHITE));
+                    im.displayName(ComponentUtils.toWhite(str));
                     im.lore(List.of(Component.text("/trecipe " + arg)));
                     im.addItemFlags(ItemFlag.values());
                     im.setAttributeModifiers(Multimaps.forMap(Map.of()));

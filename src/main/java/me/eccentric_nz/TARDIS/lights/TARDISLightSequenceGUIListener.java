@@ -21,8 +21,8 @@ import me.eccentric_nz.TARDIS.builders.utility.LightLevel;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetLightPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.apache.commons.lang3.ArrayUtils;
 import org.bukkit.Material;
@@ -145,7 +145,7 @@ public class TARDISLightSequenceGUIListener extends TARDISMenuListener {
         ItemStack preset = view.getItem(36);
         ItemMeta im = preset.getItemMeta();
         List<Component> lore = im.lore();
-        String num = TARDISStringUtils.stripColour(lore.get(2));
+        String num = ComponentUtils.stripColour(lore.get(2));
         int next = TARDISNumberParsers.parseInt(num) + 1;
         if (next == Sequences.PRESETS.size()) {
             next = 0;

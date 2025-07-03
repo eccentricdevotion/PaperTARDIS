@@ -28,7 +28,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisPowered;
 import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -124,7 +124,7 @@ public class TARDISConsoleListener implements Listener {
             p.openInventory(new TARDISAdvancedConsoleInventory(plugin, uuid.toString(), id).getInventory());
         } else if (disk.getType().equals(Material.MUSIC_DISC_FAR)) {
             ItemMeta im = disk.getItemMeta();
-            if (im.hasDisplayName() && TARDISStringUtils.endsWith(im.displayName(), "Authorised Control Disk")) {
+            if (im.hasDisplayName() && ComponentUtils.endsWith(im.displayName(), "Authorised Control Disk")) {
                 // get the UUID from the disk
                 if (im.getPersistentDataContainer().has(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID())) {
                     UUID diskUuid = im.getPersistentDataContainer().get(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID());

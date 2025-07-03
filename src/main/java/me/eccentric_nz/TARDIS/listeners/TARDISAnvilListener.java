@@ -18,7 +18,7 @@ package me.eccentric_nz.TARDIS.listeners;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -64,7 +64,7 @@ public class TARDISAnvilListener implements Listener {
                     ItemMeta im = is.getItemMeta();
                     ItemStack one = inv.getItem(0);
                     ItemStack two = inv.getItem(1);
-                    if (checkRepair(one, two) && im.hasDisplayName() && disallow.containsKey(TARDISStringUtils.stripColour(im.displayName())) && is.getType() == disallow.get(TARDISStringUtils.stripColour(im.displayName()))) {
+                    if (checkRepair(one, two) && im.hasDisplayName() && disallow.containsKey(ComponentUtils.stripColour(im.displayName())) && is.getType() == disallow.get(ComponentUtils.stripColour(im.displayName()))) {
                         plugin.getMessenger().send(player, TardisModule.TARDIS, "NO_RENAME");
                         event.setCancelled(true);
                     }
@@ -85,8 +85,8 @@ public class TARDISAnvilListener implements Listener {
         if (!im_one.hasDisplayName() || !im_two.hasDisplayName()) {
             return true;
         }
-        String dn_one = TARDISStringUtils.stripColour(im_one.displayName());
-        String dn_two = TARDISStringUtils.stripColour(im_two.displayName());
+        String dn_one = ComponentUtils.stripColour(im_one.displayName());
+        String dn_two = ComponentUtils.stripColour(im_two.displayName());
         return !dn_one.equals(dn_two);
     }
 }

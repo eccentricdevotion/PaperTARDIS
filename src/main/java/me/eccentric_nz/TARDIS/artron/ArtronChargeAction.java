@@ -19,8 +19,8 @@ package me.eccentric_nz.TARDIS.artron;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetArtronStorage;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -80,13 +80,13 @@ public class ArtronChargeAction {
             ItemStack is = player.getInventory().getItemInMainHand();
             if (is.hasItemMeta()) {
                 ItemMeta im = is.getItemMeta();
-                String name = TARDISStringUtils.stripColour(im.displayName());
+                String name = ComponentUtils.stripColour(im.displayName());
                 if (!name.endsWith("Artron Storage Cell")) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "CELL_NOT_VALID");
                     return;
                 }
                 List<Component> lore = im.lore();
-                int charge = TARDISNumberParsers.parseInt(TARDISStringUtils.stripColour(lore.get(1)));
+                int charge = TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(1)));
                 if (charge <= 0) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "CELL_NOT_CHARGED");
                     return;

@@ -18,7 +18,7 @@ package me.eccentric_nz.tardisweepingangels.utils;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngelSpawnEvent;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
 import me.eccentric_nz.tardisweepingangels.equip.Equipper;
@@ -80,7 +80,7 @@ public class MonsterInteractListener implements Listener {
         }
         if (entity instanceof Zombie zombie) {
             if (h.getType().equals(Material.POTATO)) {
-                if (TARDISStringUtils.stripColour(im.displayName()).startsWith("Sontaran")) {
+                if (ComponentUtils.stripColour(im.displayName()).startsWith("Sontaran")) {
                     Player p = event.getPlayer();
                     ItemStack is = p.getInventory().getItemInMainHand();
                     if (is.getType().equals(Material.POTION)) {
@@ -112,7 +112,7 @@ public class MonsterInteractListener implements Listener {
                 }
             }
             if (ee.getHelmet().getType().equals(Material.BAKED_POTATO)) {
-                if (TARDISStringUtils.stripColour(im.displayName()).startsWith("Strax")) {
+                if (ComponentUtils.stripColour(im.displayName()).startsWith("Strax")) {
                     Player p = event.getPlayer();
                     UUID uuid = p.getUniqueId();
                     ItemStack is = p.getInventory().getItemInMainHand();
@@ -122,7 +122,7 @@ public class MonsterInteractListener implements Listener {
                             p.playSound(zombie.getLocation(), "milk", 1.0f, 1.0f);
                             ItemStack milk = new ItemStack(Material.MILK_BUCKET);
                             ItemMeta m = milk.getItemMeta();
-                            m.displayName(Component.text("Sontaran Lactic Fluid", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+                            m.displayName(ComponentUtils.toWhite("Sontaran Lactic Fluid"));
                             milk.setItemMeta(m);
                             p.getEquipment().setItemInMainHand(milk);
                             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> milkers.remove(uuid), 3000L);

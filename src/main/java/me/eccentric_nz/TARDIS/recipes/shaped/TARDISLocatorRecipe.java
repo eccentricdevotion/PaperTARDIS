@@ -19,9 +19,7 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -54,7 +52,7 @@ public class TARDISLocatorRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.COMPASS, 1);
         ItemMeta im = is.getItemMeta();
-        im.displayName(Component.text("TARDIS Locator", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("TARDIS Locator"));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "tardis_locator");
         ShapedRecipe r = new ShapedRecipe(key, is);
@@ -63,7 +61,7 @@ public class TARDISLocatorRecipe {
             r.setIngredient('O', Material.OBSIDIAN);
             ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
             ItemMeta em = exact.getItemMeta();
-            em.displayName(Component.text("TARDIS Locator Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+            em.displayName(ComponentUtils.toWhite("TARDIS Locator Circuit"));
             CustomModelDataComponent component = em.getCustomModelDataComponent();
             component.setFloats(CircuitVariant.LOCATOR.getFloats());
             em.setCustomModelDataComponent(component);

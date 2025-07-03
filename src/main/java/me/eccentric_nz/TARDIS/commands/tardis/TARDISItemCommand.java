@@ -19,7 +19,7 @@ package me.eccentric_nz.TARDIS.commands.tardis;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
@@ -55,7 +55,7 @@ public class TARDISItemCommand {
                 return true;
             }
             // strip color codes
-            String stripped = TARDISStringUtils.stripColour(im.displayName());
+            String stripped = ComponentUtils.stripColour(im.displayName());
             // look up display name
             RecipeItem recipeItem = RecipeItem.getByName(stripped);
             if (!recipeItem.equals(RecipeItem.NOT_FOUND)) {
@@ -72,7 +72,7 @@ public class TARDISItemCommand {
                     ItemMeta im = is.getItemMeta();
                     if (im.hasDisplayName()) {
                         // strip color codes
-                        String stripped = TARDISStringUtils.stripColour(im.displayName());
+                        String stripped = ComponentUtils.stripColour(im.displayName());
                         // look up display name
                         RecipeItem recipeItem = RecipeItem.getByName(stripped);
                         if (!recipeItem.equals(RecipeItem.NOT_FOUND)) {

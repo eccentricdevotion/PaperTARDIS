@@ -19,7 +19,7 @@ package me.eccentric_nz.tardisvortexmanipulator.command;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -58,7 +58,7 @@ public class TVMCommand implements CommandExecutor {
                     return true;
                 }
                 ItemStack is = player.getInventory().getItemInMainHand();
-                if (is.hasItemMeta() && is.getItemMeta().hasDisplayName() && TARDISStringUtils.endsWith(is.getItemMeta().displayName(), "Vortex Manipulator")) {
+                if (is.hasItemMeta() && is.getItemMeta().hasDisplayName() && ComponentUtils.endsWith(is.getItemMeta().displayName(), "Vortex Manipulator")) {
                     switch (args[0].toLowerCase(Locale.ROOT)) {
                         case "gui" -> {
                             return new TVMCommandGUI(plugin).open(player);

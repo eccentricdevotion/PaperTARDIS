@@ -19,9 +19,9 @@ package me.eccentric_nz.TARDIS.recipes.shaped;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -59,7 +59,7 @@ public class TARDISRemoteKeyRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.OMINOUS_TRIAL_KEY, 1);
         ItemMeta im = is.getItemMeta();
-        im.displayName(Component.text("TARDIS Remote Key", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("TARDIS Remote Key"));
         im.lore(List.of(Component.text("Deadlock & unlock"), Component.text("Hide & rebuild")));
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "tardis_remote_key");
@@ -71,7 +71,7 @@ public class TARDISRemoteKeyRecipe {
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
             ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
             ItemMeta em = exact.getItemMeta();
-            em.displayName(Component.text("TARDIS Materialisation Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+            em.displayName(ComponentUtils.toWhite("TARDIS Materialisation Circuit"));
             CustomModelDataComponent component = em.getCustomModelDataComponent();
             component.setFloats(CircuitVariant.MATERIALISATION.getFloats());
             em.setCustomModelDataComponent(component);

@@ -20,9 +20,9 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.keys.CircuitVariant;
 import me.eccentric_nz.TARDIS.enumeration.CraftingDifficulty;
 import me.eccentric_nz.TARDIS.enumeration.RecipeItem;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -59,13 +59,13 @@ public class TARDISTelevisionRecipe {
     public void addRecipe() {
         ItemStack is = new ItemStack(Material.BROWN_STAINED_GLASS, 1);
         ItemMeta im = is.getItemMeta();
-        im.displayName(Component.text("TARDIS Television", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        im.displayName(ComponentUtils.toWhite("TARDIS Television"));
         im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, RecipeItem.TARDIS_TELEVISION.getModel().getKey());
         is.setItemMeta(im);
         // exact choice
         ItemStack capac = new ItemStack(Material.BUCKET, 1);
         ItemMeta itor = capac.getItemMeta();
-        itor.displayName(Component.text("Artron Capacitor", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+        itor.displayName(ComponentUtils.toWhite("Artron Capacitor"));
         capac.setItemMeta(itor);
         NamespacedKey key = new NamespacedKey(plugin, "tardis_television");
         ShapedRecipe r = new ShapedRecipe(key, is);
@@ -74,7 +74,7 @@ public class TARDISTelevisionRecipe {
             // exact choice
             ItemStack chameleon = new ItemStack(Material.GLOWSTONE_DUST, 1);
             ItemMeta circuit = chameleon.getItemMeta();
-            circuit.displayName(Component.text("TARDIS Chameleon Circuit", NamedTextColor.WHITE).decoration(TextDecoration.ITALIC, false));
+            circuit.displayName(ComponentUtils.toWhite("TARDIS Chameleon Circuit"));
             CustomModelDataComponent ecomponent = circuit.getCustomModelDataComponent();
             ecomponent.setFloats(CircuitVariant.CHAMELEON.getFloats());
             circuit.setCustomModelDataComponent(ecomponent);

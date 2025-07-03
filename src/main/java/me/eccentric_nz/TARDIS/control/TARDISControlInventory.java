@@ -75,8 +75,8 @@ public class TARDISControlInventory implements InventoryHolder {
         String toggle_openclosed = "";
         String power_onoff = "";
         String direction = "";
-        String off = plugin.getLanguage().getString("SET_OFF");
-        String on = plugin.getLanguage().getString("SET_ON");
+        String off = plugin.getLanguage().getString("SET_OFF", "OFF");
+        String on = plugin.getLanguage().getString("SET_ON", "ON");
         int delay = 1;
         boolean open = false;
         boolean powered = true;
@@ -84,7 +84,7 @@ public class TARDISControlInventory implements InventoryHolder {
             Tardis tardis = rs.getTardis();
             siege_onoff = (tardis.isSiegeOn()) ? on : off;
             open = new TARDISBlackWoolToggler(plugin).isOpen(tardis.getTardisId());
-            toggle_openclosed = (open) ? plugin.getLanguage().getString("SET_OPEN") : plugin.getLanguage().getString("SET_CLOSED");
+            toggle_openclosed = (open) ? plugin.getLanguage().getString("SET_OPEN", "OPEN") : plugin.getLanguage().getString("SET_CLOSED", "CLOSED");
             power_onoff = (tardis.isPoweredOn()) ? on : off;
             powered = tardis.isPoweredOn();
             ResultSetCurrentFromId rsc = new ResultSetCurrentFromId(plugin, id);
@@ -110,34 +110,34 @@ public class TARDISControlInventory implements InventoryHolder {
         // Saves
         ItemStack save = new ItemStack(GUIControlCentre.BUTTON_SAVES.material(), 1);
         ItemMeta locs = save.getItemMeta();
-        locs.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SAVES", "")));
+        locs.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SAVES", "Saved Locations")));
         locs.lore(List.of(Component.text("load saves from this TARDIS")));
         save.setItemMeta(locs);
         // Own saves if in another player's TARDIS
         ItemStack own = new ItemStack(GUIControlCentre.BUTTON_SAVES.material(), 1);
         ItemMeta saves = own.getItemMeta();
-        saves.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SAVES", "")));
+        saves.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SAVES", "Saved Locations")));
         saves.lore(List.of(Component.text("Load my saves")));
         own.setItemMeta(saves);
         // back
         ItemStack fast = new ItemStack(GUIControlCentre.BUTTON_BACK.material(), 1);
         ItemMeta ret = fast.getItemMeta();
-        ret.displayName(Component.text(plugin.getLanguage().getString("BUTTON_BACK", "")));
+        ret.displayName(Component.text(plugin.getLanguage().getString("BUTTON_BACK", "Fast Return")));
         fast.setItemMeta(ret);
         // areas
         ItemStack area = new ItemStack(GUIControlCentre.BUTTON_AREAS.material(), 1);
         ItemMeta tar = area.getItemMeta();
-        tar.displayName(Component.text(plugin.getLanguage().getString("BUTTON_AREAS", "")));
+        tar.displayName(Component.text(plugin.getLanguage().getString("BUTTON_AREAS", "TARDIS Areas")));
         area.setItemMeta(tar);
         // destination terminal
         ItemStack ter = new ItemStack(GUIControlCentre.BUTTON_TERM.material(), 1);
         ItemMeta min = ter.getItemMeta();
-        min.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TERM", "")));
+        min.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TERM", "Destination Terminal")));
         ter.setItemMeta(min);
         // space time throttle
         ItemStack thro = new ItemStack(GUIControlCentre.BUTTON_THROTTLE.material(), 1);
         ItemMeta ttle = thro.getItemMeta();
-        ttle.displayName(Component.text(plugin.getLanguage().getString("BUTTON_THROTTLE", "")));
+        ttle.displayName(Component.text(plugin.getLanguage().getString("BUTTON_THROTTLE", "Space Time Throttle")));
         String throttle = SpaceTimeThrottle.getByDelay().get(delay).toString();
         ttle.lore(List.of(Component.text(throttle)));
         thro.setItemMeta(ttle);
@@ -147,17 +147,17 @@ public class TARDISControlInventory implements InventoryHolder {
         // architectural reconfiguration system
         ItemStack ars = new ItemStack(GUIControlCentre.BUTTON_ARS.material(), 1);
         ItemMeta but = ars.getItemMeta();
-        but.displayName(Component.text(plugin.getLanguage().getString("BUTTON_ARS", "")));
+        but.displayName(Component.text(plugin.getLanguage().getString("BUTTON_ARS", "Architectural Reconfiguration System")));
         ars.setItemMeta(but);
         // desktop theme
         ItemStack upg = new ItemStack(GUIControlCentre.BUTTON_THEME.material(), 1);
         ItemMeta rade = upg.getItemMeta();
-        rade.displayName(Component.text(plugin.getLanguage().getString("BUTTON_THEME", "")));
+        rade.displayName(Component.text(plugin.getLanguage().getString("BUTTON_THEME", "Desktop Theme")));
         upg.setItemMeta(rade);
         // power up/down
         ItemStack pow = new ItemStack(GUIControlCentre.BUTTON_POWER.material(), 1);
         ItemMeta dwn = pow.getItemMeta();
-        dwn.displayName(Component.text(plugin.getLanguage().getString("BUTTON_POWER", "")));
+        dwn.displayName(Component.text(plugin.getLanguage().getString("BUTTON_POWER", "Power")));
         dwn.lore(List.of(Component.text(power_onoff)));
         CustomModelDataComponent pdcomponent = dwn.getCustomModelDataComponent();
         pdcomponent.setFloats(!powered ? SwitchVariant.BUTTON_POWER_OFF.getFloats() : SwitchVariant.BUTTON_POWER_ON.getFloats());
@@ -166,13 +166,13 @@ public class TARDISControlInventory implements InventoryHolder {
         // light
         ItemStack lig = new ItemStack(GUIControlCentre.BUTTON_LIGHTS.material(), 1);
         ItemMeta swi = lig.getItemMeta();
-        swi.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LIGHTS", "")));
+        swi.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LIGHTS", "Lights")));
         swi.lore(List.of(Component.text("All the light things!")));
         lig.setItemMeta(swi);
         // toggle wool
         ItemStack tog = new ItemStack(GUIControlCentre.BUTTON_TOGGLE.material(), 1);
         ItemMeta gle = tog.getItemMeta();
-        gle.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TOGGLE", "")));
+        gle.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TOGGLE", "Toggle blocks behind door")));
         gle.lore(List.of(Component.text(toggle_openclosed)));
         CustomModelDataComponent twcomponent = gle.getCustomModelDataComponent();
         twcomponent.setFloats(!open ? SwitchVariant.BUTTON_TOGGLE_OFF.getFloats() : SwitchVariant.BUTTON_TOGGLE_ON.getFloats());
@@ -181,7 +181,7 @@ public class TARDISControlInventory implements InventoryHolder {
         // tardis map
         ItemStack map = new ItemStack(Material.MAP, 1);
         ItemMeta me = map.getItemMeta();
-        me.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TARDIS_MAP", "")));
+        me.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TARDIS_MAP", "TARDIS Map")));
         map.setItemMeta(me);
         /*
          * ***** EXTERIOR *****
@@ -189,12 +189,12 @@ public class TARDISControlInventory implements InventoryHolder {
         // chameleon circuit
         ItemStack cham = new ItemStack(GUIControlCentre.BUTTON_CHAMELEON.material(), 1);
         ItemMeta eleon = cham.getItemMeta();
-        eleon.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CHAMELEON", "")));
+        eleon.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CHAMELEON", "Chameleon Circuit")));
         cham.setItemMeta(eleon);
         // siege
         ItemStack siege = new ItemStack(GUIControlCentre.BUTTON_SIEGE.material(), 1);
         ItemMeta mode = siege.getItemMeta();
-        mode.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SIEGE", "")));
+        mode.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SIEGE", "Siege Mode")));
         mode.lore(List.of(Component.text(siege_onoff)));
         CustomModelDataComponent smcomponent = mode.getCustomModelDataComponent();
         smcomponent.setFloats(siege_onoff.equals(off) ? SwitchVariant.SIEGE_OFF.getFloats() : SwitchVariant.SIEGE_ON.getFloats());
@@ -203,23 +203,23 @@ public class TARDISControlInventory implements InventoryHolder {
         // hide
         ItemStack hide = new ItemStack(GUIControlCentre.BUTTON_HIDE.material(), 1);
         ItemMeta box = hide.getItemMeta();
-        box.displayName(Component.text(plugin.getLanguage().getString("BUTTON_HIDE", "")));
+        box.displayName(Component.text(plugin.getLanguage().getString("BUTTON_HIDE", "Hide")));
         hide.setItemMeta(box);
         // rebuild
         ItemStack reb = new ItemStack(GUIControlCentre.BUTTON_REBUILD.material(), 1);
         ItemMeta uild = reb.getItemMeta();
-        uild.displayName(Component.text(plugin.getLanguage().getString("BUTTON_REBUILD", "")));
+        uild.displayName(Component.text(plugin.getLanguage().getString("BUTTON_REBUILD", "Rebuild")));
         reb.setItemMeta(uild);
         // direction
         ItemStack dir = new ItemStack(GUIControlCentre.BUTTON_DIRECTION.material(), 1);
         ItemMeta ection = dir.getItemMeta();
-        ection.displayName(Component.text(plugin.getLanguage().getString("BUTTON_DIRECTION", "")));
+        ection.displayName(Component.text(plugin.getLanguage().getString("BUTTON_DIRECTION", "Direction")));
         ection.lore(List.of(Component.text(direction)));
         dir.setItemMeta(ection);
         // temporal
         ItemStack temp = new ItemStack(GUIControlCentre.BUTTON_TEMP.material(), 1);
         ItemMeta oral = temp.getItemMeta();
-        oral.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TEMP", "")));
+        oral.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TEMP", "Temporal Locator")));
         temp.setItemMeta(oral);
         /*
          * ***** INFORMATION *****
@@ -227,22 +227,22 @@ public class TARDISControlInventory implements InventoryHolder {
         // artron levels
         ItemStack art = new ItemStack(GUIControlCentre.BUTTON_ARTRON.material(), 1);
         ItemMeta ron = art.getItemMeta();
-        ron.displayName(Component.text(plugin.getLanguage().getString("BUTTON_ARTRON", "")));
+        ron.displayName(Component.text(plugin.getLanguage().getString("BUTTON_ARTRON", "Artron Energy Levels")));
         art.setItemMeta(ron);
         // scanner
         ItemStack scan = new ItemStack(GUIControlCentre.BUTTON_SCANNER.material(), 1);
         ItemMeta ner = scan.getItemMeta();
-        ner.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCANNER", "")));
+        ner.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCANNER", "Scanner")));
         scan.setItemMeta(ner);
         // TIS
         ItemStack info = new ItemStack(GUIControlCentre.BUTTON_INFO.material(), 1);
         ItemMeta sys = info.getItemMeta();
-        sys.displayName(Component.text(plugin.getLanguage().getString("BUTTON_INFO", "")));
+        sys.displayName(Component.text(plugin.getLanguage().getString("BUTTON_INFO", "TARDIS Information System")));
         info.setItemMeta(sys);
         // transmats
         ItemStack tran = new ItemStack(GUIControlCentre.BUTTON_TRANSMAT.material(), 1);
         ItemMeta smat = tran.getItemMeta();
-        smat.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TRANSMAT", "")));
+        smat.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TRANSMAT", "Transmat")));
         tran.setItemMeta(smat);
         /*
          * ***** OTHER *****
@@ -250,24 +250,24 @@ public class TARDISControlInventory implements InventoryHolder {
         // zero room
         ItemStack zero = new ItemStack(GUIControlCentre.BUTTON_ZERO.material(), 1);
         ItemMeta room = zero.getItemMeta();
-        room.displayName(Component.text(plugin.getLanguage().getString("BUTTON_ZERO", "")));
+        room.displayName(Component.text(plugin.getLanguage().getString("BUTTON_ZERO", "Zero Room transmat")));
         zero.setItemMeta(room);
         // player prefs
         ItemStack player = new ItemStack(GUIControlCentre.BUTTON_PREFS.material(), 1);
         ItemMeta prefs = player.getItemMeta();
-        prefs.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PREFS", "")));
+        prefs.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PREFS", "Player Preferences")));
         player.setItemMeta(prefs);
         // companion menu
         ItemStack companion = new ItemStack(GUIControlCentre.COMPANIONS_MENU.material(), 1);
         ItemMeta list = companion.getItemMeta();
-        list.displayName(Component.text(plugin.getLanguage().getString("COMPANIONS_MENU", "")));
+        list.displayName(Component.text(plugin.getLanguage().getString("COMPANIONS_MENU", "Companion Menu")));
         companion.setItemMeta(list);
         // system_upgrades
         ItemStack system = null;
         if (plugin.getConfig().getBoolean("difficulty.system_upgrades")) {
             system = new ItemStack(GUIControlCentre.BUTTON_SYSTEM_UPGRADES.material(), 1);
             ItemMeta upgrades = system.getItemMeta();
-            upgrades.displayName(Component.text(plugin.getLanguage().getString("SYS_MENU", "")));
+            upgrades.displayName(Component.text(plugin.getLanguage().getString("SYS_MENU", "System Upgrades")));
             system.setItemMeta(upgrades);
         }
         // close

@@ -21,6 +21,7 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.commands.sudo.TARDISSudoTracker;
 import me.eccentric_nz.TARDIS.custommodels.keys.RoomVariant;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -104,7 +105,7 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
                     setMap(md.getY(), md.getE(), md.getS(), playerUUID, view);
                     setLore(view, slot, null);
                 } else {
-                    setLore(view, slot, plugin.getLanguage().getString("ARS_LOAD"));
+                    setLore(view, slot, plugin.getLanguage().getString("ARS_LOAD", "You need to load the map first!"));
                 }
             }
             case 30 -> {
@@ -122,7 +123,7 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
                         setLore(view, slot, null);
                     }
                 } else {
-                    setLore(view, slot, plugin.getLanguage().getString("ARS_NO_SLOT"));
+                    setLore(view, slot, plugin.getLanguage().getString("ARS_NO_SLOT", "No slot selected!"));
                 }
             }
             case 36 -> {
@@ -171,7 +172,7 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
                     setSlot(view, selected_slot.get(playerUUID), tnt, playerUUID, true);
                     setLore(view, slot, null);
                 } else {
-                    setLore(view, slot, plugin.getLanguage().getString("ARS_NO_SLOT"));
+                    setLore(view, slot, plugin.getLanguage().getString("ARS_NO_SLOT", "No slot selected!"));
                 }
             }
             case 45, 46, 47, 48, 49, 50, 51, 52, 53 -> {
@@ -182,7 +183,7 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
                         setLore(view, slot, "Jettison existing room first!");
                     } else {
                         ItemStack ris = view.getItem(slot);
-                        String displayName = TARDISStringUtils.stripColour(ris.getItemMeta().displayName());
+                        String displayName = ComponentUtils.stripColour(ris.getItemMeta().displayName());
                         String room = TARDISARS.ARSFor(ris.getType().toString()).getConfigPath();
                         if (!TARDISPermission.hasPermission(player, "tardis.room." + room.toLowerCase(Locale.ROOT))) {
                             break;
@@ -203,7 +204,7 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
                         setSlot(view, slot, ris.getType(), displayName, playerUUID, false);
                     }
                 } else {
-                    setLore(view, slot, plugin.getLanguage().getString("ARS_NO_SLOT"));
+                    setLore(view, slot, plugin.getLanguage().getString("ARS_NO_SLOT", "No slot selected!"));
                 }
             }
             default -> { }
