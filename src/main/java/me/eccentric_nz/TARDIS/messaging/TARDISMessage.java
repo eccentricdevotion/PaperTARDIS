@@ -51,12 +51,7 @@ public class TARDISMessage {
     }
 
     public void message(CommandSender cs, String message) {
-        if (message.length() > TARDISChatPaginator.GUARANTEED_NO_WRAP_CHAT_PAGE_WIDTH) {
-            String[] multiline = TARDISChatPaginator.wordWrap(message);
-            cs.sendMessage(multiline);
-        } else {
             cs.sendMessage(message);
-        }
     }
 
     public void message(CommandSender cs, TardisModule module, Component component) {

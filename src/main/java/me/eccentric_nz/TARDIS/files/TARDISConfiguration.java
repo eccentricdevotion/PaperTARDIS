@@ -206,7 +206,6 @@ public class TARDISConfiguration {
         integerOptions.put("mapping.update_period", 30);
         integerOptions.put("mapping.updates_per_tick", 10);
         integerOptions.put("police_box.rebuild_cooldown", 10000);
-        integerOptions.put("preferences.chat_width", 55);
         integerOptions.put("preferences.hads_damage", 10);
         integerOptions.put("preferences.hads_distance", 10);
         integerOptions.put("preferences.heal_speed", 200);
@@ -490,6 +489,10 @@ public class TARDISConfiguration {
                 plugin.getConfig().set("modules.chemistry", tf);
             }
             plugin.getConfig().set("allow.chemistry", null);
+            i++;
+        }
+        if (config.contains("preferences.chat_width")) {
+            plugin.getConfig().set("preferences.chat_width", null);
             i++;
         }
         // add comments

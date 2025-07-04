@@ -241,29 +241,23 @@ public class TARDISUtils {
     public String actionBarFormat(Player player) {
         TARDISDisplayType displayType = plugin.getTrackerKeeper().getDisplay().get(player.getUniqueId());
         return switch (displayType) {
-            case BIOME -> ChatColor.translateAlternateColorCodes('&', displayType.getFormat()
-                    .replace("%BIOME%", player.getLocation().getBlock().getBiome().toString())
-            );
-            case COORDS -> ChatColor.translateAlternateColorCodes('&', displayType.getFormat()
+            case BIOME -> displayType.getFormat()
+                    .replace("%BIOME%", player.getLocation().getBlock().getBiome().toString());
+            case COORDS -> displayType.getFormat()
                     .replace("%X%", String.format("%,d", player.getLocation().getBlockX()))
                     .replace("%Y%", String.format("%,d", player.getLocation().getBlockY()))
-                    .replace("%Z%", String.format("%,d", player.getLocation().getBlockZ()))
-            );
-            case DIRECTION -> ChatColor.translateAlternateColorCodes('&', displayType.getFormat()
+                    .replace("%Z%", String.format("%,d", player.getLocation().getBlockZ()));
+            case DIRECTION -> displayType.getFormat()
                     .replace("%FACING%", getFacing(player))
-                    .replace("%FACING_XZ%", getFacingXZ(player))
-            );
-            case LOCATOR -> ChatColor.translateAlternateColorCodes('&', displayType.getFormat()
-                    .replace("%DIRECTIONS%", getDirection(player))
-            );
-            case TARGET_BLOCK -> ChatColor.translateAlternateColorCodes('&', displayType.getFormat()
-                    .replace("%TARGET_BLOCK%", player.getTargetBlock(null, 5).getType().toString())
-            );
-            case WORLD -> ChatColor.translateAlternateColorCodes('&', displayType.getFormat()
-                    .replace("%WORLD%", player.getLocation().getWorld().getName())
-            );
+                    .replace("%FACING_XZ%", getFacingXZ(player));
+            case LOCATOR -> displayType.getFormat()
+                    .replace("%DIRECTIONS%", getDirection(player));
+            case TARGET_BLOCK -> displayType.getFormat()
+                    .replace("%TARGET_BLOCK%", player.getTargetBlock(null, 5).getType().toString());
+            case WORLD -> displayType.getFormat()
+                    .replace("%WORLD%", player.getLocation().getWorld().getName());
             // ALL
-            default -> ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("display.all", "&6X&7%X% &6Y&7%Y% &6Z&7%Z% &6F&7%FACING% (%FACING_XZ%) %TARGET_BLOCK%")
+            default -> plugin.getConfig().getString("display.all", "&6X&7%X% &6Y&7%Y% &6Z&7%Z% &6F&7%FACING% (%FACING_XZ%) %TARGET_BLOCK%")
                     .replace("%WORLD%", player.getLocation().getWorld().getName())
                     .replace("%X%", String.format("%,d", player.getLocation().getBlockX()))
                     .replace("%Y%", String.format("%,d", player.getLocation().getBlockY()))
@@ -273,8 +267,7 @@ public class TARDISUtils {
                     .replace("%YAW%", String.format("%.1f", player.getLocation().getYaw()))
                     .replace("%PITCH%", String.format("%.1f", player.getLocation().getPitch()))
                     .replace("%BIOME%", player.getLocation().getBlock().getBiome().toString())
-                    .replace("%TARGET_BLOCK%", player.getTargetBlock(null, 5).getType().toString())
-            );
+                    .replace("%TARGET_BLOCK%", player.getTargetBlock(null, 5).getType().toString());
         };
     }
 
