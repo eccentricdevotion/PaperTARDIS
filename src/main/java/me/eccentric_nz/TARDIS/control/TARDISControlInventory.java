@@ -102,10 +102,12 @@ public class TARDISControlInventory implements InventoryHolder {
         // random location
         ItemStack ran = new ItemStack(GUIControlCentre.BUTTON_RANDOM.material(), 1);
         ItemMeta dom = ran.getItemMeta();
-        dom.displayName(Component.text("ran").decorate(TextDecoration.OBFUSCATED)
-                .append(Component.text("").style(Style.style().build()))
-                .append(Component.text(plugin.getLanguage().getString("BUTTON_RANDOM", "Random Location"), NamedTextColor.WHITE))
-                .append(Component.text("dom").decorate(TextDecoration.OBFUSCATED)));
+        dom.displayName(Component.text()
+                .append(Component.text("ran").decorate(TextDecoration.OBFUSCATED))
+                .append(Component.text(plugin.getLanguage().getString("BUTTON_RANDOM", "Random Location")).decoration(TextDecoration.OBFUSCATED, false))
+                .append(Component.text("dom").decorate(TextDecoration.OBFUSCATED))
+                .build()
+        );
         ran.setItemMeta(dom);
         // Saves
         ItemStack save = new ItemStack(GUIControlCentre.BUTTON_SAVES.material(), 1);
