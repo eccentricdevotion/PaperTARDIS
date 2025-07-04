@@ -17,6 +17,7 @@
 package me.eccentric_nz.TARDIS.schematic;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
@@ -196,8 +197,9 @@ public class TARDISSchematicBuilder {
                                             frame.addProperty("cmd", im.getItemModel().getKey());
                                         }
                                         if (im.hasDisplayName()) {
-                                            // TODO need to store display name as json element
-                                            frame.addProperty("name", ComponentUtils.stripColour(im.displayName()));
+                                            JsonElement element = ComponentUtils.getJson(im.displayName());
+                                            plugin.debug(element.toString());
+                                            frame.add("name", element);
                                         }
                                         if (im.hasLore()) {
                                             JsonArray lore = new JsonArray();
@@ -230,9 +232,15 @@ public class TARDISSchematicBuilder {
                                 item.add("rel_location", loc);
                                 JsonObject stack = new JsonObject();
                                 Material material = display.getItemStack().getType();
-                                NamespacedKey model = display.getItemStack().getItemMeta().getItemModel();
+                                ItemMeta im = display.getItemStack().getItemMeta();
+                                NamespacedKey model = im.getItemModel();
                                 stack.addProperty("type", material.toString());
                                 stack.addProperty("cmd", model.getKey());
+                                // save custom name
+                                if (im.hasDisplayName()) {
+                                    JsonElement element = ComponentUtils.getJson(im.displayName());
+                                    stack.add("name", element);
+                                }
                                 TARDISDisplayItem tdi = TARDISDisplayItem.getByModel(model);
                                 if (tdi != null) {
                                     stack.addProperty("light", tdi.isLight());
@@ -315,8 +323,6 @@ public class TARDISSchematicBuilder {
                         Skull skull = (Skull) b.getState();
                         if (skull.getPlayerProfile() != null) {
                             String name = Objects.requireNonNullElse(skull.getPlayerProfile().getName(), "");
-                            plugin.debug("UUID: " + skull.getPlayerProfile().getUniqueId());
-                            plugin.debug("name: " + name);
                             head.addProperty("uuid", skull.getPlayerProfile().getUniqueId().toString());
                             head.addProperty("name", name);
                             head.addProperty("texture", skull.getPlayerProfile().getTextures().getSkin().toString());

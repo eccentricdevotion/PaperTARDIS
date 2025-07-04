@@ -24,6 +24,7 @@ import io.papermc.paper.registry.RegistryKey;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.rotors.TARDISTimeRotor;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.block.Banner;
@@ -75,7 +76,7 @@ public class TARDISItemFrameSetter {
                     }
                 }
                 if (json.has("name")) {
-                    im.displayName(Component.text(json.get("name").getAsString()));
+                    im.displayName(ComponentUtils.fromJson(json.get("name")));
                 }
                 if (json.has("lore")) {
                     List<Component> lore = new ArrayList<>();

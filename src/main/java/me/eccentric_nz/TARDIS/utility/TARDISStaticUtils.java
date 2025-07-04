@@ -333,7 +333,6 @@ public class TARDISStaticUtils {
         NamedTextColor colour = NamedTextColor.WHITE;
         GsonComponentSerializer serializer = GsonComponentSerializer.gson();
         String json = serializer.serialize(input);
-//        TARDIS.plugin.debug(json);
         if (json.startsWith("{")) {
             JsonObject object = JsonParser.parseString(json).getAsJsonObject();
             if (object.has("color")) {

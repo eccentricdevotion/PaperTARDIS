@@ -23,6 +23,7 @@ import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItemUtils;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetDoors;
 import me.eccentric_nz.TARDIS.enumeration.Consoles;
 import me.eccentric_nz.TARDIS.enumeration.Schematic;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
@@ -101,7 +102,14 @@ public class TARDISItemDisplaySetter {
             Material material = Material.valueOf(stack.get("type").getAsString());
             TARDISDisplayItem tdi = model != null ? TARDISDisplayItem.getByModel(model): null;
             if (tdi != null) {
-                TARDISDisplayItemUtils.set(tdi, block, id);
+                ItemDisplay display = TARDISDisplayItemUtils.set(tdi, block, id);
+                if (json.has("name")) {
+                    ItemStack is = display.getItemStack();
+                    ItemMeta im = is.getItemMeta();
+                    im.displayName(ComponentUtils.fromJson(json.get("name")));
+                    is.setItemMeta(im);
+                    display.setItemStack(is);
+                }
             } else {
                 setInRoom(block, material, model);
             }

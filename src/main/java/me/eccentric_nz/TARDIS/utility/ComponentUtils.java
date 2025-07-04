@@ -1,9 +1,12 @@
 package me.eccentric_nz.TARDIS.utility;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 
 import java.util.Locale;
 
@@ -39,5 +42,15 @@ public class ComponentUtils {
 
     public static String toEnumUppercase(Component component) {
         return stripColour(component).replace(" ", "_").replace("-", "_").replace("3", "THREE").toUpperCase(Locale.ROOT);
+    }
+
+    public static JsonElement getJson(Component component) {
+        GsonComponentSerializer serializer = GsonComponentSerializer.gson();
+        return serializer.serializeToTree(component);
+    }
+
+    public static Component fromJson(JsonElement element) {
+        GsonComponentSerializer serializer =  GsonComponentSerializer.gson();
+        return serializer.deserializeFromTree(element);
     }
 }
