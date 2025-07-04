@@ -207,6 +207,19 @@ public class TARDISDisplayItemUtils {
         return null;
     }
 
+    public static Interaction getInteraction(Block block) {
+        Location location = block.getLocation().clone();
+        while (!location.getChunk().isLoaded()) {
+            location.getChunk().load();
+        }
+        for (Entity e : block.getWorld().getNearbyEntities(block.getLocation().add(0.5d, 0.5d, 0.5d), 0.55d, 0.55d, 0.55d, (d) -> d.getType() == EntityType.INTERACTION)) {
+            if (e instanceof Interaction interaction) {
+                return interaction;
+            }
+        }
+        return null;
+    }
+
     /**
      * Spawn an Item Display entity
      *

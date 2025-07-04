@@ -96,7 +96,7 @@ public class TARDISDisplayBlockListener implements Listener {
         if (!im.hasDisplayName() || !im.getPersistentDataContainer().has(plugin.getCustomBlockKey(), PersistentDataType.STRING)) {
             return;
         }
-        if (im.displayName().equals(ChatColor.GOLD + "TARDIS Seed Block") || ComponentUtils.endsWith(im.displayName(), "Console")) {
+        if (ComponentUtils.endsWith(im.displayName(), "TARDIS Seed Block") || ComponentUtils.endsWith(im.displayName(), "Console")) {
             return;
         }
         String key = im.getPersistentDataContainer().get(plugin.getCustomBlockKey(), PersistentDataType.STRING);
@@ -381,7 +381,7 @@ public class TARDISDisplayBlockListener implements Listener {
                                     boolean open = !im.getItemModel().getKey().contains("_closed");
                                     new DoorAnimator(plugin, display).animate(open);
                                     if (open) {
-                                        // close iner
+                                        // close inner
                                         new InnerDisplayDoorCloser(plugin).close(block, id, playerUUID, false);
                                         // close outer
                                         if (outerDisplayDoor) {

@@ -43,18 +43,6 @@ import java.util.HashMap;
  */
 public class TARDISMessage {
 
-    public void sendJenkinsUpdateReady(CommandSender cs, int current, int latest) {
-        cs.sendMessage(AdventureComponents.getJenkinsUpdateReady(current, latest));
-    }
-
-    public void sendUpdateCommand(CommandSender cs) {
-        cs.sendMessage(AdventureComponents.getUpdateCommand());
-    }
-
-    public void sendBuildsBehind(CommandSender cs, int behind) {
-        cs.sendMessage(AdventureComponents.getBuildsBehind(behind));
-    }
-
     public void message(CommandSender cs, TardisModule module, String message) {
         if (cs != null) {
             TextComponent textComponent = AdventureComponents.getModule(module).append(Component.text(message, NamedTextColor.WHITE));

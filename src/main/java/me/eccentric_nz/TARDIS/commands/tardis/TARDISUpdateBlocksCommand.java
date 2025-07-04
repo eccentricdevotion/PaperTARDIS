@@ -41,7 +41,6 @@ public class TARDISUpdateBlocksCommand {
     }
 
     public boolean convert(Player player) {
-        plugin.debug("convert");
         // find all console and room chunks and convert the item displays there
         // get players tardis_id
         ResultSetTardisID rst = new ResultSetTardisID(plugin);

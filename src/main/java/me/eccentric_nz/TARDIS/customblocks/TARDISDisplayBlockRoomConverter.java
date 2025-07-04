@@ -26,12 +26,14 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Interaction;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * @author eccentric_nz
@@ -112,10 +114,15 @@ public class TARDISDisplayBlockRoomConverter implements Runnable {
                 // look up the name to get the TDI
                 try {
                     TARDISDisplayItem tdi = TARDISDisplayItem.valueOf(name);
-                    // set the item stack's item model from TDI
-                    im.setItemModel(null);
                     // set the displayname
                     im.displayName(ComponentUtils.toWhite(tdi.getDisplayName()));
+                    if (name.toLowerCase(Locale.ROOT).contains("door")) {
+                        // set the item model from TDI
+                        im.setItemModel(tdi.getCustomModel());
+                    } else {
+                        // remove item model
+                        im.setItemModel(null);
+                    }
                     is.setItemMeta(im);
                     // set the display item's item stack
                     display.setItemStack(is);
@@ -134,7 +141,13 @@ public class TARDISDisplayBlockRoomConverter implements Runnable {
 
     private boolean isCustomBlock(Block block) {
         Material m = block.getType();
-        return (m == Material.BARRIER || m == Material.LIGHT);
+        if (m == Material.BARRIER || m == Material.LIGHT) {
+            return true;
+        } else {
+            // look for an interaction
+            Interaction interaction = TARDISDisplayItemUtils.getInteraction(block);
+            return interaction != null;
+        }
     }
 
     public void setTaskId(int taskId) {
