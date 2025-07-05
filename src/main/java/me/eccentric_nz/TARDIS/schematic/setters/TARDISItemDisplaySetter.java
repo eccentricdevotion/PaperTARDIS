@@ -130,10 +130,10 @@ public class TARDISItemDisplaySetter {
         ItemStack is = new ItemStack(material);
         if (model != null) {
             ItemMeta im = is.getItemMeta();
-            im.displayName(switch (model.getKey()) {
-                case "xray" -> Component.text("X-ray");
-                default -> Component.text(TARDISStringUtils.capitalise(model.getKey()));
-            });
+            im.displayName(model.getKey().equals("xray")
+                    ? Component.text("X-ray")
+                    : Component.text(TARDISStringUtils.capitalise(model.getKey()))
+            );
             is.setItemMeta(im);
             display.setItemDisplayTransform(ItemDisplay.ItemDisplayTransform.GROUND);
             display.setBillboard(Display.Billboard.VERTICAL);
