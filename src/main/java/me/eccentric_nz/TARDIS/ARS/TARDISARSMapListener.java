@@ -197,7 +197,7 @@ public class TARDISARSMapListener extends TARDISARSMethods implements Listener {
                 // get itemstack to change lore
                 int slot = ((row - south) * 9) + 4 + (col - east);
                 ItemStack is = view.getItem(slot);
-                is.setType(Material.ARROW);
+                is.setType(Material.SPECTRAL_ARROW);
                 ItemMeta im = is.getItemMeta();
                 im.lore(List.of(Component.text(plugin.getLanguage().getString("ARS_MAP_HERE", "You are here!"))));
                 is.setItemMeta(im);
