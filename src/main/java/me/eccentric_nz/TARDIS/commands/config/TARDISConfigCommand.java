@@ -87,6 +87,7 @@ public class TARDISConfigCommand implements CommandExecutor {
         firstsBool.put("achievements", "allow");
         firstsBool.put("add_lights", "allow");
         firstsBool.put("add_perms", "creation");
+        firstsBool.put("add_server_link", "preferences");
         firstsBool.put("admin_bypass", "allow");
         firstsBool.put("all_blocks", "allow");
         firstsBool.put("allow_end_after_visit", "travel");
@@ -184,7 +185,6 @@ public class TARDISConfigCommand implements CommandExecutor {
         firstsInt.put("border_radius", "creation");
         firstsInt.put("charge_interval", "sonic");
         firstsInt.put("charge_level", "sonic");
-        firstsInt.put("chat_width", "preferences");
         firstsInt.put("conversion_radius", "sonic");
         firstsInt.put("count", "creation");
         firstsInt.put("delay_factor", "growth");

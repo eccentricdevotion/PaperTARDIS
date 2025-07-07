@@ -34,6 +34,7 @@ import me.eccentric_nz.TARDIS.enumeration.*;
 import me.eccentric_nz.TARDIS.files.*;
 import me.eccentric_nz.TARDIS.flight.vehicle.VehicleLoader;
 import me.eccentric_nz.TARDIS.handles.TARDISHandlesUpdater;
+import me.eccentric_nz.TARDIS.handles.wiki.HandlesWikiServerLink;
 import me.eccentric_nz.TARDIS.mapping.TARDISBlueMap;
 import me.eccentric_nz.TARDIS.mapping.TARDISDynmap;
 import me.eccentric_nz.TARDIS.mapping.TARDISMapper;
@@ -319,6 +320,9 @@ public class TARDIS extends JavaPlugin {
             buildKeeper.setSeeds(getSeeds());
             if (getConfig().getString("creation.tips_next", "HIGHEST").equalsIgnoreCase("FREE")) {
                 new ResultSetTIPS(this).fillUsedSlotList();
+            }
+            if (getConfig().getBoolean("preferences.add_server_link")) {
+                new HandlesWikiServerLink(this).addServerLink();
             }
             new TARDISConsoleLoader(this).addSchematics();
             new TARDISCustomRotorLoader(this).addRotors();

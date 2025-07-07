@@ -144,7 +144,7 @@ preferences:
   no_creative_condense: false
   no_enchanted_condense: true
   vortex_fall: kill
-  chat_width: 55
+  add_server_link: true
 # mapping - dynamp or BlueMap supported
 # https://tardis.pages.dev/modules/mapping#configuration-options
 mapping:
