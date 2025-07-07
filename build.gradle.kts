@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "me.eccentric_nz"
-version = "6.2.0"
+version = "6.2.1"
 
 repositories {
     mavenCentral()
