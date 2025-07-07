@@ -85,7 +85,7 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.6-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.7-R0.1-SNAPSHOT")
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.14-SNAPSHOT")
     compileOnly("net.citizensnpcs:citizensapi:2.0.38-SNAPSHOT") {
         isTransitive = false
