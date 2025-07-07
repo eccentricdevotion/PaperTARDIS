@@ -20,6 +20,7 @@ import com.google.gson.JsonObject;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.datafixers.util.Pair;
+import io.papermc.paper.util.KeepAlive;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.skins.ProfileChanger;
 import me.eccentric_nz.TARDIS.skins.SkinFetcher;
@@ -45,6 +46,7 @@ import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -76,7 +78,7 @@ public class EmergencyProgramOneSpawner {
                     ServerLevel world = ((CraftWorld) location.getWorld()).getHandle();
                     ClientInformation info = ClientInformation.createDefault();
                     npc = new NPCPlayer(server, world, gameProfile, ClientInformation.createDefault(), location);
-                    npc.connection = new NPCPacketListener(server, new NPCConnection(PacketFlow.CLIENTBOUND), npc, new CommonListenerCookie(gameProfile, 0, info, false));
+                    npc.connection = new NPCPacketListener(server, new NPCConnection(PacketFlow.CLIENTBOUND), npc, new CommonListenerCookie(gameProfile, 0, info, false, null, new HashSet<>(), new KeepAlive()));
                     world.addNewPlayer(npc);
                     SynchedEntityData dataWatcher = npc.getEntityData();
                     dataWatcher.set(net.minecraft.world.entity.player.Player.DATA_HEALTH_ID, 20F); // set max life

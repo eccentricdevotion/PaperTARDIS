@@ -1,15 +1,13 @@
 package me.eccentric_nz.TARDIS.info.processors;
 
+import io.papermc.paper.dialog.Dialog;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.info.TARDISInfoMenu;
 import me.eccentric_nz.TARDIS.info.TISCategory;
 import me.eccentric_nz.TARDIS.info.dialog.EntryDialog;
 import me.eccentric_nz.TARDIS.info.dialog.InfoDialog;
 import me.eccentric_nz.TARDIS.info.dialog.RoomInfoDialog;
-import net.minecraft.core.Holder;
-import net.minecraft.server.dialog.Dialog;
-import net.minecraft.server.level.ServerPlayer;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
 
 public class SectionProcessor {
@@ -36,8 +34,7 @@ public class SectionProcessor {
             TISCategory category = plugin.getTrackerKeeper().getInfoGUI().get(player.getUniqueId());
             dialog = new EntryDialog().create(tardisInfoMenu, category);
         }
-        ServerPlayer p = ((CraftPlayer) player).getHandle();
-        p.openDialog(Holder.direct(dialog));
+        Audience.audience(player).showDialog(dialog);
     }
 
     private boolean isInfoDirect(TARDISInfoMenu tardisInfoMenu) {

@@ -4,10 +4,9 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.info.TARDISInfoMenu;
 import me.eccentric_nz.TARDIS.info.TISRecipe;
 import me.eccentric_nz.TARDIS.info.dialog.InfoDialog;
+import net.kyori.adventure.audience.Audience;
 import net.minecraft.core.Holder;
-import net.minecraft.server.dialog.Dialog;
-import net.minecraft.server.level.ServerPlayer;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import io.papermc.paper.dialog.Dialog;
 import org.bukkit.entity.Player;
 
 public class EntryProcessor {
@@ -28,8 +27,7 @@ public class EntryProcessor {
             } else {
                 Dialog dialog = new InfoDialog().create(plugin, tardisInfoMenu);
                 if (dialog != null) {
-                    ServerPlayer p = ((CraftPlayer) player).getHandle();
-                    p.openDialog(Holder.direct(dialog));
+                    Audience.audience(player).showDialog(dialog);
                 }
             }
         } catch (IllegalArgumentException e) {

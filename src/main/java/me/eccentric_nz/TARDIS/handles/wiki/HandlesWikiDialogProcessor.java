@@ -16,19 +16,17 @@
  */
 package me.eccentric_nz.TARDIS.handles.wiki;
 
+import io.papermc.paper.dialog.Dialog;
+import io.papermc.paper.dialog.DialogResponseView;
+import io.papermc.paper.registry.data.dialog.ActionButton;
+import io.papermc.paper.registry.data.dialog.DialogBase;
+import io.papermc.paper.registry.data.dialog.action.DialogAction;
+import io.papermc.paper.registry.data.dialog.body.DialogBody;
+import io.papermc.paper.registry.data.dialog.type.DialogType;
 import me.eccentric_nz.TARDIS.TARDIS;
-import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.dialog.*;
-import net.minecraft.server.dialog.action.Action;
-import net.minecraft.server.dialog.action.StaticAction;
-import net.minecraft.server.dialog.body.DialogBody;
-import net.minecraft.server.dialog.body.PlainMessage;
-import net.minecraft.server.level.ServerPlayer;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import org.bukkit.entity.Player;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -36,8 +34,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,49 +51,60 @@ public class HandlesWikiDialogProcessor {
         this.plugin = plugin;
     }
 
-    public void getLinks(CompoundTag query, Player player) {
-        Set<WikiLink> results = getWikiLinks(query);
+    public void getLinks(DialogResponseView response, Player player) {
+        Set<WikiLink> results = getWikiLinks(response);
         // build a custom results dialog
         List<ActionButton> actions = new ArrayList<>();
         if (!results.isEmpty()) {
             for (WikiLink w : results) {
-                URI uri = URI.create(w.getURL());
-                StaticAction action = new StaticAction(new ClickEvent.OpenUrl(uri));
-                CommonButtonData buttonData = new CommonButtonData(Component.literal(w.getTitle()), Optional.empty(), 150);
-                ActionButton button = new ActionButton(buttonData, Optional.of(action));
-                actions.add(button);
-            }
-        } else {
-            CommonButtonData yesButton = new CommonButtonData(Component.literal("No results"), Optional.empty(), 150);
-            Action action = new StaticAction(new ClickEvent.ShowDialog(Holder.direct(new SearchDialog().create())));
-            actions.add(new ActionButton(yesButton, Optional.of(action)));
-        }
-        List<DialogBody> body = List.of(new PlainMessage(Component.literal("Search results:"), 200));
-        CommonDialogData dialogData = new CommonDialogData(Component.literal("TARDIS Wiki"), Optional.empty(), true, true, DialogAction.CLOSE, body, List.of());
-        CommonButtonData yesButton = new CommonButtonData(CommonComponents.GUI_BACK, Optional.empty(), 150);
-        Action action = new StaticAction(new ClickEvent.ShowDialog(Holder.direct(new SearchDialog().create())));
-        Dialog dialog = new MultiActionDialog(dialogData, actions, Optional.of(new ActionButton(yesButton, Optional.of(action))),1);
-        ServerPlayer receiver = ((CraftPlayer) player).getHandle();
-        receiver.openDialog(Holder.direct(dialog));
-    }
-
-    private static Set<WikiLink> getWikiLinks(CompoundTag tag) {
-        String query = tag.getStringOr("search", "meh!meh");
-        Pattern pattern = Pattern.compile(query, Pattern.CASE_INSENSITIVE);
-        Set<WikiLink> results = new HashSet<>();
-        // <a title="Dev commands" href="/commands/dev">Dev commands</a>
-        try {
-            Document doc = Jsoup.connect("https://tardis.pages.dev/site-map").get();
-            Elements links = doc.select("a");
-            for (Element e : links) {
-                String linkHref = e.attr("href"); // "/commands/dev"
-                String linkText = e.text(); // "Dev commands"
-                Matcher mat = pattern.matcher(linkText);
-                if (mat.find()) {
-                    results.add(new WikiLink(linkText, linkHref));
+                try {
+                    URI uri = URI.create(w.getURL());
+                    DialogAction action = DialogAction.staticAction(ClickEvent.openUrl(uri.toURL()));
+                    ActionButton button = ActionButton.create(Component.text(w.getTitle()), null, 150, action);
+                    actions.add(button);
+                } catch (MalformedURLException ignored) {
                 }
             }
-        } catch (IOException ignored) {
+        } else {
+            DialogAction action = DialogAction.staticAction(ClickEvent.callback(
+                    audience -> audience.showDialog(new SearchDialog().create())
+            ));
+            ActionButton yesButton = ActionButton.create(Component.text("No results"), null, 150, action);
+            actions.add(yesButton);
+        }
+        List<DialogBody> body = List.of(DialogBody.plainMessage(Component.text("Search results:"), 200));
+        DialogBase dialogData = DialogBase.create(Component.text("TARDIS Wiki"), null, true, true, DialogBase.DialogAfterAction.CLOSE, body, List.of());
+        DialogAction action = DialogAction.staticAction(ClickEvent.callback(
+                audience -> audience.showDialog(new SearchDialog().create())
+        ));
+        ActionButton yesButton = ActionButton.create(Component.text("Back"), null, 150, action);
+        Dialog dialog = Dialog.create(builder -> builder.empty()
+                .base(dialogData)
+                .type(DialogType.multiAction(actions, yesButton, 1))
+        );
+        Audience receiver = Audience.audience(player);
+        receiver.showDialog(dialog);
+    }
+
+    private static Set<WikiLink> getWikiLinks(DialogResponseView response) {
+        String query = response.getText("search");
+        Set<WikiLink> results = new HashSet<>();
+        if (query != null) {
+            Pattern pattern = Pattern.compile(query, Pattern.CASE_INSENSITIVE);
+            // <a title="Dev commands" href="/commands/dev">Dev commands</a>
+            try {
+                Document doc = Jsoup.connect("https://tardis.pages.dev/site-map").get();
+                Elements links = doc.select("a");
+                for (Element e : links) {
+                    String linkHref = e.attr("href"); // "/commands/dev"
+                    String linkText = e.text(); // "Dev commands"
+                    Matcher mat = pattern.matcher(linkText);
+                    if (mat.find()) {
+                        results.add(new WikiLink(linkText, linkHref));
+                    }
+                }
+            } catch (IOException ignored) {
+            }
         }
         return results;
     }

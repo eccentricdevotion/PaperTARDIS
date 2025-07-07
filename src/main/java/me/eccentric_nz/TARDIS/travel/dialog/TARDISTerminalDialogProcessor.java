@@ -1,6 +1,7 @@
 package me.eccentric_nz.TARDIS.travel.dialog;
 
 import com.mojang.datafixers.util.Pair;
+import io.papermc.paper.dialog.DialogResponseView;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.advanced.TARDISCircuitChecker;
@@ -17,7 +18,6 @@ import me.eccentric_nz.TARDIS.travel.TARDISTimeTravel;
 import me.eccentric_nz.TARDIS.travel.TravelCostAndType;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import net.minecraft.nbt.CompoundTag;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -34,14 +34,18 @@ public class TARDISTerminalDialogProcessor {
         this.player = player;
     }
 
-    public void process(CompoundTag data) {
-        if (data != null && !data.isEmpty()) {
+    public void process(DialogResponseView data) {
+        if (data != null) {
             // {environment:"the_end",multiplier:8.0f,submarine:0b,x:200.0f,z:300.0f}
-            String environment = data.getStringOr("environment", "current");
-            boolean submarine = data.getBooleanOr("submarine", false);
-            float x = data.getFloatOr("x", 1.0f);
-            float z = data.getFloatOr("z", 1.0f);
-            float multiplier = data.getFloatOr("multiplier", 1.0f);
+            String environment = data.getText("environment");
+            Boolean submarine = data.getBoolean("submarine");
+            Float x = data.getFloat("x");
+            Float z = data.getFloat("z");
+            Float multiplier = data.getFloat("multiplier");
+            if (environment == null || submarine == null || x == null || z == null || multiplier == null) {
+                plugin.getMessenger().message(player, "Could not read Terminal values!");
+                return;
+            }
             UUID uuid = player.getUniqueId();
             HashMap<String, Object> where = new HashMap<>();
             where.put("uuid", uuid.toString());
@@ -103,7 +107,6 @@ public class TARDISTerminalDialogProcessor {
                 // get highest Y
                 int y = location.getWorld().getHighestBlockYAt(location.getBlockX(), location.getBlockZ());
                 location.setY(y);
-                plugin.debug(location.toString());
                 // check location
                 Location finalLocation = location;
                 // need to run on main thread
@@ -154,7 +157,6 @@ public class TARDISTerminalDialogProcessor {
 
     private World getWorld(String environment, Player player) {
         List<World> allowedWorlds = new ArrayList<>();
-        String world;
         Set<String> worldlist = plugin.getPlanetsConfig().getConfigurationSection("planets").getKeys(false);
         for (String o : worldlist) {
             if (!plugin.getPlanetsConfig().getBoolean("planets." + o + ".time_travel")) {
@@ -195,7 +197,7 @@ public class TARDISTerminalDialogProcessor {
                             plugin.getMessenger().send(player, TardisModule.TARDIS, "DEST_SET_TERMINAL", save);
                             return new Pair<>(true, endy);
                         } else {
-                            plugin.getMessenger().send(player, TardisModule.TARDIS,"DEST_PROTECTED", save);
+                            plugin.getMessenger().send(player, TardisModule.TARDIS, "DEST_PROTECTED", save);
                             return new Pair<>(false, -1);
                         }
                     } else {
@@ -241,12 +243,12 @@ public class TARDISTerminalDialogProcessor {
                     safe = TARDISTimeTravel.safeLocation(start[0], starty, start[2], start[1], start[3], world, d);
                 }
                 if (safe == 0) {
-                    String save = world + ":" + blockX + ":" + starty + ":" + blockZ;
+                    String save = world.getName() + ":" + blockX + ":" + starty + ":" + blockZ;
                     if (plugin.getPluginRespect().getRespect(new Location(world, blockX, starty, blockZ), new Parameters(p, Flag.getNoMessageFlags()))) {
                         plugin.getMessenger().send(player, TardisModule.TARDIS, "DEST_SET_TERMINAL", save);
                         return new Pair<>(true, starty);
                     } else {
-                        plugin.getMessenger().send(player, TardisModule.TARDIS,"DEST_PROTECTED", save);
+                        plugin.getMessenger().send(player, TardisModule.TARDIS, "DEST_PROTECTED", save);
                         return new Pair<>(false, -1);
                     }
                 } else {

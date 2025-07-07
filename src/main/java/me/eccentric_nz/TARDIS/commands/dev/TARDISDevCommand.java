@@ -18,6 +18,7 @@ package me.eccentric_nz.TARDIS.commands.dev;
 
 import com.google.common.collect.Multimaps;
 import com.google.common.collect.Sets;
+import io.papermc.paper.dialog.Dialog;
 import io.papermc.paper.registry.RegistryAccess;
 import io.papermc.paper.registry.RegistryKey;
 import me.eccentric_nz.TARDIS.TARDIS;
@@ -39,11 +40,9 @@ import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
 import me.eccentric_nz.tardisregeneration.Regenerator;
 import me.eccentric_nz.tardisweepingangels.equip.MonsterArmour;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.minecraft.core.Holder;
-import net.minecraft.server.dialog.Dialog;
-import net.minecraft.server.level.ServerPlayer;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BrushableBlock;
@@ -155,10 +154,9 @@ public class TARDISDevCommand implements CommandExecutor {
                             }
                         }
                         case "dialog" -> {
-                            if (sender instanceof Player p) {
+                            if (sender instanceof Player player) {
                                 Dialog dialog = new ChoiceDialog().create();
-                                ServerPlayer player = ((CraftPlayer) p).getHandle();
-                                player.openDialog(Holder.direct(dialog));
+                                Audience.audience(player).showDialog(dialog);
                             }
                             return true;
                         }

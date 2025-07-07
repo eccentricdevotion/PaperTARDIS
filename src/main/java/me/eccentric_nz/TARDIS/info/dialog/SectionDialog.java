@@ -1,30 +1,29 @@
 package me.eccentric_nz.TARDIS.info.dialog;
 
+import io.papermc.paper.dialog.Dialog;
+import io.papermc.paper.registry.data.dialog.ActionButton;
+import io.papermc.paper.registry.data.dialog.DialogBase;
+import io.papermc.paper.registry.data.dialog.action.DialogAction;
+import io.papermc.paper.registry.data.dialog.body.DialogBody;
+import io.papermc.paper.registry.data.dialog.type.DialogType;
+import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.info.TARDISInfoMenu;
 import me.eccentric_nz.TARDIS.info.TISCategory;
+import me.eccentric_nz.TARDIS.info.processors.SectionProcessor;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.dialog.*;
-import net.minecraft.server.dialog.action.Action;
-import net.minecraft.server.dialog.action.CustomAll;
-import net.minecraft.server.dialog.action.StaticAction;
-import net.minecraft.server.dialog.body.DialogBody;
-import net.minecraft.server.dialog.body.PlainMessage;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickCallback;
+import net.kyori.adventure.text.event.ClickEvent;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class SectionDialog {
 
     public Dialog create(TISCategory category) {
-        List<DialogBody> body = List.of(new PlainMessage(Component.literal(category.getLore().replace("~", "\n")), 150));
-        CommonDialogData dialogData = new CommonDialogData(Component.literal(category.getName()), Optional.empty(), true, true, DialogAction.CLOSE, body, List.of());
+        List<DialogBody> body = List.of(DialogBody.plainMessage(Component.text(category.getLore().replace("~", "\n")), 150));
+        DialogBase dialogData = DialogBase.create(Component.text(category.getName()), null, true, true, DialogBase.DialogAfterAction.CLOSE, body, List.of());
         List<ActionButton> actions = new ArrayList<>();
         for (TARDISInfoMenu tardisInfoMenu : TARDISInfoMenu.values()) {
             if (category == TISCategory.ITEMS && tardisInfoMenu.isItem()) {
@@ -57,17 +56,23 @@ public class SectionDialog {
                 actions.add(makeButton(tardisInfoMenu));
             }
         }
-        CommonButtonData exitButton = new CommonButtonData(CommonComponents.GUI_BACK, Optional.empty(), 150);
-        Action action = new StaticAction(new ClickEvent.ShowDialog(Holder.direct(new CategoryDialog().create())));
-        return new MultiActionDialog(dialogData, actions, Optional.of(new ActionButton(exitButton, Optional.of(action))), 2);
+        DialogAction action = DialogAction.staticAction(ClickEvent.callback(
+                audience -> audience.showDialog(new CategoryDialog().create())
+        ));
+        ActionButton exitButton = ActionButton.create(Component.text("Back"), null, 150, action);
+        return Dialog.create(builder -> builder.empty()
+                .base(dialogData)
+                .type(DialogType.multiAction(actions, exitButton, 2))
+        );
     }
 
     private ActionButton makeButton(TARDISInfoMenu tardisInfoMenu) {
-        CompoundTag tag = new CompoundTag();
-        tag.putString("e", tardisInfoMenu.toString());
-        ResourceLocation form = ResourceLocation.fromNamespaceAndPath("tardis", "section");
-        CustomAll action = new CustomAll(form, Optional.of(tag));
-        CommonButtonData buttonData = new CommonButtonData(Component.literal(TARDISStringUtils.capitalise(tardisInfoMenu.toString())), Optional.empty(), 150);
-        return new ActionButton(buttonData, Optional.of(action));
+        DialogAction action = DialogAction.customClick((response, audience) -> {
+                    Player player = audience instanceof Player ? (Player) audience : null;
+                    new SectionProcessor(TARDIS.plugin, player).showDialog(tardisInfoMenu.toString());
+                },
+                ClickCallback.Options.builder().build()
+        );
+        return ActionButton.create(Component.text(TARDISStringUtils.capitalise(tardisInfoMenu.toString())), null, 150, action);
     }
 }

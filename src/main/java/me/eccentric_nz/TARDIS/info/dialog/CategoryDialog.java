@@ -1,43 +1,49 @@
 package me.eccentric_nz.TARDIS.info.dialog;
 
+import io.papermc.paper.dialog.Dialog;
+import io.papermc.paper.registry.data.dialog.ActionButton;
+import io.papermc.paper.registry.data.dialog.DialogBase;
+import io.papermc.paper.registry.data.dialog.action.DialogAction;
+import io.papermc.paper.registry.data.dialog.body.DialogBody;
+import io.papermc.paper.registry.data.dialog.type.DialogType;
+import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.TARDIS.custommodels.keys.ChameleonVariant;
 import me.eccentric_nz.TARDIS.info.TISCategory;
-import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.dialog.*;
-import net.minecraft.server.dialog.action.CustomAll;
-import net.minecraft.server.dialog.body.DialogBody;
-import net.minecraft.server.dialog.body.ItemBody;
-import net.minecraft.server.dialog.body.PlainMessage;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import me.eccentric_nz.TARDIS.info.processors.CategoryProcessor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickCallback;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CategoryDialog {
 
     public Dialog create() {
-        ResourceLocation model = ResourceLocation.fromNamespaceAndPath("tardis", "chameleon_blue_closed");
-        ItemStack blue = new ItemStack(Holder.direct(Items.BLUE_DYE));
-        blue.set(DataComponents.ITEM_MODEL, model);
-        List<DialogBody> body = (List.of(new ItemBody(blue, Optional.empty(), false, false, 16, 16), new PlainMessage(Component.literal("Choose a category below:"), 150)));
-        CommonDialogData dialogData = new CommonDialogData(Component.literal("TARDIS Information System"), Optional.empty(), true, true, DialogAction.CLOSE, body, List.of());
+        ItemStack blue = new ItemStack(Material.BLUE_DYE);
+        ItemMeta im = blue.getItemMeta();
+        im.setItemModel(ChameleonVariant.BLUE_CLOSED.getKey());
+        blue.setItemMeta(im);
+        List<DialogBody> body = (List.of(DialogBody.item(blue, null, false, false, 16, 16), DialogBody.plainMessage(Component.text("Choose a category below:"), 150)));
+        DialogBase dialogData = DialogBase.create(Component.text("TARDIS Information System"), null, true, true, DialogBase.DialogAfterAction.CLOSE, body, List.of());
         List<ActionButton> actions = new ArrayList<>();
         for (TISCategory category : TISCategory.values()) {
-            CompoundTag tag = new CompoundTag();
-            tag.putString("c", category.toString());
-            ResourceLocation form = ResourceLocation.fromNamespaceAndPath("tardis", "category");
-            CustomAll action = new CustomAll(form, Optional.of(tag));
-            CommonButtonData buttonData = new CommonButtonData(Component.literal(category.getName()), Optional.of(Component.literal(category.getLore().replace("~", "\n"))), 150);
-            ActionButton button = new ActionButton(buttonData, Optional.of(action));
+            DialogAction action = DialogAction.customClick((response, audience) -> {
+                        Player player = audience instanceof Player ? (Player) audience : null;
+                        new CategoryProcessor(TARDIS.plugin, player).showDialog(category.toString());
+                    },
+                    ClickCallback.Options.builder().build()
+            );
+            ActionButton button = ActionButton.create(Component.text(category.getName()), Component.text(category.getLore().replace("~", "\n")), 150, action);
             actions.add(button);
         }
-        CommonButtonData doneButton = new CommonButtonData(CommonComponents.GUI_DONE, Optional.empty(), 150);
-        return new MultiActionDialog(dialogData, actions, Optional.of(new ActionButton(doneButton, Optional.empty())), 2);
+        ActionButton doneButton = ActionButton.create(Component.text("Done"), null, 150, null);
+        return Dialog.create(builder -> builder.empty()
+                .base(dialogData)
+                .type(DialogType.multiAction(actions, doneButton, 2))
+        );
     }
 }

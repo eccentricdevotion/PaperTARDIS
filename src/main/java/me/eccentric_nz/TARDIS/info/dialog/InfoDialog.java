@@ -1,25 +1,22 @@
 package me.eccentric_nz.TARDIS.info.dialog;
 
+import io.papermc.paper.dialog.Dialog;
+import io.papermc.paper.registry.data.dialog.ActionButton;
+import io.papermc.paper.registry.data.dialog.DialogBase;
+import io.papermc.paper.registry.data.dialog.action.DialogAction;
+import io.papermc.paper.registry.data.dialog.body.DialogBody;
+import io.papermc.paper.registry.data.dialog.type.DialogType;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.info.TARDISDescription;
 import me.eccentric_nz.TARDIS.info.TARDISInfoMenu;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.dialog.*;
-import net.minecraft.server.dialog.action.Action;
-import net.minecraft.server.dialog.action.StaticAction;
-import net.minecraft.server.dialog.body.DialogBody;
-import net.minecraft.server.dialog.body.ItemBody;
-import net.minecraft.server.dialog.body.PlainMessage;
-import net.minecraft.world.item.ItemStack;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class InfoDialog {
 
@@ -28,20 +25,24 @@ public class InfoDialog {
             List<DialogBody> body = new ArrayList<>();
             if (ItemLookup.ITEMS.containsKey(tardisInfoMenu)) {
                 InfoIcon infoIcon = ItemLookup.ITEMS.get(tardisInfoMenu);
-                ItemStack icon = new ItemStack(Holder.direct(infoIcon.item()));
-                icon.set(DataComponents.ITEM_MODEL, infoIcon.model());
+                ItemStack icon = new ItemStack(infoIcon.item());
+                ItemMeta im = icon.getItemMeta();
+                im.setItemModel(infoIcon.model());
+                icon.setItemMeta(im);
                 // set custom name
-//                icon.set(DataComponents.CUSTOM_NAME, Component.literal("").append(Component.literal(infoIcon.name()).withStyle(ChatFormatting.WHITE)));
-                body.add(new ItemBody(icon, Optional.empty(), false, false, 16, 16));
+                body.add(DialogBody.item(icon, null, false, false, 16, 16));
             }
             String description = TARDISDescription.valueOf(tardisInfoMenu.toString()).getDesc();
-            body.add(new PlainMessage(Component.literal(description), 200));
+            body.add(DialogBody.plainMessage(Component.text(description), 200));
             String title = TARDISStringUtils.capitalise(tardisInfoMenu.toString().replace("_INFO", ""));
-            CommonDialogData dialogData = new CommonDialogData(Component.literal(title), Optional.empty(), true, true, DialogAction.CLOSE, body, List.of());
-            CommonButtonData yesButton = new CommonButtonData(CommonComponents.GUI_BACK, Optional.empty(), 150);
-            Action action = new StaticAction(new ClickEvent.ShowDialog(Holder.direct(new CategoryDialog().create())));
-            CommonButtonData noButton = new CommonButtonData(CommonComponents.GUI_DONE, Optional.empty(), 150);
-            return new ConfirmationDialog(dialogData, new ActionButton(yesButton, Optional.of(action)), new ActionButton(noButton, Optional.empty()));
+            DialogBase dialogData = DialogBase.create(Component.text(title), null, true, true, DialogBase.DialogAfterAction.CLOSE, body, List.of());
+            DialogAction action = DialogAction.staticAction(ClickEvent.callback(audience -> audience.showDialog(new CategoryDialog().create())));
+            ActionButton yesButton = ActionButton.create(Component.text("Back"), null, 150, action);
+            ActionButton noButton = ActionButton.create(Component.text("Done"), null, 150, null);
+            return Dialog.create(builder -> builder.empty()
+                    .base(dialogData)
+                    .type(DialogType.confirmation(yesButton, noButton))
+            );
         } catch (IllegalArgumentException e) {
             plugin.debug(tardisInfoMenu.toString());
         }

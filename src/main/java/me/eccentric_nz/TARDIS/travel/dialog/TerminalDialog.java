@@ -1,42 +1,51 @@
 package me.eccentric_nz.TARDIS.travel.dialog;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.dialog.*;
-import net.minecraft.server.dialog.action.CustomAll;
-import net.minecraft.server.dialog.body.DialogBody;
-import net.minecraft.server.dialog.body.PlainMessage;
-import net.minecraft.server.dialog.input.BooleanInput;
-import net.minecraft.server.dialog.input.NumberRangeInput;
-import net.minecraft.server.dialog.input.SingleOptionInput;
+import io.papermc.paper.dialog.Dialog;
+import io.papermc.paper.registry.data.dialog.ActionButton;
+import io.papermc.paper.registry.data.dialog.DialogBase;
+import io.papermc.paper.registry.data.dialog.action.DialogAction;
+import io.papermc.paper.registry.data.dialog.body.DialogBody;
+import io.papermc.paper.registry.data.dialog.input.DialogInput;
+import io.papermc.paper.registry.data.dialog.input.SingleOptionDialogInput;
+import io.papermc.paper.registry.data.dialog.type.DialogType;
+import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.TARDIS.info.processors.SectionProcessor;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.nbt.api.BinaryTagHolder;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickCallback;
+import net.kyori.adventure.text.event.ClickEvent;
+import org.bukkit.entity.Player;
 
 import java.util.List;
-import java.util.Optional;
 
 public class TerminalDialog {
 
     public Dialog create() {
-        List<DialogBody> body = List.of(new PlainMessage(Component.literal("Set a step distance, the x and z coordinates, a distance multiplier, and a world type."), 200));
-        List<Input> inputs = List.of(
-                new Input("x", new NumberRangeInput(200, Component.literal("X"), "options.generic_value", new NumberRangeInput.RangeInfo(-500f, 500f, Optional.of(0f), Optional.of(50f)))),
-                new Input("z", new NumberRangeInput(200, Component.literal("Z"), "options.generic_value", new NumberRangeInput.RangeInfo(-500f, 500f, Optional.of(0f), Optional.of(50f)))),
-                new Input("multiplier", new NumberRangeInput(200, Component.literal("Multiplier"), "options.generic_value", new NumberRangeInput.RangeInfo(1f, 10f, Optional.of(1f), Optional.of(1f)))),
-                new Input("environment", new SingleOptionInput(200, List.of(
-                        new SingleOptionInput.Entry("CURRENT", Optional.of(Component.literal("Current world")), true),
-                        new SingleOptionInput.Entry("NORMAL", Optional.of(Component.literal("An Overworld")), false),
-                        new SingleOptionInput.Entry("NETHER", Optional.of(Component.literal("A Nether world")), false),
-                        new SingleOptionInput.Entry("THE_END", Optional.of(Component.literal("An End world")), false)
-                ), Component.literal("Environment"), true)),
-                new Input("submarine", new BooleanInput(Component.literal("Submarine"), false, "true", "false"))
+        List<DialogBody> body = List.of(DialogBody.plainMessage(Component.text("Set a step distance, the x and z coordinates, a distance multiplier, and a world type."), 200));
+        List<DialogInput> inputs = List.of(
+                DialogInput.numberRange("x", 200, Component.text("X"), "options.generic_value", -500f, 500f, 0f, 50f),
+                DialogInput.numberRange("z", 200, Component.text("Z"), "options.generic_value", -500f, 500f, 0f, 50f),
+                DialogInput.numberRange("multiplier", 200, Component.text("Multiplier"), "options.generic_value", 1f, 10f, 1f, 1f),
+                DialogInput.singleOption("environment", 200, List.of(
+                        SingleOptionDialogInput.OptionEntry.create("CURRENT", Component.text("Current world"), true),
+                        SingleOptionDialogInput.OptionEntry.create("NORMAL", Component.text("An Overworld"), false),
+                        SingleOptionDialogInput.OptionEntry.create("NETHER", Component.text("A Nether world"), false),
+                        SingleOptionDialogInput.OptionEntry.create("THE_END", Component.text("An End world"), false)
+                ), Component.text("Environment"), true),
+                DialogInput.bool("submarine", Component.text("Submarine"), false, "true", "false")
         );
-        CompoundTag tag = new CompoundTag();
-//        tag.putString("c", category.toString());
-        ResourceLocation form = ResourceLocation.fromNamespaceAndPath("tardis", "terminal");
-        CustomAll action = new CustomAll(form, Optional.of(tag));
-        CommonDialogData dialogData = new CommonDialogData(Component.literal("Destination Terminal"), Optional.empty(), true, true, DialogAction.CLOSE, body, inputs);
-        CommonButtonData button = new CommonButtonData(CommonComponents.GUI_CONTINUE, Optional.of(Component.literal("Set destination")), 150);
-        return new NoticeDialog(dialogData, new ActionButton(button, Optional.of(action)));
+        DialogAction action = DialogAction.customClick((response, audience) -> {
+                    Player player = audience instanceof Player ? (Player) audience : null;
+                    new TARDISTerminalDialogProcessor(TARDIS.plugin, player).process(response);
+                },
+                ClickCallback.Options.builder().build()
+        );
+        DialogBase dialogData = DialogBase.create(Component.text("Destination Terminal"), null, true, true, DialogBase.DialogAfterAction.CLOSE, body, inputs);
+        ActionButton button = ActionButton.create(Component.text("Set destination"), null, 150, action);
+        return Dialog.create(builder -> builder.empty()
+                .base(dialogData)
+                .type(DialogType.notice(button))
+        );
     }
 }
