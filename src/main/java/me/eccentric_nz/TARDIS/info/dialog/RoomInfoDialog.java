@@ -47,7 +47,9 @@ public class RoomInfoDialog {
         body.add(DialogBody.plainMessage(enabled, 200));
         String title = TARDISStringUtils.capitalise(r.replace("_", " "));
         DialogBase dialogData = DialogBase.create(Component.text(title), null, true, true, DialogBase.DialogAfterAction.CLOSE, body, List.of());
-        DialogAction action = DialogAction.staticAction(ClickEvent.callback(audience -> audience.showDialog(new SectionDialog().create(TISCategory.ROOMS))));
+        DialogAction action = DialogAction.staticAction(ClickEvent.callback(
+                audience -> audience.showDialog(new SectionDialog().create(TISCategory.ROOMS))
+        ));
         ActionButton yesButton = ActionButton.create(Component.text("Back"), null, 150, action);
         ActionButton noButton = ActionButton.create(Component.text("Done"), null, 150, null);
         return Dialog.create(builder -> builder.empty()

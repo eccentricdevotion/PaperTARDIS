@@ -36,7 +36,9 @@ public class InfoDialog {
             body.add(DialogBody.plainMessage(Component.text(description), 200));
             String title = TARDISStringUtils.capitalise(tardisInfoMenu.toString().replace("_INFO", ""));
             DialogBase dialogData = DialogBase.create(Component.text(title), null, true, true, DialogBase.DialogAfterAction.CLOSE, body, List.of());
-            DialogAction action = DialogAction.staticAction(ClickEvent.callback(audience -> audience.showDialog(new CategoryDialog().create())));
+            DialogAction action = DialogAction.staticAction(ClickEvent.callback(
+                    audience -> audience.showDialog(new CategoryDialog().create())
+            ));
             ActionButton yesButton = ActionButton.create(Component.text("Back"), null, 150, action);
             ActionButton noButton = ActionButton.create(Component.text("Done"), null, 150, null);
             return Dialog.create(builder -> builder.empty()

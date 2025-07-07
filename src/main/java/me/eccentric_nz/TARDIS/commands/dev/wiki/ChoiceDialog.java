@@ -18,10 +18,18 @@ public class ChoiceDialog {
 
     public Dialog create() {
         DialogBase dialogData = DialogBase.create(Component.text("Dialogs"), null, true, true, DialogBase.DialogAfterAction.CLOSE, List.of(), List.of());
-        DialogAction terminalAction = DialogAction.staticAction(ClickEvent.callback(audience -> audience.showDialog(new TerminalDialog().create())));
-        DialogAction infoAction = DialogAction.staticAction(ClickEvent.callback(audience -> audience.showDialog(new CategoryDialog().create())));
-        DialogAction wikiAction = DialogAction.staticAction(ClickEvent.callback(audience -> audience.showDialog(new SearchDialog().create())));
-        DialogAction bitmapAction = DialogAction.staticAction(ClickEvent.callback(audience -> audience.showDialog(new BitmapDialog().create())));
+        DialogAction terminalAction = DialogAction.staticAction(ClickEvent.callback(
+                audience -> audience.showDialog(new TerminalDialog().create())
+        ));
+        DialogAction infoAction = DialogAction.staticAction(ClickEvent.callback(
+                audience -> audience.showDialog(new CategoryDialog().create())
+        ));
+        DialogAction wikiAction = DialogAction.staticAction(ClickEvent.callback(
+                audience -> audience.showDialog(new SearchDialog().create())
+        ));
+        DialogAction bitmapAction = DialogAction.staticAction(ClickEvent.callback(
+                audience -> audience.showDialog(new BitmapDialog().create())
+        ));
         ActionButton terminalButton = ActionButton.create(Component.text("Terminal"), null, 150, terminalAction);
         ActionButton infoButton = ActionButton.create(Component.text("TIS"), null, 150, infoAction);
         ActionButton wikiButton = ActionButton.create(Component.text("Wiki"), null, 150, wikiAction);

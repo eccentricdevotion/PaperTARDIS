@@ -30,7 +30,9 @@ public class EntryDialog {
             for (TARDISInfoMenu key : entries) {
                 actions.add(makeButton(key));
             }
-            DialogAction action = DialogAction.staticAction(ClickEvent.callback(audience -> audience.showDialog(new SectionDialog().create(category))));
+            DialogAction action = DialogAction.staticAction(ClickEvent.callback(
+                    audience -> audience.showDialog(new SectionDialog().create(category))
+            ));
             ActionButton backButton = ActionButton.create(Component.text("Back"), null, 150, action);
             return Dialog.create(builder -> builder.empty()
                     .base(dialogData)
