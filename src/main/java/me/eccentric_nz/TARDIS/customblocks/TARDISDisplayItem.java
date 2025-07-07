@@ -37,7 +37,6 @@ public enum TARDISDisplayItem {
     // seed blocks
     ANCIENT(SeedBlock.ANCIENT.getKey(), Material.SCULK),
     ARS(SeedBlock.ARS.getKey(), Material.QUARTZ_BLOCK),
-    ARTRON_CAPACITOR_STORAGE(Whoniverse.EYE_STORAGE.getKey(), Material.GRAY_SHULKER_BOX),
     BIGGER(SeedBlock.BIGGER.getKey(), Material.GOLD_BLOCK),
     BONE(SeedBlock.BONE.getKey(), Material.WAXED_OXIDIZED_CUT_COPPER),
     BUDGET(SeedBlock.BUDGET.getKey(), Material.IRON_BLOCK),
@@ -63,7 +62,6 @@ public enum TARDISDisplayItem {
     ROTOR(SeedBlock.ROTOR.getKey(), Material.HONEYCOMB_BLOCK),
     RUSTIC(SeedBlock.RUSTIC.getKey(), Material.COPPER_BULB),
     STEAMPUNK(SeedBlock.STEAMPUNK.getKey(), Material.COAL_BLOCK),
-    TELEVISION(Whoniverse.TV.getKey(), Material.BROWN_STAINED_GLASS),
     THIRTEENTH(SeedBlock.THIRTEENTH.getKey(), Material.HORN_CORAL_BLOCK),
     TOM(SeedBlock.TOM.getKey(), Material.LAPIS_BLOCK),
     TWELFTH(SeedBlock.TWELFTH.getKey(), Material.PRISMARINE),
@@ -81,12 +79,13 @@ public enum TARDISDisplayItem {
     GROW(SeedBlock.GROW.getKey(), Material.LIGHT_GRAY_TERRACOTTA, Material.NETHERITE_BLOCK),
     // tardis blocks
     ADVANCED_CONSOLE(Whoniverse.ADVANCED_CONSOLE.getKey(), Material.JUKEBOX),
+    ARTRON_CAPACITOR_STORAGE(Whoniverse.EYE_STORAGE.getKey(), Material.GRAY_SHULKER_BOX),
     ARTRON_FURNACE(Whoniverse.ARTRON_FURNACE.getKey(), Material.FURNACE),
     ARTRON_FURNACE_LIT(Whoniverse.ARTRON_FURNACE_LIT.getKey(), Material.FURNACE),
     BLUE_BOX(Wool.BLUE_BOX.getKey(), Material.BLUE_WOOL, Material.BLUE_DYE),
     COG(Wool.COG.getKey(), Material.GRAY_WOOL, Material.GRAY_DYE),
     DISK_STORAGE(Whoniverse.DISK_STORAGE.getKey(), Material.NOTE_BLOCK),
-    //    HANDBRAKE(1001, Material.LEVER, Material.LEVER),
+    TELEVISION(Whoniverse.TV.getKey(), Material.BROWN_STAINED_GLASS),
     HEXAGON(Wool.HEXAGON.getKey(), Material.ORANGE_WOOL, Material.ORANGE_DYE),
     ROUNDEL(Wool.ROUNDEL.getKey(), Material.WHITE_WOOL, Material.WHITE_DYE),
     ROUNDEL_OFFSET(Wool.ROUNDEL_OFFSET.getKey(), Material.WHITE_WOOL, Material.LIGHT_GRAY_DYE),
@@ -102,8 +101,8 @@ public enum TARDISDisplayItem {
     CLASSIC_DOOR(ClassicDoorVariant.CLASSIC_DOOR_CLOSED.getKey(), Material.IRON_DOOR, Material.CHERRY_DOOR),
     CLASSIC_DOOR_OPEN(ClassicDoorVariant.CLASSIC_DOOR_OPEN.getKey(), Material.CHERRY_DOOR),
     CUSTOM_DOOR(null, Material.IRON_DOOR),
+    SONIC_DOCK(SonicItem.SONIC_DOCK_OFF.getKey(), Material.FLOWER_POT),
     SONIC_GENERATOR(SonicItem.SONIC_GENERATOR.getKey(), Material.FLOWER_POT),
-    //    THROTTLE(1001, Material.REPEATER, Material.REPEATER),
     // chemistry lamps off
     BLUE_LAMP(LampVariant.BLUE_LAMP.getKey(), Material.REDSTONE_LAMP),
     GREEN_LAMP(LampVariant.GREEN_LAMP.getKey(), Material.REDSTONE_LAMP),
@@ -328,6 +327,20 @@ public enum TARDISDisplayItem {
                  LIGHT_VARIABLE_PINK_ON, LIGHT_VARIABLE_PURPLE_ON, LIGHT_VARIABLE_YELLOW_ON, LIGHT_VARIABLE,
                  LIGHT_VARIABLE_BLUE, LIGHT_VARIABLE_GREEN, LIGHT_VARIABLE_ORANGE, LIGHT_VARIABLE_PINK,
                  LIGHT_VARIABLE_PURPLE, LIGHT_VARIABLE_YELLOW, LIGHT_VARIABLE_CLOISTER -> {
+                return true;
+            }
+            default -> {
+                return false;
+            }
+        }
+    }
+
+    public boolean isSeed() {
+        switch (this) {
+            case ANCIENT, ARS, BIGGER, BONE, BUDGET, CAVE, COPPER, CORAL, CURSED, DELTA, DELUXE, DIVISION, ELEVENTH,
+                 ENDER, FACTORY, FIFTEENTH, FUGITIVE, HOSPITAL, MASTER, MECHANICAL, ORIGINAL, PLANK, PYRAMID, REDSTONE,
+                 ROTOR, RUSTIC, STEAMPUNK, THIRTEENTH, TOM, TWELFTH, WAR, WEATHERED, SMALL, MEDIUM, TALL, LEGACY_BIGGER,
+                 LEGACY_DELUXE, LEGACY_ELEVENTH, LEGACY_REDSTONE, CUSTOM -> {
                 return true;
             }
             default -> {

@@ -54,6 +54,7 @@ public class TARDISDisplayBlockCommand {
                 default -> Door.getClosedModel(door.getMaterial());
             };
             im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, key.getKey());
+            im.setItemModel(key);
             is.setItemMeta(im);
             return is;
         } else if (display.startsWith("TIME_")) {
@@ -62,6 +63,7 @@ public class TARDISDisplayBlockCommand {
             ItemMeta im = is.getItemMeta();
             im.displayName(ComponentUtils.toWhite("Time Rotor " + rotor.name()));
             im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, rotor.offModel().getKey());
+            im.setItemModel(rotor.offModel());
             is.setItemMeta(im);
             return is;
         } else {

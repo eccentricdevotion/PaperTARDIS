@@ -233,7 +233,11 @@ public class TARDISDisplayItemUtils {
         // spawn an item display entity
         ItemStack is = new ItemStack(tdi.getMaterial(), 1);
         ItemMeta im = is.getItemMeta();
-        im.displayName(ComponentUtils.toWhite(tdi.getDisplayName()));
+        if (tdi.isSeed()) {
+            im.displayName(ComponentUtils.toGold(tdi.getDisplayName()));
+        } else {
+            im.displayName(ComponentUtils.toWhite(tdi.getDisplayName()));
+        }
         im.getPersistentDataContainer().set(TARDIS.plugin.getCustomBlockKey(), PersistentDataType.STRING, tdi.getCustomModel().getKey());
         is.setItemMeta(im);
         Location l = new Location(world, x + 0.5d, y + 0.5d, z + 0.5d);
