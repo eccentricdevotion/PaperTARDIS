@@ -22,6 +22,10 @@ import me.eccentric_nz.TARDIS.floodgate.FloodgateIndexFileForm;
 import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
 import me.eccentric_nz.TARDIS.info.TARDISIndexFileInventory;
 import me.eccentric_nz.TARDIS.info.TARDISInfoMenu;
+import me.eccentric_nz.TARDIS.info.dialog.CategoryDialog;
+import me.eccentric_nz.TARDIS.travel.TARDISTerminalInventory;
+import me.eccentric_nz.TARDIS.travel.dialog.TerminalDialog;
+import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
 
 /**
@@ -40,19 +44,26 @@ public class TARDISInfoMenuButton {
     public void clickButton() {
         // get player preference
         ResultSetPlayerPrefs rsp = new ResultSetPlayerPrefs(plugin, player.getUniqueId().toString());
-        // TODO add floodgate forms
         if (rsp.resultSet() && rsp.isInfoOn()) {
             // open TIS GUI
             if (TARDISFloodgate.isFloodgateEnabled() && TARDISFloodgate.isBedrockPlayer(player.getUniqueId())) {
                 new FloodgateIndexFileForm(plugin, player.getUniqueId()).send();
             } else {
-                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
-                        player.openInventory(new TARDISIndexFileInventory(plugin).getInventory()), 2L);
+                ResultSetPlayerPrefs rspp = new ResultSetPlayerPrefs(plugin, player.getUniqueId().toString());
+                if (rspp.resultSet()) {
+                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                        if (rspp.isDialogsOn()) {
+                            Audience.audience(player).showDialog(new CategoryDialog().create());
+                        } else {
+                            player.openInventory(new TARDISIndexFileInventory(plugin).getInventory());
+                        }
+                    }, 2L);
+                }
             }
         } else {
             plugin.getTrackerKeeper().getInfoMenu().put(player.getUniqueId(), TARDISInfoMenu.TIS);
             plugin.getMessenger().messageWithColour(player, "-----------TARDIS Information System-----------", "#FFAA00");
-            player.sendMessage(plugin.getLanguage().getString("TIS_INFO"));
+            player.sendMessage(plugin.getLanguage().getString("TIS_INFO", "Type a white letter in chat, or click an info entry to proceed."));
             plugin.getMessenger().sendInfo(player, "> TARDIS ", "M", "anual");
             plugin.getMessenger().sendInfo(player, "> ", "I", "tems");
             plugin.getMessenger().sendInfo(player, "> ", "C", "omponents");

@@ -42,7 +42,7 @@ public class ResultSetPlayerPrefs {
     private final String where;
     private final String prefix;
     private int pp_id;
-    private UUID uuid;
+//    private UUID uuid;
     private boolean announceRepeatersOn;
     private boolean autoOn;
     private Autonomous autoType;
@@ -68,12 +68,13 @@ public class ResultSetPlayerPrefs {
     private boolean telepathyOn;
     private boolean travelbarOn;
     private boolean infoOn;
-    private boolean regenBlockOn;
+    private boolean dialogsOn;
+//    private boolean regenBlockOn;
     private HADS hadsType;
     private int artronLevel;
     private int flightMode;
     private int throttle;
-    private int regenerations;
+//    private int regenerations;
     private String epsMessage;
     private String floor;
     private String hum;
@@ -109,7 +110,7 @@ public class ResultSetPlayerPrefs {
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     pp_id = rs.getInt("pp_id");
-                    uuid = UUID.fromString(rs.getString("uuid"));
+//                    uuid = UUID.fromString(rs.getString("uuid"));
                     key = (plugin.getConfig().getString("storage.database", "sqlite").equals("sqlite")) ? rs.getString("key") : rs.getString("key_item");
                     sfxOn = rs.getBoolean("sfx_on");
                     quotesOn = rs.getBoolean("quotes_on");
@@ -170,8 +171,9 @@ public class ResultSetPlayerPrefs {
                     throttle = rs.getInt("throttle");
                     autoPowerUp = rs.getBoolean("auto_powerup_on");
                     hum = rs.getString("hum");
-                    regenerations = rs.getInt("regenerations");
-                    regenBlockOn = rs.getBoolean("regen_block_on");
+//                    regenerations = rs.getInt("regenerations");
+//                    regenBlockOn = rs.getBoolean("regen_block_on");
+                    dialogsOn = rs.getBoolean("dialogs_on");
                 } else {
                     return false;
                 }
@@ -335,4 +337,7 @@ public class ResultSetPlayerPrefs {
         return hum;
     }
 
+    public boolean isDialogsOn() {
+        return dialogsOn;
+    }
 }

@@ -47,11 +47,13 @@ import me.eccentric_nz.TARDIS.transmat.TARDISTransmatInventory;
 import me.eccentric_nz.TARDIS.travel.TARDISAreasInventory;
 import me.eccentric_nz.TARDIS.travel.TARDISTemporalLocatorInventory;
 import me.eccentric_nz.TARDIS.travel.TARDISTerminalInventory;
+import me.eccentric_nz.TARDIS.travel.dialog.TerminalDialog;
 import me.eccentric_nz.TARDIS.travel.save.TARDISSavesPlanetInventory;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -403,7 +405,15 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "INPUT_MISSING");
                     return;
                 }
-                player.openInventory(new TARDISTerminalInventory(plugin).getInventory());
+                ResultSetPlayerPrefs rspp = new ResultSetPlayerPrefs(plugin, player.getUniqueId().toString());
+                if (rspp.resultSet()) {
+                    if (rspp.isDialogsOn()) {
+                        close(player, false);
+                        Audience.audience(player).showDialog(new TerminalDialog().create());
+                    } else {
+                        player.openInventory(new TARDISTerminalInventory(plugin).getInventory());
+                    }
+                }
             }
             // tardis map
             case 47 -> player.openInventory(new TARDISARSMap(plugin).getInventory());
