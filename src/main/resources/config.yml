@@ -265,6 +265,7 @@ sonic:
   usage: 10
 # don't touch
 conversions:
+  adv_root: true
   all_in_one:
     helper: true
     shop: true
