@@ -81,7 +81,6 @@ public class TARDISGeneralInstanceKeeper {
     private boolean junkTravelling = false;
     private List<String> quotes = new ArrayList<>();
     private Location junkDestination = null;
-    private long junkTime;
     private TARDISConfigCommand tardisConfigCommand;
     private TARDISRenderRoomListener rendererListener;
 
@@ -226,14 +225,6 @@ public class TARDISGeneralInstanceKeeper {
 
     public YamlConfiguration getPluginYAML() {
         return pluginYAML;
-    }
-
-    public long getJunkTime() {
-        return junkTime;
-    }
-
-    public void setJunkTime(long junkTime) {
-        this.junkTime = junkTime;
     }
 
     public boolean isJunkTravelling() {

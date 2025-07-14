@@ -62,6 +62,7 @@ public class TARDISJunkBuilder implements Runnable {
     private int i = 0;
 
     public TARDISJunkBuilder(TARDIS plugin, BuildData bd) {
+        plugin.debug("TARDISJunkBuilder");
         this.plugin = plugin;
         this.bd = bd;
         loc = this.bd.getLocation();
@@ -223,9 +224,6 @@ public class TARDISJunkBuilder implements Runnable {
                 plugin.getServer().getScheduler().cancelTask(fryTask);
                 plugin.getServer().getScheduler().cancelTask(task);
                 task = 0;
-                if (plugin.getConfig().getLong("junk.return") > 0) {
-                    plugin.getGeneralKeeper().setJunkTime(System.currentTimeMillis());
-                }
                 plugin.getGeneralKeeper().setJunkTravelling(false);
                 plugin.getGeneralKeeper().getJunkTravellers().clear();
                 // update current location
@@ -237,7 +235,7 @@ public class TARDISJunkBuilder implements Runnable {
                 set.put("y", sy);
                 set.put("z", loc.getBlockZ());
                 plugin.getQueryFactory().doUpdate("current", set, where);
-                plugin.getGeneralKeeper().setJunkTime(System.currentTimeMillis());
+                new TARDISJunkReturnPersiter(plugin).setJunkTime();
             }
         }
     }

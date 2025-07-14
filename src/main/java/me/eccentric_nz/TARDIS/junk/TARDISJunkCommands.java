@@ -75,7 +75,7 @@ public class TARDISJunkCommands implements CommandExecutor {
                         return new TARDISJunkTime(plugin).elapsed(sender);
                     }
                     case "return" -> {
-                        return new TARDISJunkReturn(plugin).recall(sender);
+                        return new TARDISJunkReturn(plugin).recall(sender, false);
                     }
                     case "delete" -> {
                         return new TARDISJunkDelete(plugin).delete(sender);

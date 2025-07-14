@@ -36,7 +36,7 @@ public class TARDISJunkReturnRunnable implements Runnable {
     @Override
     public void run() {
         // get time junk tardis was last used
-        long lastUsed = plugin.getGeneralKeeper().getJunkTime();
+        long lastUsed = new TARDISJunkReturnPersiter(plugin).getJunkTime();
         // get current time
         long now = System.currentTimeMillis();
         if (lastUsed + waitTime > now) {
@@ -59,7 +59,7 @@ public class TARDISJunkReturnRunnable implements Runnable {
                         hChunk.load();
                     }
                     // bring her home
-                    new TARDISJunkReturn(plugin).recall(plugin.getConsole());
+                    new TARDISJunkReturn(plugin).recall(plugin.getConsole(), false);
                 }
             }
         }

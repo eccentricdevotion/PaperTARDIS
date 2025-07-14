@@ -46,6 +46,7 @@ class TARDISJunkLocation {
             // get current location
             ResultSetCurrentFromId rsc = new ResultSetCurrentFromId(plugin, id);
             if (rsc.resultSet()) {
+                current = rsc.getCurrent().location();
                 // get home location
                 HashMap<String, Object> whereh = new HashMap<>();
                 whereh.put("tardis_id", id);

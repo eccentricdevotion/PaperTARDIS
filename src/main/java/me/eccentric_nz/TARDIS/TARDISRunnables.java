@@ -96,7 +96,6 @@ public class TARDISRunnables {
             plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new TARDISForceField(plugin), 20, 5);
         }
         if (plugin.getConfig().getBoolean("junk.enabled") && plugin.getConfig().getLong("junk.return") > 0) {
-            plugin.getGeneralKeeper().setJunkTime(System.currentTimeMillis());
             long delay = plugin.getConfig().getLong("junk.return") * 20;
             plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new TARDISJunkReturnRunnable(plugin), delay, delay);
         }
