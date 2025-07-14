@@ -356,7 +356,7 @@ public class TVMGUIListener extends TARDISMenuListener {
         Location l = player.getLocation();
         HashMap<String, Object> set = new HashMap<>();
         set.put("uuid", player.getUniqueId().toString());
-        set.put("save_name", lore.getFirst());
+        set.put("save_name", ComponentUtils.stripColour(lore.getFirst()));
         set.put("world", l.getWorld().getName());
         set.put("x", l.getX());
         set.put("y", l.getY());

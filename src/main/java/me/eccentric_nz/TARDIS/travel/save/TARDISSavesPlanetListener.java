@@ -127,7 +127,7 @@ public class TARDISSavesPlanetListener extends TARDISMenuListener {
             }
             if (!save_dest.equals(exterior) || plugin.getTrackerKeeper().getDestinationVortex().containsKey(id)) {
                 HashMap<String, Object> set = new HashMap<>();
-                set.put("world", lore.getFirst());
+                set.put("world", ComponentUtils.stripColour(lore.getFirst()));
                 set.put("x", TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(1))));
                 set.put("y", TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(2))));
                 set.put("z", TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(3))));

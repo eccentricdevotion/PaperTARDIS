@@ -167,10 +167,10 @@ public class TARDISSavesListener extends TARDISMenuListener {
                                 if (tac.isInArea()) {
                                     // save is in a TARDIS area, so check that the spot is not occupied
                                     HashMap<String, Object> wheresave = new HashMap<>();
-                                    wheresave.put("world", lore.getFirst());
-                                    wheresave.put("x", lore.get(1));
-                                    wheresave.put("y", lore.get(2));
-                                    wheresave.put("z", lore.get(3));
+                                    wheresave.put("world", ComponentUtils.stripColour(lore.getFirst()));
+                                    wheresave.put("x", ComponentUtils.stripColour(lore.get(1)));
+                                    wheresave.put("y", ComponentUtils.stripColour(lore.get(2)));
+                                    wheresave.put("z", ComponentUtils.stripColour(lore.get(3)));
                                     ResultSetCurrentLocation rsz = new ResultSetCurrentLocation(plugin, wheresave);
                                     if (rsz.resultSet()) {
                                         plugin.getMessenger().sendColouredCommand(player, "TARDIS_IN_SPOT", "/tardistravel area [name]", plugin);
@@ -209,7 +209,7 @@ public class TARDISSavesListener extends TARDISMenuListener {
                                         new TARDISCircuitDamager(plugin, DiskCircuit.MEMORY, uses_left, occupiedTardisId, player).damage();
                                     }
                                     HashMap<String, Object> set = new HashMap<>();
-                                    set.put("world", lore.getFirst());
+                                    set.put("world", ComponentUtils.stripColour(lore.getFirst()));
                                     set.put("x", TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(1))));
                                     set.put("y", TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(2))));
                                     set.put("z", TARDISNumberParsers.parseInt(ComponentUtils.stripColour(lore.get(3))));
