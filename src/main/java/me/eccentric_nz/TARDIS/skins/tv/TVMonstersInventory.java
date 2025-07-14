@@ -30,15 +30,15 @@ import org.bukkit.inventory.meta.SkullMeta;
 public class TVMonstersInventory extends TVGUI {
 
     public TVMonstersInventory(TARDIS plugin) {
-        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Chemical compounds", NamedTextColor.DARK_RED));
+        this.inventory = plugin.getServer().createInventory(this, 36, Component.text("Monster Skins", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
 
-        /**
-         * Constructs an inventory for the Monster Skins GUI.
-         *
-         * @return an Array of item stacks (an inventory)
-         */
+    /**
+     * Constructs an inventory for the Monster Skins GUI.
+     *
+     * @return an Array of item stacks (an inventory)
+     */
     private ItemStack[] getItemStack() {
         ItemStack[] stack = new ItemStack[36];
         int i = 0;
