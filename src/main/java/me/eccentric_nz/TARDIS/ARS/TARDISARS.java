@@ -44,6 +44,7 @@ public enum TARDISARS implements ARS {
     GEODE("AMETHYST_BLOCK", "Geode", 1, RoomVariant.GEODE.getKey()),
     GRAVITY("MOSSY_COBBLESTONE", "Gravity Well", 1, RoomVariant.GRAVITY.getKey()),
     GREENHOUSE("MELON", "Greenhouse", 1, RoomVariant.GREENHOUSE.getKey()),
+    HAPPY("STRIPPED_OAK_LOG", "Happy Ghast Dock", 1, RoomVariant.HAPPY.getKey()),
     HARMONY("STONE_BRICK_STAIRS", "Condenser", 1, RoomVariant.HARMONY.getKey()),
     HUTCH("ACACIA_LOG", "Rabbit Hutch", 1, RoomVariant.HUTCH.getKey()),
     IGLOO("PACKED_ICE", "Igloo", 1, RoomVariant.IGLOO.getKey()),

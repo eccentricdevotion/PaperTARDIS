@@ -58,6 +58,8 @@ public enum Updateable {
     HANDBRAKE(true, true, Set.of(Material.LEVER), TARDISUpdateableCategory.CONTROLS, "Handbrake"),
     HANDBRAKE_SENSOR(false, false, Set.of(Material.REDSTONE_BLOCK), TARDISUpdateableCategory.SENSORS, "Senses when the TARDIS's handbrake is toggled"),
     HINGE(false, false, TARDISUpdateableCategory.OTHERS, "Set the side a door hinge is on"),
+    HAPPY(false, false, true, TARDISUpdateableCategory.LOCATIONS, "Happy Ghast dock room"),
+    HAPPY_GHAST_DOCK_LEVER(false, false, Set.of(Material.LEVER), TARDISUpdateableCategory.CONTROLS, "Happy Ghast dock release lever"),
     HUTCH(false, false, true, TARDISUpdateableCategory.LOCATIONS, "Rabbit Hutch room"),
     IGLOO(false, false, true, TARDISUpdateableCategory.LOCATIONS, "Igloo room"),
     IISTUBIL(false, false, true, TARDISUpdateableCategory.LOCATIONS, "Camel iistubil room"),

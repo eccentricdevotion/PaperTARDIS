@@ -50,7 +50,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
@@ -87,7 +86,7 @@ public class TARDISDevCommand implements CommandExecutor {
             "effect",
             "frame", "furnace",
             "gravity", "give",
-            "head",
+            "happy", "head",
             "interaction",
             "label", "leather", "list",
             "monster",
@@ -172,6 +171,12 @@ public class TARDISDevCommand implements CommandExecutor {
                         case "give" -> {
                             if (sender instanceof Player player) {
                                 new StorageContents(plugin).give(player);
+                            }
+                            return true;
+                        }
+                        case "happy" -> {
+                            if (sender instanceof Player player) {
+                                new HappyCommand().leash(player);
                             }
                             return true;
                         }

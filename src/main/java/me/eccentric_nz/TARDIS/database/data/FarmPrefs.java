@@ -31,6 +31,7 @@ public class FarmPrefs {
     private final boolean birdcage;
     private final boolean farm;
     private final boolean geode;
+    private final boolean happy;
     private final boolean hutch;
     private final boolean igloo;
     private final boolean iistubil;
@@ -41,7 +42,7 @@ public class FarmPrefs {
     private final boolean stall;
     private final boolean village;
 
-    public FarmPrefs(UUID uuid, boolean allay, boolean apiary, boolean aquarium, boolean bamboo, boolean birdcage, boolean farm, boolean geode, boolean hutch, boolean igloo, boolean iistubil, boolean lava, boolean mangrove, boolean pen, boolean stable, boolean stall, boolean village) {
+    public FarmPrefs(UUID uuid, boolean allay, boolean apiary, boolean aquarium, boolean bamboo, boolean birdcage, boolean farm, boolean geode, boolean happy, boolean hutch, boolean igloo, boolean iistubil, boolean lava, boolean mangrove, boolean pen, boolean stable, boolean stall, boolean village) {
         this.uuid = uuid;
         this.apiary = apiary;
         this.allay = allay;
@@ -50,6 +51,7 @@ public class FarmPrefs {
         this.birdcage = birdcage;
         this.farm = farm;
         this.geode = geode;
+        this.happy = happy;
         this.hutch = hutch;
         this.igloo = igloo;
         this.iistubil = iistubil;
@@ -131,6 +133,15 @@ public class FarmPrefs {
      */
     public boolean shouldFarmAxolotls() {
         return geode;
+    }
+
+    /**
+     * Returns if the player wants to farm into the Happy room.
+     *
+     * @return true or false
+     */
+    public boolean shouldFarmHappyGhasts() {
+        return happy;
     }
 
     /**

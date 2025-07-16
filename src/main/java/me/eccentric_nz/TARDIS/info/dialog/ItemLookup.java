@@ -48,6 +48,7 @@ public class ItemLookup {
         ITEMS.put(TARDISInfoMenu.GEODE, new InfoIcon(Material.AMETHYST_BLOCK, "Geode", RoomVariant.GEODE.getKey()));
         ITEMS.put(TARDISInfoMenu.GRAVITY, new InfoIcon(Material.MOSSY_COBBLESTONE, "Gravity Well", RoomVariant.GRAVITY.getKey()));
         ITEMS.put(TARDISInfoMenu.GREENHOUSE, new InfoIcon(Material.MELON, "Greenhouse", RoomVariant.GREENHOUSE.getKey()));
+        ITEMS.put(TARDISInfoMenu.HAPPY, new InfoIcon(Material.STRIPPED_OAK_LOG, "Happy Ghast Dock", RoomVariant.HAPPY.getKey()));
         ITEMS.put(TARDISInfoMenu.HARMONY, new InfoIcon(Material.STONE_BRICK_STAIRS, "Condenser", RoomVariant.HARMONY.getKey()));
         ITEMS.put(TARDISInfoMenu.HUTCH, new InfoIcon(Material.ACACIA_LOG, "Rabbit Hutch", RoomVariant.HUTCH.getKey()));
         ITEMS.put(TARDISInfoMenu.IGLOO, new InfoIcon(Material.PACKED_ICE, "Igloo", RoomVariant.IGLOO.getKey()));

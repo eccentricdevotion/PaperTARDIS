@@ -30,6 +30,7 @@ import me.eccentric_nz.TARDIS.floodgate.FloodgateSavesForm;
 import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
 import me.eccentric_nz.TARDIS.move.TARDISBlackWoolToggler;
 import me.eccentric_nz.TARDIS.rooms.eye.EyeOfHarmonyAction;
+import me.eccentric_nz.TARDIS.rooms.happy.HappyGhastRelease;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
 import org.bukkit.Location;
@@ -58,7 +59,7 @@ public class TARDISControlListener implements Listener {
 
     private final TARDIS plugin;
     private final List<Material> validBlocks = new ArrayList<>();
-    private final List<Integer> onlythese = List.of(1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 16, 17, 20, 21, 22, 25, 26, 28, 29, 30, 31, 32, 33, 35, 38, 39, 40, 41, 42, 43, 47, 54, 55);
+    private final List<Integer> onlythese = List.of(1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 16, 17, 20, 21, 22, 25, 26, 28, 29, 30, 31, 32, 33, 35, 38, 39, 40, 41, 42, 43, 47, 54, 55, 58);
     private final Set<UUID> cooldown = new HashSet<>();
 
     public TARDISControlListener(TARDIS plugin) {
@@ -231,6 +232,7 @@ public class TARDISControlListener implements Listener {
                                     new EyeOfHarmonyAction(plugin).openGUI(id, player);
                                 }
                                 case 55 -> new TelevisionAction(plugin).openGUI(player);
+                                case 58 -> new HappyGhastRelease(plugin).undock(block, id, player);
                                 default -> { }
                             }
                         } else if (action.equals(Action.PHYSICAL)) {

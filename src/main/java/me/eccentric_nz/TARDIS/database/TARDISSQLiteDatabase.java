@@ -144,11 +144,11 @@ public class TARDISSQLiteDatabase {
             statement.executeUpdate(queryEyes);
 
             // Table structure for table 'farming'
-            String queryFarming = "CREATE TABLE IF NOT EXISTS " + prefix + "farming (farm_id INTEGER PRIMARY KEY NOT NULL, tardis_id INTEGER, allay TEXT DEFAULT '', apiary TEXT DEFAULT '', aquarium TEXT DEFAULT '', bamboo TEXT DEFAULT '', birdcage TEXT DEFAULT '', farm TEXT DEFAULT '', geode TEXT DEFAULT '', hutch TEXT DEFAULT '', igloo TEXT DEFAULT '', iistubil TEXT DEFAULT '', lava TEXT DEFAULT '', mangrove TEXT DEFAULT '', pen TEXT DEFAULT '', stable TEXT DEFAULT '', stall TEXT DEFAULT '', village TEXT DEFAULT '')";
+            String queryFarming = "CREATE TABLE IF NOT EXISTS " + prefix + "farming (farm_id INTEGER PRIMARY KEY NOT NULL, tardis_id INTEGER, allay TEXT DEFAULT '', apiary TEXT DEFAULT '', aquarium TEXT DEFAULT '', bamboo TEXT DEFAULT '', birdcage TEXT DEFAULT '', farm TEXT DEFAULT '', geode TEXT DEFAULT '', happy TEXT DEFAULT '', hutch TEXT DEFAULT '', igloo TEXT DEFAULT '', iistubil TEXT DEFAULT '', lava TEXT DEFAULT '', mangrove TEXT DEFAULT '', pen TEXT DEFAULT '', stable TEXT DEFAULT '', stall TEXT DEFAULT '', village TEXT DEFAULT '')";
             statement.executeUpdate(queryFarming);
 
             // Table structure for table 'farming_prefs'
-            String queryFarmingPrefs = "CREATE TABLE IF NOT EXISTS " + prefix + "farming_prefs (farm_id INTEGER PRIMARY KEY NOT NULL, uuid TEXT DEFAULT '', allay INTEGER DEFAULT 1, apiary INTEGER DEFAULT 1, aquarium INTEGER DEFAULT 1, bamboo INTEGER DEFAULT 1, birdcage INTEGER DEFAULT 1, farm INTEGER DEFAULT 1, geode INTEGER DEFAULT 1, hutch INTEGER DEFAULT 1, igloo INTEGER DEFAULT 1, iistubil INTEGER DEFAULT 1, lava INTEGER DEFAULT 1, mangrove INTEGER DEFAULT 1, pen INTEGER DEFAULT 1, stable INTEGER DEFAULT 1, stall INTEGER DEFAULT 1, village INTEGER DEFAULT 1)";
+            String queryFarmingPrefs = "CREATE TABLE IF NOT EXISTS " + prefix + "farming_prefs (farm_id INTEGER PRIMARY KEY NOT NULL, uuid TEXT DEFAULT '', allay INTEGER DEFAULT 1, apiary INTEGER DEFAULT 1, aquarium INTEGER DEFAULT 1, bamboo INTEGER DEFAULT 1, birdcage INTEGER DEFAULT 1, farm INTEGER DEFAULT 1, geode INTEGER DEFAULT 1, happy INTEGER DEFAULT 1, hutch INTEGER DEFAULT 1, igloo INTEGER DEFAULT 1, iistubil INTEGER DEFAULT 1, lava INTEGER DEFAULT 1, mangrove INTEGER DEFAULT 1, pen INTEGER DEFAULT 1, stable INTEGER DEFAULT 1, stall INTEGER DEFAULT 1, village INTEGER DEFAULT 1)";
             statement.executeUpdate(queryFarmingPrefs);
 
             // Table structure for table 'flight'
@@ -166,6 +166,10 @@ public class TARDISSQLiteDatabase {
             // Table structure for table 'gravity_well'
             String queryGravity = "CREATE TABLE IF NOT EXISTS " + prefix + "gravity_well (g_id INTEGER PRIMARY KEY NOT NULL, tardis_id INTEGER, location TEXT COLLATE NOCASE DEFAULT '', direction INTEGER, distance INTEGER DEFAULT 11, velocity REAL DEFAULT 0.5)";
             statement.executeUpdate(queryGravity);
+
+            // Table structure for table 'happy'
+            String queryHappy = "CREATE TABLE IF NOT EXISTS " + prefix + "happy (happy_id INTEGER PRIMARY KEY NOT NULL, tardis_id INTEGER, slots TEXT COLLATE NOCASE DEFAULT '0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0')";
+            statement.executeUpdate(queryHappy);
 
             // Table structure for table 'homes'
             String queryHomes = "CREATE TABLE IF NOT EXISTS " + prefix + "homes (home_id INTEGER PRIMARY KEY NOT NULL, tardis_id INTEGER, world TEXT COLLATE NOCASE DEFAULT '', x INTEGER, y INTEGER, z INTEGER, direction TEXT DEFAULT '', submarine INTEGER DEFAULT 0, preset TEXT DEFAULT '')";

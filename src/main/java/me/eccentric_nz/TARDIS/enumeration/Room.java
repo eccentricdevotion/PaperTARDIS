@@ -38,6 +38,7 @@ public enum Room {
     GEODE,
     GRAVITY,
     GREENHOUSE,
+    HAPPY,
     HARMONY,
     HUTCH,
     IGLOO,

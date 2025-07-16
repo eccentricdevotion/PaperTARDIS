@@ -80,6 +80,7 @@ public class ResultSetFarmingPrefs {
                         rs.getBoolean("birdcage"),
                         rs.getBoolean("farm"),
                         rs.getBoolean("geode"),
+                        rs.getBoolean("happy"),
                         rs.getBoolean("hutch"),
                         rs.getBoolean("igloo"),
                         rs.getBoolean("iistubil"),

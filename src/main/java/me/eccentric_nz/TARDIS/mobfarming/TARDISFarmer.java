@@ -17,6 +17,8 @@
 package me.eccentric_nz.TARDIS.mobfarming;
 
 import com.destroystokyo.paper.MaterialTags;
+import com.mojang.datafixers.util.Pair;
+import io.papermc.paper.entity.Leashable;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.achievement.TARDISAchievementFactory;
 import me.eccentric_nz.TARDIS.database.data.Farm;
@@ -28,24 +30,31 @@ import me.eccentric_nz.TARDIS.enumeration.Advancement;
 import me.eccentric_nz.TARDIS.enumeration.COMPASS;
 import me.eccentric_nz.TARDIS.enumeration.InventoryManager;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.rooms.happy.HappyLocations;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISMaterials;
 import me.eccentric_nz.TARDIS.utility.TARDISMultiverseInventoriesChecker;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.tardisweepingangels.utils.FollowerChecker;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.*;
 import org.bukkit.entity.memory.MemoryKey;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.LlamaInventory;
 import org.bukkit.inventory.meta.TropicalFishBucketMeta;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -86,10 +95,9 @@ public class TARDISFarmer {
             default -> l.setX(l.getX() + 1);
         }
         l.setY(l.getY() + 1);
-        // spawn an entity at this location, so we can get nearby entities - an egg will do
-        World w = l.getWorld();
-        Entity egg = w.spawnEntity(l, EntityType.EGG);
-        List<Entity> mobs = egg.getNearbyEntities(3.75D, 3.75D, 3.75D);
+        // TODO do we need to extend the range of nearby entities to include large happy ghasts?
+        // get nearby entities
+        Collection<Entity> mobs = l.getWorld().getNearbyEntities(l, 3.75D, 3.75D, 3.75D);
         List<TARDISPet> pets = new ArrayList<>();
         List<Follower> followers = new ArrayList<>();
         UUID uuid = p.getUniqueId();
@@ -100,6 +108,7 @@ public class TARDISFarmer {
             List<TARDISFrog> frogs = new ArrayList<>();
             List<TARDISHorse> camels = new ArrayList<>();
             List<TARDISHorse> horses = new ArrayList<>();
+            List<TARDISHappyGhast> ghasts = new ArrayList<>();
             List<TARDISLlama> llamas = new ArrayList<>();
             List<TARDISChicken> chickens = new ArrayList<>();
             List<TARDISCow> cows = new ArrayList<>();
@@ -133,6 +142,7 @@ public class TARDISFarmer {
                 String birdcage = farming.birdcage();
                 String farm = farming.farm();
                 String geode = farming.geode();
+                String happy = farming.happy();
                 String hutch = farming.hutch();
                 String igloo = farming.igloo();
                 String iistubil = farming.iistubil();
@@ -149,8 +159,9 @@ public class TARDISFarmer {
                     farmPrefs = rsfp.getData();
                 } else {
                     // if not set then default to true
-                    farmPrefs = new FarmPrefs(uuid, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
+                    farmPrefs = new FarmPrefs(uuid, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
                 }
+                int vacant = (!happy.isEmpty() && farmPrefs.shouldFarmHappyGhasts()) ? HappyGhastUtils.getFreeSlotCount(plugin, id) : 0;
                 // collate the mobs
                 for (Entity entity : mobs) {
                     switch (entity.getType()) {
@@ -172,7 +183,7 @@ public class TARDISFarmer {
                                 tma.setDuplicationCooldown(a.getDuplicationCooldown());
                                 tma.setLikedPlayer(a.getMemory(MemoryKey.LIKED_PLAYER));
                                 tma.setInventory(a.getInventory().getContents());
-                                tma.setName(entity.getCustomName());
+                                tma.setName(ComponentUtils.stripColour(entity.customName()));
                                 allays.add(tma);
                                 entity.remove();
                                 if (taf != null) {
@@ -187,7 +198,7 @@ public class TARDISFarmer {
                                 tmaxl.setAxolotlVariant(axolotl.getVariant());
                                 tmaxl.setAge(axolotl.getAge());
                                 tmaxl.setBaby(!axolotl.isAdult());
-                                tmaxl.setName(entity.getCustomName());
+                                tmaxl.setName(ComponentUtils.stripColour(entity.customName()));
                                 axolotls.add(tmaxl);
                                 entity.remove();
                                 if (taf != null) {
@@ -204,7 +215,7 @@ public class TARDISFarmer {
                                 tmbee.setAnger(bee.getAnger());
                                 tmbee.setAge(bee.getAge());
                                 tmbee.setBaby(!bee.isAdult());
-                                tmbee.setName(entity.getCustomName());
+                                tmbee.setName(ComponentUtils.stripColour(entity.customName()));
                                 bees.add(tmbee);
                                 entity.remove();
                                 if (taf != null) {
@@ -236,7 +247,7 @@ public class TARDISFarmer {
                                 tmchk.setChickenVariant(chicken.getVariant());
                                 tmchk.setAge(chicken.getAge());
                                 tmchk.setBaby(!chicken.isAdult());
-                                tmchk.setName(entity.getCustomName());
+                                tmchk.setName(ComponentUtils.stripColour(entity.customName()));
                                 chickens.add(tmchk);
                                 entity.remove();
                                 if (taf != null) {
@@ -252,7 +263,7 @@ public class TARDISFarmer {
                                 tmcow.setCowVariant(cow.getVariant());
                                 tmcow.setAge(cow.getAge());
                                 tmcow.setBaby(!cow.isAdult());
-                                tmcow.setName(entity.getCustomName());
+                                tmcow.setName(ComponentUtils.stripColour(entity.customName()));
                                 cows.add(tmcow);
                                 entity.remove();
                                 if (taf != null) {
@@ -264,7 +275,7 @@ public class TARDISFarmer {
                         case DONKEY, MULE, HORSE -> {
                             if (farmPrefs.shouldFarmHorses() && (!stable.isEmpty() || spawnEggs)) {
                                 AbstractHorse horse = (AbstractHorse) entity;
-                                // if horse has a passenger, eject them!
+                                // if the horse has a passenger, eject them!
                                 horse.eject();
                                 // don't farm other player's tamed horses
                                 if (horse.isTamed()) {
@@ -320,11 +331,53 @@ public class TARDISFarmer {
                                 tmfrog.setFrogVariant(frog.getVariant());
                                 tmfrog.setAge(frog.getAge());
                                 tmfrog.setHealth(frog.getHealth());
-                                tmfrog.setName(entity.getCustomName());
+                                tmfrog.setName(ComponentUtils.stripColour(entity.customName()));
                                 frogs.add(tmfrog);
                                 entity.remove();
                                 if (taf != null) {
                                     taf.doAchievement("FROG");
+                                }
+                            }
+                        }
+                        case HAPPY_GHAST -> {
+                            if (farmPrefs.shouldFarmHappyGhasts() && (!happy.isEmpty() || spawnEggs)) {
+                                // is there room for any ghasts?
+                                if (vacant > 0) {
+                                    HappyGhast ghast = (HappyGhast) entity;
+                                    // if the ghast has passengers, eject them!
+                                    for (Entity e : ghast.getPassengers()) {
+                                        ghast.removePassenger(e);
+                                    }
+                                    TARDISHappyGhast thg = new TARDISHappyGhast();
+                                    thg.setAge(ghast.getAge());
+                                    thg.setBaby(!ghast.isAdult());
+                                    thg.setName(ComponentUtils.stripColour(entity.customName()));
+                                    thg.setHealth(ghast.getHealth());
+                                    // get harness
+                                    thg.setHarness(ghast.getEquipment().getItem(EquipmentSlot.BODY));
+                                    // get/save home location
+                                    thg.setHome(ghast.getMemory(MemoryKey.HOME));
+                                    // get/save leashed boats
+                                    Leashable leashed = HappyGhastUtils.getLeashed(ghast);
+                                    if (!HappyGhastUtils.isDockOccupied(TARDISStaticLocationGetters.getLocationFromDB(happy))
+                                            && leashed instanceof Boat boat) {
+                                        TARDISBoat tb = new TARDISBoat();
+                                        tb.setType(boat.getType());
+                                        if (boat instanceof ChestBoat chested) {
+                                            tb.setItems(chested.getInventory().getContents());
+                                        }
+                                        thg.setBoat(tb);
+                                        boat.remove();
+                                    }
+                                    if (leashed != null) {
+                                        leashed.setLeashHolder(null);
+                                    }
+                                    ghasts.add(thg);
+                                    entity.remove();
+                                    if (taf != null) {
+                                        taf.doAchievement("HAPPY_GHAST");
+                                    }
+                                    vacant--;
                                 }
                             }
                         }
@@ -396,7 +449,7 @@ public class TARDISFarmer {
                                 tmpet.setParrotVariant(parrot.getVariant());
                                 tmpet.setAge(parrot.getAge());
                                 tmpet.setBaby(!parrot.isAdult());
-                                tmpet.setName(entity.getCustomName());
+                                tmpet.setName(ComponentUtils.stripColour(entity.customName()));
                                 tmpet.setSitting(((Sittable) entity).isSitting());
                                 double phealth = Math.min(parrot.getHealth(), 8D);
                                 tmpet.setHealth(phealth);
@@ -419,7 +472,7 @@ public class TARDISFarmer {
                                 TARDISPanda tmpanda = new TARDISPanda();
                                 tmpanda.setAge(panda.getAge());
                                 tmpanda.setBaby(!panda.isAdult());
-                                tmpanda.setName(entity.getCustomName());
+                                tmpanda.setName(ComponentUtils.stripColour(entity.customName()));
                                 tmpanda.setMainGene(panda.getMainGene());
                                 tmpanda.setHiddenGene(panda.getHiddenGene());
                                 pandas.add(tmpanda);
@@ -436,7 +489,7 @@ public class TARDISFarmer {
                                 tmpig.setPigVariant(pig.getVariant());
                                 tmpig.setAge(pig.getAge());
                                 tmpig.setBaby(!pig.isAdult());
-                                tmpig.setName(entity.getCustomName());
+                                tmpig.setName(ComponentUtils.stripColour(entity.customName()));
                                 tmpig.setSaddled(pig.hasSaddle());
                                 // eject any passengers
                                 entity.eject();
@@ -454,7 +507,7 @@ public class TARDISFarmer {
                                 TARDISMob tmbear = new TARDISMob();
                                 tmbear.setAge(polarBear.getAge());
                                 tmbear.setBaby(!polarBear.isAdult());
-                                tmbear.setName(entity.getCustomName());
+                                tmbear.setName(ComponentUtils.stripColour(entity.customName()));
                                 polarbears.add(tmbear);
                                 entity.remove();
                                 if (taf != null) {
@@ -484,7 +537,7 @@ public class TARDISFarmer {
                                 tmshp.setAge(lamb.getAge());
                                 tmshp.setBaby(!lamb.isAdult());
                                 tmshp.setWoolColour(lamb.getColor());
-                                tmshp.setName(entity.getCustomName());
+                                tmshp.setName(ComponentUtils.stripColour(entity.customName()));
                                 sheep.add(tmshp);
                                 entity.remove();
                                 if (taf != null) {
@@ -499,7 +552,7 @@ public class TARDISFarmer {
                                 TARDISMob tmsniffer = new TARDISMob();
                                 tmsniffer.setAge(sniffer.getAge());
                                 tmsniffer.setBaby(!sniffer.isAdult());
-                                tmsniffer.setName(entity.getCustomName());
+                                tmsniffer.setName(ComponentUtils.stripColour(entity.customName()));
                                 sniffers.add(tmsniffer);
                                 entity.remove();
                                 if (taf != null) {
@@ -513,7 +566,7 @@ public class TARDISFarmer {
                                 TARDISMob tmsstrider = new TARDISMob();
                                 tmsstrider.setAge(strider.getAge());
                                 tmsstrider.setBaby(!strider.isAdult());
-                                tmsstrider.setName(entity.getCustomName());
+                                tmsstrider.setName(ComponentUtils.stripColour(entity.customName()));
                                 striders.add(tmsstrider);
                                 entity.remove();
                                 if (taf != null) {
@@ -528,7 +581,7 @@ public class TARDISFarmer {
                                 tmshr.setAge(mushroomCow.getAge());
                                 tmshr.setBaby(!mushroomCow.isAdult());
                                 tmshr.setMushroomVariant(mushroomCow.getVariant());
-                                tmshr.setName(entity.getCustomName());
+                                tmshr.setName(ComponentUtils.stripColour(entity.customName()));
                                 mooshrooms.add(tmshr);
                                 entity.remove();
                                 if (taf != null) {
@@ -562,7 +615,7 @@ public class TARDISFarmer {
                                 if (entity.getType().equals(EntityType.WOLF)) {
                                     TARDISWolf pet = new TARDISWolf();
                                     Wolf wolf = (Wolf) entity;
-                                    pet.setName(entity.getCustomName());
+                                    pet.setName(ComponentUtils.stripColour(entity.customName()));
                                     pet.setWolfVariant(wolf.getVariant());
                                     pet.setAge(wolf.getAge());
                                     pet.setSitting(wolf.isSitting());
@@ -632,7 +685,7 @@ public class TARDISFarmer {
                             }
                             String name = e.getName();
                             if (name != null && !name.isEmpty()) {
-                                a.setCustomName(name);
+                                a.customName(Component.text(name));
                             }
                             a.setRemoveWhenFarAway(false);
                         });
@@ -666,7 +719,7 @@ public class TARDISFarmer {
                             }
                             String name = e.getName();
                             if (name != null && !name.isEmpty()) {
-                                bee.setCustomName(name);
+                                bee.customName(Component.text(name));
                             }
                             bee.setRemoveWhenFarAway(false);
                         });
@@ -725,7 +778,7 @@ public class TARDISFarmer {
                             }
                             String name = e.getName();
                             if (name != null && !name.isEmpty()) {
-                                panda.setCustomName(name);
+                                panda.customName(Component.text(name));
                             }
                             panda.setRemoveWhenFarAway(false);
                         });
@@ -758,7 +811,7 @@ public class TARDISFarmer {
                                 }
                                 String name = e.getName();
                                 if (name != null && !name.isEmpty()) {
-                                    chicken.setCustomName(name);
+                                    chicken.customName(Component.text(name));
                                 }
                                 chicken.setRemoveWhenFarAway(false);
                             });
@@ -778,7 +831,7 @@ public class TARDISFarmer {
                                 }
                                 String name = e.getName();
                                 if (name != null && !name.isEmpty()) {
-                                    cow.setCustomName(name);
+                                    cow.customName(Component.text(name));
                                 }
                                 cow.setRemoveWhenFarAway(false);
                             });
@@ -798,7 +851,7 @@ public class TARDISFarmer {
                                 }
                                 String name = e.getName();
                                 if (name != null && !name.isEmpty()) {
-                                    pig.setCustomName(name);
+                                    pig.customName(Component.text(name));
                                 }
                                 pig.setSaddle(e.isSaddled());
                                 pig.setRemoveWhenFarAway(false);
@@ -819,7 +872,7 @@ public class TARDISFarmer {
                                 }
                                 String name = e.getName();
                                 if (name != null && !name.isEmpty()) {
-                                    ewe.setCustomName(name);
+                                    ewe.customName(Component.text(name));
                                 }
                                 ewe.setRemoveWhenFarAway(false);
                             });
@@ -839,7 +892,7 @@ public class TARDISFarmer {
                                 fungi.setVariant(e.getMushroomVariant());
                                 String name = e.getName();
                                 if (name != null && !name.isEmpty()) {
-                                    fungi.setCustomName(name);
+                                    fungi.customName(Component.text(name));
                                 }
                                 fungi.setRemoveWhenFarAway(false);
                             });
@@ -890,7 +943,7 @@ public class TARDISFarmer {
                             }
                             String name = x.getName();
                             if (name != null && !name.isEmpty()) {
-                                axolotl.setCustomName(name);
+                                axolotl.customName(Component.text(name));
                             }
                             axolotl.setRemoveWhenFarAway(false);
                         });
@@ -925,7 +978,7 @@ public class TARDISFarmer {
                             equine.setHealth(e.getHealth());
                             String name = e.getName();
                             if (name != null && !name.isEmpty()) {
-                                equine.setCustomName(name);
+                                equine.customName(Component.text(name));
                             }
                             if (e.isTamed()) {
                                 equine.setTamed(true);
@@ -962,6 +1015,61 @@ public class TARDISFarmer {
                         plugin.getMessenger().send(p, TardisModule.TARDIS, "FARM_STABLE");
                     }
                 }
+                if (farmPrefs.shouldFarmHappyGhasts() && !ghasts.isEmpty()) {
+                    if (!happy.isEmpty()) {
+                        // get location of happy ghast dock room
+                        World world = TARDISStaticLocationGetters.getWorldFromSplitString(happy);
+                        Location ghast_dock = TARDISStaticLocationGetters.getSpawnLocationFromDB(happy);
+                        while (!world.getChunkAt(ghast_dock).isLoaded()) {
+                            world.getChunkAt(ghast_dock).load();
+                        }
+                        for (TARDISHappyGhast hg : ghasts) {
+                            plugin.setTardisSpawn(true);
+                            if (!HappyGhastUtils.isDockOccupied(ghast_dock)) {
+                                Entity ghast = world.spawnEntity(ghast_dock, EntityType.HAPPY_GHAST);
+                                HappyGhast skies = (HappyGhast) ghast;
+                                skies.setAge(hg.getAge());
+                                if (hg.isBaby()) {
+                                    skies.setBaby();
+                                }
+                                if (hg.getHarness() != null) {
+                                    skies.getEquipment().setItem(EquipmentSlot.BODY, hg.getHarness());
+                                }
+                                skies.setHealth(hg.getHealth());
+                                String name = hg.getName();
+                                if (name != null && !name.isEmpty()) {
+                                    skies.customName(Component.text(name));
+                                }
+                                if (hg.getBoat() != null) {
+                                    TARDISBoat tb = hg.getBoat();
+                                    Entity boat = world.spawnEntity(ghast_dock, tb.getType());
+                                    if (boat instanceof ChestBoat chested) {
+                                        chested.getInventory().setContents(tb.getItems());
+                                    }
+                                    Leashable leashable = (Leashable) boat;
+                                    leashable.setLeashHolder(skies);
+                                }
+                                skies.setMemory(MemoryKey.HOME, hg.getHome());
+                                skies.setRemoveWhenFarAway(false);
+                            } else {
+                                // leash an extra
+                                int slot = HappyGhastUtils.nextFreeSlot(plugin, id);
+                                if (slot != -1) {
+                                    Pair<Vector, BlockFace> pair = HappyLocations.VECTORS.get(slot);
+                                    Location possible = ghast_dock.clone().add(pair.getFirst());
+                                    HappyGhastUtils.setLeashed(possible, hg, pair.getSecond());
+                                }
+                            }
+                        }
+                    } else if (spawnEggs) {
+                        Inventory inv = p.getInventory();
+                        ItemStack is = new ItemStack(Material.HAPPY_GHAST_SPAWN_EGG, ghasts.size());
+                        inv.addItem(is);
+                        p.updateInventory();
+                    } else {
+                        plugin.getMessenger().send(p, TardisModule.TARDIS, "FARM_HAPPY");
+                    }
+                }
                 if (farmPrefs.shouldFarmLlamas() && !llamas.isEmpty()) {
                     if (!stall.isEmpty()) {
                         // get location of stable room
@@ -985,7 +1093,7 @@ public class TARDISFarmer {
                             cria.setHealth(ll.getHealth());
                             String name = ll.getName();
                             if (name != null && !name.isEmpty()) {
-                                cria.setCustomName(name);
+                                cria.customName(Component.text(name));
                             }
                             if (ll.isTamed()) {
                                 cria.setTamed(true);
@@ -1035,7 +1143,7 @@ public class TARDISFarmer {
                             }
                             String name = e.getName();
                             if (name != null && !name.isEmpty()) {
-                                bunny.setCustomName(name);
+                                bunny.customName(Component.text(name));
                             }
                             bunny.setRabbitType(e.getBunnyType());
                             bunny.setRemoveWhenFarAway(false);
@@ -1074,7 +1182,7 @@ public class TARDISFarmer {
                             plugin.getTardisHelper().setReputation(npc, uuid, e.getReputation());
                             String name = e.getName();
                             if (name != null && !name.isEmpty()) {
-                                npc.setCustomName(name);
+                                npc.customName(Component.text(name));
                             }
                             npc.setRemoveWhenFarAway(false);
                         });
@@ -1105,7 +1213,7 @@ public class TARDISFarmer {
                             }
                             String name = e.getName();
                             if (name != null && !name.isEmpty()) {
-                                polar.setCustomName(name);
+                                polar.customName(Component.text(name));
                             }
                             polar.setRemoveWhenFarAway(false);
                         });
@@ -1136,7 +1244,7 @@ public class TARDISFarmer {
                             }
                             String name = e.getName();
                             if (name != null && !name.isEmpty()) {
-                                let.setCustomName(name);
+                                let.customName(Component.text(name));
                             }
                             let.setRemoveWhenFarAway(false);
                         });
@@ -1167,7 +1275,7 @@ public class TARDISFarmer {
                             }
                             String name = e.getName();
                             if (name != null && !name.isEmpty()) {
-                                der.setCustomName(name);
+                                der.customName(Component.text(name));
                             }
                             der.setRemoveWhenFarAway(false);
                         });
@@ -1198,7 +1306,7 @@ public class TARDISFarmer {
                             }
                             String name = e.getName();
                             if (name != null && !name.isEmpty()) {
-                                hump.setCustomName(name);
+                                hump.customName(Component.text(name));
                             }
                             hump.setDomestication(e.getDomesticity());
                             hump.getInventory().setContents(e.getHorseinventory());
@@ -1232,7 +1340,7 @@ public class TARDISFarmer {
                             }
                             String name = e.getName();
                             if (name != null && !name.isEmpty()) {
-                                parrot.setCustomName(name);
+                                parrot.customName(Component.text(name));
                             }
                             parrot.setSitting(false); // let them fly in the cage
                             parrot.setRemoveWhenFarAway(false);
@@ -1263,7 +1371,7 @@ public class TARDISFarmer {
                             frog.setHealth(e.getHealth());
                             String name = e.getName();
                             if (name != null && !name.isEmpty()) {
-                                frog.setCustomName(name);
+                                frog.customName(Component.text(name));
                             }
                             frog.setRemoveWhenFarAway(false);
                         });
@@ -1279,7 +1387,6 @@ public class TARDISFarmer {
                 }
             }
         }
-        egg.remove();
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> plugin.getTrackerKeeper().getFarming().remove(uuid), 20L);
         return new TARDISPetsAndFollowers(pets, followers);
     }
@@ -1296,10 +1403,7 @@ public class TARDISFarmer {
                     switch (entity.getType()) {
                         case WOLF -> {
                             TARDISWolf pet = new TARDISWolf();
-                            String pet_name = entity.getCustomName();
-                            if (pet_name != null) {
-                                pet.setName(pet_name);
-                            }
+                            pet.setName(ComponentUtils.stripColour(entity.customName()));
                             Wolf wolf = (Wolf) entity;
                             pet.setWolfVariant(wolf.getVariant());
                             pet.setAge(wolf.getAge());
@@ -1313,10 +1417,7 @@ public class TARDISFarmer {
                         }
                         case CAT -> {
                             TARDISCat pet = new TARDISCat();
-                            String pet_name = entity.getCustomName();
-                            if (pet_name != null) {
-                                pet.setName(pet_name);
-                            }
+                            pet.setName(ComponentUtils.stripColour(entity.customName()));
                             Cat cat = (Cat) entity;
                             pet.setAge(cat.getAge());
                             pet.setSitting(cat.isSitting());
@@ -1329,10 +1430,7 @@ public class TARDISFarmer {
                         }
                         case PARROT -> {
                             TARDISParrot pet = new TARDISParrot();
-                            String pet_name = entity.getCustomName();
-                            if (pet_name != null) {
-                                pet.setName(pet_name);
-                            }
+                            pet.setName(ComponentUtils.stripColour(entity.customName()));
                             Parrot parrot = (Parrot) entity;
                             pet.setAge(parrot.getAge());
                             pet.setSitting(parrot.isSitting());

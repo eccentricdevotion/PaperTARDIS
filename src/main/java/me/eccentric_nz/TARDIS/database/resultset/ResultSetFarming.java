@@ -79,6 +79,7 @@ public class ResultSetFarming {
                         rs.getString("birdcage"),
                         rs.getString("farm"),
                         rs.getString("geode"),
+                        rs.getString("happy"),
                         rs.getString("hutch"),
                         rs.getString("igloo"),
                         rs.getString("iistubil"),

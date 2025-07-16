@@ -43,6 +43,7 @@ public enum BlueprintRoom {
     GEODE("tardis.room.geode"),
     GRAVITY("tardis.room.gravity"),
     GREENHOUSE("tardis.room.greenhouse"),
+    HAPPY("tardis.room.happy"),
     HARMONY("tardis.room.harmony"),
     HUTCH("tardis.room.hutch", BlueprintFeature.FARM),
     IGLOO("tardis.room.igloo", BlueprintFeature.FARM),

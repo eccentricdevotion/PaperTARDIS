@@ -47,7 +47,7 @@ public class TARDISDevTabComplete extends TARDISCompleter implements TabComplete
             "effect",
             "frame", "furnace",
             "gravity", "give",
-            "head",
+            "happy", "head",
             "interaction",
             "label", "leather", "list",
             "monster",
@@ -132,7 +132,7 @@ public class TARDISDevTabComplete extends TARDISCompleter implements TabComplete
                     case "effect" -> partial(lastArg, SHAPE_SUBS);
                     case "screen" -> partial(lastArg, SCREEN_SUBS);
                     case "component" -> partial(lastArg, COMPONENT_SUBS);
-                    default -> throw new IllegalStateException("Unexpected value: " + sub);
+                    default -> ImmutableList.of();
                 };
             }
             case 3 -> {
@@ -140,7 +140,7 @@ public class TARDISDevTabComplete extends TARDISCompleter implements TabComplete
                     case "box" -> partial(lastArg, STATE_SUBS);
                     case "effect" -> partial(lastArg, EFFECT_SUBS);
                     case "rooms" -> partial(lastArg, ROOM_SUBS);
-                    default -> throw new IllegalStateException("Unexpected value: " + sub);
+                    default -> ImmutableList.of();
                 };
             }
             case 4 -> {

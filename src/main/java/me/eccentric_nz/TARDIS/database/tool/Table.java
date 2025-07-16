@@ -52,6 +52,7 @@ public enum Table {
     forcefield("uuid"),
     gardens("garden_id", true),
     gravity_well("g_id", true),
+    happy(true),
     homes(true),
     interactions("i_id", true),
     inventories("id"),

@@ -49,8 +49,10 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
+import org.bukkit.block.data.FaceAttachable;
 import org.bukkit.block.data.type.Farmland;
 import org.bukkit.block.data.type.SeaPickle;
+import org.bukkit.block.data.type.Switch;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Painting;
@@ -737,7 +739,7 @@ public class TARDISRoomRunnable implements Runnable {
                         || room.equals("GEODE") || room.equals("HUTCH") || room.equals("IGLOO")
                         || room.equals("IISTUBIL") || room.equals("MANGROVE") || room.equals("PEN")
                         || room.equals("STALL") || room.equals("BAMBOO") || room.equals("BIRDCAGE")
-                        || room.equals("MAZE") || room.equals("GARDEN"))
+                        || room.equals("MAZE") || room.equals("GARDEN") || room.equals("HAPPY"))
                 ) {
                     HashMap<String, Object> sets = new HashMap<>();
                     sets.put(room.toLowerCase(Locale.ROOT), world.getName() + ":" + startx + ":" + starty + ":" + startz);
@@ -817,6 +819,18 @@ public class TARDISRoomRunnable implements Runnable {
                         }
                     }
                 }
+                if (type.equals(Material.CRIMSON_HYPHAE) && room.equals("HAPPY")) {
+                    // remember happy control
+                    String loc_str = new Location(world, startx, starty, startz).toString();
+                    plugin.getQueryFactory().insertControl(tardis_id, 58, loc_str, 0);
+                    // add block to levers
+                    Block lever = world.getBlockAt(startx, starty, startz);
+                    Switch happyLever = (Switch) Material.LEVER.createBlockData();
+                    happyLever.setAttachedFace(FaceAttachable.AttachedFace.WALL);
+                    happyLever.setFacing(BlockFace.WEST);
+                    happyLever.setPowered(true);
+                    leverblocks.put(lever, happyLever);
+                }
                 if ((type.equals(Material.SOUL_SAND) || type.equals(Material.CARVED_PUMPKIN)) && room.equals("SMELTER")) {
                     String pos = new Location(world, startx, starty, startz).toString();
                     HashMap<String, Object> setsm = new HashMap<>();
@@ -862,7 +876,7 @@ public class TARDISRoomRunnable implements Runnable {
                     torchblocks.put(torch, data);
                     rd.getPostBlocks().add(world.getName() + ":" + startx + ":" + starty + ":" + startz + "~" + data.getAsString());
                 }
-                // remember torches
+                // remember levers
                 if (type.equals(Material.LEVER)) {
                     Block lever = world.getBlockAt(startx, starty, startz);
                     leverblocks.put(lever, data);
