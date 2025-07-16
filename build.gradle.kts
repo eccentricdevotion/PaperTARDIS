@@ -130,8 +130,8 @@ dependencies {
     compileOnly("net.coreprotect:coreprotect:22.4") {
         isTransitive = false
     }
-    compileOnly(files("libs/dynmap-api-3.7-beta-9.jar"))
-    compileOnly(files("libs/DynmapCoreAPI-3.7-beta-9.jar"))
+    compileOnly(files("libs/dynmap-api-3.7-beta-10.jar"))
+    compileOnly(files("libs/DynmapCoreAPI-3.7-beta-10.jar"))
     compileOnly("de.bluecolored:bluemap-api:2.7.4")
     compileOnly("xyz.jpenilla:squaremap-api:1.2.1") {
         isTransitive = false
