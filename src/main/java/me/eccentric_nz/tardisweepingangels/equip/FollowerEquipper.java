@@ -51,6 +51,7 @@ public class FollowerEquipper {
         entity.setCollidable(true);
         // don't remove when far away
         entity.setRemoveWhenFarAway(false);
+        entity.setPersistent(true);
         // don't pick up items
         entity.setCanPickupItems(false);
     }

@@ -50,6 +50,9 @@ public class Equipper {
     }
 
     public void setHelmetAndInvisibility() {
+        // set persistent
+        le.setRemoveWhenFarAway(false);
+        le.setPersistent(true);
         // set custom armour!
         EntityEquipment ee = setArmour(le, monster);
         // set age
