@@ -36,10 +36,7 @@ import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
 import me.eccentric_nz.TARDIS.rooms.eye.EyeOfHarmonyParticles;
 import me.eccentric_nz.TARDIS.rooms.library.LibraryCatalogue;
 import me.eccentric_nz.TARDIS.schematic.getters.DataPackPainting;
-import me.eccentric_nz.TARDIS.schematic.setters.TARDISBannerSetter;
-import me.eccentric_nz.TARDIS.schematic.setters.TARDISItemDisplaySetter;
-import me.eccentric_nz.TARDIS.schematic.setters.TARDISItemFrameSetter;
-import me.eccentric_nz.TARDIS.schematic.setters.TARDISSignSetter;
+import me.eccentric_nz.TARDIS.schematic.setters.*;
 import me.eccentric_nz.TARDIS.utility.*;
 import me.eccentric_nz.tardischunkgenerator.custombiome.BiomeHelper;
 import net.kyori.adventure.text.Component;
@@ -108,6 +105,7 @@ public class TARDISRoomRunnable implements Runnable {
     private final HashMap<Block, BlockFace> mushroomblocks = new HashMap<>();
     private final HashMap<Block, BlockData> eyeBlocks = new HashMap<>();
     private final HashMap<Block, JsonObject> postSignBlocks = new HashMap<>();
+    private final HashMap<Block, JsonObject> pots = new HashMap<>();
     private final HashMap<Block, TARDISBannerData> bannerblocks = new HashMap<>();
     private final BlockFace[] repeaterData = new BlockFace[6];
     private final HashMap<Integer, Integer> repeaterOrder = new HashMap<>();
@@ -272,6 +270,11 @@ public class TARDISRoomRunnable implements Runnable {
                 }
                 if (!postSignBlocks.isEmpty()) {
                     TARDISSignSetter.setSigns(postSignBlocks, plugin, 0);
+                }
+                if (!pots.isEmpty()) {
+                    for (Map.Entry<Block, JsonObject> pot : pots.entrySet()) {
+                        TARDISPotSetter.decorate(plugin, pot.getValue(), pot.getKey());
+                    }
                 }
                 if (!propagules.isEmpty()) {
                     for (Map.Entry<Block, BlockData> prop : propagules.entrySet()) {
@@ -613,6 +616,12 @@ public class TARDISRoomRunnable implements Runnable {
                     Block sign = world.getBlockAt(startx, starty, startz);
                     postSignBlocks.put(sign, v);
                     signblocks.put(sign, data);
+                }
+                if (type.equals(Material.DECORATED_POT)) {
+                    if (v.has("pot")) {
+                        Block pot = world.getBlockAt(startx, starty, startz);
+                        pots.put(pot, v.get("pot").getAsJsonObject());
+                    }
                 }
                 if (type.equals(Material.BEEHIVE) && room.equals("APIARY")) {
                     HashMap<String, Object> seta = new HashMap<>();

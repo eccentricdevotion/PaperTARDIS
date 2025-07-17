@@ -25,11 +25,9 @@ import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.rooms.TARDISPainting;
 import me.eccentric_nz.TARDIS.schematic.getters.DataPackPainting;
-import me.eccentric_nz.TARDIS.schematic.setters.TARDISHeadSetter;
-import me.eccentric_nz.TARDIS.schematic.setters.TARDISItemDisplaySetter;
-import me.eccentric_nz.TARDIS.schematic.setters.TARDISItemFrameSetter;
-import me.eccentric_nz.TARDIS.schematic.setters.TARDISSignSetter;
+import me.eccentric_nz.TARDIS.schematic.setters.*;
 import me.eccentric_nz.TARDIS.utility.TARDISBannerData;
+import me.eccentric_nz.TARDIS.utility.TARDISBlockSetters;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -220,6 +218,15 @@ public class SchematicPaster implements Runnable {
                             }
                         }
                     }
+                }
+                case DECORATED_POT -> {
+                    block.setBlockData(data, true);
+                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                        if (col.has("pot")) {
+                            JsonObject pot = col.get("pot").getAsJsonObject();
+                            TARDISPotSetter.decorate(plugin, pot, block);
+                        }
+                    }, 1L);
                 }
                 default -> {
                     if (Tag.BANNERS.isTagged(data.getMaterial())) {
