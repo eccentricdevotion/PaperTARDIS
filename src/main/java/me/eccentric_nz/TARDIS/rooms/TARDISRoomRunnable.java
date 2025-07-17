@@ -781,6 +781,7 @@ public class TARDISRoomRunnable implements Runnable {
                         case HUTCH, STABLE, STALL, MAZE -> data = Material.GRASS_BLOCK.createBlockData();
                         case BAMBOO, BIRDCAGE -> data = Material.PODZOL.createBlockData();
                         case GEODE -> data = Material.CLAY.createBlockData();
+                        case HAPPY -> data = Material.BLUE_ICE.createBlockData();
                         case IGLOO -> data = Material.PACKED_ICE.createBlockData();
                         case IISTUBIL -> data = Material.TERRACOTTA.createBlockData();
                         case LAVA -> data = Material.NETHERRACK.createBlockData();
