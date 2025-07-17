@@ -71,6 +71,7 @@ public class DalekEquipment {
                 le.setHealth(30.0d);
                 le.setCanPickupItems(false);
                 le.setRemoveWhenFarAway(false);
+                le.setPersistent(true);
             });
         }
     }

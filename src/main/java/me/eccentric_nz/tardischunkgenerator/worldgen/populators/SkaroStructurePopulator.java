@@ -211,6 +211,7 @@ public class SkaroStructurePopulator extends BlockPopulator {
                                 for (int i = 0; i < random.nextInt(3) + 1; i++) {
                                     LivingEntity le = (LivingEntity) limitedRegion.spawnEntity(new Location(null, x, y + 1, z), entityType);
                                     le.setRemoveWhenFarAway(false);
+                                    le.setPersistent(true);
                                     // if more than one, make a baby
                                     if (i > 0) {
                                         ((Ageable) le).setBaby();
