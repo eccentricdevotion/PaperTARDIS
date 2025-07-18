@@ -194,7 +194,7 @@ public class TARDIS extends JavaPlugin {
     public TARDIS() {
         worldGuardOnServer = false;
         invManager = InventoryManager.NONE;
-        versions.put("GriefPrevention", "17.0");
+        versions.put("GriefPrevention", "16.18");
         versions.put("LibsDisguises", "11.0.6");
         versions.put("Multiverse-Core", "5.0");
         versions.put("Multiverse-Inventories", "5.0");
