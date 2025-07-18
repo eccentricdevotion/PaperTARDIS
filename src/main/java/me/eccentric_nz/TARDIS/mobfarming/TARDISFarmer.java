@@ -95,9 +95,8 @@ public class TARDISFarmer {
             default -> l.setX(l.getX() + 1);
         }
         l.setY(l.getY() + 1);
-        // TODO do we need to extend the range of nearby entities to include large happy ghasts?
         // get nearby entities
-        Collection<Entity> mobs = l.getWorld().getNearbyEntities(l, 3.75D, 3.75D, 3.75D);
+        Collection<Entity> mobs = l.getWorld().getNearbyEntities(l, 4.5d, 4.5d, 4.5d);
         List<TARDISPet> pets = new ArrayList<>();
         List<Follower> followers = new ArrayList<>();
         UUID uuid = p.getUniqueId();
@@ -359,7 +358,7 @@ public class TARDISFarmer {
                                     thg.setHome(ghast.getMemory(MemoryKey.HOME));
                                     // get/save leashed boats
                                     Leashable leashed = HappyGhastUtils.getLeashed(ghast);
-                                    if (!HappyGhastUtils.isDockOccupied(TARDISStaticLocationGetters.getLocationFromDB(happy))
+                                    if (HappyGhastUtils.isDockFree(TARDISStaticLocationGetters.getLocationFromDB(happy))
                                             && leashed instanceof Boat boat) {
                                         TARDISBoat tb = new TARDISBoat();
                                         tb.setType(boat.getType());
@@ -1025,8 +1024,8 @@ public class TARDISFarmer {
                         }
                         for (TARDISHappyGhast hg : ghasts) {
                             plugin.setTardisSpawn(true);
-                            if (!HappyGhastUtils.isDockOccupied(ghast_dock)) {
-                                Entity ghast = world.spawnEntity(ghast_dock.add(0, 1.75d, 0), EntityType.HAPPY_GHAST);
+                            if (HappyGhastUtils.isDockFree(ghast_dock)) {
+                                Entity ghast = world.spawnEntity(ghast_dock.clone().add(0, 1.75d, 0), EntityType.HAPPY_GHAST);
                                 HappyGhast skies = (HappyGhast) ghast;
                                 skies.setAge(hg.getAge());
                                 if (hg.isBaby()) {
@@ -1042,7 +1041,7 @@ public class TARDISFarmer {
                                 }
                                 if (hg.getBoat() != null) {
                                     TARDISBoat tb = hg.getBoat();
-                                    Entity boat = world.spawnEntity(ghast_dock.add(0, -1.5d, 0), tb.getType());
+                                    Entity boat = world.spawnEntity(ghast_dock, tb.getType());
                                     if (boat instanceof ChestBoat chested) {
                                         chested.getInventory().setContents(tb.getItems());
                                     }
@@ -1055,11 +1054,12 @@ public class TARDISFarmer {
                                 // leash an extra
                                 int slot = HappyGhastUtils.nextFreeSlot(plugin, id);
                                 if (slot != -1) {
+                                    // update the slot record
+                                    HappyGhastUtils.setSlotOccupied(plugin, slot, id);
+                                    // get the leash location
                                     Pair<Vector, BlockFace> pair = HappyLocations.VECTORS.get(slot);
                                     Location possible = ghast_dock.clone().add(pair.getFirst());
                                     HappyGhastUtils.setLeashed(possible, hg, pair.getSecond());
-                                    // update the slot record
-                                    HappyGhastUtils.setSlotOccupied(slot);
                                 }
                             }
                         }

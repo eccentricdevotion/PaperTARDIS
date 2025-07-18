@@ -70,7 +70,7 @@ public class HappyGhastUtils {
         slime.setSize(0);
         PersistentDataContainer pdc = slime.getPersistentDataContainer();
         String harness = "";
-        if (happy.getHarness() != null) {
+        if (happy.getHarness().getType().toString().endsWith("HARNESS")) {
             String h = happy.getHarness().getType().toString();
             harness = h.replace("HARNESS", "DYE");
             TARDIS.plugin.debug(harness);
@@ -87,7 +87,7 @@ public class HappyGhastUtils {
             pdc.set(NAME, PersistentDataType.STRING, name);
         }
         slime.setAI(false);
-        slime.setInvisible(true);
+//        slime.setInvisible(true);
         slime.setInvulnerable(true);
         ItemDisplay display = fence.getWorld().spawn(fence.getBlock().getRelative(BlockFace.NORTH).getLocation(), ItemDisplay.class);
         ItemStack dried = new ItemStack(Material.DRIED_GHAST);
@@ -104,13 +104,13 @@ public class HappyGhastUtils {
         slime.setLeashHolder(leashHitch);
     }
 
-    public static boolean isDockOccupied(Location dock) {
+    public static boolean isDockFree(Location dock) {
         for (Entity e : dock.getWorld().getNearbyEntities(dock, 8, 8, 8)) {
             if (e instanceof HappyGhast) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public static int getFreeSlotCount(TARDIS plugin, int id) {
@@ -129,7 +129,16 @@ public class HappyGhastUtils {
         return -1;
     }
 
-    public static void setSlotOccupied(int slot) {
-        // TODO
+    public static void setSlotOccupied(TARDIS plugin, int slot, int id) {
+        ResultSetHappy rs = new ResultSetHappy(plugin);
+        if (rs.fromId(id)) {
+            String[] slots = rs.getSlots().split(",");
+            slots[slot] = "1";
+            HashMap<String, Object> set = new HashMap<>();
+            set.put("slots", String.join(",", slots));
+            HashMap<String, Object> where = new HashMap<>();
+            where.put("tardis_id", id);
+            plugin.getQueryFactory().doSyncUpdate("happy", set, where);
+        }
     }
 }

@@ -64,19 +64,19 @@ public class TARDISLeashListener implements Listener {
         // set the entity's direction as you would for a player when exiting
         switch (dl.getD()) {
             case NORTH -> {
-                l.setZ(l.getZ() + 2.5f);
+                l.setZ(l.getZ() + 4.5f);
                 l.setYaw(0.0f);
             }
             case WEST -> {
-                l.setX(l.getX() + 2.5f);
+                l.setX(l.getX() + 4.5f);
                 l.setYaw(270.0f);
             }
             case SOUTH -> {
-                l.setZ(l.getZ() - 2.5f);
+                l.setZ(l.getZ() - 4.5f);
                 l.setYaw(180.0f);
             }
             default -> {
-                l.setX(l.getX() - 2.5f);
+                l.setX(l.getX() - 4.5f);
                 l.setYaw(90.0f);
             }
         }
@@ -98,18 +98,12 @@ public class TARDISLeashListener implements Listener {
                 skies.customName(Component.text(name));
             }
         }
-        // remove the baby ghast
-        slime.remove();
-        slime.eject();
-        // remove the text display
-        if (!passenger.getPassengers().isEmpty()) {
-            Entity text = passenger.getPassengers().getFirst();
-            if (text != null) {
-                passenger.removePassenger(text);
-                text.remove();
-            }
+        // remove the passengers
+        for (Entity p : slime.getPassengers()) {
+            slime.removePassenger(p);
+            p.remove();
         }
-        // remove the passenger
-        passenger.remove();
+        // remove the (dried ghast) slime
+        slime.remove();
     }
 }
