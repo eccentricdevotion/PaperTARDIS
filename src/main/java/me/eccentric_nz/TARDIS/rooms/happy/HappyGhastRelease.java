@@ -11,6 +11,7 @@ import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.type.Switch;
 import org.bukkit.entity.*;
 import org.bukkit.entity.memory.MemoryKey;
 import org.bukkit.inventory.EquipmentSlot;
@@ -27,6 +28,11 @@ public class HappyGhastRelease {
     }
 
     public void undock(Block block, int id, Player player) {
+        // only if unpowering the lever
+        // TODO check as lever may already be toggled?
+        if (block.getBlockData() instanceof Switch lever && !lever.isPowered()) {
+            return;
+        }
         // find the happy ghast
         for (Entity e : block.getWorld().getNearbyEntities(block.getLocation(), 10, 10, 10)) {
             if (e instanceof HappyGhast ghast) {

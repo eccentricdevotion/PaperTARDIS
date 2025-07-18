@@ -8,10 +8,7 @@ import me.eccentric_nz.TARDIS.travel.TARDISDoorLocation;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.HappyGhast;
-import org.bukkit.entity.ItemDisplay;
-import org.bukkit.entity.Slime;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerUnleashEntityEvent;
@@ -104,6 +101,15 @@ public class TARDISLeashListener implements Listener {
         // remove the baby ghast
         slime.remove();
         slime.eject();
+        // remove the text display
+        if (!passenger.getPassengers().isEmpty()) {
+            Entity text = passenger.getPassengers().getFirst();
+            if (text != null) {
+                passenger.removePassenger(text);
+                text.remove();
+            }
+        }
+        // remove the passenger
         passenger.remove();
     }
 }

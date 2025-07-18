@@ -1026,7 +1026,7 @@ public class TARDISFarmer {
                         for (TARDISHappyGhast hg : ghasts) {
                             plugin.setTardisSpawn(true);
                             if (!HappyGhastUtils.isDockOccupied(ghast_dock)) {
-                                Entity ghast = world.spawnEntity(ghast_dock, EntityType.HAPPY_GHAST);
+                                Entity ghast = world.spawnEntity(ghast_dock.add(0, 1.75d, 0), EntityType.HAPPY_GHAST);
                                 HappyGhast skies = (HappyGhast) ghast;
                                 skies.setAge(hg.getAge());
                                 if (hg.isBaby()) {
@@ -1042,7 +1042,7 @@ public class TARDISFarmer {
                                 }
                                 if (hg.getBoat() != null) {
                                     TARDISBoat tb = hg.getBoat();
-                                    Entity boat = world.spawnEntity(ghast_dock, tb.getType());
+                                    Entity boat = world.spawnEntity(ghast_dock.add(0, -1.5d, 0), tb.getType());
                                     if (boat instanceof ChestBoat chested) {
                                         chested.getInventory().setContents(tb.getItems());
                                     }
@@ -1058,6 +1058,8 @@ public class TARDISFarmer {
                                     Pair<Vector, BlockFace> pair = HappyLocations.VECTORS.get(slot);
                                     Location possible = ghast_dock.clone().add(pair.getFirst());
                                     HappyGhastUtils.setLeashed(possible, hg, pair.getSecond());
+                                    // update the slot record
+                                    HappyGhastUtils.setSlotOccupied(slot);
                                 }
                             }
                         }

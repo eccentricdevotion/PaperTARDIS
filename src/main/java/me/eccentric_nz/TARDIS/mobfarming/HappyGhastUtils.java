@@ -66,13 +66,14 @@ public class HappyGhastUtils {
     public static void setLeashed(Location fence, TARDISHappyGhast happy, BlockFace face) {
         LeashHitch leashHitch = fence.getWorld().spawn(fence, LeashHitch.class);
         leashHitch.setFacingDirection(face);
-        Slime slime = fence.getWorld().spawn(fence.getBlock().getRelative(face).getLocation(), Slime.class);
+        Slime slime = fence.getWorld().spawn(fence.getBlock().getRelative(face).getLocation().add(0.5,0.5,0.5), Slime.class);
         slime.setSize(0);
         PersistentDataContainer pdc = slime.getPersistentDataContainer();
         String harness = "";
         if (happy.getHarness() != null) {
             String h = happy.getHarness().getType().toString();
             harness = h.replace("HARNESS", "DYE");
+            TARDIS.plugin.debug(harness);
             pdc.set(HARNESS, PersistentDataType.STRING, h);
         }
         pdc.set(BABY, PersistentDataType.BOOLEAN, happy.isBaby());
@@ -99,6 +100,7 @@ public class HappyGhastUtils {
             text.setBillboard(Display.Billboard.VERTICAL);
             slime.addPassenger(text);
         }
+        // TODO check this - even if the method returns true - the leash doesn't seem to appear - maybe leashHitch is null?
         slime.setLeashHolder(leashHitch);
     }
 
@@ -125,5 +127,9 @@ public class HappyGhastUtils {
             return rs.getAvailableIndex();
         }
         return -1;
+    }
+
+    public static void setSlotOccupied(int slot) {
+        // TODO
     }
 }
