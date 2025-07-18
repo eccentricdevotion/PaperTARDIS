@@ -26,6 +26,7 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItemUtils;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetFarming;
+import me.eccentric_nz.TARDIS.database.resultset.ResultSetHappy;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisTimeLordName;
 import me.eccentric_nz.TARDIS.enumeration.Room;
@@ -833,6 +834,20 @@ public class TARDISRoomRunnable implements Runnable {
                     // remember happy control
                     String loc_str = new Location(world, startx, starty, startz).toString();
                     plugin.getQueryFactory().insertControl(tardis_id, 58, loc_str, 0);
+                    // should we add a happy table record?
+                    ResultSetHappy rsh = new ResultSetHappy(plugin);
+                    HashMap<String, Object> set = new HashMap<>();
+                    if (rsh.fromId(tardis_id)) {
+                        // update record
+                        set.put("slots", "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
+                        HashMap<String, Object> where = new HashMap<>();
+                        where.put("tardis_id", tardis_id);
+                        plugin.getQueryFactory().doUpdate("happy", set, where);
+                    } else {
+                        // add new record
+                        set.put("tardis_id", tardis_id);
+                        plugin.getQueryFactory().doInsert("happy", set);
+                    }
                     // add block to levers
                     Block lever = world.getBlockAt(startx, starty, startz);
                     Switch happyLever = (Switch) Material.LEVER.createBlockData();
