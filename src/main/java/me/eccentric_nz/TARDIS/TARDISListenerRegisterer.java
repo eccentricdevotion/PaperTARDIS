@@ -77,6 +77,7 @@ import me.eccentric_nz.TARDIS.lights.*;
 import me.eccentric_nz.TARDIS.listeners.*;
 import me.eccentric_nz.TARDIS.listeners.controls.*;
 import me.eccentric_nz.TARDIS.mobfarming.TARDISFarmingMenuListener;
+import me.eccentric_nz.TARDIS.mobfarming.TARDISLeashListener;
 import me.eccentric_nz.TARDIS.move.TARDISAnyoneDoorListener;
 import me.eccentric_nz.TARDIS.move.TARDISAnyoneMoveListener;
 import me.eccentric_nz.TARDIS.move.TARDISDoorWalkListener;
@@ -251,6 +252,7 @@ class TARDISListenerRegisterer {
         plugin.getPM().registerEvents(new TARDISJunkControlListener(plugin), plugin);
         plugin.getPM().registerEvents(new TARDISKeyboardListener(plugin), plugin);
         plugin.getPM().registerEvents(new TARDISKeyMenuListener(plugin), plugin);
+        plugin.getPM().registerEvents(new TARDISLeashListener(plugin), plugin);
         plugin.getPM().registerEvents(new TARDISLightningListener(plugin), plugin);
         // lights GUI
         plugin.getPM().registerEvents(new TARDISLightsGUIListener(plugin), plugin);

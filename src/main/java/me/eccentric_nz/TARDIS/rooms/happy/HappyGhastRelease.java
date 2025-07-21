@@ -29,7 +29,6 @@ public class HappyGhastRelease {
 
     public void undock(Block block, int id, Player player) {
         // only if unpowering the lever
-        // TODO check as lever may already be toggled?
         if (block.getBlockData() instanceof Switch lever && !lever.isPowered()) {
             return;
         }
@@ -100,7 +99,8 @@ public class HappyGhastRelease {
                 // teleport passengers
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                     for (Entity p : passengers) {
-                        p.teleport(ghast.getLocation().clone().add(0, 4, 0));
+                        ghast.removePassenger(p);
+                        p.teleport(skies.getLocation().clone().add(0, 4, 0));
                         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> ghast.addPassenger(p), 2L);
                         // remove player from travellers table
                         HashMap<String, Object> where = new HashMap<>();

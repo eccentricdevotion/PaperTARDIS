@@ -37,10 +37,7 @@ import me.eccentric_nz.TARDIS.utility.TARDISMultiverseInventoriesChecker;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.tardisweepingangels.utils.FollowerChecker;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.block.BlockFace;
@@ -364,8 +361,10 @@ public class TARDISFarmer {
                                         tb.setType(boat.getType());
                                         if (boat instanceof ChestBoat chested) {
                                             tb.setItems(chested.getInventory().getContents());
+                                            chested.getInventory().clear();
                                         }
                                         thg.setBoat(tb);
+                                        boat.setLeashHolder(null);
                                         boat.remove();
                                     }
                                     if (leashed != null) {
@@ -1018,7 +1017,7 @@ public class TARDISFarmer {
                     if (!happy.isEmpty()) {
                         // get location of happy ghast dock room
                         World world = TARDISStaticLocationGetters.getWorldFromSplitString(happy);
-                        Location ghast_dock = TARDISStaticLocationGetters.getSpawnLocationFromDB(happy);
+                        Location ghast_dock = TARDISStaticLocationGetters.getLocationFromDB(happy);
                         while (!world.getChunkAt(ghast_dock).isLoaded()) {
                             world.getChunkAt(ghast_dock).load();
                         }
@@ -1046,7 +1045,7 @@ public class TARDISFarmer {
                                         chested.getInventory().setContents(tb.getItems());
                                     }
                                     Leashable leashable = (Leashable) boat;
-                                    leashable.setLeashHolder(skies);
+                                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> leashable.setLeashHolder(skies), 2L);
                                 }
                                 skies.setMemory(MemoryKey.HOME, hg.getHome());
                                 skies.setRemoveWhenFarAway(false);
@@ -1059,6 +1058,8 @@ public class TARDISFarmer {
                                     // get the leash location
                                     Pair<Vector, BlockFace> pair = HappyLocations.VECTORS.get(slot);
                                     Location possible = ghast_dock.clone().add(pair.getFirst());
+                                    hg.setTardis_id(id);
+                                    hg.setSlotIndex(slot);
                                     HappyGhastUtils.setLeashed(possible, hg, pair.getSecond());
                                 }
                             }

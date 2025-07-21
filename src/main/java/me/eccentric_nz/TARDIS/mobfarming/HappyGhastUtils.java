@@ -25,6 +25,8 @@ public class HappyGhastUtils {
     public static NamespacedKey HEALTH = new NamespacedKey(TARDIS.plugin, "happy_ghast_health");
     public static NamespacedKey HOME = new NamespacedKey(TARDIS.plugin, "happy_ghast_home");
     public static NamespacedKey NAME = new NamespacedKey(TARDIS.plugin, "happy_ghast_name");
+    public static NamespacedKey ID = new NamespacedKey(TARDIS.plugin, "happy_ghast_id");
+    public static NamespacedKey SLOT = new NamespacedKey(TARDIS.plugin, "happy_ghast_slot");
     private static final HashMap<String, Color> COLOURS = new HashMap<>();
 
     static {
@@ -49,7 +51,7 @@ public class HappyGhastUtils {
     public static Leashable getLeashed(Entity happy) {
         Location gl = happy.getLocation().clone().add(0, -4, 0);
         UUID hg = happy.getUniqueId();
-        for (Entity h : gl.getNearbyEntities(2, 2, 2)) {
+        for (Entity h : gl.getNearbyEntities(4, 4, 4)) {
             if (h instanceof Leashable leashable) {
                 try {
                     Entity holder = leashable.getLeashHolder();
@@ -66,14 +68,15 @@ public class HappyGhastUtils {
     public static void setLeashed(Location fence, TARDISHappyGhast happy, BlockFace face) {
         LeashHitch leashHitch = fence.getWorld().spawn(fence, LeashHitch.class);
         leashHitch.setFacingDirection(face);
-        Slime slime = fence.getWorld().spawn(fence.getBlock().getRelative(face).getLocation().add(0.5,0.5,0.5), Slime.class);
+        Slime slime = fence.getWorld().spawn(fence.getBlock().getRelative(face).getLocation().add(0.5, 0.5, 0.5), Slime.class);
         slime.setSize(0);
         PersistentDataContainer pdc = slime.getPersistentDataContainer();
+        pdc.set(ID, PersistentDataType.INTEGER, happy.getTardis_id());
+        pdc.set(SLOT, PersistentDataType.INTEGER, happy.getSlotIndex());
         String harness = "";
         if (happy.getHarness().getType().toString().endsWith("HARNESS")) {
             String h = happy.getHarness().getType().toString();
             harness = h.replace("HARNESS", "DYE");
-            TARDIS.plugin.debug(harness);
             pdc.set(HARNESS, PersistentDataType.STRING, h);
         }
         pdc.set(BABY, PersistentDataType.BOOLEAN, happy.isBaby());
@@ -87,7 +90,7 @@ public class HappyGhastUtils {
             pdc.set(NAME, PersistentDataType.STRING, name);
         }
         slime.setAI(false);
-//        slime.setInvisible(true);
+        slime.setInvisible(true);
         slime.setInvulnerable(true);
         ItemDisplay display = fence.getWorld().spawn(fence.getBlock().getRelative(BlockFace.NORTH).getLocation(), ItemDisplay.class);
         ItemStack dried = new ItemStack(Material.DRIED_GHAST);
@@ -100,8 +103,7 @@ public class HappyGhastUtils {
             text.setBillboard(Display.Billboard.VERTICAL);
             slime.addPassenger(text);
         }
-        // TODO check this - even if the method returns true - the leash doesn't seem to appear - maybe leashHitch is null?
-        slime.setLeashHolder(leashHitch);
+        TARDIS.plugin.getServer().getScheduler().scheduleSyncDelayedTask(TARDIS.plugin, () -> slime.setLeashHolder(leashHitch), 2L);
     }
 
     public static boolean isDockFree(Location dock) {
@@ -134,6 +136,19 @@ public class HappyGhastUtils {
         if (rs.fromId(id)) {
             String[] slots = rs.getSlots().split(",");
             slots[slot] = "1";
+            HashMap<String, Object> set = new HashMap<>();
+            set.put("slots", String.join(",", slots));
+            HashMap<String, Object> where = new HashMap<>();
+            where.put("tardis_id", id);
+            plugin.getQueryFactory().doSyncUpdate("happy", set, where);
+        }
+    }
+
+    public static void setSlotUnoccupied(TARDIS plugin, int slot, int id) {
+        ResultSetHappy rs = new ResultSetHappy(plugin);
+        if (rs.fromId(id)) {
+            String[] slots = rs.getSlots().split(",");
+            slots[slot] = "0";
             HashMap<String, Object> set = new HashMap<>();
             set.put("slots", String.join(",", slots));
             HashMap<String, Object> where = new HashMap<>();

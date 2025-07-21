@@ -42,14 +42,16 @@ public class TARDISLeashListener implements Listener {
         if (slime.getPassengers().isEmpty()) {
             return;
         }
-        if (!(slime.getPassengers().getFirst() instanceof ItemDisplay passenger)) {
+        if (!(slime.getPassengers().getFirst() instanceof ItemDisplay)) {
             return;
         }
         PersistentDataContainer pdc = slime.getPersistentDataContainer();
-        if (!pdc.has(HappyGhastUtils.AGE)) {
+        if (!pdc.has(HappyGhastUtils.SLOT, PersistentDataType.INTEGER) || !pdc.has(HappyGhastUtils.ID, PersistentDataType.INTEGER)) {
             return;
         }
         event.setDropLeash(false);
+        // get slot
+        HappyGhastUtils.setSlotUnoccupied(plugin, pdc.get(HappyGhastUtils.SLOT, PersistentDataType.INTEGER), pdc.get(HappyGhastUtils.ID, PersistentDataType.INTEGER));
         // get the TARDIS the event occurred in
         HashMap<String, Object> where = new HashMap<>();
         where.put("uuid", event.getPlayer().getUniqueId().toString());
