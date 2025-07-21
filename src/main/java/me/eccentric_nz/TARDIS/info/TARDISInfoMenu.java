@@ -255,6 +255,7 @@ public enum TARDISInfoMenu {
     GEODE("TIS|Rooms|Geode", "ROOMS", "eo"),
     GRAVITY("TIS|Rooms|Gravity", "ROOMS", "G"),
     GREENHOUSE("TIS|Rooms|Greenhouse", "ROOMS", "n"),
+    HAPPY("TIS|Rooms|Happy", "ROOMS", "y"),
     HARMONY("TIS|Rooms|Harmony", "ROOMS", "H"),
     HUTCH("TIS|Rooms|Hutch", "ROOMS", "ut"),
     IGLOO("TIS|Rooms|Igloo", "ROOMS", "gl"),
@@ -666,7 +667,7 @@ public enum TARDISInfoMenu {
     public boolean isRoom() {
         switch (this) {
             case ALLAY, ANTIGRAVITY, APIARY, AQUARIUM, ARBORETUM, BAKER, BAMBOO, BEDROOM, BIRDCAGE, CHEMISTRY, EMPTY, EYE,
-                    FARM, GARDEN, GEODE, GRAVITY, GREENHOUSE, HARMONY, HUTCH, IGLOO, IISTUBIL, KITCHEN, LAZARUS, LAVA,
+                    FARM, GARDEN, GEODE, GRAVITY, GREENHOUSE, HAPPY, HARMONY, HUTCH, IGLOO, IISTUBIL, KITCHEN, LAZARUS, LAVA,
                     LIBRARY, MANGROVE, MAZE, MUSHROOM, NETHER, OBSERVATORY, PASSAGE, PEN, POOL, RAIL, RENDERER, SHELL, SMELTER, STABLE,
                     STALL, SURGERY, TRENZALORE, VAULT, VILLAGE, WOOD, WORKSHOP, ZERO -> {
                 return true;

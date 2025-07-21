@@ -46,6 +46,8 @@ public class TARDISUpdateableChecker {
             Updateable.BIRDCAGE,
             Updateable.FARM,
             Updateable.FUEL,
+            Updateable.HAPPY,
+            Updateable.HAPPY_GHAST_DOCK_LEVER,
             Updateable.HUTCH,
             Updateable.IGLOO,
             Updateable.IISTUBIL,
@@ -99,6 +101,7 @@ public class TARDISUpdateableChecker {
         boolean hasBamboo = false;
         boolean hasBirdcage = false;
         boolean hasFarm = false;
+        boolean hasHappy = false;
         boolean hasHutch = false;
         boolean hasIgloo = false;
         boolean hasIistubil = false;
@@ -125,6 +128,7 @@ public class TARDISUpdateableChecker {
                                 case "BAMBOO" -> hasBamboo = true;
                                 case "YELLOW_GLAZED_TERRACOTTA" -> hasBirdcage = true;
                                 case "DIRT" -> hasFarm = true;
+                                case "STRIPPED_OAK_LOG" -> hasHappy = true;
                                 case "ACACIA_LOG" -> hasHutch = true;
                                 case "PACKED_ICE" -> hasIgloo = true;
                                 case "MOSS_BLOCK" -> hasPen = true;
@@ -167,8 +171,9 @@ public class TARDISUpdateableChecker {
         }
         if (updateable.equals(Updateable.FARM) || updateable.equals(Updateable.IGLOO) || updateable.equals(Updateable.STABLE)
                 || updateable.equals(Updateable.STALL) || updateable.equals(Updateable.VILLAGE) || updateable.equals(Updateable.IISTUBIL)
-                || updateable.equals(Updateable.HUTCH) || updateable.equals(Updateable.LAVA) || updateable.equals(Updateable.PEN)
-                || updateable.equals(Updateable.BAMBOO) || updateable.equals(Updateable.BIRDCAGE) || updateable.equals(Updateable.ALLAY)) {
+                || updateable.equals(Updateable.HAPPY) || updateable.equals(Updateable.HAPPY_GHAST_DOCK_LEVER) || updateable.equals(Updateable.HUTCH)
+                || updateable.equals(Updateable.LAVA) || updateable.equals(Updateable.PEN) || updateable.equals(Updateable.BAMBOO)
+                || updateable.equals(Updateable.BIRDCAGE) || updateable.equals(Updateable.ALLAY)) {
             if (!TARDISPermission.hasPermission(player, "tardis.farm")) {
                 plugin.getMessenger().send(player, TardisModule.TARDIS, "UPDATE_NO_PERM", tardis_block);
                 return false;
@@ -198,6 +203,10 @@ public class TARDISUpdateableChecker {
                     return false;
                 }
                 if (updateable.equals(Updateable.PEN) && farming.pen().isEmpty() && !hasPen) {
+                    plugin.getMessenger().send(player, TardisModule.TARDIS, "UPDATE_ROOM", tardis_block);
+                    return false;
+                }
+                if ((updateable.equals(Updateable.HAPPY) || updateable.equals(Updateable.HAPPY_GHAST_DOCK_LEVER)) && farming.happy().isEmpty() && !hasHappy) {
                     plugin.getMessenger().send(player, TardisModule.TARDIS, "UPDATE_ROOM", tardis_block);
                     return false;
                 }

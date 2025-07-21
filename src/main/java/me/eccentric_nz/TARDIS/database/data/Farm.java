@@ -20,7 +20,7 @@ package me.eccentric_nz.TARDIS.database.data;
  * @author eccentric_nz
  */
 public record Farm(int tardis_id, String allay, String apiary, String aquarium, String bamboo, String birdcage,
-                   String farm, String geode, String hutch, String igloo, String iistubil, String lava, String mangrove,
+                   String farm, String geode, String happy, String hutch, String igloo, String iistubil, String lava, String mangrove,
                    String pen, String stable, String stall, String village) {
 
     /**
@@ -108,6 +108,17 @@ public record Farm(int tardis_id, String allay, String apiary, String aquarium, 
     @Override
     public String geode() {
         return geode;
+    }
+
+    /**
+     * Returns a String representation of the Happy room Happy Ghast spawn location in this TARDIS. It is in the form of
+     * {@code World name:x:y:z}
+     *
+     * @return the Happy room Hapopy Ghast spawn location string, or an empty string if the room does not exist
+     */
+    @Override
+    public String happy() {
+        return happy;
     }
 
     /**

@@ -26,6 +26,7 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItemUtils;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetFarming;
+import me.eccentric_nz.TARDIS.database.resultset.ResultSetHappy;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisTimeLordName;
 import me.eccentric_nz.TARDIS.enumeration.Room;
@@ -36,10 +37,7 @@ import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
 import me.eccentric_nz.TARDIS.rooms.eye.EyeOfHarmonyParticles;
 import me.eccentric_nz.TARDIS.rooms.library.LibraryCatalogue;
 import me.eccentric_nz.TARDIS.schematic.getters.DataPackPainting;
-import me.eccentric_nz.TARDIS.schematic.setters.TARDISBannerSetter;
-import me.eccentric_nz.TARDIS.schematic.setters.TARDISItemDisplaySetter;
-import me.eccentric_nz.TARDIS.schematic.setters.TARDISItemFrameSetter;
-import me.eccentric_nz.TARDIS.schematic.setters.TARDISSignSetter;
+import me.eccentric_nz.TARDIS.schematic.setters.*;
 import me.eccentric_nz.TARDIS.utility.*;
 import me.eccentric_nz.tardischunkgenerator.custombiome.BiomeHelper;
 import net.kyori.adventure.text.Component;
@@ -49,8 +47,10 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
+import org.bukkit.block.data.FaceAttachable;
 import org.bukkit.block.data.type.Farmland;
 import org.bukkit.block.data.type.SeaPickle;
+import org.bukkit.block.data.type.Switch;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.Painting;
@@ -106,6 +106,7 @@ public class TARDISRoomRunnable implements Runnable {
     private final HashMap<Block, BlockFace> mushroomblocks = new HashMap<>();
     private final HashMap<Block, BlockData> eyeBlocks = new HashMap<>();
     private final HashMap<Block, JsonObject> postSignBlocks = new HashMap<>();
+    private final HashMap<Block, JsonObject> pots = new HashMap<>();
     private final HashMap<Block, TARDISBannerData> bannerblocks = new HashMap<>();
     private final BlockFace[] repeaterData = new BlockFace[6];
     private final HashMap<Integer, Integer> repeaterOrder = new HashMap<>();
@@ -270,6 +271,11 @@ public class TARDISRoomRunnable implements Runnable {
                 }
                 if (!postSignBlocks.isEmpty()) {
                     TARDISSignSetter.setSigns(postSignBlocks, plugin, 0);
+                }
+                if (!pots.isEmpty()) {
+                    for (Map.Entry<Block, JsonObject> pot : pots.entrySet()) {
+                        TARDISPotSetter.decorate(plugin, pot.getValue(), pot.getKey());
+                    }
                 }
                 if (!propagules.isEmpty()) {
                     for (Map.Entry<Block, BlockData> prop : propagules.entrySet()) {
@@ -612,6 +618,12 @@ public class TARDISRoomRunnable implements Runnable {
                     postSignBlocks.put(sign, v);
                     signblocks.put(sign, data);
                 }
+                if (type.equals(Material.DECORATED_POT)) {
+                    if (v.has("pot")) {
+                        Block pot = world.getBlockAt(startx, starty, startz);
+                        pots.put(pot, v.get("pot").getAsJsonObject());
+                    }
+                }
                 if (type.equals(Material.BEEHIVE) && room.equals("APIARY")) {
                     HashMap<String, Object> seta = new HashMap<>();
                     seta.put("apiary", world.getName() + ":" + startx + ":" + (starty + 1) + ":" + startz);
@@ -737,7 +749,7 @@ public class TARDISRoomRunnable implements Runnable {
                         || room.equals("GEODE") || room.equals("HUTCH") || room.equals("IGLOO")
                         || room.equals("IISTUBIL") || room.equals("MANGROVE") || room.equals("PEN")
                         || room.equals("STALL") || room.equals("BAMBOO") || room.equals("BIRDCAGE")
-                        || room.equals("MAZE") || room.equals("GARDEN"))
+                        || room.equals("MAZE") || room.equals("GARDEN") || room.equals("HAPPY"))
                 ) {
                     HashMap<String, Object> sets = new HashMap<>();
                     sets.put(room.toLowerCase(Locale.ROOT), world.getName() + ":" + startx + ":" + starty + ":" + startz);
@@ -770,6 +782,7 @@ public class TARDISRoomRunnable implements Runnable {
                         case HUTCH, STABLE, STALL, MAZE -> data = Material.GRASS_BLOCK.createBlockData();
                         case BAMBOO, BIRDCAGE -> data = Material.PODZOL.createBlockData();
                         case GEODE -> data = Material.CLAY.createBlockData();
+                        case HAPPY -> data = Material.BLUE_ICE.createBlockData();
                         case IGLOO -> data = Material.PACKED_ICE.createBlockData();
                         case IISTUBIL -> data = Material.TERRACOTTA.createBlockData();
                         case LAVA -> data = Material.NETHERRACK.createBlockData();
@@ -817,6 +830,32 @@ public class TARDISRoomRunnable implements Runnable {
                         }
                     }
                 }
+                if (type.equals(Material.CRIMSON_HYPHAE) && room.equals("HAPPY")) {
+                    // remember happy control
+                    String loc_str = new Location(world, startx, starty, startz).toString();
+                    plugin.getQueryFactory().insertControl(tardis_id, 58, loc_str, 0);
+                    // should we add a happy table record?
+                    ResultSetHappy rsh = new ResultSetHappy(plugin);
+                    HashMap<String, Object> set = new HashMap<>();
+                    if (rsh.fromId(tardis_id)) {
+                        // update record
+                        set.put("slots", "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0");
+                        HashMap<String, Object> where = new HashMap<>();
+                        where.put("tardis_id", tardis_id);
+                        plugin.getQueryFactory().doUpdate("happy", set, where);
+                    } else {
+                        // add new record
+                        set.put("tardis_id", tardis_id);
+                        plugin.getQueryFactory().doInsert("happy", set);
+                    }
+                    // add block to levers
+                    Block lever = world.getBlockAt(startx, starty, startz);
+                    Switch happyLever = (Switch) Material.LEVER.createBlockData();
+                    happyLever.setAttachedFace(FaceAttachable.AttachedFace.WALL);
+                    happyLever.setFacing(BlockFace.WEST);
+                    happyLever.setPowered(true);
+                    leverblocks.put(lever, happyLever);
+                }
                 if ((type.equals(Material.SOUL_SAND) || type.equals(Material.CARVED_PUMPKIN)) && room.equals("SMELTER")) {
                     String pos = new Location(world, startx, starty, startz).toString();
                     HashMap<String, Object> setsm = new HashMap<>();
@@ -862,7 +901,7 @@ public class TARDISRoomRunnable implements Runnable {
                     torchblocks.put(torch, data);
                     rd.getPostBlocks().add(world.getName() + ":" + startx + ":" + starty + ":" + startz + "~" + data.getAsString());
                 }
-                // remember torches
+                // remember levers
                 if (type.equals(Material.LEVER)) {
                     Block lever = world.getBlockAt(startx, starty, startz);
                     leverblocks.put(lever, data);

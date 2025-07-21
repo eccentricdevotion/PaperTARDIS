@@ -924,6 +924,14 @@ public class TARDISFullThemeRunnable extends TARDISThemeRunnable {
                             }
                         }
                     }
+                } else if (type.equals(Material.DECORATED_POT)) {
+                    TARDISBlockSetters.setBlock(world, x, y, z, data);
+                    plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                        if (bb.has("pot")) {
+                            JsonObject pot = bb.get("pot").getAsJsonObject();
+                            TARDISPotSetter.decorate(plugin, pot, b);
+                        }
+                    }, 1L);
                 } else if (MaterialTags.INFESTED_BLOCKS.isTagged(type)) {
                     // legacy monster egg stone for controls
                     TARDISBlockSetters.setBlock(world, x, y, z, Material.AIR);

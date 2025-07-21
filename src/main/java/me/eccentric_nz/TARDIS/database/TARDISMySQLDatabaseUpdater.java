@@ -128,6 +128,7 @@ class TARDISMySQLDatabaseUpdater {
         farmingupdates.add("apiary varchar(512) DEFAULT ''");
         farmingupdates.add("bamboo varchar(512) DEFAULT ''");
         farmingupdates.add("geode varchar(512) DEFAULT ''");
+        farmingupdates.add("happy varchar(512) DEFAULT ''");
         farmingupdates.add("lava varchar(512) DEFAULT ''");
         farmingupdates.add("mangrove varchar(512) DEFAULT ''");
         farmingupdates.add("iistubil varchar(512) DEFAULT ''");
@@ -376,6 +377,14 @@ class TARDISMySQLDatabaseUpdater {
                 i++;
                 String vct_alter = "ALTER TABLE " + prefix + "vaults ADD chest_type varchar(8) DEFAULT 'DROP'";
                 statement.executeUpdate(vct_alter);
+            }
+            // add happy to farming_prefs
+            String happy_query = "SHOW COLUMNS FROM " + prefix + "farming_prefs LIKE 'happy'";
+            ResultSet rshappy = statement.executeQuery(happy_query);
+            if (!rshappy.next()) {
+                i++;
+                String happy_alter = "ALTER TABLE " + prefix + "farming_prefs ADD happy int(1) DEFAULT '1'";
+                statement.executeUpdate(happy_alter);
             }
             // add y to archive
             String y_query = "SHOW COLUMNS FROM " + prefix + "archive LIKE 'y'";

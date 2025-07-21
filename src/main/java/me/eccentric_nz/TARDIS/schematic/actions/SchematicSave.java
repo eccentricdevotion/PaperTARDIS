@@ -43,6 +43,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class SchematicSave {
@@ -121,6 +122,7 @@ public class SchematicSave {
             return true;
         }
         JsonArray paintings = new JsonArray();
+        JsonArray pots = new JsonArray();
         JsonArray itemFrames = new JsonArray();
         JsonArray itemDisplays = new JsonArray();
         JsonArray interactions = new JsonArray();
@@ -255,6 +257,18 @@ public class SchematicSave {
                             head.addProperty("texture", skull.getPlayerProfile().getTextures().getSkin().toString());
                         }
                         obj.add("head", head);
+                    }
+                    // decorated pots
+                    if (b.getType().equals(Material.DECORATED_POT)) {
+                        JsonObject pot = new JsonObject();
+                        DecoratedPot decorated = (DecoratedPot) b.getState();
+                        for (Map.Entry<DecoratedPot.Side, Material> entry : decorated.getSherds().entrySet()) {
+                            pot.addProperty(entry.getKey().toString(), entry.getValue().toString());
+                        }
+                        if (b.getBlockData() instanceof org.bukkit.block.data.type.DecoratedPot dp) {
+                            pot.addProperty("cracked", dp.isCracked());
+                        }
+                        obj.add("pot", pot);
                     }
                     // signs
                     if (Tag.ALL_SIGNS.isTagged(b.getType())) {

@@ -202,6 +202,7 @@ public enum TARDISDescription {
     GEODE("Grow some amethyst, catch an axolotl."),
     GRAVITY("Going down..."),
     GREENHOUSE("Food grows here."),
+    HAPPY("A dock to bring your Happy Ghasts into the TARDIS."),
     HARMONY("The Eye of Harmony from the 8th Doctor's TARDIS."),
     HUTCH("Bunnies!"),
     IGLOO("Cold storage for polar bears."),

@@ -368,6 +368,14 @@ public class TARDISBuilderPreview implements Runnable {
                         }
                     }
                 }
+            } else if (type.equals(Material.DECORATED_POT)) {
+                TARDISBlockSetters.setBlock(world, x, y, z, data);
+                plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                    if (c.has("pot")) {
+                        JsonObject pot = c.get("pot").getAsJsonObject();
+                        TARDISPotSetter.decorate(plugin, pot, world.getBlockAt(x, y, z));
+                    }
+                }, 1L);
             } else if (TARDISStaticUtils.isInfested(type)) {
                 // legacy monster egg stone for controls
                 TARDISBlockSetters.setBlock(world, x, y, z, Material.VOID_AIR);

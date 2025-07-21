@@ -403,6 +403,7 @@ public class DebugGUI {
             new GuiPreview(Material.SHROOMLIGHT, RoomVariant.EYE.getKey(), "room_eye"),
             new GuiPreview(Material.SNOW_BLOCK, RoomVariant.POOL.getKey(), "room_pool"),
             new GuiPreview(Material.SOUL_LANTERN, LightVariant.EXTERIOR.getKey(), "lights_exterior"),
+            new GuiPreview(Material.STRIPPED_OAK_LOG, RoomVariant.HAPPY.getKey(), "room_happy"),
             new GuiPreview(Material.STONE_BRICK_STAIRS, RoomVariant.HARMONY.getKey(), "room_harmony"),
             new GuiPreview(Material.STONE, RoomVariant.SLOT.getKey(), "room_slot"),
             new GuiPreview(Material.SUNFLOWER, Weather.CLEAR.getKey(), "clear"),

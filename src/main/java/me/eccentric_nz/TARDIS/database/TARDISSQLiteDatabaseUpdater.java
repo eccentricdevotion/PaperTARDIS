@@ -156,6 +156,7 @@ class TARDISSQLiteDatabaseUpdater {
         farmingupdates.add("apiary TEXT DEFAULT ''");
         farmingupdates.add("bamboo TEXT DEFAULT ''");
         farmingupdates.add("geode TEXT DEFAULT ''");
+        farmingupdates.add("happy TEXT DEFAULT ''");
         farmingupdates.add("lava TEXT DEFAULT ''");
         farmingupdates.add("mangrove TEXT DEFAULT ''");
         farmingupdates.add("iistubil TEXT DEFAULT ''");
@@ -437,6 +438,14 @@ class TARDISSQLiteDatabaseUpdater {
                 i++;
                 String vct_alter = "ALTER TABLE " + prefix + "vaults ADD chest_type TEXT DEFAULT 'DROP'";
                 statement.executeUpdate(vct_alter);
+            }
+            // add happy to farming_prefs
+            String happy_query = "SELECT sql FROM sqlite_master WHERE tbl_name = '" + prefix + "farming_prefs' AND sql LIKE '%happy%'";
+            ResultSet rshappy = statement.executeQuery(happy_query);
+            if (!rshappy.next()) {
+                i++;
+                String happy_alter = "ALTER TABLE " + prefix + "farming_prefs ADD happy INTEGER DEFAULT 1";
+                statement.executeUpdate(happy_alter);
             }
             // add y to archive
             String y_query = "SELECT sql FROM sqlite_master WHERE tbl_name = '" + prefix + "archive' AND sql LIKE '%y INTEGER%'";

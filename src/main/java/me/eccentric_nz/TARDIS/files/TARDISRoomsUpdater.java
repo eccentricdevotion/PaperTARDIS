@@ -74,6 +74,8 @@ public class TARDISRoomsUpdater {
         booleanOptions.put("rooms.GRAVITY.user", false);
         booleanOptions.put("rooms.GREENHOUSE.enabled", true);
         booleanOptions.put("rooms.GREENHOUSE.user", false);
+        booleanOptions.put("rooms.HAPPY.enabled", true);
+        booleanOptions.put("rooms.HAPPY.user", false);
         booleanOptions.put("rooms.HARMONY.enabled", true);
         booleanOptions.put("rooms.HARMONY.user", false);
         booleanOptions.put("rooms.HUTCH.enabled", true);
@@ -167,6 +169,8 @@ public class TARDISRoomsUpdater {
         integerOptions.put("rooms.GRAVITY.offset", -20);
         integerOptions.put("rooms.GREENHOUSE.cost", 450);
         integerOptions.put("rooms.GREENHOUSE.offset", -4);
+        integerOptions.put("rooms.HAPPY.cost", 450);
+        integerOptions.put("rooms.HAPPY.offset", -4);
         integerOptions.put("rooms.HARMONY.cost", 450);
         integerOptions.put("rooms.HARMONY.offset", -4);
         integerOptions.put("rooms.HUTCH.cost", 450);
@@ -243,7 +247,8 @@ public class TARDISRoomsUpdater {
         stringOptions.put("rooms.GEODE.seed", "AMETHYST_BLOCK");
         stringOptions.put("rooms.GRAVITY.seed", "MOSSY_COBBLESTONE");
         stringOptions.put("rooms.GREENHOUSE.seed", "MELON");
-        stringOptions.put("rooms.HARMONY.seed", "BRICK_STAIRS");
+        stringOptions.put("rooms.HAPPY.seed", "STRIPPED_OAK_LOG");
+        stringOptions.put("rooms.HARMONY.seed", "STONE_BRICK_STAIRS");
         stringOptions.put("rooms.HUTCH.seed", "ACACIA_LOG");
         stringOptions.put("rooms.IGLOO.seed", "PACKED_ICE");
         stringOptions.put("rooms.IISTUBIL.seed", "WHITE_GLAZED_TERRACOTTA");

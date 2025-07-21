@@ -79,15 +79,16 @@ public class TARDISFarmingInventory implements InventoryHolder {
             stack[13] = farmPrefs.shouldFarmParrots() ? on : off;
             stack[14] = farmPrefs.shouldFarmLivestock() ? on : off;
             stack[15] = farmPrefs.shouldFarmAxolotls() ? on : off;
-            stack[16] = farmPrefs.shouldFarmRabbits() ? on : off;
-            stack[17] = farmPrefs.shouldFarmPolarBears() ? on : off;
-            stack[27] = farmPrefs.shouldFarmCamels() ? on : off;
-            stack[28] = farmPrefs.shouldFarmStriders() ? on : off;
-            stack[29] = farmPrefs.shouldFarmFrogs() ? on : off;
-            stack[30] = farmPrefs.shouldFarmSniffers() ? on : off;
-            stack[31] = farmPrefs.shouldFarmHorses() ? on : off;
-            stack[32] = farmPrefs.shouldFarmLlamas() ? on : off;
-            stack[33] = farmPrefs.shouldFarmVillagers() ? on : off;
+            stack[16] = farmPrefs.shouldFarmHappyGhasts() ? on : off;
+            stack[17] = farmPrefs.shouldFarmRabbits() ? on : off;
+            stack[27] = farmPrefs.shouldFarmPolarBears() ? on : off;
+            stack[28] = farmPrefs.shouldFarmCamels() ? on : off;
+            stack[29] = farmPrefs.shouldFarmStriders() ? on : off;
+            stack[30] = farmPrefs.shouldFarmFrogs() ? on : off;
+            stack[31] = farmPrefs.shouldFarmSniffers() ? on : off;
+            stack[32] = farmPrefs.shouldFarmHorses() ? on : off;
+            stack[33] = farmPrefs.shouldFarmLlamas() ? on : off;
+            stack[34] = farmPrefs.shouldFarmVillagers() ? on : off;
         } else {
             // insert a new record
             HashMap<String, Object> set = new HashMap<>();
@@ -110,6 +111,7 @@ public class TARDISFarmingInventory implements InventoryHolder {
             stack[31] = on;
             stack[32] = on;
             stack[33] = on;
+            stack[34] = on;
         }
         // set GUI buttons
         for (GUIFarming f : GUIFarming.values()) {
