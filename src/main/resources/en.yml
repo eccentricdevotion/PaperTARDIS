@@ -638,6 +638,7 @@ ISO_HANDS_OFF: "The isomorphic security lockout has been engaged... Hands off th
 ISO_OFF: "Isomorphic controls were turned OFF!"
 ISO_ON: "Isomorphic controls were turned ON!"
 ITEMS_UPDATED: "%s TARDIS item(s) were updated in your inventory."
+ITEMS_UPDATED_CELL: "%s Artron Storage Cell(s) were updated in your inventory."
 ITEM_HAS_DATA: "The item already has custom model data!"
 ITEM_IN_HAND: "You must be holding a TARDIS item in your hand!"
 ITEM_UPDATED: "The TARDIS item was updated."
