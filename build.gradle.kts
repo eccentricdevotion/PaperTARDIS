@@ -93,10 +93,10 @@ dependencies {
     compileOnly("com.palmergames.bukkit.towny:towny:0.101.2.0") {
         isTransitive = false
     }
-    compileOnly("org.mvplugins.multiverse.core:multiverse-core:5.1.0-SNAPSHOT") {
+    compileOnly("org.mvplugins.multiverse.core:multiverse-core:5.1.1-SNAPSHOT") {
         isTransitive = false
     }
-    compileOnly("org.mvplugins.multiverse.inventories:multiverse-inventories:5.1.0-SNAPSHOT") {
+    compileOnly("org.mvplugins.multiverse.inventories:multiverse-inventories:5.1.1-SNAPSHOT") {
         isTransitive = false
     }
     compileOnly("dev.kitteh:factionsuuid:0.7.0") {
