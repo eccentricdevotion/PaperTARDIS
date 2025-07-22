@@ -87,7 +87,7 @@ repositories {
 dependencies {
     paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.14-SNAPSHOT")
-    compileOnly("net.citizensnpcs:citizensapi:2.0.38-SNAPSHOT") {
+    compileOnly("net.citizensnpcs:citizensapi:2.0.39-SNAPSHOT") {
         isTransitive = false
     }
     compileOnly("com.palmergames.bukkit.towny:towny:0.101.2.0") {
@@ -109,22 +109,22 @@ dependencies {
     compileOnly("com.griefcraft:lwc:2.4.0") {
         isTransitive = false
     }
-    compileOnly("com.github.retrooper:packetevents-api:2.7.0") {
+    compileOnly("com.github.retrooper:packetevents-api:2.9.3") {
         isTransitive = false
     }
     compileOnly("me.libraryaddict.disguises:libsdisguises:11.0.6") {
         isTransitive = false
     }
-    compileOnly("net.essentialsx:EssentialsX:2.21.1-SNAPSHOT") {
+    compileOnly("net.essentialsx:EssentialsX:2.21.2-SNAPSHOT") {
         isTransitive = false
     }
     compileOnly("me.clip:placeholderapi:2.11.6") {
         isTransitive = false
     }
-    compileOnly("io.github.fabiozumbi12.RedProtect:RedProtect-Core:8.1.1") {
+    compileOnly("io.github.fabiozumbi12.RedProtect:RedProtect-Core:8.1.2") {
         isTransitive = false
     }
-    compileOnly("io.github.fabiozumbi12.RedProtect:RedProtect-Spigot:8.1.1") {
+    compileOnly("io.github.fabiozumbi12.RedProtect:RedProtect-Spigot:8.1.2") {
         isTransitive = false
     }
     compileOnly("net.coreprotect:coreprotect:22.4") {
@@ -133,22 +133,22 @@ dependencies {
     compileOnly(files("libs/dynmap-api-3.7-beta-10.jar"))
     compileOnly(files("libs/DynmapCoreAPI-3.7-beta-10.jar"))
     compileOnly("de.bluecolored:bluemap-api:2.7.4")
-    compileOnly("xyz.jpenilla:squaremap-api:1.2.1") {
+    compileOnly("xyz.jpenilla:squaremap-api:1.3.8") {
         isTransitive = false
     }
     compileOnly(files("libs/VaultAPI.jar"))
     compileOnly("org.geysermc.floodgate:api:2.2.4-SNAPSHOT")
     compileOnly("org.geysermc.geyser:api:2.8.2-SNAPSHOT")
-    compileOnly("org.jsoup:jsoup:1.17.2") {
+    compileOnly("org.jsoup:jsoup:1.21.1") {
         isTransitive = false
     }
     compileOnly("org.popcraft:chunky-common:1.4.40")
     compileOnly("org.popcraft:chunky-bukkit:1.4.40")
     compileOnly("org.popcraft:chunkyborder-common:1.2.26")
     compileOnly("net.luckperms:api:5.5")
-    compileOnly("org.apache.commons:commons-lang3:3.0")
+    compileOnly("org.apache.commons:commons-lang3:3.17.0")
     compileOnly(files("libs/TerraformGenerator.jar"))
-    compileOnly("com.formdev:flatlaf:3.5") {
+    compileOnly("com.formdev:flatlaf:3.6") {
         isTransitive = false
     }
     compileOnly("org.swinglabs:swing-layout:1.0.3") {
