@@ -107,17 +107,11 @@ public class TARDISChecker {
             placeableDir.mkdirs();
         }
         dataPacksAdvancement = dataPacksTardis + "advancement";
-        String dataPacksTrim = dataPacksTardis + "trim_pattern";
         String dataPacksPaintings = dataPacksTardis + "painting_variant";
         File advancementDir = new File(dataPacksAdvancement);
         if (!advancementDir.exists()) {
             plugin.getMessenger().message(plugin.getConsole(), TardisModule.WARNING, String.format(plugin.getLanguage().getString("DATAPACK_DIRECTORIES", "%s"), "advancements"));
             advancementDir.mkdirs();
-        }
-        File trimsDir = new File(dataPacksTrim);
-        if (!trimsDir.exists()) {
-            plugin.getMessenger().message(plugin.getConsole(), TardisModule.WARNING, String.format(plugin.getLanguage().getString("DATAPACK_DIRECTORIES", "%s"), "trim patterns"));
-            trimsDir.mkdirs();
         }
         File paintingsDir = new File(dataPacksPaintings);
         if (!paintingsDir.exists()) {
