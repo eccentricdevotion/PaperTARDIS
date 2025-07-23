@@ -19,14 +19,10 @@ package me.eccentric_nz.TARDIS.move;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetDoorBlocks;
+import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlayerPrefs;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisPreset;
-import me.eccentric_nz.TARDIS.doors.inner.Inner;
-import me.eccentric_nz.TARDIS.doors.inner.InnerDisplayDoorCloser;
-import me.eccentric_nz.TARDIS.doors.inner.InnerDoor;
-import me.eccentric_nz.TARDIS.doors.inner.InnerMinecraftDoorCloser;
-import me.eccentric_nz.TARDIS.doors.outer.OuterDisplayDoorCloser;
-import me.eccentric_nz.TARDIS.doors.outer.OuterDoor;
-import me.eccentric_nz.TARDIS.doors.outer.OuterMinecraftDoorCloser;
+import me.eccentric_nz.TARDIS.doors.inner.*;
+import me.eccentric_nz.TARDIS.doors.outer.*;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
@@ -49,8 +45,40 @@ public class TARDISBlackWoolToggler {
 
     public void toggleBlocks(int id, Player player) {
         ResultSetDoorBlocks rsd = new ResultSetDoorBlocks(plugin, id);
-        if (rsd.resultSet()) {
-            Block b = rsd.getInnerBlock().getRelative(BlockFace.NORTH);
+        if (!rsd.resultSet()) {
+            return;
+        }
+        ResultSetTardisPreset rs = new ResultSetTardisPreset(plugin);
+        if (!rs.fromID(id)) {
+            return;
+        }
+        boolean outerDisplayDoor = rs.getPreset().usesArmourStand();
+        Block door = rsd.getInnerBlock();
+        Block b = door.getRelative(BlockFace.NORTH);
+        Inner innerDisplayDoor = new InnerDoor(plugin, id).get();
+        UUID playerUUID = player.getUniqueId();
+        ResultSetPlayerPrefs rsp = new ResultSetPlayerPrefs(plugin, playerUUID.toString());
+        if (rsp.resultSet() && rsp.isOpenDisplayDoorOn() && innerDisplayDoor.display()) {
+            if (TARDISStaticUtils.isDoorOpen(door)) {
+                // close inner
+                    new InnerDisplayDoorCloser(plugin).close(door, id, playerUUID, false);
+                // close outer
+                if (outerDisplayDoor) {
+                    new OuterDisplayDoorCloser(plugin).close(new OuterDoor(plugin, id).getDisplay(), id, playerUUID);
+                } else if (rs.getPreset().hasDoor()) {
+                    new OuterMinecraftDoorCloser(plugin).close(new OuterDoor(plugin, id).getMinecraft(), id, playerUUID);
+                }
+            } else {
+                // open inner
+                new InnerDisplayDoorOpener(plugin).open(door, id, false);
+                // open outer
+                if (outerDisplayDoor) {
+                    new OuterDisplayDoorOpener(plugin).open(new OuterDoor(plugin, id).getDisplay(), id);
+                } else if (rs.getPreset().hasDoor()) {
+                    new OuterMinecraftDoorOpener(plugin).open(new OuterDoor(plugin, id).getMinecraft(), id, player);
+                }
+            }
+        } else {
             BlockData mat;
             if (b.getType().isAir()) {
                 mat = TARDISConstants.BLACK;
@@ -61,26 +89,19 @@ public class TARDISBlackWoolToggler {
             }
             b.setBlockData(mat);
             b.getRelative(BlockFace.UP).setBlockData(mat);
-            Block door = b.getRelative(BlockFace.SOUTH);
             if (Tag.DOORS.isTagged(door.getType()) && TARDISStaticUtils.isDoorOpen(door)) {
-                ResultSetTardisPreset rs = new ResultSetTardisPreset(plugin);
-                if (rs.fromID(id)) {
-                    Inner innerDisplayDoor = new InnerDoor(plugin, id).get();
-                    boolean outerDisplayDoor = rs.getPreset().usesArmourStand();
-                    UUID playerUUID = player.getUniqueId();
-                    // toggle doors shut / deactivate portals
-                    // close inner
-                    if (innerDisplayDoor.display()) {
-                        new InnerDisplayDoorCloser(plugin).close(door, id, playerUUID, false);
-                    } else {
-                        new InnerMinecraftDoorCloser(plugin).close(door, id, playerUUID);
-                    }
-                    // close outer
-                    if (outerDisplayDoor) {
-                        new OuterDisplayDoorCloser(plugin).close(new OuterDoor(plugin, id).getDisplay(), id, playerUUID);
-                    } else if (rs.getPreset().hasDoor()) {
-                        new OuterMinecraftDoorCloser(plugin).close(new OuterDoor(plugin, id).getMinecraft(), id, playerUUID);
-                    }
+                // toggle doors shut / deactivate portals
+                // close inner
+                if (innerDisplayDoor.display()) {
+                    new InnerDisplayDoorCloser(plugin).close(door, id, playerUUID, false);
+                } else {
+                    new InnerMinecraftDoorCloser(plugin).close(door, id, playerUUID);
+                }
+                // close outer
+                if (outerDisplayDoor) {
+                    new OuterDisplayDoorCloser(plugin).close(new OuterDoor(plugin, id).getDisplay(), id, playerUUID);
+                } else if (rs.getPreset().hasDoor()) {
+                    new OuterMinecraftDoorCloser(plugin).close(new OuterDoor(plugin, id).getMinecraft(), id, playerUUID);
                 }
             }
         }

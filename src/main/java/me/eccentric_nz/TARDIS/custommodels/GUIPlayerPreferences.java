@@ -51,6 +51,7 @@ public enum GUIPlayerPreferences {
     LOCK_CONTAINERS(SwitchVariant.LOCK_CONTAINERS_ON.getFloats(), SwitchVariant.LOCK_CONTAINERS_OFF.getFloats(), 23, Material.REPEATER),
     INFO_GUI(SwitchVariant.INFO_ON.getFloats(), SwitchVariant.INFO_OFF.getFloats(), 24, Material.REPEATER),
     ANNOUNCE_REPEATERS(SwitchVariant.ANNOUNCE_REPEATERS_ON.getFloats(), SwitchVariant.ANNOUNCE_REPEATERS_OFF.getFloats(), 25, Material.REPEATER),
+    OPEN_DISPLAY_DOOR(SwitchVariant.OPEN_DISPLAY_DOOR_ON.getFloats(), SwitchVariant.OPEN_DISPLAY_DOOR_OFF.getFloats(), 26, Material.REPEATER),
     FLIGHT_MODE(null, null, 27, Material.ELYTRA),
     INTERIOR_HUM_SOUND(null, null, 28, Material.BOWL),
     AUTONOMOUS_PREFERENCES(null, null, 29, Material.BOWL),

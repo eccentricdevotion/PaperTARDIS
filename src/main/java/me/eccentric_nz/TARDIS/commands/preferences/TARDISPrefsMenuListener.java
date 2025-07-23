@@ -83,6 +83,7 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
         lookup.put("Minecart Sounds", "minecart_on");
         lookup.put("Mob Farming", "farm_on");
         lookup.put("Preset Sign", "sign_on");
+        lookup.put("Open Display Door", "open_display_door_on");
         lookup.put("Submarine Mode", "submarine_on");
         lookup.put("Telepathic Circuit", "telepathy_on");
         lookup.put("Travel Bar", "travelbar_on");

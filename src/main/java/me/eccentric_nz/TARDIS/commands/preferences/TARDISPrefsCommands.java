@@ -58,6 +58,7 @@ public class TARDISPrefsCommands implements CommandExecutor {
             "junk",
             "language", "lights", "lock_containers",
             "minecart",
+            "open_display_door",
             "quotes",
             "renderer",
             "sfx", "shape", "siege_floor", "siege_wall", "sign", "sonic", "speed", "submarine",

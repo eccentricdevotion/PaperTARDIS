@@ -220,9 +220,18 @@ public class TARDISStaticUtils {
         ItemDisplay display = TARDISDisplayItemUtils.getFromBoundingBox(door);
         if (display != null) {
             TARDISDisplayItem tdi = TARDISDisplayItemUtils.get(display);
-            return tdi == TARDISDisplayItem.DOOR_OPEN || tdi == TARDISDisplayItem.DOOR_BOTH_OPEN;
+            // need to cater for all doors including custom
+            return tdi == TARDISDisplayItem.DOOR_OPEN
+                    || tdi == TARDISDisplayItem.DOOR_BOTH_OPEN
+                    || tdi == TARDISDisplayItem.BONE_DOOR_OPEN
+                    || tdi == TARDISDisplayItem.CLASSIC_DOOR_OPEN
+                    || isCustomDoorOpen(display);
         }
         return false;
+    }
+
+    private static boolean isCustomDoorOpen(ItemDisplay display) {
+        return display.getItemStack().getItemMeta().getItemModel().getKey().endsWith("_open");
     }
 
     /**

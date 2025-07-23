@@ -10,9 +10,9 @@ dev-url: http://github.com/eccentricdevotion/TARDIS/
 url: http://tardis.pages.dev/
 version: 6.2.2
 build-number: paper-only
-api-version: '1.21'
+api-version: '1.21.8'
 libraries:
-  - org.jsoup:jsoup:1.17.2
+  - org.jsoup:jsoup:1.21.1
 permissions:
   tardis.admin:
     description: Allow players access to the TARDIS admin commands.
@@ -202,6 +202,7 @@ permissions:
       tardis.prefs.beacon: true
       tardis.prefs.build: true
       tardis.prefs.close_gui: true
+      tardis.prefs.dialogs: true
       tardis.prefs.difficulty: true
       tardis.prefs.dnd: true
       tardis.prefs.dynamic_lamps: true
@@ -214,15 +215,18 @@ permissions:
       tardis.prefs.hads: true
       tardis.prefs.hads_type: true
       tardis.prefs.hum: true
+      tardis.prefs.info: true
       tardis.prefs.isomorphic: true
+      tardis.prefs.junk: true
       tardis.prefs.key: true
       tardis.prefs.key_menu: true
-      tardis.prefs.junk: true
       tardis.prefs.language: true
       tardis.prefs.lanterns: true
       tardis.prefs.lock_containers: true
       tardis.prefs.minecart: true
+      tardis.prefs.open_display_door: true
       tardis.prefs.quotes: true
+      tardis.prefs.regen_block: true
       tardis.prefs.renderer: true
       tardis.prefs.sfx: true
       tardis.prefs.siege_floor: true

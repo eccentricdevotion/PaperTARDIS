@@ -106,6 +106,7 @@ class TARDISSQLiteDatabaseUpdater {
         prefsupdates.add("language TEXT DEFAULT 'ENGLISH'");
         prefsupdates.add("lights TEXT DEFAULT 'TENTH'");
         prefsupdates.add("minecart_on INTEGER DEFAULT 0");
+        prefsupdates.add("open_display_door_on INTEGER DEFAULT 0");
         prefsupdates.add("renderer_on INTEGER DEFAULT 1");
         prefsupdates.add("siege_floor TEXT DEFAULT 'BLACK_TERRACOTTA'");
         prefsupdates.add("siege_wall TEXT DEFAULT 'GRAY_TERRACOTTA'");

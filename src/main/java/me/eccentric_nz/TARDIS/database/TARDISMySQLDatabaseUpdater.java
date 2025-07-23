@@ -101,6 +101,7 @@ class TARDISMySQLDatabaseUpdater {
         prefsupdates.add("language varchar(32) DEFAULT 'ENGLISH'");
         prefsupdates.add("lights varchar(32) DEFAULT 'TENTH'");
         prefsupdates.add("minecart_on int(1) DEFAULT '0'");
+        prefsupdates.add("open_display_door_on int(1) DEFAULT '0'");
         prefsupdates.add("renderer_on int(1) DEFAULT '1'");
         prefsupdates.add("siege_floor varchar(64) DEFAULT 'BLACK_TERRACOTTA'");
         prefsupdates.add("siege_wall varchar(64) DEFAULT 'GRAY_TERRACOTTA'");

@@ -42,7 +42,6 @@ public class ResultSetPlayerPrefs {
     private final String where;
     private final String prefix;
     private int pp_id;
-//    private UUID uuid;
     private boolean announceRepeatersOn;
     private boolean autoOn;
     private Autonomous autoType;
@@ -69,12 +68,11 @@ public class ResultSetPlayerPrefs {
     private boolean travelbarOn;
     private boolean infoOn;
     private boolean dialogsOn;
-//    private boolean regenBlockOn;
+    private boolean openDisplayDoorOn;
     private HADS hadsType;
     private int artronLevel;
     private int flightMode;
     private int throttle;
-//    private int regenerations;
     private String epsMessage;
     private String floor;
     private String hum;
@@ -110,7 +108,6 @@ public class ResultSetPlayerPrefs {
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {
                     pp_id = rs.getInt("pp_id");
-//                    uuid = UUID.fromString(rs.getString("uuid"));
                     key = (plugin.getConfig().getString("storage.database", "sqlite").equals("sqlite")) ? rs.getString("key") : rs.getString("key_item");
                     sfxOn = rs.getBoolean("sfx_on");
                     quotesOn = rs.getBoolean("quotes_on");
@@ -171,9 +168,8 @@ public class ResultSetPlayerPrefs {
                     throttle = rs.getInt("throttle");
                     autoPowerUp = rs.getBoolean("auto_powerup_on");
                     hum = rs.getString("hum");
-//                    regenerations = rs.getInt("regenerations");
-//                    regenBlockOn = rs.getBoolean("regen_block_on");
                     dialogsOn = rs.getBoolean("dialogs_on");
+                    openDisplayDoorOn = rs.getBoolean("open_display_door_on");
                 } else {
                     return false;
                 }
@@ -339,5 +335,9 @@ public class ResultSetPlayerPrefs {
 
     public boolean isDialogsOn() {
         return dialogsOn;
+    }
+
+    public boolean isOpenDisplayDoorOn() {
+        return openDisplayDoorOn;
     }
 }

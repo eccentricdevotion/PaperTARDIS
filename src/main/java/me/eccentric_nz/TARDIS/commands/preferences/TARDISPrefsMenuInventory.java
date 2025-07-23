@@ -129,6 +129,7 @@ public class TARDISPrefsMenuInventory implements InventoryHolder {
         }
         values.add(rsp.isInfoOn()); // 24
         values.add(rsp.isAnnounceRepeatersOn()); // 25
+        values.add(rsp.isOpenDisplayDoorOn()); // 26
         ItemStack[] stack = new ItemStack[36];
         for (GUIPlayerPreferences pref : GUIPlayerPreferences.values()) {
             if (pref.getMaterial() == Material.REPEATER) {
