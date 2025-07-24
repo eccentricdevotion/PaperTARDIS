@@ -202,10 +202,11 @@ permissions:
       tardis.prefs.beacon: true
       tardis.prefs.build: true
       tardis.prefs.close_gui: true
+      tardis.prefs.console_labels: true
       tardis.prefs.dialogs: true
-      tardis.prefs.difficulty: true
       tardis.prefs.dnd: true
       tardis.prefs.dynamic_lamps: true
+      tardis.prefs.effect: true
       tardis.prefs.eps: true
       tardis.prefs.eps_message: true
       tardis.prefs.farm: true
@@ -221,7 +222,7 @@ permissions:
       tardis.prefs.key: true
       tardis.prefs.key_menu: true
       tardis.prefs.language: true
-      tardis.prefs.lanterns: true
+      tardis.prefs.lights: true
       tardis.prefs.lock_containers: true
       tardis.prefs.minecart: true
       tardis.prefs.open_display_door: true
@@ -229,10 +230,12 @@ permissions:
       tardis.prefs.regen_block: true
       tardis.prefs.renderer: true
       tardis.prefs.sfx: true
+      tardis.prefs.shape: true
       tardis.prefs.siege_floor: true
       tardis.prefs.siege_wall: true
       tardis.prefs.sign: true
       tardis.prefs.sonic: true
+      tardis.prefs.speed: true
       tardis.prefs.submarine: true
       tardis.prefs.telepathy: true
       tardis.prefs.translate: true
@@ -1437,18 +1440,26 @@ commands:
       description: Toggle companion building inside the TARDIS on and off.
       permission: tardis.prefs.build
       usage: /<command> build [on|off]
-    chameleon:
+    close_gui:
       description: Toggle the chameleon circuit on and off.
       permission: tardis.prefs.chameleon
       usage: /<command> chameleon [on|off]
-    difficulty:
-      description: Change your personal difficulty level.
-      permission: tardis.prefs.difficulty
-      usage: /<command> difficulty [easy|medium|hard]
+    console_labels:
+      description: Toggle whether to show labels for modelled console controls.
+      permission: tardis.prefs.console_labels
+      usage: /<command> console_labels [on|off]
+    dialogs:
+      description: Toggle whether dialogs are shown (where available) instead of chest GUIs.
+      permission: tardis.prefs.dialogs
+      usage: /<command> dialogs [on|off]
     dnd:
       description: Toggle whether other players can request travel/rescue to you.
       permission: tardis.prefs.dnd
       usage: /<command> dnd [on|off]
+    effect:
+      description: Set the exterior materialisation particle effect.
+      permission: tardis.prefs.effect
+      usage: /<command> effect [particle effect]
     eps:
       description: Toggle Emergency Programme One on and off.
       permission: tardis.prefs.eps
@@ -1485,6 +1496,10 @@ commands:
       description: Sets the TARDIS interior hum sound.
       permission: tardis.prefs.hum
       usage: /<command> hum [sound]
+    info:
+      description: Sets the to show the TARDIS Information System chest GUI or the chat based GUI. May be affected by the dialogs preference.
+      permission: tardis.prefs.info
+      usage: /<command> info [on|off]
     isomorphic:
       description: Toggle isomorphic controls on and off.
       permission: tardis.prefs.isomorphic
@@ -1505,22 +1520,26 @@ commands:
       description: Set the language used in the '/tardis say' command.
       permission: tardis.prefs.language
       usage: /<command> language [language]
-    lanterns:
-      description: Toggle Sea Lanterns for lights on and off.
-      permission: tardis.prefs.lanterns
-      usage: /<command> lanterns [on|off]
-    message:
-      description: Set the Emergency Programme One message.
-      permission: tardis.prefs.message
-      usage: /<command> eps_message [message]
+    lights:
+      description: Set the TARDIS lights light type used in a console.
+      permission: tardis.prefs.lights
+      usage: /<command> lights [on|off]
     minecart:
       description: Toggle default Minecraft SFX on and off.
       permission: tardis.prefs.minecart
       usage: /<command> minecart [on|off]
+    open_display_door:
+      description: Whether the toogle wool blocks control / menu button is repurposed as a button to open and close a modelled display TARDIS interior door.
+      permission: tardis.prefs.open_display_door
+      usage: /<command> open_display_door [on|off]
     quotes:
       description: Toggle the TARDIS quotes on and off.
       permission: tardis.prefs.quotes
       usage: /<command> quotes [on|off]
+    regen_block:
+      description: Set whether regeneration is blocked or not.
+      permission: tardis.prefs.regen_block
+      usage: /<command> regen_block [on|off]
     renderer:
       description: Toggle entering the Renderer room after scanning on and off.
       permission: tardis.prefs.renderer
@@ -1529,6 +1548,10 @@ commands:
       description: Toggle the TARDIS sound effects on and off.
       permission: tardis.prefs.sfx
       usage: /<command> sfx [on|off]
+    shape:
+      description: Set the shape of the exterior materialisation particles.
+      permission: tardis.prefs.shape
+      usage: /<command> shape [particle shape]
     siege_floor:
       description: Set the block used for the TARDIS floor when Siege Mode is engaged.
       permission: tardis.prefs.siege_floor
@@ -1545,10 +1568,18 @@ commands:
       description: Open the Sonic Screwdriver preferences GUI.
       permission: tardis.prefs.sonic
       usage: /<command> sonic
+    speed:
+      description: Set the speed of the exterior materialisation particles.
+      permission: tardis.prefs.speed
+      usage: /<command> speed [particle speed]
     submarine:
       description: Toggle submarine landings on and off.
       permission: tardis.prefs.submarine
       usage: /<command> submarine [on|off]
+    telepathy:
+      description: Set whether the TARDIS Telepathic Circuit is on or off.
+      permission: tardis.prefs.telepathy
+      usage: /<command> telepathy [on|off]
     translate:
       description: Set the languages and player used when auto translating messages.
       permission: tardis.prefs.translate

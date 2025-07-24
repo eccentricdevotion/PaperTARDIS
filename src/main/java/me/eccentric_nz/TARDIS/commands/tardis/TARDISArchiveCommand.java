@@ -213,7 +213,7 @@ class TARDISArchiveCommand {
                         set.put("data", ad.getJSON().toString());
                         set.put("console_size", console_size.toString());
                         set.put("beacon", ad.getBeacon());
-                        // get lanterns preference
+                        // get lights preference
                         String lights = "TENTH";
                         ResultSetPlayerPrefs rsp = new ResultSetPlayerPrefs(plugin, uuid);
                         if (rsp.resultSet()) {

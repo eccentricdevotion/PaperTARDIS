@@ -39,6 +39,7 @@ class TARDISToggleOnOffCommand {
         was = List.of(
                 "announce_repeaters", "auto", "auto_powerup", "auto_siege",
                 "beacon", "build",
+                "close_gui", "console_labels",
                 "dnd",
                 "eps",
                 "farm",
@@ -47,7 +48,7 @@ class TARDISToggleOnOffCommand {
                 "lock_containers",
                 "minecart",
                 "open_display_door",
-                "renderer",
+                "regen_block", "renderer",
                 "submarine",
                 "travelbar", "telepathy"
         );
