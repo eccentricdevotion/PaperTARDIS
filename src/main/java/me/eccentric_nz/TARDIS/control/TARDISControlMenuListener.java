@@ -409,7 +409,7 @@ public class TARDISControlMenuListener extends TARDISMenuListener {
                 if (rspp.resultSet()) {
                     if (rspp.isDialogsOn()) {
                         close(player, false);
-                        Audience.audience(player).showDialog(new TerminalDialog().create());
+                        plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> Audience.audience(player).showDialog(new TerminalDialog().create()), 2L);
                     } else {
                         player.openInventory(new TARDISTerminalInventory(plugin).getInventory());
                     }
