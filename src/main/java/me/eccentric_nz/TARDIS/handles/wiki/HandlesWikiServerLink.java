@@ -3,7 +3,6 @@ package me.eccentric_nz.TARDIS.handles.wiki;
 import me.eccentric_nz.TARDIS.TARDIS;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.ServerLinks;
 
 import java.net.URI;
 

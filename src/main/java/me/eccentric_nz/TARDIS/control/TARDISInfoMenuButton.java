@@ -23,8 +23,6 @@ import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
 import me.eccentric_nz.TARDIS.info.TARDISIndexFileInventory;
 import me.eccentric_nz.TARDIS.info.TARDISInfoMenu;
 import me.eccentric_nz.TARDIS.info.dialog.CategoryDialog;
-import me.eccentric_nz.TARDIS.travel.TARDISTerminalInventory;
-import me.eccentric_nz.TARDIS.travel.dialog.TerminalDialog;
 import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
 

@@ -1,12 +1,11 @@
 package me.eccentric_nz.TARDIS.info.processors;
 
+import io.papermc.paper.dialog.Dialog;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.info.TARDISInfoMenu;
 import me.eccentric_nz.TARDIS.info.TISRecipe;
 import me.eccentric_nz.TARDIS.info.dialog.InfoDialog;
 import net.kyori.adventure.audience.Audience;
-import net.minecraft.core.Holder;
-import io.papermc.paper.dialog.Dialog;
 import org.bukkit.entity.Player;
 
 public class EntryProcessor {

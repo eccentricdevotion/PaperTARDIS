@@ -18,7 +18,6 @@ package me.eccentric_nz.TARDIS.commands.give.actions;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
-import me.eccentric_nz.tardisshop.ShopItem;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;

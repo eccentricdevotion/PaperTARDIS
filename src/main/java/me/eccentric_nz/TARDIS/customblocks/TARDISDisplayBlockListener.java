@@ -38,8 +38,6 @@ import me.eccentric_nz.TARDIS.sonic.actions.TARDISSonicLight;
 import me.eccentric_nz.TARDIS.update.UpdateDoor;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
