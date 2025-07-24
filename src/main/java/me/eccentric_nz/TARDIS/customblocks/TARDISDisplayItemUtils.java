@@ -20,8 +20,6 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Levelled;
@@ -135,7 +133,7 @@ public class TARDISDisplayItemUtils {
     }
 
     /**
-     * Removes interaction, item display and item frame entities from a block.
+     * Removes interaction, item display, text display and item frame entities from a block.
      *
      * @param block the block to use as the search location
      */

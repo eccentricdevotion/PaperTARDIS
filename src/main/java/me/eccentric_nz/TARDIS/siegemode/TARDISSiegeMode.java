@@ -38,8 +38,8 @@ import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Creeper;
+import org.bukkit.entity.Enemy;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -169,7 +169,7 @@ public class TARDISSiegeMode {
             if (plugin.getConfig().getBoolean("siege.butcher")) {
                 plugin.getMessenger().send(p, TardisModule.TARDIS, "SIEGE_BUTCHER");
                 for (Entity ent : p.getNearbyEntities(72d, 32d, 72d)) {
-                    if (ent instanceof Monster) {
+                    if (ent instanceof Enemy) {
                         if (ent instanceof Creeper) {
                             // check it is not the Artron Capacitor Creeper
                             Location cl = ent.getLocation();

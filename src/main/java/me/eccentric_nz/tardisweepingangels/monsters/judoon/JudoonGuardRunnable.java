@@ -46,7 +46,7 @@ public class JudoonGuardRunnable implements Runnable {
                     return;
                 }
                 Location origin = entity.getLocation();
-                for (Entity e : entity.getWorld().getNearbyEntities(origin, 8.0d, 8.0d, 8.0d, (d) -> d instanceof Monster)) {
+                for (Entity e : entity.getWorld().getNearbyEntities(origin, 8.0d, 8.0d, 8.0d, (d) -> d instanceof Enemy)) {
                     if (e == entity) {
                         continue;
                     }

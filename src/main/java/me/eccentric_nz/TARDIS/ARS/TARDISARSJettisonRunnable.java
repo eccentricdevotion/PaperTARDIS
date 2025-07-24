@@ -67,7 +67,7 @@ class TARDISARSJettisonRunnable implements Runnable {
             for (int xx = x; xx < (x + 16); xx++) {
                 for (int zz = z; zz < (z + 16); zz++) {
                     Block b = world.getBlockAt(xx, yy, zz);
-                    // remove display items & item frames
+                    // remove display entities & item frames
                     TARDISDisplayItemUtils.remove(b);
                     // if it is a GRAVITY or ANTIGRAVITY well remove it from the database
                     if ((r.equals("GRAVITY") || r.equals("ANTIGRAVITY")) && (b.getType().equals(Material.LIME_WOOL) || b.getType().equals(Material.PINK_WOOL))) {

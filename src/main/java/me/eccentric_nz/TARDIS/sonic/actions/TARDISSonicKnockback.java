@@ -19,8 +19,8 @@ package me.eccentric_nz.TARDIS.sonic.actions;
 import me.eccentric_nz.TARDIS.forcefield.TARDISForceField;
 import me.eccentric_nz.TARDIS.utility.TARDISVector3D;
 import org.bukkit.Location;
+import org.bukkit.entity.Enemy;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 
 /**
@@ -37,7 +37,7 @@ public class TARDISSonicKnockback {
         // get nearby players
         for (Entity target : player.getWorld().getNearbyEntities(observerPos, 8.0d, 8.0d, 8.0d)) {
             // only monsters
-            if (target instanceof Monster) {
+            if (target instanceof Enemy) {
                 // bounding box of the monster
                 TARDISVector3D targetPos = new TARDISVector3D(target.getLocation());
                 TARDISVector3D minimum = targetPos.add(-0.5, 0, -0.5);
