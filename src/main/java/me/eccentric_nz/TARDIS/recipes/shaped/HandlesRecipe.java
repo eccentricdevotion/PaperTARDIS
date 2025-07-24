@@ -52,7 +52,7 @@ public class HandlesRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.BIRCH_BUTTON, 1);
+        ItemStack is = ItemStack.of(Material.BIRCH_BUTTON, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Handles"));
         im.lore(List.of(

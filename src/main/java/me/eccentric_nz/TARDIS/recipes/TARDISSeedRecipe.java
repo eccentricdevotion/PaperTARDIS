@@ -59,15 +59,15 @@ public class TARDISSeedRecipe {
         // catch custom consoles, archives, templates not being in model data list
         NamespacedKey model = TARDISDisplayItem.CUSTOM.getCustomModel();
         if (s.isCustom()) {
-            is = new ItemStack(s.getSeedMaterial(), 1);
+            is = ItemStack.of(s.getSeedMaterial(), 1);
         } else {
             try {
                 TARDISDisplayItem tdi = TARDISDisplayItem.valueOf(s.getPermission().toUpperCase(Locale.ROOT));
                 model = tdi.getCustomModel();
-                is = new ItemStack(tdi.getMaterial(), 1);
+                is = ItemStack.of(tdi.getMaterial(), 1);
             } catch (IllegalArgumentException e) {
                 plugin.debug("Could not get display item for console! " + e.getMessage());
-                is = new ItemStack(TARDISDisplayItem.CUSTOM.getMaterial(), 1);
+                is = ItemStack.of(TARDISDisplayItem.CUSTOM.getMaterial(), 1);
             }
         }
         ItemMeta im = is.getItemMeta();

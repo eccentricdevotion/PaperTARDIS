@@ -58,7 +58,7 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
         ItemStack[] stacks = new ItemStack[54];
         for (SystemTree g : SystemTree.values()) {
             if (g.getSlot() != -1) {
-                ItemStack is = new ItemStack(g.getMaterial(), 1);
+                ItemStack is = ItemStack.of(g.getMaterial(), 1);
                 ItemMeta im = is.getItemMeta();
                 if (g.getBranch().equals("branch")) {
                     im.displayName(Component.text(g.getName(), NamedTextColor.GOLD).decorate(TextDecoration.ITALIC));
@@ -89,7 +89,7 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
             }
         }
         // left_down
-        ItemStack ld = new ItemStack(SystemTree.LEFT_DOWN.getMaterial(), 1);
+        ItemStack ld = ItemStack.of(SystemTree.LEFT_DOWN.getMaterial(), 1);
         ItemMeta eft = ld.getItemMeta();
         eft.displayName(ComponentUtils.toWhite(""));
         eft.setItemModel(SystemTree.LEFT_DOWN.getLocked());
@@ -97,7 +97,7 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
         stacks[0] = ld;
         // horizontal
         int[] horizontal = new int[]{1, 3, 5, 7};
-        ItemStack his = new ItemStack(SystemTree.H_LINE.getMaterial(), 1);
+        ItemStack his = ItemStack.of(SystemTree.H_LINE.getMaterial(), 1);
         ItemMeta him = his.getItemMeta();
         him.displayName(ComponentUtils.toWhite(""));
         him.setItemModel(SystemTree.H_LINE.getLocked());
@@ -107,7 +107,7 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
         }
         // both_down
         int[] both_down = new int[]{2, 6};
-        ItemStack bd = new ItemStack(SystemTree.BOTH_DOWN.getMaterial(), 1);
+        ItemStack bd = ItemStack.of(SystemTree.BOTH_DOWN.getMaterial(), 1);
         ItemMeta bdim = bd.getItemMeta();
         bdim.displayName(ComponentUtils.toWhite(""));
         bdim.setItemModel(SystemTree.BOTH_DOWN.getLocked());
@@ -116,28 +116,28 @@ public class TARDISSystemTreeGUI implements InventoryHolder {
             stacks[d] = bd;
         }
         // right_down
-        ItemStack rd = new ItemStack(SystemTree.RIGHT_DOWN.getMaterial(), 1);
+        ItemStack rd = ItemStack.of(SystemTree.RIGHT_DOWN.getMaterial(), 1);
         ItemMeta own = rd.getItemMeta();
         own.displayName(ComponentUtils.toWhite(""));
         own.setItemModel(SystemTree.RIGHT_DOWN.getLocked());
         rd.setItemMeta(own);
         stacks[8] = rd;
         // background
-        ItemStack is = new ItemStack(SystemTree.BLANK.getMaterial(), 1);
+        ItemStack is = ItemStack.of(SystemTree.BLANK.getMaterial(), 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite(""));
         im.setItemModel(SystemTree.BLANK.getLocked());
         is.setItemMeta(im);
         stacks[10] = is;
         // vertical
-        ItemStack vert = new ItemStack(SystemTree.VERTICAL.getMaterial(), 1);
+        ItemStack vert = ItemStack.of(SystemTree.VERTICAL.getMaterial(), 1);
         ItemMeta ical = vert.getItemMeta();
         ical.displayName(ComponentUtils.toWhite(""));
         ical.setItemModel(SystemTree.VERTICAL.getLocked());
         vert.setItemMeta(ical);
         stacks[13] = vert;
         // close
-        ItemStack close = new ItemStack(SystemTree.CLOSE.getMaterial(), 1);
+        ItemStack close = ItemStack.of(SystemTree.CLOSE.getMaterial(), 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close_im.setItemModel(SystemTree.CLOSE.getLocked());

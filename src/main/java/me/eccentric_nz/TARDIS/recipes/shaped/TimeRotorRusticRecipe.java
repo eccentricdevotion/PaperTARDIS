@@ -50,7 +50,7 @@ public class TimeRotorRusticRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.LIGHT_GRAY_DYE, 1);
+        ItemStack is = ItemStack.of(Material.LIGHT_GRAY_DYE, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Time Rotor Rustic"));
         im.setItemModel(RecipeItem.TIME_ROTOR_RUSTIC.getModel());

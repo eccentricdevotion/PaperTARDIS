@@ -46,7 +46,7 @@ public class TARDISScannerMap {
         view.setScale(MapView.Scale.CLOSEST);
         view.setTrackingPosition(true);
         view.setLocked(true);
-        ItemStack map = new ItemStack(Material.FILLED_MAP, 1);
+        ItemStack map = ItemStack.of(Material.FILLED_MAP, 1);
         MapMeta meta = (MapMeta) map.getItemMeta();
         meta.setMapView(view);
         map.setItemMeta(meta);

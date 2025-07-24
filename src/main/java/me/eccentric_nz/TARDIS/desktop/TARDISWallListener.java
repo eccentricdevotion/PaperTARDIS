@@ -102,7 +102,7 @@ public class TARDISWallListener extends TARDISMenuListener {
         int r = 0;
         int c = 0;
         for (Material entry : TARDISWalls.BLOCKS) {
-            ItemStack is = new ItemStack(entry, 1);
+            ItemStack is = ItemStack.of(entry, 1);
             stacks[r][c] = is;
             c++;
             if (c == 8) {

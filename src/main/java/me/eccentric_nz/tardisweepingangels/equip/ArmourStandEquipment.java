@@ -31,7 +31,7 @@ public class ArmourStandEquipment {
         as.setSmall(small);
         as.setArms(false);
         as.getPersistentDataContainer().set(TARDISWeepingAngels.MONSTER_HEAD, PersistentDataType.INTEGER, 1);
-        ItemStack head = new ItemStack(monster.getMaterial(), 1);
+        ItemStack head = ItemStack.of(monster.getMaterial(), 1);
         ItemMeta headMeta = head.getItemMeta();
         headMeta.displayName(Component.text(monster.getName() + " Head"));
         headMeta.setItemModel(monster.getModel());

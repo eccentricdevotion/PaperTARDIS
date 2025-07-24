@@ -43,7 +43,7 @@ public class SaveStorageDiskRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.MUSIC_DISC_CHIRP, 1);
+        ItemStack is = ItemStack.of(Material.MUSIC_DISC_CHIRP, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Save Storage Disk"));
         im.lore(List.of(Component.text("Blank")));

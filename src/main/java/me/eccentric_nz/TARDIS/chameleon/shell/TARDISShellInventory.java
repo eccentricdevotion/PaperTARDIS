@@ -99,7 +99,7 @@ public class TARDISShellInventory implements InventoryHolder {
                 if (material == null) {
                     material = GUIChameleonPresets.SAVED.material();
                 }
-                ItemStack saved = new ItemStack(material, 1);
+                ItemStack saved = ItemStack.of(material, 1);
                 ItemMeta con = saved.getItemMeta();
                 con.displayName(Component.text("Saved Construct"));
                 List<Component> lore = new ArrayList<>();
@@ -122,7 +122,7 @@ public class TARDISShellInventory implements InventoryHolder {
             }
         }
         // use selected shell
-        ItemStack use = new ItemStack(GUIChameleonPresets.USE_SELECTED.material(), 1);
+        ItemStack use = ItemStack.of(GUIChameleonPresets.USE_SELECTED.material(), 1);
         ItemMeta uim = use.getItemMeta();
         uim.displayName(Component.text("Use selected shell"));
         uim.lore(List.of(
@@ -133,19 +133,19 @@ public class TARDISShellInventory implements InventoryHolder {
         use.setItemMeta(uim);
         stacks[GUIChameleonPresets.USE_SELECTED.slot()] = use;
         // delete selected shell
-        ItemStack delete = new ItemStack(GUIChameleonPresets.DELETE_SELECTED.material(), 1);
+        ItemStack delete = ItemStack.of(GUIChameleonPresets.DELETE_SELECTED.material(), 1);
         ItemMeta dim = delete.getItemMeta();
         dim.displayName(Component.text("Delete selected shell"));
         delete.setItemMeta(dim);
         stacks[GUIChameleonPresets.DELETE_SELECTED.slot()] = delete;
         // update selected shell
-        ItemStack update = new ItemStack(GUIChameleonPresets.UPDATE_SELECTED.material(), 1);
+        ItemStack update = ItemStack.of(GUIChameleonPresets.UPDATE_SELECTED.material(), 1);
         ItemMeta upim = update.getItemMeta();
         upim.displayName(Component.text("Update selected shell"));
         update.setItemMeta(upim);
         stacks[GUIChameleonPresets.UPDATE_SELECTED.slot()] = update;
         // clear shell on platform
-        ItemStack newShell = new ItemStack(GUIChameleonPresets.NEW.material(), 1);
+        ItemStack newShell = ItemStack.of(GUIChameleonPresets.NEW.material(), 1);
         ItemMeta ns = newShell.getItemMeta();
         ns.displayName(Component.text("New Chameleon shell"));
         ns.lore(List.of(
@@ -155,7 +155,7 @@ public class TARDISShellInventory implements InventoryHolder {
         newShell.setItemMeta(ns);
         stacks[GUIChameleonPresets.NEW.slot()] = newShell;
         // Save current shell on platform
-        ItemStack save = new ItemStack(GUIChameleonPresets.SAVE.material(), 1);
+        ItemStack save = ItemStack.of(GUIChameleonPresets.SAVE.material(), 1);
         ItemMeta pre = save.getItemMeta();
         pre.displayName(Component.text("Save Chameleon shell"));
         ns.lore(List.of(
@@ -165,7 +165,7 @@ public class TARDISShellInventory implements InventoryHolder {
         save.setItemMeta(pre);
         stacks[GUIChameleonPresets.SAVE.slot()] = save;
         // Cancel / close
-        ItemStack close = new ItemStack(GUIChameleonPresets.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIChameleonPresets.CLOSE.material(), 1);
         ItemMeta can = close.getItemMeta();
         can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);

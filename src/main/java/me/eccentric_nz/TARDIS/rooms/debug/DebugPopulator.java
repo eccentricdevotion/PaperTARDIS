@@ -348,7 +348,7 @@ public class DebugPopulator {
                     ArmorStand as = (ArmorStand) world.spawnEntity(loc, EntityType.ARMOR_STAND);
                     EntityEquipment ee = as.getEquipment();
                     Material dye = TARDISBuilderUtility.getMaterialForArmourStand(preset, -1, true);
-                    ItemStack head = new ItemStack(dye, 1);
+                    ItemStack head = ItemStack.of(dye, 1);
                     ItemMeta meta = head.getItemMeta();
                     switch (z) {
                         case -4, -20 -> meta.setItemModel(preset.getClosed());
@@ -375,7 +375,7 @@ public class DebugPopulator {
                 ArmorStand as = (ArmorStand) world.spawnEntity(loc, EntityType.ARMOR_STAND);
                 EntityEquipment ee = as.getEquipment();
                 Material material = Material.valueOf(plugin.getCustomModelConfig().getString("models." + c + ".item"));
-                ItemStack head = new ItemStack(material, 1);
+                ItemStack head = ItemStack.of(material, 1);
                 ItemMeta meta = head.getItemMeta();
                 NamespacedKey key;
                 switch (z) {
@@ -407,7 +407,7 @@ public class DebugPopulator {
             ItemFrame frame = (ItemFrame) world.spawnEntity(location, EntityType.ITEM_FRAME);
             frame.setFacingDirection(BlockFace.UP, true);
             // set item
-            ItemStack is = new ItemStack(Material.LIGHT_GRAY_DYE);
+            ItemStack is = ItemStack.of(Material.LIGHT_GRAY_DYE);
             ItemMeta im = is.getItemMeta();
             im.setItemModel(rotor.offModel());
             is.setItemMeta(im);
@@ -434,7 +434,7 @@ public class DebugPopulator {
                 Location location = new Location(world, rx + x + 0.5d, 65.5d, rz + z + 0.5d);
                 ItemDisplay display = (ItemDisplay) world.spawnEntity(location, EntityType.ITEM_DISPLAY);
                 Material material = (tdi.toString().contains("OPEN")) ? tdi.getMaterial() : tdi.getCraftMaterial();
-                ItemStack is = new ItemStack(material);
+                ItemStack is = ItemStack.of(material);
                 ItemMeta im = is.getItemMeta();
                 im.setItemModel(tdi.getCustomModel());
                 is.setItemMeta(im);
@@ -456,7 +456,7 @@ public class DebugPopulator {
             Location closed = new Location(world, rx + x + 0.5d, 65.5d, rz + z + 0.5d);
             ItemDisplay c = (ItemDisplay) world.spawnEntity(closed, EntityType.ITEM_DISPLAY);
             Material material = d.getMaterial();
-            ItemStack is = new ItemStack(material);
+            ItemStack is = ItemStack.of(material);
             ItemMeta im = is.getItemMeta();
             im.setItemModel(new NamespacedKey(plugin, key + "_closed"));
             is.setItemMeta(im);
@@ -469,7 +469,7 @@ public class DebugPopulator {
             // open state
             Location open = new Location(world, rx + x + 0.5d, 65.5d, rz + z + 0.5d);
             ItemDisplay o = (ItemDisplay) world.spawnEntity(open, EntityType.ITEM_DISPLAY);
-            ItemStack ois = new ItemStack(material);
+            ItemStack ois = ItemStack.of(material);
             ItemMeta oim = is.getItemMeta();
             im.setItemModel(new NamespacedKey(plugin, key + "_open"));
             ois.setItemMeta(oim);
@@ -483,7 +483,7 @@ public class DebugPopulator {
             if (d.hasExtra()) {
                 Location extra = new Location(world, rx + x + 0.5d, 65.5d, rz + z + 0.5d);
                 ItemDisplay e = (ItemDisplay) world.spawnEntity(extra, EntityType.ITEM_DISPLAY);
-                ItemStack eis = new ItemStack(material);
+                ItemStack eis = ItemStack.of(material);
                 ItemMeta eim = is.getItemMeta();
                 eim.setItemModel(new NamespacedKey(plugin, key + "_extra"));
                 eis.setItemMeta(eim);
@@ -530,7 +530,7 @@ public class DebugPopulator {
 
     private void setItemFromMaterial(Location location, Material material, NamespacedKey model, Component name) {
         location.getBlock().setType(Material.WHITE_CONCRETE);
-        ItemStack is = new ItemStack(material, 1);
+        ItemStack is = ItemStack.of(material, 1);
         ItemMeta im = is.getItemMeta();
         im.setItemModel(model);
         im.displayName(name);
@@ -570,7 +570,7 @@ public class DebugPopulator {
             ItemFrame frame = (ItemFrame) world.spawnEntity(location, EntityType.ITEM_FRAME);
             frame.setFacingDirection(BlockFace.UP, true);
             // set item
-            ItemStack is = new ItemStack(le.getMaterial());
+            ItemStack is = ItemStack.of(le.getMaterial());
             ItemMeta im = is.getItemMeta();
             im.setItemModel(le.getModel());
             is.setItemMeta(im);
@@ -662,7 +662,7 @@ public class DebugPopulator {
         for (RegenerationVariant t : RegenerationVariant.values()) {
             Location location = new Location(world, rx + x + 0.5d, 65.725, rz + z + 0.5d);
             // create the regeneration item model
-            ItemStack totem = new ItemStack(Material.TOTEM_OF_UNDYING, 1);
+            ItemStack totem = ItemStack.of(Material.TOTEM_OF_UNDYING, 1);
             ItemMeta im = totem.getItemMeta();
             im.setItemModel(t.getKey());
             totem.setItemMeta(im);

@@ -51,31 +51,31 @@ public class TARDISWeatherInventory implements InventoryHolder {
 
         ItemStack[] stack = new ItemStack[9];
         // clear
-        ItemStack clear = new ItemStack(GUIWeather.CLEAR.material(), 1);
+        ItemStack clear = ItemStack.of(GUIWeather.CLEAR.material(), 1);
         ItemMeta sun = clear.getItemMeta();
         sun.displayName(Component.text(TARDISStringUtils.uppercaseFirst(plugin.getLanguage().getString("WEATHER_CLEAR"))));
         clear.setItemMeta(sun);
         stack[GUIWeather.CLEAR.slot()] = clear;
         // rain
-        ItemStack rain = new ItemStack(GUIWeather.RAIN.material(), 1);
+        ItemStack rain = ItemStack.of(GUIWeather.RAIN.material(), 1);
         ItemMeta ing = rain.getItemMeta();
         ing.displayName(Component.text(TARDISStringUtils.uppercaseFirst(plugin.getLanguage().getString("WEATHER_RAIN"))));
         rain.setItemMeta(ing);
         stack[GUIWeather.RAIN.slot()] = rain;
         // thunder
-        ItemStack thunder = new ItemStack(GUIWeather.THUNDER.material(), 1);
+        ItemStack thunder = ItemStack.of(GUIWeather.THUNDER.material(), 1);
         ItemMeta storm = thunder.getItemMeta();
         storm.displayName(Component.text(plugin.getLanguage().getString("WEATHER_THUNDER")));
         thunder.setItemMeta(storm);
         stack[GUIWeather.THUNDER.slot()] = thunder;
         // excite
-        ItemStack excit = new ItemStack(GUIWeather.EXCITE.material(), 1);
+        ItemStack excit = ItemStack.of(GUIWeather.EXCITE.material(), 1);
         ItemMeta ation = excit.getItemMeta();
         ation.displayName(Component.text(plugin.getLanguage().getString("WEATHER_EXCITE")));
         excit.setItemMeta(ation);
         stack[GUIWeather.EXCITE.slot()] = excit;
         // close
-        ItemStack close = new ItemStack(GUIWeather.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIWeather.CLOSE.material(), 1);
         ItemMeta can = close.getItemMeta();
         can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);

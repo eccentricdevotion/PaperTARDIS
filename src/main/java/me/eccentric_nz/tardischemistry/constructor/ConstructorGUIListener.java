@@ -148,7 +148,7 @@ public class ConstructorGUIListener extends TARDISMenuListener {
         ItemStack tens = view.getItem(2 + offset);
         if (tenInt > 0 || tenInt == 0 && hundredInt > 0) {
             if (tens == null) {
-                tens = new ItemStack(Material.PAPER, 1);
+                tens = ItemStack.of(Material.PAPER, 1);
             }
             ItemMeta tenMeta = tens.getItemMeta();
             tenMeta.displayName(Component.text(tenInt));
@@ -161,7 +161,7 @@ public class ConstructorGUIListener extends TARDISMenuListener {
         ItemStack hundreds = view.getItem(1 + offset);
         if (hundredInt > 0) {
             if (hundreds == null) {
-                hundreds = new ItemStack(Material.PAPER, 1);
+                hundreds = ItemStack.of(Material.PAPER, 1);
             }
             ItemMeta hundredMeta = hundreds.getItemMeta();
             hundredMeta.displayName(Component.text(hundredInt));

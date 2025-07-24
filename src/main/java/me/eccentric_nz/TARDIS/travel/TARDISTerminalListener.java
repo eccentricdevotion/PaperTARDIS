@@ -265,9 +265,9 @@ public class TARDISTerminalListener implements Listener {
         int new_slot = getNewSlot(affected_slot, min, max, pos);
         view.setItem(affected_slot, null);
         ItemStack is = switch (row) {
-            case "X" -> new ItemStack(Material.LIGHT_BLUE_WOOL, 1);
-            case "Z" -> new ItemStack(Material.YELLOW_WOOL, 1);
-            default -> new ItemStack(Material.PURPLE_WOOL, 1);
+            case "X" -> ItemStack.of(Material.LIGHT_BLUE_WOOL, 1);
+            case "Z" -> ItemStack.of(Material.YELLOW_WOOL, 1);
+            default -> ItemStack.of(Material.PURPLE_WOOL, 1);
         };
         ItemMeta im = is.getItemMeta();
         im.displayName(Component.text(row));

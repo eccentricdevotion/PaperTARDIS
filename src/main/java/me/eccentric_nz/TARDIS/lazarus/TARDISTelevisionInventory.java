@@ -56,7 +56,7 @@ public class TARDISTelevisionInventory implements InventoryHolder {
         // 16 doctors
         if (PlayerHeadCache.DOCTORS.isEmpty()) {
             for (Skin doctor : DoctorSkins.DOCTORS) {
-                ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
+                ItemStack is = ItemStack.of(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(doctor);
                 im.setPlayerProfile(profile);
@@ -78,7 +78,7 @@ public class TARDISTelevisionInventory implements InventoryHolder {
         // 19 companions
         if (PlayerHeadCache.COMPANIONS.isEmpty()) {
             for (Skin companion : CompanionSkins.COMPANIONS) {
-                ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
+                ItemStack is = ItemStack.of(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(companion);
                 im.setPlayerProfile(profile);
@@ -98,7 +98,7 @@ public class TARDISTelevisionInventory implements InventoryHolder {
         // 13 characters
         if (PlayerHeadCache.LAZARUS_CHARACTERS.isEmpty()) {
             for (Skin character : CharacterSkins.LAZARUS_CHARACTERS) {
-                ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
+                ItemStack is = ItemStack.of(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(character);
                 im.setPlayerProfile(profile);
@@ -116,37 +116,37 @@ public class TARDISTelevisionInventory implements InventoryHolder {
             }
         }
         // page one
-        ItemStack page1 = new ItemStack(GUIChameleonPoliceBoxes.GO_TO_PAGE_1.material(), 1);
+        ItemStack page1 = ItemStack.of(GUIChameleonPoliceBoxes.GO_TO_PAGE_1.material(), 1);
         ItemMeta one = page1.getItemMeta();
         one.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_1", "Go to page 1")));
         page1.setItemMeta(one);
         stacks[48] = page1;
         // page two
-        ItemStack page2 = new ItemStack(GUIChameleonPresets.GO_TO_PAGE_2.material(), 1);
+        ItemStack page2 = ItemStack.of(GUIChameleonPresets.GO_TO_PAGE_2.material(), 1);
         ItemMeta two = page2.getItemMeta();
         two.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_2", "Go to page 2")));
         page2.setItemMeta(two);
         stacks[49] = page2;
         // TARDISWeepingAngels monsters
-        ItemStack weep = new ItemStack(GUIGeneticManipulator.BUTTON_TWA.material(), 1);
+        ItemStack weep = ItemStack.of(GUIGeneticManipulator.BUTTON_TWA.material(), 1);
         ItemMeta ing = weep.getItemMeta();
         ing.displayName(Component.text("TARDIS Monsters"));
         weep.setItemMeta(ing);
         stacks[50] = weep;
         // add buttons
-        ItemStack rem = new ItemStack(GUIGeneticManipulator.BUTTON_RESTORE.material(), 1);
+        ItemStack rem = ItemStack.of(GUIGeneticManipulator.BUTTON_RESTORE.material(), 1);
         ItemMeta ove = rem.getItemMeta();
         ove.displayName(Component.text(plugin.getLanguage().getString("BUTTON_RESTORE", "Restore my original genetic material")));
         rem.setItemMeta(ove);
         stacks[GUIGeneticManipulator.BUTTON_RESTORE.slot()] = rem;
         // set
-        ItemStack s = new ItemStack(GUIGeneticManipulator.BUTTON_DNA.material(), 1);
+        ItemStack s = ItemStack.of(GUIGeneticManipulator.BUTTON_DNA.material(), 1);
         ItemMeta sim = s.getItemMeta();
         sim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_DNA", "Modify my genetic material")));
         s.setItemMeta(sim);
         stacks[GUIGeneticManipulator.BUTTON_DNA.slot()] = s;
         // cancel
-        ItemStack can = new ItemStack(GUIGeneticManipulator.BUTTON_CANCEL.material(), 1);
+        ItemStack can = ItemStack.of(GUIGeneticManipulator.BUTTON_CANCEL.material(), 1);
         ItemMeta cel = can.getItemMeta();
         cel.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CANCEL", "Cancel")));
         can.setItemMeta(cel);

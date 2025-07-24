@@ -57,7 +57,7 @@ public class CustardCreamAction {
         // check artron energy level
         TARDISArtronLevels tardisArtronLevels = new TARDISArtronLevels(plugin);
         if (tardisArtronLevels.checkLevel(id, plugin.getArtronConfig().getInt("custard_cream"), player)) {
-            ItemStack cookie = new ItemStack(Material.COOKIE, 1);
+            ItemStack cookie = ItemStack.of(Material.COOKIE, 1);
             ItemMeta im = cookie.getItemMeta();
             im.displayName(ComponentUtils.toWhite("Custard Cream"));
             cookie.setItemMeta(im);

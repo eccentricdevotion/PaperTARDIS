@@ -45,7 +45,7 @@ public class TVCharactersInventory extends TVGUI {
         int i = 0;
         if (PlayerHeadCache.CHARACTERS.isEmpty()) {
             for (Skin character : CharacterSkins.CHARACTERS) {
-                ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
+                ItemStack is = ItemStack.of(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(character);
                 im.setPlayerProfile(profile);

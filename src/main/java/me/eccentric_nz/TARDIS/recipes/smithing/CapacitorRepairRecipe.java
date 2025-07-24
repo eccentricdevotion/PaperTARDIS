@@ -40,7 +40,7 @@ public class CapacitorRepairRecipe {
 
     public void addRecipe() {
         // result
-        ItemStack result = new ItemStack(Material.BUCKET, 1);
+        ItemStack result = ItemStack.of(Material.BUCKET, 1);
         // template
         RecipeChoice template = new RecipeChoice.MaterialChoice(Material.REDSTONE);
         // base material to upgrade

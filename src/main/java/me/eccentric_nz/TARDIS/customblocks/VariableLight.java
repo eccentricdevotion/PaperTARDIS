@@ -58,13 +58,13 @@ public class VariableLight {
         World world = location.getWorld();
         ItemDisplay roundel = (ItemDisplay) world.spawnEntity(location, EntityType.ITEM_DISPLAY);
         roundel.getPersistentDataContainer().set(TARDIS.plugin.getTardisIdKey(), PersistentDataType.BOOLEAN, true);
-        ItemStack r = new ItemStack(Material.GLASS);
+        ItemStack r = ItemStack.of(Material.GLASS);
         ItemMeta rim = r.getItemMeta();
         rim.setItemModel(model);
         r.setItemMeta(rim);
         roundel.setItemStack(r);
         ItemDisplay inner = (ItemDisplay) world.spawnEntity(location, EntityType.ITEM_DISPLAY);
-        ItemStack b = new ItemStack(material);
+        ItemStack b = ItemStack.of(material);
         inner.setItemStack(b);
         inner.setTransformation(transformation);
         // set a light block

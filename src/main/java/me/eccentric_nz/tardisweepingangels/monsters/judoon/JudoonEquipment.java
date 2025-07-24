@@ -35,7 +35,7 @@ public class JudoonEquipment {
         new ArmourEquipper().dress(entity, Monster.JUDOON);
         if (!disguise) {
             // weapon
-            ItemStack hand = new ItemStack(Material.END_ROD);
+            ItemStack hand = ItemStack.of(Material.END_ROD);
             ItemMeta tim = hand.getItemMeta();
             tim.setItemModel(JudoonVariant.JUDOON_WEAPON_RESTING.getKey());
             hand.setItemMeta(tim);

@@ -59,7 +59,7 @@ public class TARDISTelepathicInventory implements InventoryHolder {
         boolean on = (rsp.resultSet() && rsp.isTelepathyOn());
         Component onOff = on ? Component.text("ON", NamedTextColor.GREEN) : Component.text("OFF", NamedTextColor.RED);
         // toggling telepathic circuit on/off
-        ItemStack toggle = new ItemStack(Material.REPEATER);
+        ItemStack toggle = ItemStack.of(Material.REPEATER);
         ItemMeta tim = toggle.getItemMeta();
         tim.displayName(Component.text("Telepathic Circuit"));
         tim.lore(List.of(onOff));
@@ -70,7 +70,7 @@ public class TARDISTelepathicInventory implements InventoryHolder {
         stack[0] = toggle;
         // cave finder
         if (TARDISPermission.hasPermission(player, "tardis.timetravel.cave")) {
-            ItemStack cave = new ItemStack(Material.DRIPSTONE_BLOCK);
+            ItemStack cave = ItemStack.of(Material.DRIPSTONE_BLOCK);
             ItemMeta cim = cave.getItemMeta();
             cim.displayName(Component.text("Cave Finder"));
             cim.lore(List.of(
@@ -82,7 +82,7 @@ public class TARDISTelepathicInventory implements InventoryHolder {
         }
         // structure finder
         if (TARDISPermission.hasPermission(player, "tardis.timetravel.village")) {
-            ItemStack structure = new ItemStack(Material.HAY_BLOCK);
+            ItemStack structure = ItemStack.of(Material.HAY_BLOCK);
             ItemMeta sim = structure.getItemMeta();
             sim.displayName(Component.text("Structure Finder"));
             sim.lore(List.of(
@@ -94,7 +94,7 @@ public class TARDISTelepathicInventory implements InventoryHolder {
         }
         // biome finder
         if (TARDISPermission.hasPermission(player, "tardis.timetravel.biome")) {
-            ItemStack biome = new ItemStack(Material.BAMBOO_MOSAIC);
+            ItemStack biome = ItemStack.of(Material.BAMBOO_MOSAIC);
             ItemMeta bim = biome.getItemMeta();
             bim.displayName(Component.text("Biome Finder"));
             bim.lore(List.of(
@@ -105,7 +105,7 @@ public class TARDISTelepathicInventory implements InventoryHolder {
             stack[6] = biome;
         }
         // close
-        ItemStack close = new ItemStack(GUIMap.BUTTON_CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIMap.BUTTON_CLOSE.material(), 1);
         ItemMeta gui = close.getItemMeta();
         gui.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         gui.setItemModel(GUIMap.BUTTON_CLOSE.key());

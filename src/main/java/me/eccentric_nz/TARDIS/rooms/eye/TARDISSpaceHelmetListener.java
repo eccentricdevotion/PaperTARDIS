@@ -40,7 +40,7 @@ public class TARDISSpaceHelmetListener implements Listener {
         ItemStack is = player.getInventory().getItemInMainHand();
         if (isSpaceHelmet(is) && player.getInventory().getHelmet() == null) {
             player.getInventory().setHelmet(is);
-            player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+            player.getInventory().setItemInMainHand(ItemStack.of(Material.AIR));
         }
     }
 }

@@ -44,7 +44,7 @@ public class CustardCreamRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.COOKIE, 8);
+        ItemStack is = ItemStack.of(Material.COOKIE, 8);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Custard Cream"));
         is.setItemMeta(im);

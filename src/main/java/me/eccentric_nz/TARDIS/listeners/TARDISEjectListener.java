@@ -241,7 +241,7 @@ public class TARDISEjectListener implements Listener {
                 inv.setDecor(tmlla.getDecor());
                 if (tmlla.isLeashed()) {
                     Inventory pinv = player.getInventory();
-                    ItemStack leash = new ItemStack(Material.LEAD, 1);
+                    ItemStack leash = ItemStack.of(Material.LEAD, 1);
                     pinv.addItem(leash);
                     player.updateInventory();
                 }

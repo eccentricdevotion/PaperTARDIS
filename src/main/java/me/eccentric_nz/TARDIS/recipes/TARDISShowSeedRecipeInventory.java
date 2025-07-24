@@ -41,36 +41,36 @@ public class TARDISShowSeedRecipeInventory implements InventoryHolder {
     private ItemStack[] getRecipeItems() {
         ItemStack[] stacks = new ItemStack[27];
         // redstone torch
-        ItemStack red = new ItemStack(Material.REDSTONE_TORCH, 1);
+        ItemStack red = ItemStack.of(Material.REDSTONE_TORCH, 1);
         // lapis block
-        ItemStack lapis = new ItemStack(Material.LAPIS_BLOCK, 1);
+        ItemStack lapis = ItemStack.of(Material.LAPIS_BLOCK, 1);
         // interior wall
-        ItemStack in_wall = new ItemStack(Material.ORANGE_WOOL, 1);
+        ItemStack in_wall = ItemStack.of(Material.ORANGE_WOOL, 1);
         ItemMeta in_meta = in_wall.getItemMeta();
         in_meta.displayName(Component.text("Interior walls"));
         in_meta.lore(List.of(Component.text("Any valid Wall/Floor block")));
         in_wall.setItemMeta(in_meta);
         // interior floor
-        ItemStack in_floor = new ItemStack(Material.LIGHT_GRAY_WOOL, 1);
+        ItemStack in_floor = ItemStack.of(Material.LIGHT_GRAY_WOOL, 1);
         ItemMeta fl_meta = in_floor.getItemMeta();
         fl_meta.displayName(Component.text("Interior floors"));
         fl_meta.lore(List.of(Component.text("Any valid Wall/Floor block")));
         in_floor.setItemMeta(fl_meta);
         // seed block
-        ItemStack block = new ItemStack(material, 1);
+        ItemStack block = ItemStack.of(material, 1);
         // tardis type
         Schematic schm = Consoles.getBY_NAMES().get(type);
         ItemStack tardis;
         NamespacedKey model = TARDISDisplayItem.CUSTOM.getCustomModel();
         if (schm.isCustom()) {
-            tardis = new ItemStack(schm.getSeedMaterial(), 1);
+            tardis = ItemStack.of(schm.getSeedMaterial(), 1);
         } else {
             try {
                 TARDISDisplayItem tdi = TARDISDisplayItem.valueOf(type);
-                tardis = new ItemStack(tdi.getMaterial(), 1);
+                tardis = ItemStack.of(tdi.getMaterial(), 1);
                 model = tdi.getCustomModel();
             } catch (IllegalArgumentException e) {
-                tardis = new ItemStack(TARDISDisplayItem.CUSTOM.getMaterial(), 1);
+                tardis = ItemStack.of(TARDISDisplayItem.CUSTOM.getMaterial(), 1);
             }
         }
         ItemMeta seed = tardis.getItemMeta();

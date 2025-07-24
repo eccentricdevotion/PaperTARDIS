@@ -149,7 +149,7 @@ public class SkinUtils {
             case "Angel of Liberty" -> {
                 key = Features.ANGEL_OF_LIBERTY_CROWN.getKey();
                 // + 5 torch
-                ItemStack torch = new ItemStack(Material.TORCH, 1);
+                ItemStack torch = ItemStack.of(Material.TORCH, 1);
                 ItemMeta tim = torch.getItemMeta();
                 tim.displayName(Component.text("Liberty Torch"));
                 tim.setItemModel(Features.ANGEL_OF_LIBERTY_TORCH.getKey());
@@ -165,7 +165,7 @@ public class SkinUtils {
                 material = Material.IRON_INGOT;
                 key = Features.CYBERMAN_FEATURES.getKey();
                 // + 7 weapon
-                ItemStack weapon = new ItemStack(material, 1);
+                ItemStack weapon = ItemStack.of(material, 1);
                 ItemMeta cwim = weapon.getItemMeta();
                 cwim.displayName(Component.text("Cyber Weapon"));
                 cwim.setItemModel(CybermanVariant.CYBER_WEAPON.getKey());
@@ -176,7 +176,7 @@ public class SkinUtils {
                 material = Material.SPRUCE_BUTTON;
                 key = Features.WOOD_CYBERMAN_FEATURES.getKey();
                 // + weapon
-                ItemStack weapon = new ItemStack(material, 1);
+                ItemStack weapon = ItemStack.of(material, 1);
                 ItemMeta cwim = weapon.getItemMeta();
                 cwim.displayName(Component.text("Wood Cyber Weapon"));
                 cwim.setItemModel(CybermanVariant.WOOD_CYBER_WEAPON.getKey());
@@ -191,7 +191,7 @@ public class SkinUtils {
                 material = Material.IRON_INGOT;
                 key = Features.CYBERMAN_INVASION_FEATURES.getKey();
                 // + arm decor
-                ItemStack arm = new ItemStack(material, 1);
+                ItemStack arm = ItemStack.of(material, 1);
                 ItemMeta cwim = arm.getItemMeta();
                 cwim.displayName(Component.text("Cyber Arm"));
                 cwim.setItemModel(CybermanVariant.CYBERMAN_INVASION_ARM.getKey());
@@ -207,7 +207,7 @@ public class SkinUtils {
                     default -> Features.CYBER_LORD_FEATURES.getKey();
                 };
                 // + arm decor
-                ItemStack arm = new ItemStack(material, 1);
+                ItemStack arm = ItemStack.of(material, 1);
                 ItemMeta cwim = arm.getItemMeta();
                 cwim.displayName(Component.text("Cyber Arm"));
                 cwim.setItemModel(CybermanVariant.CYBERMAN_RISE_ARM.getKey());
@@ -253,7 +253,7 @@ public class SkinUtils {
             case "Jenny Flint" -> {
                 key = null;
                 // 17 off-hand katana
-                ItemStack katana = new ItemStack(material, 1);
+                ItemStack katana = ItemStack.of(material, 1);
                 ItemMeta kim = katana.getItemMeta();
                 kim.displayName(Component.text("Katana"));
                 kim.setItemModel(Features.JENNY_FLINT_KATANA.getKey());
@@ -268,12 +268,12 @@ public class SkinUtils {
             case "Martha Jones" -> key = Features.MARTHA_JONES_HAIR.getKey();
             case "Melanie Bush" -> {
                 key = Features.MELANIE_BUSH_HAIR.getKey();
-                ItemStack leftArm = new ItemStack(material, 1);
+                ItemStack leftArm = ItemStack.of(material, 1);
                 ItemMeta laim = leftArm.getItemMeta();
                 laim.displayName(Component.text(skin.name()));
                 laim.setItemModel(Features.MELANIE_BUSH_ARM_LEFT.getKey());
                 leftArm.setItemMeta(laim);
-                ItemStack rightArm = new ItemStack(material, 1);
+                ItemStack rightArm = ItemStack.of(material, 1);
                 ItemMeta raim = rightArm.getItemMeta();
                 raim.displayName(Component.text(skin.name()));
                 raim.setItemModel(Features.MELANIE_BUSH_ARM_RIGHT.getKey());
@@ -285,12 +285,12 @@ public class SkinUtils {
                 material = Material.NETHERITE_SCRAP;
                 key = Features.MIRE_HELMET.getKey();
                 // + 7, 8 left, right arms
-                ItemStack leftArm = new ItemStack(material, 1);
+                ItemStack leftArm = ItemStack.of(material, 1);
                 ItemMeta laim = leftArm.getItemMeta();
                 laim.displayName(Component.text(skin.name()));
                 laim.setItemModel(MireVariant.MIRE_LEFT_ARM.getKey());
                 leftArm.setItemMeta(laim);
-                ItemStack rightArm = new ItemStack(material, 1);
+                ItemStack rightArm = ItemStack.of(material, 1);
                 ItemMeta raim = rightArm.getItemMeta();
                 raim.displayName(Component.text(skin.name()));
                 raim.setItemModel(MireVariant.MIRE_RIGHT_ARM.getKey());
@@ -332,12 +332,12 @@ public class SkinUtils {
                 material = Material.TURTLE_EGG;
                 key = Features.SLITHEEN_HEAD.getKey();
                 // + 7, 8 left, right claws
-                ItemStack leftClaw = new ItemStack(material, 1);
+                ItemStack leftClaw = ItemStack.of(material, 1);
                 ItemMeta lhim = leftClaw.getItemMeta();
                 lhim.displayName(Component.text(skin.name()));
                 lhim.setItemModel(SlitheenVariant.SLITHEEN_CLAW_LEFT.getKey());
                 leftClaw.setItemMeta(lhim);
-                ItemStack rightClaw = new ItemStack(material, 1);
+                ItemStack rightClaw = ItemStack.of(material, 1);
                 ItemMeta rhim = rightClaw.getItemMeta();
                 rhim.displayName(Component.text(skin.name()));
                 rhim.setItemModel(SlitheenVariant.SLITHEEN_CLAW_RIGHT.getKey());
@@ -376,7 +376,7 @@ public class SkinUtils {
             }
         }
         if (!skin.name().equals("Jenny Flint")) {
-            ItemStack head = new ItemStack(material, 1);
+            ItemStack head = ItemStack.of(material, 1);
             ItemMeta im = head.getItemMeta();
             im.displayName(Component.text(skin.name()));
             if (key != null) {

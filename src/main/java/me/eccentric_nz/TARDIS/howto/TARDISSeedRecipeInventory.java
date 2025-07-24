@@ -76,11 +76,11 @@ class TARDISSeedRecipeInventory implements InventoryHolder {
             } catch (IllegalArgumentException ignored) {
             }
         }
-        ItemStack red = new ItemStack(torch, 1);
+        ItemStack red = ItemStack.of(torch, 1);
         // lapis block
-        ItemStack lapis = new ItemStack(Material.LAPIS_BLOCK, 1);
+        ItemStack lapis = ItemStack.of(Material.LAPIS_BLOCK, 1);
         // interior wall
-        ItemStack in_wall = new ItemStack(Material.ORANGE_WOOL, 1);
+        ItemStack in_wall = ItemStack.of(Material.ORANGE_WOOL, 1);
         ItemMeta in_meta = in_wall.getItemMeta();
         in_meta.displayName(Component.text("Interior walls"));
         in_meta.lore(List.of(
@@ -89,7 +89,7 @@ class TARDISSeedRecipeInventory implements InventoryHolder {
         ));
         in_wall.setItemMeta(in_meta);
         // interior floor
-        ItemStack in_floor = new ItemStack(Material.LIGHT_GRAY_WOOL, 1);
+        ItemStack in_floor = ItemStack.of(Material.LIGHT_GRAY_WOOL, 1);
         ItemMeta fl_meta = in_floor.getItemMeta();
         fl_meta.displayName(Component.text("Interior floors"));
         fl_meta.lore(List.of(
@@ -98,20 +98,20 @@ class TARDISSeedRecipeInventory implements InventoryHolder {
         ));
         in_floor.setItemMeta(fl_meta);
         // tardis type
-        ItemStack tardis = new ItemStack(block, 1);
+        ItemStack tardis = ItemStack.of(block, 1);
         stack[0] = red;
         stack[9] = lapis;
         stack[11] = in_wall;
         stack[18] = tardis;
         stack[20] = in_floor;
         // close
-        ItemStack close = new ItemStack(Material.BOWL, 1);
+        ItemStack close = ItemStack.of(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);
         stack[26] = close;
         // back
-        ItemStack back = new ItemStack(Material.BOWL, 1);
+        ItemStack back = ItemStack.of(Material.BOWL, 1);
         ItemMeta back_im = back.getItemMeta();
         back_im.displayName(Component.text("Back"));
         back.setItemMeta(back_im);

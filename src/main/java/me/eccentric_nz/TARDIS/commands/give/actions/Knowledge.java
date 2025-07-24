@@ -39,7 +39,7 @@ public class Knowledge {
     }
 
     public void giveAll(CommandSender sender, Player player) {
-        ItemStack book = new ItemStack(Material.KNOWLEDGE_BOOK, 1);
+        ItemStack book = ItemStack.of(Material.KNOWLEDGE_BOOK, 1);
         KnowledgeBookMeta kbm = (KnowledgeBookMeta) book.getItemMeta();
         for (Map.Entry<String, String> map : Give.items.entrySet()) {
             if (!map.getValue().isEmpty()) {
@@ -73,7 +73,7 @@ public class Knowledge {
 
     public void give(CommandSender sender, String item, Player player) {
         String item_to_give = (item.endsWith("_seed")) ? item : Give.items.get(item);
-        ItemStack book = new ItemStack(Material.KNOWLEDGE_BOOK, 1);
+        ItemStack book = ItemStack.of(Material.KNOWLEDGE_BOOK, 1);
         KnowledgeBookMeta kbm = (KnowledgeBookMeta) book.getItemMeta();
         String message = item_to_give;
         switch (item) {

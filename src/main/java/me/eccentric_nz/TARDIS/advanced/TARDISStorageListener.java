@@ -97,7 +97,7 @@ public class TARDISStorageListener extends TARDISMenuListener {
                 Player p = (Player) event.getPlayer();
                 Location loc = p.getLocation();
                 loc.getWorld().dropItemNaturally(loc, stack);
-                view.setItem(i, new ItemStack(Material.AIR));
+                view.setItem(i, ItemStack.of(Material.AIR));
                 plugin.getMessenger().send(p, TardisModule.TARDIS, "ADV_NO_STORE");
             }
         }
@@ -230,7 +230,7 @@ public class TARDISStorageListener extends TARDISMenuListener {
             if (is != null) {
                 if (!onlythese.contains(is.getType())) {
                     p.getLocation().getWorld().dropItemNaturally(p.getLocation(), is);
-                    inv.setItem(i, new ItemStack(Material.AIR));
+                    inv.setItem(i, ItemStack.of(Material.AIR));
                 }
             }
         }

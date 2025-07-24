@@ -91,7 +91,7 @@ public class TARDISGlassesListener implements Listener {
                         pi.setHelmet(null);
                         p.removePotionEffect(PotionEffectType.NIGHT_VISION);
                         plugin.getMessenger().send(p, TardisModule.TARDIS, "GLASSES_DONE");
-                        p.getWorld().dropItemNaturally(p.getLocation(), new ItemStack(Material.PAPER, 1));
+                        p.getWorld().dropItemNaturally(p.getLocation(), ItemStack.of(Material.PAPER, 1));
                         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new removeFromMap(uuid), 20L);
                     } else {
                         damageable.setDamage(d);

@@ -131,9 +131,9 @@ public class TARDISCircuitRepairListener implements Listener {
             anvil.setItem(0, clone);
             // set the amount in slot 1
             if (remaining > 0) {
-                anvil.setItem(1, new ItemStack(Material.REDSTONE, remaining));
+                anvil.setItem(1, ItemStack.of(Material.REDSTONE, remaining));
             } else {
-                anvil.setItem(1, new ItemStack(Material.AIR));
+                anvil.setItem(1, ItemStack.of(Material.AIR));
             }
         }
     }

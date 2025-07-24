@@ -48,7 +48,7 @@ public class FishFingerRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.COOKED_COD, 3);
+        ItemStack is = ItemStack.of(Material.COOKED_COD, 3);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Fish Finger"));
         im.lore(List.of(Component.text("Best eaten with custard!")));

@@ -66,7 +66,7 @@ public class Sphere extends TARDISParticleRunnable {
         if (display == null) {
             display = (ItemDisplay) location.getWorld().spawnEntity(location, EntityType.ITEM_DISPLAY);
         }
-        ItemStack is = new ItemStack(Material.MAGMA_BLOCK);
+        ItemStack is = ItemStack.of(Material.MAGMA_BLOCK);
         ItemMeta im = is.getItemMeta();
         im.displayName(Component.text("Sphere " + TARDISStringUtils.capitalise(capacitor.toString())));
         is.setItemMeta(im);

@@ -62,7 +62,7 @@ public class TARDISItemFrameSetter {
         if (json.has("item")) {
             try {
                 Material material = Material.valueOf(json.get("item").getAsString());
-                ItemStack is = new ItemStack(material);
+                ItemStack is = ItemStack.of(material);
                 ItemMeta im = is.getItemMeta();
                 // needed for Time Rotors / Doors
                 if (json.has("cmd")) {

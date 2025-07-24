@@ -50,7 +50,7 @@ public class TARDISEyeStorage implements InventoryHolder {
     private ItemStack[] getGUI(int id) {
         ItemStack[] stacks = new ItemStack[9];
         // info
-        ItemStack info = new ItemStack(GUIArtronStorage.INFO.material(), 1);
+        ItemStack info = ItemStack.of(GUIArtronStorage.INFO.material(), 1);
         ItemMeta info_im = info.getItemMeta();
         info_im.displayName(Component.text("Info"));
         info_im.lore(List.of(
@@ -62,7 +62,7 @@ public class TARDISEyeStorage implements InventoryHolder {
         info.setItemMeta(info_im);
         stacks[GUIArtronStorage.INFO.slot()] = info;
         // right arrow
-        ItemStack r_arrow = new ItemStack(GUIArtronStorage.ARROW_RIGHT.material(), 1);
+        ItemStack r_arrow = ItemStack.of(GUIArtronStorage.ARROW_RIGHT.material(), 1);
         ItemMeta r_arrow_im = r_arrow.getItemMeta();
         r_arrow_im.displayName(ComponentUtils.toWhite(""));
         r_arrow.setItemMeta(r_arrow_im);
@@ -73,7 +73,7 @@ public class TARDISEyeStorage implements InventoryHolder {
             int damaged = rs.getDamageCount();
             // capacitors
             for (int i = 2; i < 2 + count; i++) {
-                ItemStack is = new ItemStack(Material.BUCKET, 1);
+                ItemStack is = ItemStack.of(Material.BUCKET, 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(ComponentUtils.toWhite(i > (2 + count) - damaged ? "Damaged Artron Capacitor" : "Artron Capacitor"));
                 is.setItemMeta(im);
@@ -81,13 +81,13 @@ public class TARDISEyeStorage implements InventoryHolder {
             }
         }
         // left arrow
-        ItemStack l_arrow = new ItemStack(GUIArtronStorage.ARROW_LEFT.material(), 1);
+        ItemStack l_arrow = ItemStack.of(GUIArtronStorage.ARROW_LEFT.material(), 1);
         ItemMeta l_arrow_im = l_arrow.getItemMeta();
         l_arrow_im.displayName(ComponentUtils.toWhite(" "));
         l_arrow.setItemMeta(l_arrow_im);
         stacks[GUIArtronStorage.ARROW_LEFT.slot()] = l_arrow;
         // close
-        ItemStack close = new ItemStack(GUIArtronStorage.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIArtronStorage.CLOSE.material(), 1);
         ItemMeta can = close.getItemMeta();
         can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);

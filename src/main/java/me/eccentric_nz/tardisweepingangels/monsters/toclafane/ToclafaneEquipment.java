@@ -31,7 +31,7 @@ import org.bukkit.potion.PotionEffectType;
 public class ToclafaneEquipment {
 
     public static void set(Entity entity, boolean disguise) {
-        ItemStack head = new ItemStack(Material.GUNPOWDER);
+        ItemStack head = ItemStack.of(Material.GUNPOWDER);
         ItemMeta headMeta = head.getItemMeta();
         headMeta.displayName(Component.text("Toclafane"));
         headMeta.setItemModel((disguise) ? ToclafaneVariant.TOCLAFANE.getKey() : ToclafaneVariant.TOCLAFANE_ATTACK.getKey());

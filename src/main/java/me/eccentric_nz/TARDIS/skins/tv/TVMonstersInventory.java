@@ -44,7 +44,7 @@ public class TVMonstersInventory extends TVGUI {
         int i = 0;
         if (PlayerHeadCache.MONSTERS.isEmpty()) {
             for (Skin monster : MonsterSkins.MONSTERS) {
-                ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
+                ItemStack is = ItemStack.of(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(monster);
                 im.setPlayerProfile(profile);

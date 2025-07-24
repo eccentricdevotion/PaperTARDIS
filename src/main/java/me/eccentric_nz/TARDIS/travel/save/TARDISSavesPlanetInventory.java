@@ -58,7 +58,7 @@ public class TARDISSavesPlanetInventory implements InventoryHolder {
     private ItemStack[] getWorlds() {
         ItemStack[] stack = new ItemStack[54];
         // home stack
-        ItemStack his = new ItemStack(GUISaves.HOME.material(), 1);
+        ItemStack his = ItemStack.of(GUISaves.HOME.material(), 1);
         ItemMeta him = his.getItemMeta();
         List<Component> hlore = new ArrayList<>();
         HashMap<String, Object> wherehl = new HashMap<>();
@@ -83,7 +83,7 @@ public class TARDISSavesPlanetInventory implements InventoryHolder {
         stack[GUISaves.HOME.slot()] = his;
         if (TARDISPermission.hasPermission(player, "tardis.save.death")) {
             // home stack
-            ItemStack death = new ItemStack(GUISaves.DEATH.material(), 1);
+            ItemStack death = ItemStack.of(GUISaves.DEATH.material(), 1);
             ItemMeta dim = death.getItemMeta();
             dim.displayName(Component.text("Death location"));
             List<Component> dlore = new ArrayList<>();
@@ -107,7 +107,7 @@ public class TARDISSavesPlanetInventory implements InventoryHolder {
         if (rsd.resultSet()) {
             int i = 9;
             for (Planet planet : rsd.getData()) {
-                ItemStack is = new ItemStack(planet.material(), 1);
+                ItemStack is = ItemStack.of(planet.material(), 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(Component.text(planet.name()));
                 is.setItemMeta(im);

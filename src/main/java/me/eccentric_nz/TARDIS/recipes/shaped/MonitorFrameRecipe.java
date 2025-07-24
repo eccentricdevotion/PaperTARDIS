@@ -52,7 +52,7 @@ public class MonitorFrameRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.GLASS, 1);
+        ItemStack is = ItemStack.of(Material.GLASS, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Monitor Frame"));
         im.setItemModel(RecipeItem.MONITOR_FRAME.getModel());

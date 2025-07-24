@@ -59,13 +59,13 @@ public class TARDISRecipeInventory implements InventoryHolder {
     private ItemStack[] getItemStack() {
         ItemStack[] stack = new ItemStack[27];
         // back
-        ItemStack back = new ItemStack(Material.BOWL, 1);
+        ItemStack back = ItemStack.of(Material.BOWL, 1);
         ItemMeta but = back.getItemMeta();
         but.displayName(Component.text("Back"));
         back.setItemMeta(but);
         stack[0] = back;
         // info
-        ItemStack info = new ItemStack(Material.BOWL, 1);
+        ItemStack info = ItemStack.of(Material.BOWL, 1);
         ItemMeta info_im = info.getItemMeta();
         info_im.displayName(Component.text("Info"));
         info_im.lore(List.of(
@@ -76,7 +76,7 @@ public class TARDISRecipeInventory implements InventoryHolder {
         info.setItemMeta(info_im);
         stack[4] = info;
         // close
-        ItemStack close = new ItemStack(Material.BOWL, 1);
+        ItemStack close = ItemStack.of(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);

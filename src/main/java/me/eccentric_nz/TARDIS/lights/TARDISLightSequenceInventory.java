@@ -58,7 +58,7 @@ public class TARDISLightSequenceInventory implements InventoryHolder {
     private ItemStack[] getItemStack() {
         ItemStack[] stacks = new ItemStack[45];
         // 4 info
-        ItemStack lights = new ItemStack(GUILights.SEQUENCE_INFO.material(), 1);
+        ItemStack lights = ItemStack.of(GUILights.SEQUENCE_INFO.material(), 1);
         ItemMeta sim = lights.getItemMeta();
         sim.displayName(Component.text("TARDIS Light Sequence"));
         sim.lore(List.of(
@@ -75,7 +75,7 @@ public class TARDISLightSequenceInventory implements InventoryHolder {
             String[] sequence = rs.getSequence().split(":");
             for (int i = 9; i < 18; i++) {
                 Material material = Material.valueOf(sequence[i - 9] + "_WOOL");
-                ItemStack wool = new ItemStack(material, 1);
+                ItemStack wool = ItemStack.of(material, 1);
                 stacks[i] = wool;
             }
             // 18->26 delay (cycle)
@@ -85,7 +85,7 @@ public class TARDISLightSequenceInventory implements InventoryHolder {
                 if (amount < 5) {
                     amount = 5;
                 }
-                ItemStack delay = new ItemStack(Material.COAL_BLOCK, 1);
+                ItemStack delay = ItemStack.of(Material.COAL_BLOCK, 1);
                 ItemMeta dim = delay.getItemMeta();
                 dim.displayName(Component.text("Display time"));
                 delay.setItemMeta(dim);
@@ -99,7 +99,7 @@ public class TARDISLightSequenceInventory implements InventoryHolder {
                 if (amount < 1) {
                     amount = 15;
                 }
-                ItemStack level = new ItemStack(Material.COAL_BLOCK, 1);
+                ItemStack level = ItemStack.of(Material.COAL_BLOCK, 1);
                 ItemMeta lim = level.getItemMeta();
                 lim.displayName(Component.text("Light level"));
                 level.setItemMeta(lim);
@@ -108,7 +108,7 @@ public class TARDISLightSequenceInventory implements InventoryHolder {
             }
         }
         // 36 preset (cycle)
-        ItemStack preset = new ItemStack(GUILights.BUTTON_LIGHT_SEQUENCE.material(), 1);
+        ItemStack preset = ItemStack.of(GUILights.BUTTON_LIGHT_SEQUENCE.material(), 1);
         ItemMeta pim = preset.getItemMeta();
         pim.displayName(Component.text("Preset Sequence"));
         pim.lore(List.of(
@@ -119,19 +119,19 @@ public class TARDISLightSequenceInventory implements InventoryHolder {
         preset.setItemMeta(pim);
         stacks[36] = preset;
         // 40 save
-        ItemStack save = new ItemStack(GUIChameleonConstructor.SAVE_CONSTRUCT.material(), 1);
+        ItemStack save = ItemStack.of(GUIChameleonConstructor.SAVE_CONSTRUCT.material(), 1);
         ItemMeta se = save.getItemMeta();
         se.displayName(Component.text("Save Sequence"));
         save.setItemMeta(se);
         stacks[40] = save;
         // back button
-        ItemStack back = new ItemStack(GUIChameleonTemplate.BACK_HELP.material(), 1);
+        ItemStack back = ItemStack.of(GUIChameleonTemplate.BACK_HELP.material(), 1);
         ItemMeta bk = back.getItemMeta();
         bk.displayName(Component.text("Back"));
         back.setItemMeta(bk);
         stacks[42] = back;
         // 44 close
-        ItemStack close = new ItemStack(GUILights.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUILights.CLOSE.material(), 1);
         ItemMeta clim = close.getItemMeta();
         clim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(clim);

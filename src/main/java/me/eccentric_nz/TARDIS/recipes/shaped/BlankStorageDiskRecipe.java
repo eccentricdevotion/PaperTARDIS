@@ -42,7 +42,7 @@ public class BlankStorageDiskRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.MUSIC_DISC_STRAD, 1);
+        ItemStack is = ItemStack.of(Material.MUSIC_DISC_STRAD, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Blank Storage Disk"));
         is.setItemMeta(im);

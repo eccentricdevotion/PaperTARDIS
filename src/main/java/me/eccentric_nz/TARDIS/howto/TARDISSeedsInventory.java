@@ -69,7 +69,7 @@ public class TARDISSeedsInventory implements InventoryHolder {
         for (Schematic a : Consoles.getBY_NAMES().values()) {
             if (TARDISPermission.hasPermission(player, "tardis." + a.getPermission()) && !a.getSeedMaterial().equals(Material.COBBLESTONE)) {
                 Material m = Material.getMaterial(a.getSeed());
-                ItemStack is = new ItemStack(m, 1);
+                ItemStack is = ItemStack.of(m, 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(Component.text(a.getDescription()));
                 im.lore(List.of(Component.text("Click to see recipe...")));
@@ -79,7 +79,7 @@ public class TARDISSeedsInventory implements InventoryHolder {
             }
         }
         // close
-        ItemStack close = new ItemStack(Material.BOWL, 1);
+        ItemStack close = ItemStack.of(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);

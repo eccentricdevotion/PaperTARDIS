@@ -51,7 +51,7 @@ public class ConsoleLampSwitchRecipe {
 
     public void addRecipe() {
         // add interior recipe
-        ItemStack is = new ItemStack(Material.LEVER, 1);
+        ItemStack is = ItemStack.of(Material.LEVER, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Console Lamp Switch"));
         im.setItemModel(RecipeItem.CONSOLE_LAMP_SWITCH.getModel());

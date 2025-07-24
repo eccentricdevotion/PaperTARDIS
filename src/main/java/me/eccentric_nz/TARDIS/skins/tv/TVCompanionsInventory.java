@@ -45,7 +45,7 @@ public class TVCompanionsInventory extends TVGUI {
         int i = 0;
         if (PlayerHeadCache.COMPANIONS.isEmpty()) {
             for (Skin companion : CompanionSkins.COMPANIONS) {
-                ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
+                ItemStack is = ItemStack.of(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(companion);
                 im.setPlayerProfile(profile);

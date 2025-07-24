@@ -103,7 +103,7 @@ public class TARDISLightsInventory implements InventoryHolder {
             plugin.getQueryFactory().doSyncInsert("light_prefs", set);
         }
         // 0 lights info
-        ItemStack lights = new ItemStack(GUILights.LIGHT_INFO.material(), 1);
+        ItemStack lights = ItemStack.of(GUILights.LIGHT_INFO.material(), 1);
         ItemMeta sim = lights.getItemMeta();
         sim.displayName(Component.text("Light Type"));
         sim.lore(List.of(
@@ -115,7 +115,7 @@ public class TARDISLightsInventory implements InventoryHolder {
         stacks[GUILights.LIGHT_INFO.slot()] = lights;
         int i = 1;
         for (TardisLight tl : TardisLight.values()) {
-            ItemStack light = new ItemStack(tl.getOn().getMaterial(), 1);
+            ItemStack light = ItemStack.of(tl.getOn().getMaterial(), 1);
             ItemMeta lim = light.getItemMeta();
             lim.displayName(Component.text(TARDISStringUtils.capitalise(tl.toString())));
             if (lightPref == tl) {
@@ -130,7 +130,7 @@ public class TARDISLightsInventory implements InventoryHolder {
             }
         }
         // 27 block info
-        ItemStack block_info = new ItemStack(GUILights.BLOCK_INFO.material(), 1);
+        ItemStack block_info = ItemStack.of(GUILights.BLOCK_INFO.material(), 1);
         ItemMeta blim = block_info.getItemMeta();
         blim.displayName(Component.text("Variable Light Block"));
         blim.lore(List.of(
@@ -141,16 +141,16 @@ public class TARDISLightsInventory implements InventoryHolder {
         block_info.setItemMeta(blim);
         stacks[GUILights.BLOCK_INFO.slot()] = block_info;
         // 28 block button
-        ItemStack block_button = new ItemStack(GUILights.BLOCK_BUTTON.material(), 1);
+        ItemStack block_button = ItemStack.of(GUILights.BLOCK_BUTTON.material(), 1);
         ItemMeta bbim = block_button.getItemMeta();
         bbim.displayName(Component.text("Block Type"));
         block_button.setItemMeta(bbim);
         stacks[GUILights.BLOCK_BUTTON.slot()] = block_button;
         // 29 populate with block choice if available
-        ItemStack block = new ItemStack(material, 1);
+        ItemStack block = ItemStack.of(material, 1);
         stacks[29] = block;
         // 34 change info
-        ItemStack ch_info = new ItemStack(GUILights.CHANGE_INFO.material(), 1);
+        ItemStack ch_info = ItemStack.of(GUILights.CHANGE_INFO.material(), 1);
         ItemMeta chim = ch_info.getItemMeta();
         chim.displayName(Component.text("Change your light type"));
         chim.lore(List.of(
@@ -162,13 +162,13 @@ public class TARDISLightsInventory implements InventoryHolder {
         ch_info.setItemMeta(chim);
         stacks[GUILights.CHANGE_INFO.slot()] = ch_info;
         // 35 change lights
-        ItemStack chan = new ItemStack(GUILights.CHANGE_LIGHTS.material(), 1);
+        ItemStack chan = ItemStack.of(GUILights.CHANGE_LIGHTS.material(), 1);
         ItemMeta geim = chan.getItemMeta();
         geim.displayName(Component.text("Change Lights"));
         chan.setItemMeta(geim);
         stacks[GUILights.CHANGE_LIGHTS.slot()] = chan;
         // 41 convert lights info
-        ItemStack c_info = new ItemStack(GUILights.CONVERT_INFO.material(), 1);
+        ItemStack c_info = ItemStack.of(GUILights.CONVERT_INFO.material(), 1);
         ItemMeta ciim = c_info.getItemMeta();
         ciim.displayName(Component.text("Convert blocks to lights"));
         ciim.lore(List.of(
@@ -179,7 +179,7 @@ public class TARDISLightsInventory implements InventoryHolder {
         c_info.setItemMeta(ciim);
         stacks[GUILights.CONVERT_INFO.slot()] = c_info;
         // 42 light emitting selection
-        ItemStack emitting = new ItemStack(GUILights.SELECT_LIGHT.material(), 1);
+        ItemStack emitting = ItemStack.of(GUILights.SELECT_LIGHT.material(), 1);
         ItemMeta emim = emitting.getItemMeta();
         emim.displayName(Component.text("Select block to convert"));
         emitting.setItemMeta(emim);
@@ -189,10 +189,10 @@ public class TARDISLightsInventory implements InventoryHolder {
         if (Sequences.CONVERTERS.containsKey(uuid)) {
             lightEmitting = Material.valueOf(Sequences.CONVERTERS.get(uuid));
         }
-        ItemStack lit = new ItemStack(lightEmitting, 1);
+        ItemStack lit = ItemStack.of(lightEmitting, 1);
         stacks[43] = lit;
         // 44 convert lights
-        ItemStack con = new ItemStack(GUILights.CONVERT_LIGHTS.material(), 1);
+        ItemStack con = ItemStack.of(GUILights.CONVERT_LIGHTS.material(), 1);
         ItemMeta vert = con.getItemMeta();
         vert.displayName(Component.text("Convert blocks to lights"));
         vert.lore(List.of(
@@ -204,7 +204,7 @@ public class TARDISLightsInventory implements InventoryHolder {
         con.setItemMeta(vert);
         stacks[GUILights.CONVERT_LIGHTS.slot()] = con;
         // 45 light switch
-        ItemStack lig = new ItemStack(GUILights.LIGHT_SWITCH.material(), 1);
+        ItemStack lig = ItemStack.of(GUILights.LIGHT_SWITCH.material(), 1);
         ItemMeta swi = lig.getItemMeta();
         swi.displayName(Component.text(plugin.getLanguage().getString("BUTTON_LIGHTS")));
         swi.lore(List.of(Component.text(lights_onoff)));
@@ -218,25 +218,25 @@ public class TARDISLightsInventory implements InventoryHolder {
         lig.setItemMeta(swi);
         stacks[GUILights.LIGHT_SWITCH.slot()] = lig;
         // 47 light levels page
-        ItemStack llis = new ItemStack(GUILights.BUTTON_LIGHT_LEVELS.material(), 1);
+        ItemStack llis = ItemStack.of(GUILights.BUTTON_LIGHT_LEVELS.material(), 1);
         ItemMeta llim = llis.getItemMeta();
         llim.displayName(Component.text("Light Levels"));
         llis.setItemMeta(llim);
         stacks[GUILights.BUTTON_LIGHT_LEVELS.slot()] = llis;
         // 49 light sequence button
-        ItemStack sequence = new ItemStack(GUILights.BUTTON_LIGHT_SEQUENCE.material(), 1);
+        ItemStack sequence = ItemStack.of(GUILights.BUTTON_LIGHT_SEQUENCE.material(), 1);
         ItemMeta qim = sequence.getItemMeta();
         qim.displayName(Component.text("Run Light Sequence"));
         sequence.setItemMeta(qim);
         stacks[GUILights.BUTTON_LIGHT_SEQUENCE.slot()] = sequence;
         // 51 edit light sequence page?
-        ItemStack edit = new ItemStack(GUILights.EDIT_LIGHT_SEQUENCE.material(), 1);
+        ItemStack edit = ItemStack.of(GUILights.EDIT_LIGHT_SEQUENCE.material(), 1);
         ItemMeta eim = edit.getItemMeta();
         eim.displayName(Component.text("Edit Light Sequence"));
         edit.setItemMeta(eim);
         stacks[GUILights.EDIT_LIGHT_SEQUENCE.slot()] = edit;
         // close
-        ItemStack close = new ItemStack(GUILights.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUILights.CLOSE.material(), 1);
         ItemMeta clim = close.getItemMeta();
         clim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(clim);

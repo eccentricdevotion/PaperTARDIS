@@ -112,7 +112,7 @@ public class TARDISJettisonSeeder implements Listener {
                         new RoomCleaner(plugin).removeRecords(room, id, block.getWorld(), player);
                         if (plugin.getConfig().getBoolean("growth.return_room_seed")) {
                             // give the player back the room seed block
-                            ItemStack is = new ItemStack(Material.getMaterial(plugin.getRoomsConfig().getString("rooms." + room + ".seed")));
+                            ItemStack is = ItemStack.of(Material.getMaterial(plugin.getRoomsConfig().getString("rooms." + room + ".seed")));
                             Inventory inv = player.getInventory();
                             inv.addItem(is);
                             player.updateInventory();

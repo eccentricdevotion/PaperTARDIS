@@ -51,7 +51,7 @@ public class PaperBagRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.PAPER, 1);
+        ItemStack is = ItemStack.of(Material.PAPER, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Paper Bag"));
         im.lore(List.of(Component.text("Smaller on the outside")));

@@ -99,7 +99,7 @@ public class TARDISFirework {
     }
 
     private static FireworkMeta getCleanMeta() {
-        return (FireworkMeta) new ItemStack(Material.FIREWORK_ROCKET).getItemMeta();
+        return (FireworkMeta) ItemStack.of(Material.FIREWORK_ROCKET).getItemMeta();
     }
 
     private Firework launch(Location l) {

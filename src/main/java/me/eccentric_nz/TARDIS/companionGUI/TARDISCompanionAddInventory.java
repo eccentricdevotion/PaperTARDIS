@@ -71,7 +71,7 @@ public class TARDISCompanionAddInventory implements InventoryHolder {
             if (i < 45) {
                 UUID puid = p.getUniqueId();
                 if (puid != uuid && !comps.contains(puid.toString()) && VanishChecker.canSee(player, p)) {
-                    ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
+                    ItemStack head = ItemStack.of(Material.PLAYER_HEAD, 1);
                     SkullMeta skull = (SkullMeta) head.getItemMeta();
                     skull.setOwningPlayer(p);
                     skull.displayName(Component.text(p.getName()));
@@ -83,7 +83,7 @@ public class TARDISCompanionAddInventory implements InventoryHolder {
             }
         }
         // add buttons
-        ItemStack info = new ItemStack(GUICompanion.INFO.material(), 1);
+        ItemStack info = ItemStack.of(GUICompanion.INFO.material(), 1);
         ItemMeta ii = info.getItemMeta();
         ii.displayName(Component.text("Info"));
         ii.lore(List.of(
@@ -92,18 +92,18 @@ public class TARDISCompanionAddInventory implements InventoryHolder {
         ));
         info.setItemMeta(ii);
         heads[GUICompanion.INFO.slot()] = info;
-        ItemStack list = new ItemStack(GUICompanion.LIST_COMPANIONS.material(), 1);
+        ItemStack list = ItemStack.of(GUICompanion.LIST_COMPANIONS.material(), 1);
         ItemMeta ll = list.getItemMeta();
         ll.displayName(Component.text("List companions"));
         list.setItemMeta(ll);
         heads[GUICompanion.LIST_COMPANIONS.slot()] = list;
-        ItemStack every = new ItemStack(GUICompanion.ALL_COMPANIONS.material(), 1);
+        ItemStack every = ItemStack.of(GUICompanion.ALL_COMPANIONS.material(), 1);
         ItemMeta one = every.getItemMeta();
         one.displayName(Component.text("Add all online players"));
         every.setItemMeta(one);
         heads[GUICompanion.ALL_COMPANIONS.slot()] = every;
         // Cancel / close
-        ItemStack close = new ItemStack(GUICompanion.BUTTON_CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUICompanion.BUTTON_CLOSE.material(), 1);
         ItemMeta can = close.getItemMeta();
         can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);

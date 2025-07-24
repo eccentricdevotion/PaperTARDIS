@@ -72,13 +72,13 @@ class TARDISSonicActivatorInventory implements InventoryHolder {
         lore.add(Component.text("BLAZE_ROD", NamedTextColor.AQUA));
         lore.add(Component.text("Then close the GUI.", NamedTextColor.DARK_PURPLE).decorate(TextDecoration.ITALIC));
         // info
-        ItemStack info = new ItemStack(GUISonicActivator.INSTRUCTIONS.material(), 1);
+        ItemStack info = ItemStack.of(GUISonicActivator.INSTRUCTIONS.material(), 1);
         ItemMeta info_im = info.getItemMeta();
         info_im.displayName(Component.text("Instructions"));
         info_im.lore(lore);
         info.setItemMeta(info_im);
         // close
-        ItemStack close = new ItemStack(GUISonicActivator.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUISonicActivator.CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);

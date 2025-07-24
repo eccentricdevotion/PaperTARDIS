@@ -39,7 +39,7 @@ public class BowlofCustardRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.MUSHROOM_STEW, 1);
+        ItemStack is = ItemStack.of(Material.MUSHROOM_STEW, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Bowl of Custard"));
         is.setItemMeta(im);

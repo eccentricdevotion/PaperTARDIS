@@ -158,7 +158,7 @@ public class ChemistryBlockListener implements Listener {
         if (mush.equals(Material.RED_MUSHROOM_BLOCK) || mush.equals(Material.MUSHROOM_STEM)) {
             TARDISDisplayItem tdi = TARDISMushroomBlock.conversionMap.get(block.getBlockData().getAsString());
             if (tdi != null) {
-                ItemStack is = new ItemStack(tdi.getMaterial(), 1);
+                ItemStack is = ItemStack.of(tdi.getMaterial(), 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(Component.text(tdi.getDisplayName()));
                 im.setItemModel(tdi.getCustomModel());

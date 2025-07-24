@@ -70,7 +70,7 @@ public class TARDISHandlesProgramInventory implements InventoryHolder {
         }
         i = 36;
         for (TARDISHandlesBlock b : TARDISHandlesBlock.getButtons()) {
-            ItemStack is = new ItemStack(Material.BOWL, 1);
+            ItemStack is = ItemStack.of(Material.BOWL, 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(Component.text(b.getDisplayName()));
             is.setItemMeta(im);
@@ -83,7 +83,7 @@ public class TARDISHandlesProgramInventory implements InventoryHolder {
 
         i = 45;
         for (TARDISHandlesBlock b : TARDISHandlesBlock.getControls()) {
-            ItemStack is = new ItemStack(Material.PAPER, 1);
+            ItemStack is = ItemStack.of(Material.PAPER, 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(Component.text(b.getDisplayName()));
             if (b.getLore() != null) {

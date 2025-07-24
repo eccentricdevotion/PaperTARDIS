@@ -62,7 +62,7 @@ public class ConsoleRecipe {
             // get colour name
             String name = colour.getKey().toString().replace("_CONCRETE_POWDER", "");
             Material material = Material.valueOf(name + "_CONCRETE");
-            ItemStack is = new ItemStack(material, 1);
+            ItemStack is = ItemStack.of(material, 1);
             ItemMeta im = is.getItemMeta();
             String dn = TARDISStringUtils.capitalise(name) + " Console";
             im.displayName(ComponentUtils.toWhite(dn));

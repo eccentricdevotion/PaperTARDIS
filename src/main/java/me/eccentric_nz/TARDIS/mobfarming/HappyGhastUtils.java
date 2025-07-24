@@ -93,7 +93,7 @@ public class HappyGhastUtils {
         slime.setInvisible(true);
         slime.setInvulnerable(true);
         ItemDisplay display = fence.getWorld().spawn(fence.getBlock().getRelative(BlockFace.NORTH).getLocation(), ItemDisplay.class);
-        ItemStack dried = new ItemStack(Material.DRIED_GHAST);
+        ItemStack dried = ItemStack.of(Material.DRIED_GHAST);
         display.setItemStack(dried);
         slime.addPassenger(display);
         if (!harness.isEmpty()) {

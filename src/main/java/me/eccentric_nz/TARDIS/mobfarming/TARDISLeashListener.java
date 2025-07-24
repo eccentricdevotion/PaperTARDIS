@@ -90,7 +90,7 @@ public class TARDISLeashListener implements Listener {
         }
         if (pdc.has(HappyGhastUtils.HARNESS)) {
             String material = pdc.get(HappyGhastUtils.HARNESS, PersistentDataType.STRING);
-            ItemStack harness = new ItemStack(Material.valueOf(material));
+            ItemStack harness = ItemStack.of(Material.valueOf(material));
             skies.getEquipment().setItem(EquipmentSlot.BODY, harness);
         }
         skies.setHealth(pdc.get(HappyGhastUtils.HEALTH, PersistentDataType.DOUBLE));

@@ -69,7 +69,7 @@ public class RoomsUtility {
     private static void set(LimitedRegion region, double x, double y, double z, Material material, NamespacedKey model, boolean inRoom) {
         Location location = new Location(null, x, y, z);
         ItemDisplay display = (ItemDisplay) region.spawnEntity(location, EntityType.ITEM_DISPLAY);
-        ItemStack is = new ItemStack(material);
+        ItemStack is = ItemStack.of(material);
         if (model != null) {
             ItemMeta im = is.getItemMeta();
             im.setItemModel(model);
@@ -95,7 +95,7 @@ public class RoomsUtility {
         String cmd;
         if (json.has("item")) {
             try {
-                ItemStack is = new ItemStack(Material.valueOf(json.get("item").getAsString()));
+                ItemStack is = ItemStack.of(Material.valueOf(json.get("item").getAsString()));
                 ItemMeta im = is.getItemMeta();
                 if (json.has("cmd")) {
                     cmd = json.get("cmd").getAsString();

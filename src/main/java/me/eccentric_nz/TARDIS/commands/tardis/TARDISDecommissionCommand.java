@@ -100,7 +100,7 @@ class TARDISDecommissionCommand {
                     if (itemFrame != null) {
                         switch (updateable) {
                             case MONITOR -> {
-                                ItemStack monitor = new ItemStack(Material.MAP);
+                                ItemStack monitor = ItemStack.of(Material.MAP);
                                 ItemMeta im = monitor.getItemMeta();
                                 im.displayName(Component.text("TARDIS Monitor"));
                                 monitor.setItemMeta(im);

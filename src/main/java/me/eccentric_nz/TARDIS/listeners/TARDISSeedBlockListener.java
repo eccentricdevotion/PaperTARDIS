@@ -161,11 +161,11 @@ public class TARDISSeedBlockListener implements Listener {
                 NamespacedKey model = TARDISDisplayItem.CUSTOM.getCustomModel();
                 ItemStack is;
                 if (data.getSchematic().isCustom()) {
-                    is = new ItemStack(data.getSchematic().getSeedMaterial(), 1);
+                    is = ItemStack.of(data.getSchematic().getSeedMaterial(), 1);
                 } else {
                     try {
                         TARDISDisplayItem tdi = TARDISDisplayItem.valueOf(console);
-                        is = new ItemStack(tdi.getMaterial(), 1);
+                        is = ItemStack.of(tdi.getMaterial(), 1);
                         model = tdi.getCustomModel();
                     } catch (IllegalArgumentException e) {
                         return;

@@ -52,13 +52,13 @@ public class ArtronCapacitorStorageRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.GRAY_SHULKER_BOX, 1);
+        ItemStack is = ItemStack.of(Material.GRAY_SHULKER_BOX, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Artron Capacitor Storage"));
         im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, RecipeItem.ARTRON_CAPACITOR_STORAGE.getModel().getKey());
         is.setItemMeta(im);
         // exact choice
-        ItemStack capac = new ItemStack(Material.BUCKET, 1);
+        ItemStack capac = ItemStack.of(Material.BUCKET, 1);
         ItemMeta itor = capac.getItemMeta();
         itor.displayName(ComponentUtils.toWhite("Artron Capacitor"));
         capac.setItemMeta(itor);

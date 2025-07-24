@@ -489,15 +489,15 @@ public class TARDII implements TardisAPI {
             ItemStack is;
             NamespacedKey model = TARDISDisplayItem.CUSTOM.getCustomModel();
             if (s.isCustom()) {
-                is = new ItemStack(s.getSeedMaterial(), 1);
+                is = ItemStack.of(s.getSeedMaterial(), 1);
             } else {
                 try {
                     TARDISDisplayItem tdi = TARDISDisplayItem.valueOf(s.getPermission().toUpperCase(Locale.ROOT));
                     model = tdi.getCustomModel();
-                    is = new ItemStack(tdi.getMaterial(), 1);
+                    is = ItemStack.of(tdi.getMaterial(), 1);
                 } catch (IllegalArgumentException e) {
                     TARDIS.plugin.debug("Could not get display item for console! " + e.getMessage());
-                    is = new ItemStack(TARDISDisplayItem.CUSTOM.getMaterial(), 1);
+                    is = ItemStack.of(TARDISDisplayItem.CUSTOM.getMaterial(), 1);
                 }
             }
             ItemMeta im = is.getItemMeta();
@@ -580,7 +580,7 @@ public class TARDII implements TardisAPI {
                 }
             }
             if (perm != null) {
-                ItemStack is = new ItemStack(Material.MUSIC_DISC_MELLOHI, 1);
+                ItemStack is = ItemStack.of(Material.MUSIC_DISC_MELLOHI, 1);
                 ItemMeta im = is.getItemMeta();
                 PersistentDataContainer pdc = im.getPersistentDataContainer();
                 pdc.set(TARDIS.plugin.getTimeLordUuidKey(), TARDIS.plugin.getPersistentDataTypeUUID(), player.getUniqueId());

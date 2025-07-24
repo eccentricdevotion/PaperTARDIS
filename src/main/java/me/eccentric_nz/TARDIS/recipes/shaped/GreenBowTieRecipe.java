@@ -51,7 +51,7 @@ public class GreenBowTieRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.LEATHER_HELMET, 1);
+        ItemStack is = ItemStack.of(Material.LEATHER_HELMET, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Green Bow Tie"));
         im.lore(List.of(Component.text("Bow ties are cool!")));

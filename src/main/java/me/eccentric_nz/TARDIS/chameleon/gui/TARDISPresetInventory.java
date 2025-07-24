@@ -66,7 +66,7 @@ public class TARDISPresetInventory implements InventoryHolder {
         for (ChameleonPreset preset : ChameleonPreset.values()) {
             if (!ChameleonPreset.NOT_THESE.contains(preset.getCraftMaterial()) && !preset.usesArmourStand()) {
                 if (TARDISPermission.hasPermission(player, "tardis.preset." + preset.toString().toLowerCase(Locale.ROOT))) {
-                    ItemStack is = new ItemStack(preset.getGuiDisplay(), 1);
+                    ItemStack is = ItemStack.of(preset.getGuiDisplay(), 1);
                     ItemMeta im = is.getItemMeta();
                     im.displayName(Component.text(preset.getDisplayName()));
                     is.setItemMeta(im);
@@ -75,19 +75,19 @@ public class TARDISPresetInventory implements InventoryHolder {
             }
         }
         // back
-        ItemStack back = new ItemStack(GUIChameleonPresets.BACK.material(), 1);
+        ItemStack back = ItemStack.of(GUIChameleonPresets.BACK.material(), 1);
         ItemMeta but = back.getItemMeta();
         but.displayName(Component.text("Back"));
         back.setItemMeta(but);
         stacks[GUIChameleonPresets.BACK.slot()] = back;
         // page two
-        ItemStack page = new ItemStack(GUIChameleonPresets.GO_TO_PAGE_2.material(), 1);
+        ItemStack page = ItemStack.of(GUIChameleonPresets.GO_TO_PAGE_2.material(), 1);
         ItemMeta two = page.getItemMeta();
         two.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_2")));
         page.setItemMeta(two);
         stacks[GUIChameleonPresets.GO_TO_PAGE_2.slot()] = page;
         // Cancel / close
-        ItemStack close = new ItemStack(GUIChameleonPresets.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIChameleonPresets.CLOSE.material(), 1);
         ItemMeta can = close.getItemMeta();
         can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);

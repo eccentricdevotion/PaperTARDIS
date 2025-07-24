@@ -51,12 +51,12 @@ class TARDISChameleonTemplateGUI implements InventoryHolder {
     private ItemStack[] getItemStack() {
 
         // back button
-        ItemStack back = new ItemStack(GUIChameleonTemplate.BACK_HELP.material(), 1);
+        ItemStack back = ItemStack.of(GUIChameleonTemplate.BACK_HELP.material(), 1);
         ItemMeta bk = back.getItemMeta();
         bk.displayName(Component.text(plugin.getChameleonGuis().getString("BACK_HELP")));
         back.setItemMeta(bk);
         // info
-        ItemStack info = new ItemStack(GUIChameleonTemplate.INFO_TEMPLATE.material(), 1);
+        ItemStack info = ItemStack.of(GUIChameleonTemplate.INFO_TEMPLATE.material(), 1);
         ItemMeta io = info.getItemMeta();
         io.displayName(Component.text(plugin.getChameleonGuis().getString("INFO", "Info")));
         List<Component> ioLore = new ArrayList<>();
@@ -66,88 +66,88 @@ class TARDISChameleonTemplateGUI implements InventoryHolder {
         io.lore(ioLore);
         info.setItemMeta(io);
         // next button
-        ItemStack next = new ItemStack(GUIChameleonTemplate.GO_CONSTRUCT.material(), 1);
+        ItemStack next = ItemStack.of(GUIChameleonTemplate.GO_CONSTRUCT.material(), 1);
         ItemMeta nt = next.getItemMeta();
         nt.displayName(Component.text(plugin.getChameleonGuis().getString("GO_CONSTRUCT")));
         next.setItemMeta(nt);
         // one
-        ItemStack one = new ItemStack(GUIChameleonTemplate.COL_L_FRONT.material(), 1);
+        ItemStack one = ItemStack.of(GUIChameleonTemplate.COL_L_FRONT.material(), 1);
         ItemMeta oe = one.getItemMeta();
         oe.displayName(Component.text("1"));
         oe.lore(List.of(Component.text(plugin.getChameleonGuis().getString("COL_L_FRONT"))));
         one.setItemMeta(oe);
         // two
-        ItemStack two = new ItemStack(GUIChameleonTemplate.COL_L_MIDDLE.material(), 1);
+        ItemStack two = ItemStack.of(GUIChameleonTemplate.COL_L_MIDDLE.material(), 1);
         ItemMeta to = two.getItemMeta();
         to.displayName(Component.text("2"));
         to.lore(List.of(Component.text(plugin.getChameleonGuis().getString("COL_L_MIDDLE"))));
         two.setItemMeta(to);
         // three
-        ItemStack three = new ItemStack(GUIChameleonTemplate.COL_L_BACK.material(), 1);
+        ItemStack three = ItemStack.of(GUIChameleonTemplate.COL_L_BACK.material(), 1);
         ItemMeta te = three.getItemMeta();
         te.displayName(Component.text("3"));
         te.lore(List.of(Component.text(plugin.getChameleonGuis().getString("COL_L_BACK"))));
         three.setItemMeta(te);
         // four
-        ItemStack four = new ItemStack(GUIChameleonTemplate.COL_B_MIDDLE.material(), 1);
+        ItemStack four = ItemStack.of(GUIChameleonTemplate.COL_B_MIDDLE.material(), 1);
         ItemMeta fr = four.getItemMeta();
         fr.displayName(Component.text("4"));
         fr.lore(List.of(Component.text(plugin.getChameleonGuis().getString("COL_B_MIDDLE"))));
         four.setItemMeta(fr);
         // five
-        ItemStack five = new ItemStack(GUIChameleonTemplate.COL_R_BACK.material(), 1);
+        ItemStack five = ItemStack.of(GUIChameleonTemplate.COL_R_BACK.material(), 1);
         ItemMeta fe = five.getItemMeta();
         fe.displayName(Component.text("5"));
         fe.lore(List.of(Component.text(plugin.getChameleonGuis().getString("COL_R_BACK"))));
         five.setItemMeta(fe);
         // six
-        ItemStack six = new ItemStack(GUIChameleonTemplate.COL_R_MIDDLE.material(), 1);
+        ItemStack six = ItemStack.of(GUIChameleonTemplate.COL_R_MIDDLE.material(), 1);
         ItemMeta sx = six.getItemMeta();
         sx.displayName(Component.text("6"));
         sx.lore(List.of(Component.text(plugin.getChameleonGuis().getString("COL_R_MIDDLE"))));
         six.setItemMeta(sx);
         // seven
-        ItemStack seven = new ItemStack(GUIChameleonTemplate.COL_R_FRONT.material(), 1);
+        ItemStack seven = ItemStack.of(GUIChameleonTemplate.COL_R_FRONT.material(), 1);
         ItemMeta sn = seven.getItemMeta();
         sn.displayName(Component.text("7"));
         sn.lore(List.of(Component.text(plugin.getChameleonGuis().getString("COL_R_FRONT"))));
         seven.setItemMeta(sn);
         // eight
-        ItemStack eight = new ItemStack(GUIChameleonTemplate.COL_F_MIDDLE.material(), 1);
+        ItemStack eight = ItemStack.of(GUIChameleonTemplate.COL_F_MIDDLE.material(), 1);
         ItemMeta et = eight.getItemMeta();
         et.displayName(Component.text("8"));
         et.lore(List.of(Component.text(plugin.getChameleonGuis().getString("COL_F_MIDDLE"))));
         eight.setItemMeta(et);
         // nine
-        ItemStack nine = new ItemStack(GUIChameleonTemplate.COL_C_LAMP.material(), 1);
+        ItemStack nine = ItemStack.of(GUIChameleonTemplate.COL_C_LAMP.material(), 1);
         ItemMeta ne = nine.getItemMeta();
         ne.displayName(Component.text("9"));
         ne.lore(List.of(Component.text(plugin.getChameleonGuis().getString("COL_C_LAMP"))));
         nine.setItemMeta(ne);
         // redstone lamp
-        ItemStack lamp = new ItemStack(Material.REDSTONE_LAMP, 1);
+        ItemStack lamp = ItemStack.of(Material.REDSTONE_LAMP, 1);
         ItemMeta lp = lamp.getItemMeta();
         List<String> lampList = plugin.getChameleonGuis().getStringList("PB_LAMP");
         lp.displayName(Component.text(lampList.getFirst()));
         lp.lore(List.of(Component.text(lampList.get(1)), Component.text(lampList.get(2))));
         lamp.setItemMeta(lp);
         // redstone block
-        ItemStack power = new ItemStack(Material.REDSTONE_BLOCK, 1);
+        ItemStack power = ItemStack.of(Material.REDSTONE_BLOCK, 1);
         ItemMeta pr = power.getItemMeta();
         pr.displayName(Component.text(plugin.getChameleonGuis().getString("POWER")));
         power.setItemMeta(pr);
         // stone slab
-        ItemStack slab = new ItemStack(Material.STONE_SLAB, 1);
+        ItemStack slab = ItemStack.of(Material.STONE_SLAB, 1);
         ItemMeta sb = slab.getItemMeta();
         sb.displayName(Component.text(plugin.getChameleonGuis().getString("PB_SIGN")));
         slab.setItemMeta(sb);
         // blue wool
-        ItemStack blue = new ItemStack(Material.BLUE_WOOL, 1);
+        ItemStack blue = ItemStack.of(Material.BLUE_WOOL, 1);
         ItemMeta be = blue.getItemMeta();
         be.displayName(Component.text(plugin.getChameleonGuis().getString("PB_WALL")));
         blue.setItemMeta(be);
         // iron door
-        ItemStack door = new ItemStack(Material.IRON_DOOR, 1);
+        ItemStack door = ItemStack.of(Material.IRON_DOOR, 1);
         ItemMeta dr = door.getItemMeta();
         List<String> doorList = plugin.getChameleonGuis().getStringList("PB_DOOR");
         dr.displayName(Component.text(doorList.getFirst()));

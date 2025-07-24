@@ -229,7 +229,7 @@ public class TARDISDisplayItemUtils {
      */
     public static void set(TARDISDisplayItem tdi, World world, int x, int y, int z) {
         // spawn an item display entity
-        ItemStack is = new ItemStack(tdi.getMaterial(), 1);
+        ItemStack is = ItemStack.of(tdi.getMaterial(), 1);
         ItemMeta im = is.getItemMeta();
         if (tdi.isSeed()) {
             im.displayName(ComponentUtils.toGold(tdi.getDisplayName()));
@@ -282,7 +282,7 @@ public class TARDISDisplayItemUtils {
             block.setBlockData(TARDISConstants.BARRIER);
         }
         Material material = (tdi == TARDISDisplayItem.CLASSIC_DOOR || tdi == TARDISDisplayItem.BONE_DOOR) ? tdi.getCraftMaterial() : tdi.getMaterial();
-        ItemStack is = new ItemStack(material, 1);
+        ItemStack is = ItemStack.of(material, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite(tdi.getDisplayName()));
         im.getPersistentDataContainer().set(TARDIS.plugin.getCustomBlockKey(), PersistentDataType.STRING, tdi.getCustomModel().getKey());
@@ -311,7 +311,7 @@ public class TARDISDisplayItemUtils {
      */
     public static void setSeed(TARDISDisplayItem tdi, Block block, ItemMeta im) {
         block.setBlockData(TARDISConstants.BARRIER);
-        ItemStack is = new ItemStack(tdi.getMaterial(), 1);
+        ItemStack is = ItemStack.of(tdi.getMaterial(), 1);
         is.setItemMeta(im);
         ItemDisplay display = (ItemDisplay) block.getWorld().spawnEntity(block.getLocation().add(0.5d, 0.5d, 0.5d), EntityType.ITEM_DISPLAY);
         display.setItemStack(is);

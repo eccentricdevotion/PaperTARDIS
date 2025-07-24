@@ -48,7 +48,7 @@ class FileCabinetInventory implements InventoryHolder {
         ItemStack[] stacks = new ItemStack[54];
         // make screens
         for (ScopeView view : ScopeView.values()) {
-            ItemStack is = new ItemStack(Material.GRAY_STAINED_GLASS, 1);
+            ItemStack is = ItemStack.of(Material.GRAY_STAINED_GLASS, 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(Component.text(view.getName()));
             im.setItemModel(ChemistryEquipment.FOLDER.getKey());
@@ -57,7 +57,7 @@ class FileCabinetInventory implements InventoryHolder {
             stacks[view.ordinal()] = is;
         }
         // Cancel / close
-        ItemStack close = new ItemStack(Material.BOWL, 1);
+        ItemStack close = ItemStack.of(Material.BOWL, 1);
         ItemMeta can = close.getItemMeta();
         can.displayName(Component.text("Close"));
         can.setItemModel(GuiVariant.CLOSE.getKey());

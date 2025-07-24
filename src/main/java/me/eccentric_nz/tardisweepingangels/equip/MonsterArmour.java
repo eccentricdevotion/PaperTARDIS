@@ -36,7 +36,7 @@ public class MonsterArmour {
     public static ItemStack makeEquippable(Monster monster, EquipmentSlot slot) {
         NamespacedKey key = TARDISWeepingAngels.PDC_KEYS.get(monster);
         TARDIS.plugin.debug(key.toString());
-        ItemStack armour = new ItemStack(monster.getMaterial(), 1);
+        ItemStack armour = ItemStack.of(monster.getMaterial(), 1);
         ItemMeta meta = armour.getItemMeta();
         meta.displayName(Component.text(monster.getName() + " " + TARDISStringUtils.uppercaseFirst(slot.name())));
         meta.setItemModel(slot == EquipmentSlot.CHEST ? ArmourVariant.CHESTPLATE.getKey() : ArmourVariant.LEGGINGS.getKey());

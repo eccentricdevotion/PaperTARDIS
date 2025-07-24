@@ -64,7 +64,7 @@ public class TARDISSonicMenuInventory implements InventoryHolder {
         ItemStack[] stack = new ItemStack[36];
         for (GUISonicPreferences sonic : GUISonicPreferences.values()) {
             if (sonic.getMaterial() == Material.BLAZE_ROD) {
-                ItemStack is = new ItemStack(sonic.getMaterial(), 1);
+                ItemStack is = ItemStack.of(sonic.getMaterial(), 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(ComponentUtils.toWhite("Sonic Screwdriver"));
                 im.lore(List.of(Component.text(sonic.getName())));
@@ -76,14 +76,14 @@ public class TARDISSonicMenuInventory implements InventoryHolder {
             }
         }
         // coloured wool
-        ItemStack wool = new ItemStack(Material.WHITE_WOOL);
+        ItemStack wool = ItemStack.of(Material.WHITE_WOOL);
         ItemMeta wool_im = wool.getItemMeta();
         wool_im.displayName(Component.text("Display name colour"));
         wool_im.lore(List.of(Component.text("Click to select")));
         wool.setItemMeta(wool_im);
         stack[28] = wool;
         // info
-        ItemStack info = new ItemStack(Material.BOOK, 1);
+        ItemStack info = ItemStack.of(Material.BOOK, 1);
         ItemMeta info_im = info.getItemMeta();
         info_im.displayName(Component.text("Instructions"));
         info_im.lore(List.of(
@@ -95,7 +95,7 @@ public class TARDISSonicMenuInventory implements InventoryHolder {
         info.setItemMeta(info_im);
         stack[31] = info;
         // info 2
-        ItemStack name = new ItemStack(Material.BOOK, 1);
+        ItemStack name = ItemStack.of(Material.BOOK, 1);
         ItemMeta name_im = name.getItemMeta();
         name_im.displayName(Component.text("Name"));
         name_im.lore(List.of(
@@ -107,7 +107,7 @@ public class TARDISSonicMenuInventory implements InventoryHolder {
         name.setItemMeta(name_im);
         stack[32] = name;
         // close
-        ItemStack close = new ItemStack(Material.BOWL, 1);
+        ItemStack close = ItemStack.of(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);

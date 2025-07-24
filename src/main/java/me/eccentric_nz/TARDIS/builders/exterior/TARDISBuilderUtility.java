@@ -127,7 +127,7 @@ public class TARDISBuilderUtility {
 
     public static void setPoliceBoxHelmet(TARDIS plugin, ChameleonPreset preset, BuildData bd, ArmorStand stand) {
         Material dye = TARDISBuilderUtility.getMaterialForArmourStand(preset, bd.getTardisID(), true);
-        ItemStack is = new ItemStack(dye, 1);
+        ItemStack is = ItemStack.of(dye, 1);
         ItemMeta im = is.getItemMeta();
         switch (dye) {
             case BLACK_DYE -> im.setItemModel(ChameleonVariant.BLACK_CLOSED.getKey());

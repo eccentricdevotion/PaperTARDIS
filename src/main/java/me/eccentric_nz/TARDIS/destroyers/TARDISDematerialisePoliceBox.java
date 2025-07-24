@@ -163,7 +163,7 @@ public class TARDISDematerialisePoliceBox implements Runnable {
                     stand = (ArmorStand) world.spawnEntity(dd.getLocation().clone().add(0.5d, 0, 0.5d), EntityType.ARMOR_STAND);
                 }
                 stand.setRotation(dd.getDirection().getYaw(), 0.0f);
-                is = new ItemStack(dye, 1);
+                is = ItemStack.of(dye, 1);
                 // only play the sound if the player is outside the TARDIS
                 if (dd.isOutside()) {
                     ResultSetPlayerPrefs rsp = new ResultSetPlayerPrefs(plugin, dd.getPlayer().getUniqueId().toString());

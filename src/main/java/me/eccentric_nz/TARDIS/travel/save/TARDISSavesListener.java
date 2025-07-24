@@ -317,7 +317,7 @@ public class TARDISSavesListener extends TARDISMenuListener {
             }
         }
         if (plugin.getTrackerKeeper().getArrangers().contains(uuid)) {
-            event.getPlayer().setItemOnCursor(new ItemStack(Material.AIR));
+            event.getPlayer().setItemOnCursor(ItemStack.of(Material.AIR));
             plugin.getTrackerKeeper().getArrangers().remove(uuid);
         }
     }

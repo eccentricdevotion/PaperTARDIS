@@ -16,7 +16,7 @@ import java.util.List;
 public class BitmapDialog {
 
     public Dialog create() {
-        ItemStack blue = new ItemStack(Material.BLUE_DYE);
+        ItemStack blue = ItemStack.of(Material.BLUE_DYE);
         ItemMeta im = blue.getItemMeta();
         im.setItemModel(ChameleonVariant.BLUE_CLOSED.getKey());
         blue.setItemMeta(im);

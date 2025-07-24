@@ -49,7 +49,7 @@ public class ExteriorLampLevelSwitchRecipe {
 
     public void addRecipe() {
         // add exterior recipe
-        ItemStack is = new ItemStack(Material.LEVER, 1);
+        ItemStack is = ItemStack.of(Material.LEVER, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Exterior Lamp Level Switch"));
         is.setItemMeta(im);

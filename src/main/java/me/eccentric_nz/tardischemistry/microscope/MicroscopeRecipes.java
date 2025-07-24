@@ -55,7 +55,7 @@ public class MicroscopeRecipes {
     public void addRecipes() {
         for (LabEquipment equipment : LabEquipment.values()) {
             String name = equipment.getName();
-            ItemStack is = new ItemStack(equipment.getMaterial(), 1);
+            ItemStack is = ItemStack.of(equipment.getMaterial(), 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(ComponentUtils.toWhite(name));
             im.setItemModel(equipment.getModel());

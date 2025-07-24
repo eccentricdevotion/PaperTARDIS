@@ -141,6 +141,6 @@ public class TARDISSonicMenuListener extends TARDISMenuListener {
         Player p = (Player) event.getPlayer();
         Location loc = p.getLocation();
         loc.getWorld().dropItemNaturally(loc, sonic);
-        view.setItem(27, new ItemStack(Material.AIR));
+        view.setItem(27, ItemStack.of(Material.AIR));
     }
 }

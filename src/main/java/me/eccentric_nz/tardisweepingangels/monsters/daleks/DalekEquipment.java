@@ -39,7 +39,7 @@ public class DalekEquipment {
 
     public static void set(LivingEntity le, boolean disguise) {
         le.getPersistentDataContainer().set(TARDISWeepingAngels.DALEK, PersistentDataType.INTEGER, Monster.DALEK.ordinal());
-        ItemStack helmet = new ItemStack(Material.SLIME_BALL, 1);
+        ItemStack helmet = ItemStack.of(Material.SLIME_BALL, 1);
         ItemMeta headMeta = helmet.getItemMeta();
         headMeta.displayName(Component.text("Dalek Head"));
         headMeta.setItemModel(getRandomModel());
@@ -57,7 +57,7 @@ public class DalekEquipment {
         });
         if (!disguise) {
             ee.setHelmetDropChance(0);
-            ItemStack bow = new ItemStack(Material.BOW, 1);
+            ItemStack bow = ItemStack.of(Material.BOW, 1);
             ItemMeta bim = bow.getItemMeta();
             bim.setItemModel(DalekVariant.DALEK_BOW.getKey());
             bow.setItemMeta(bim);

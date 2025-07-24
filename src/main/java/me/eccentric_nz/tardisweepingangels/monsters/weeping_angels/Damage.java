@@ -147,7 +147,7 @@ public class Damage implements Listener {
                             stack.setAmount(amount - 1);
                         } else {
                             int slot = inv.first(stack);
-                            inv.setItem(slot, new ItemStack(Material.AIR));
+                            inv.setItem(slot, ItemStack.of(Material.AIR));
                         }
                         p.updateInventory();
                         plugin.getMessenger().message(p, TardisModule.MONSTERS, "The Weeping Angels stole your TARDIS Key");

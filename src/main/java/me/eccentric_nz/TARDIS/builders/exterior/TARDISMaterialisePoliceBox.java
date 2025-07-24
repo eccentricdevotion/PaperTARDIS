@@ -187,7 +187,7 @@ public class TARDISMaterialisePoliceBox implements Runnable {
                     stand = (ArmorStand) VehicleUtility.spawnStand(spawn).getBukkitEntity();
                 }
                 stand.setRotation(bd.getDirection().getYaw(), 0.0f);
-                is = new ItemStack(dye, 1);
+                is = ItemStack.of(dye, 1);
                 if (bd.isOutside()) {
                     if (!bd.useMinecartSounds()) {
                         String sound;

@@ -144,7 +144,7 @@ public class TelepathicBiomeListener extends TARDISMenuListener {
         for (Biome biome : EnvironmentBiomes.OVERWORLD) {
             Material material = EnvironmentBiomes.BIOME_BLOCKS.get(biome.getKey().getKey());
             if (material != null) {
-                ItemStack is = new ItemStack(material, 1);
+                ItemStack is = ItemStack.of(material, 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(Component.text(TARDISStringUtils.capitalise(biome.toString())));
                 is.setItemMeta(im);

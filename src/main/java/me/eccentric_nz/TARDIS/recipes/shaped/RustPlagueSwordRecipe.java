@@ -55,7 +55,7 @@ public class RustPlagueSwordRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.IRON_SWORD, 1);
+        ItemStack is = ItemStack.of(Material.IRON_SWORD, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Rust Plague Sword"));
         im.lore(List.of(Component.text("Dalek Virus Dispenser")));
@@ -67,7 +67,7 @@ public class RustPlagueSwordRecipe {
         is.setData(DataComponentTypes.WEAPON, weapon);
         NamespacedKey key = new NamespacedKey(plugin, "rust_plague_sword");
         ShapedRecipe r = new ShapedRecipe(key, is);
-        ItemStack exact = new ItemStack(Material.LAVA_BUCKET, 1);
+        ItemStack exact = ItemStack.of(Material.LAVA_BUCKET, 1);
         ItemMeta em = exact.getItemMeta();
         em.displayName(ComponentUtils.toWhite("Rust Bucket"));
         exact.setItemMeta(em);

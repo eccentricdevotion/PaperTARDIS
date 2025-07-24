@@ -94,7 +94,7 @@ public class TARDISSonicLight {
         if (tdi != null && tdi.isLight()) {
             TARDISDisplayItem toggled = TardisLight.getToggled(tdi);
             ItemMeta im = lamp.getItemMeta();
-            ItemStack change = new ItemStack(toggled.getMaterial(), 1);
+            ItemStack change = ItemStack.of(toggled.getMaterial(), 1);
             if (toggled.isLit()) {
                 // create light source
                 LampToggler.setLightlevel(light, 15);

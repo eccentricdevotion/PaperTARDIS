@@ -64,7 +64,7 @@ class TARDISSonicGeneratorInventory implements InventoryHolder {
         ItemStack[] stack = new ItemStack[54];
         for (GUISonicGenerator sonic : GUISonicGenerator.values()) {
             if (sonic.getMaterial() == Material.BLAZE_ROD) {
-                ItemStack is = new ItemStack(Material.BLAZE_ROD, 1);
+                ItemStack is = ItemStack.of(Material.BLAZE_ROD, 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(ComponentUtils.toWhite("Sonic Screwdriver"));
                 im.lore(List.of(Component.text(sonic.getName())));
@@ -75,7 +75,7 @@ class TARDISSonicGeneratorInventory implements InventoryHolder {
                 stack[sonic.getSlot()] = is;
             }
             if (sonic.getMaterial() == Material.BOWL && sonic.getSlot() != 45) {
-                ItemStack is = new ItemStack(Material.BOWL, 1);
+                ItemStack is = ItemStack.of(Material.BOWL, 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(Component.text(sonic.getName()));
                 if (!sonic.getLore().isEmpty()) {
@@ -90,7 +90,7 @@ class TARDISSonicGeneratorInventory implements InventoryHolder {
             }
         }
         // info 1/3
-        ItemStack info = new ItemStack(Material.BOOK, 1);
+        ItemStack info = ItemStack.of(Material.BOOK, 1);
         ItemMeta info_im = info.getItemMeta();
         info_im.displayName(Component.text("Instructions (1/3)"));
         info_im.lore(List.of(
@@ -102,7 +102,7 @@ class TARDISSonicGeneratorInventory implements InventoryHolder {
         info.setItemMeta(info_im);
         stack[38] = info;
         // info 2/3
-        ItemStack info1 = new ItemStack(Material.BOOK, 1);
+        ItemStack info1 = ItemStack.of(Material.BOOK, 1);
         ItemMeta info1_im = info.getItemMeta();
         info1_im.displayName(Component.text("Instructions (2/3)"));
         info1_im.lore(List.of(
@@ -114,7 +114,7 @@ class TARDISSonicGeneratorInventory implements InventoryHolder {
         info1.setItemMeta(info1_im);
         stack[39] = info1;
         // info 3/3
-        ItemStack info2 = new ItemStack(Material.BOOK, 1);
+        ItemStack info2 = ItemStack.of(Material.BOOK, 1);
         ItemMeta info2_im = info.getItemMeta();
         info2_im.displayName(Component.text("Instructions (3/3)"));
         info2_im.lore(List.of(
@@ -125,7 +125,7 @@ class TARDISSonicGeneratorInventory implements InventoryHolder {
         info2.setItemMeta(info2_im);
         stack[40] = info2;
         // players preferred sonic
-        ItemStack sonic = new ItemStack(Material.BLAZE_ROD, 1);
+        ItemStack sonic = ItemStack.of(Material.BLAZE_ROD, 1);
         ItemMeta screw = sonic.getItemMeta();
         screw.displayName(Component.text("Sonic Screwdriver"));
         CustomModelDataComponent scomponent = screw.getCustomModelDataComponent();
@@ -175,7 +175,7 @@ class TARDISSonicGeneratorInventory implements InventoryHolder {
             artron += (int) (plugin.getArtronConfig().getDouble("sonic_generator.conversion") * full);
         }
         // cost
-        ItemStack cost = new ItemStack(Material.BOWL, 1);
+        ItemStack cost = ItemStack.of(Material.BOWL, 1);
         ItemMeta cost_im = cost.getItemMeta();
         cost_im.displayName(Component.text("Artron cost"));
         cost_im.lore(List.of(Component.text(artron)));

@@ -54,7 +54,7 @@ public class ConsoleRusticRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.WAXED_OXIDIZED_COPPER, 1);
+        ItemStack is = ItemStack.of(Material.WAXED_OXIDIZED_COPPER, 1);
         ItemMeta im = is.getItemMeta();
         String dn = "Rustic Console";
         im.displayName(ComponentUtils.toWhite(dn));

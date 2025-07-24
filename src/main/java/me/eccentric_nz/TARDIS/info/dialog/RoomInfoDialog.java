@@ -28,7 +28,7 @@ public class RoomInfoDialog {
         List<DialogBody> body = new ArrayList<>();
         if (ItemLookup.ITEMS.containsKey(tardisInfoMenu)) {
             InfoIcon infoIcon = ItemLookup.ITEMS.get(tardisInfoMenu);
-            ItemStack icon = new ItemStack(infoIcon.item());
+            ItemStack icon = ItemStack.of(infoIcon.item());
             // set custom name
             ItemMeta im = icon.getItemMeta();
             im.displayName(Component.text(infoIcon.name()));

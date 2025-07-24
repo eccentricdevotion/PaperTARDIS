@@ -45,11 +45,11 @@ public class TARDISAutonomousGUIListener extends TARDISMenuListener {
     public TARDISAutonomousGUIListener(TARDIS plugin) {
         super(plugin);
         this.plugin = plugin;
-        on = new ItemStack(Material.LIME_WOOL, 1);
+        on = ItemStack.of(Material.LIME_WOOL, 1);
         ItemMeta onMeta = on.getItemMeta();
         onMeta.displayName(Component.text(plugin.getLanguage().getString("SET_ON", "ON"), NamedTextColor.GREEN));
         on.setItemMeta(onMeta);
-        off = new ItemStack(Material.LIGHT_GRAY_CARPET, 1);
+        off = ItemStack.of(Material.LIGHT_GRAY_CARPET, 1);
         ItemMeta offMeta = off.getItemMeta();
         offMeta.displayName(Component.text(plugin.getLanguage().getString("SET_OFF", "OFF"), NamedTextColor.RED));
         off.setItemMeta(offMeta);

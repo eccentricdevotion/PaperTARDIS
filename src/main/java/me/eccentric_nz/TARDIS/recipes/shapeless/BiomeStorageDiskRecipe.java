@@ -43,7 +43,7 @@ public class BiomeStorageDiskRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.MUSIC_DISC_CAT, 1);
+        ItemStack is = ItemStack.of(Material.MUSIC_DISC_CAT, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Biome Storage Disk"));
         im.lore(List.of(Component.text("Blank")));

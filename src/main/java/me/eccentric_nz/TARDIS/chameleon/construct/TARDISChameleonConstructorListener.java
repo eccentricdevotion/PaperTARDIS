@@ -279,7 +279,7 @@ public class TARDISChameleonConstructorListener extends TARDISMenuListener {
         } else {
             l = 0;
         }
-        view.setItem(26, new ItemStack(lamps.get(l)));
+        view.setItem(26, ItemStack.of(lamps.get(l)));
         currentLamp.put(uuid, l);
     }
 
@@ -290,8 +290,8 @@ public class TARDISChameleonConstructorListener extends TARDISMenuListener {
         } else {
             d = 0;
         }
-        view.setItem(43, new ItemStack(doors.get(d)));
-        view.setItem(52, new ItemStack(doors.get(d)));
+        view.setItem(43, ItemStack.of(doors.get(d)));
+        view.setItem(52, ItemStack.of(doors.get(d)));
         currentDoor.put(uuid, d);
     }
 }

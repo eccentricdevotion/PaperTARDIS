@@ -42,11 +42,11 @@ public class TARDISFarmingInventory implements InventoryHolder {
     public TARDISFarmingInventory(TARDIS plugin, UUID uuid) {
         this.plugin = plugin;
         this.uuid = uuid;
-        off = new ItemStack(GUIFarming.OFF.getMaterial(), 1);
+        off = ItemStack.of(GUIFarming.OFF.getMaterial(), 1);
         ItemMeta offMeta = off.getItemMeta();
         offMeta.displayName(Component.text("Disabled"));
         off.setItemMeta(offMeta);
-        on = new ItemStack(GUIFarming.ON.getMaterial(), 1);
+        on = ItemStack.of(GUIFarming.ON.getMaterial(), 1);
         ItemMeta onMeta = on.getItemMeta();
         onMeta.displayName(Component.text("Enabled"));
         on.setItemMeta(onMeta);
@@ -116,7 +116,7 @@ public class TARDISFarmingInventory implements InventoryHolder {
         // set GUI buttons
         for (GUIFarming f : GUIFarming.values()) {
             if (f != GUIFarming.ON && f != GUIFarming.OFF) {
-                ItemStack is = new ItemStack(f.getMaterial(), 1);
+                ItemStack is = ItemStack.of(f.getMaterial(), 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(Component.text(f.getMob()));
                 if (f != GUIFarming.CLOSE) {

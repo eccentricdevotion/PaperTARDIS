@@ -75,7 +75,7 @@ class TARDISConfigPageTwoInventory implements InventoryHolder {
                             c.startsWith("abandon") ||
                             c.startsWith("blueprints"))
             ) {
-                ItemStack is = new ItemStack(Material.REPEATER, 1);
+                ItemStack is = ItemStack.of(Material.REPEATER, 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(Component.text(c));
                 GUIConfiguration gui = GUIConfiguration.valueOf(c.split("\\.")[0].toUpperCase(Locale.ROOT));
@@ -96,13 +96,13 @@ class TARDISConfigPageTwoInventory implements InventoryHolder {
             }
         }
         // previous page
-        ItemStack next = new ItemStack(Material.BOWL, 1);
+        ItemStack next = ItemStack.of(Material.BOWL, 1);
         ItemMeta page = next.getItemMeta();
         page.displayName(Component.text("Previous page"));
         next.setItemMeta(page);
         stack[52] = next;
         // player prefs
-        ItemStack play = new ItemStack(Material.NETHER_STAR, 1);
+        ItemStack play = ItemStack.of(Material.NETHER_STAR, 1);
         ItemMeta prefs = play.getItemMeta();
         prefs.displayName(Component.text("Player Preferences"));
         play.setItemMeta(prefs);

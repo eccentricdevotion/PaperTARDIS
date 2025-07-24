@@ -153,7 +153,7 @@ public class TARDISFarmBlockListener implements Listener {
                 next.setAmount(next.getAmount() - 1);
                 p.getInventory().setItem(slot, next);
             } else {
-                p.getInventory().setItem(slot, new ItemStack(air));
+                p.getInventory().setItem(slot, ItemStack.of(air));
             }
             Runnable tsr = new TARDISSonicReplant(plugin, b, m);
             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, tsr, 20);

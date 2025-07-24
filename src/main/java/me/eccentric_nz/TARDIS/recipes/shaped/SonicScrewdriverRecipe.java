@@ -76,7 +76,7 @@ public class SonicScrewdriverRecipe {
 
     public void addRecipe() {
         List<Float> sonicModel = sonicModelLookup.getOrDefault(plugin.getConfig().getString("sonic.default_model").toLowerCase(Locale.ROOT), SonicVariant.ELEVENTH.getFloats());
-        ItemStack is = new ItemStack(Material.BLAZE_ROD, 1);
+        ItemStack is = ItemStack.of(Material.BLAZE_ROD, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Sonic Screwdriver"));
         CustomModelDataComponent component = im.getCustomModelDataComponent();
@@ -87,7 +87,7 @@ public class SonicScrewdriverRecipe {
         ShapedRecipe r = new ShapedRecipe(key, is);
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
             r.shape("Q", "I", "O");
-            ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
+            ItemStack exact = ItemStack.of(Material.GLOWSTONE_DUST, 1);
             ItemMeta em = exact.getItemMeta();
             em.displayName(ComponentUtils.toWhite("Sonic Oscillator"));
             CustomModelDataComponent ecomponent = em.getCustomModelDataComponent();

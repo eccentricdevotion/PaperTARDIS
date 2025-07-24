@@ -52,7 +52,7 @@ public class KnockbackCircuitRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.GLOWSTONE_DUST, 1);
+        ItemStack is = ItemStack.of(Material.GLOWSTONE_DUST, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Knockback Circuit"));
         CustomModelDataComponent component = im.getCustomModelDataComponent();
@@ -63,7 +63,7 @@ public class KnockbackCircuitRecipe {
         ShapedRecipe r = new ShapedRecipe(key, is);
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
             r.shape(" K ", "RSR", " R ");
-            ItemStack book = new ItemStack(Material.ENCHANTED_BOOK, 1);
+            ItemStack book = ItemStack.of(Material.ENCHANTED_BOOK, 1);
             EnchantmentStorageMeta pm = (EnchantmentStorageMeta) book.getItemMeta();
             Enchantment enchantment = Enchantment.KNOCKBACK;
             pm.addStoredEnchant(enchantment, 1, false);

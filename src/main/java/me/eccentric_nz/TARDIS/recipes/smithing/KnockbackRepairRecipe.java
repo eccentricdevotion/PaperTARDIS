@@ -45,13 +45,13 @@ public class KnockbackRepairRecipe {
 
     public void addRecipe() {
         // result
-        ItemStack result = new ItemStack(Material.BLAZE_ROD, 1);
+        ItemStack result = ItemStack.of(Material.BLAZE_ROD, 1);
         // template
         RecipeChoice template = new RecipeChoice.MaterialChoice(Material.REDSTONE);
         // base material to upgrade
         RecipeChoice base = new RecipeChoice.MaterialChoice(Material.BLAZE_ROD);
         // addition
-        ItemStack isa = new ItemStack(Material.GLOWSTONE_DUST, 1);
+        ItemStack isa = ItemStack.of(Material.GLOWSTONE_DUST, 1);
         ItemMeta ima = isa.getItemMeta();
         ima.displayName(ComponentUtils.toWhite("Knockback Circuit"));
         CustomModelDataComponent ecomponent = ima.getCustomModelDataComponent();

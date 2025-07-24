@@ -108,7 +108,7 @@ public class TARDISBiomeReaderListener implements Listener {
                                 disks2 = TARDISSerializeInventory.itemStacksFromString(Storage.BIOME_2.getEmpty());
                             }
                             if (!hasBiomeDisk(disks2, biomeKey)) {
-                                ItemStack bd = new ItemStack(Material.MUSIC_DISC_CAT, 1);
+                                ItemStack bd = ItemStack.of(Material.MUSIC_DISC_CAT, 1);
                                 ItemMeta dim = bd.getItemMeta();
                                 dim.displayName(ComponentUtils.toWhite("Biome Storage Disk"));
                                 List<Component> disk_lore = new ArrayList<>();

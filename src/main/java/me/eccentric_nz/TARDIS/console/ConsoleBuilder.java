@@ -66,7 +66,7 @@ public class ConsoleBuilder {
         UUID centre = spawnCentreDisplay(up.getLocation(), colour);
         builder.append(centre);
         for (int i = 0; i < 6; i++) {
-            ItemStack shard = new ItemStack(Material.AMETHYST_SHARD);
+            ItemStack shard = ItemStack.of(Material.AMETHYST_SHARD);
             ItemMeta im = shard.getItemMeta();
             switch (colour) {
                 case "console_rustic" -> im.setItemModel(ConsolePart.CONSOLE_RUSTIC.getKey());
@@ -103,7 +103,7 @@ public class ConsoleBuilder {
             display.setRotation(yaw, 0);
         }
         for (int i = 30; i < 360; i += 60) {
-            ItemStack shard = new ItemStack(Material.AMETHYST_SHARD);
+            ItemStack shard = ItemStack.of(Material.AMETHYST_SHARD);
             ItemMeta im = shard.getItemMeta();
             switch (colour) {
                 case "console_rustic" -> im.setItemModel(ConsolePart.CONSOLE_DIVISION_RUSTIC.getKey());
@@ -200,7 +200,7 @@ public class ConsoleBuilder {
             }
         }
         // spawn a control
-        ItemStack is = new ItemStack(material);
+        ItemStack is = ItemStack.of(material);
         ItemMeta im = is.getItemMeta();
         im.setItemModel(key);
         im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, key.getKey());
@@ -240,7 +240,7 @@ public class ConsoleBuilder {
     }
 
     private UUID spawnCentreDisplay(Location up, String type) {
-        ItemStack shard = new ItemStack(Material.AMETHYST_SHARD);
+        ItemStack shard = ItemStack.of(Material.AMETHYST_SHARD);
         ItemMeta im = shard.getItemMeta();
         NamespacedKey model;
         switch (type) {

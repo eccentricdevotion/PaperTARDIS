@@ -37,7 +37,7 @@ public class TVGUI implements InventoryHolder {
 
     public void addDefaults(ItemStack[] stack) {
         // download
-        ItemStack down = new ItemStack(GUITelevision.DOWNLOAD.material(), 1);
+        ItemStack down = ItemStack.of(GUITelevision.DOWNLOAD.material(), 1);
         ItemMeta load = down.getItemMeta();
         load.displayName(Component.text("Toggle skin download"));
         CustomModelDataComponent component = load.getCustomModelDataComponent();
@@ -46,19 +46,19 @@ public class TVGUI implements InventoryHolder {
         down.setItemMeta(load);
         stack[GUITelevision.DOWNLOAD.slot()] = down;
         // remove
-        ItemStack remove = new ItemStack(GUITelevision.REMOVE.material(), 1);
+        ItemStack remove = ItemStack.of(GUITelevision.REMOVE.material(), 1);
         ItemMeta rim = remove.getItemMeta();
         rim.displayName(Component.text("Remove skin"));
         remove.setItemMeta(rim);
         stack[GUITelevision.REMOVE.slot()] = remove;
         // back
-        ItemStack back = new ItemStack(GUITelevision.BACK.material(), 1);
+        ItemStack back = ItemStack.of(GUITelevision.BACK.material(), 1);
         ItemMeta but = back.getItemMeta();
         but.displayName(Component.text("Back"));
         back.setItemMeta(but);
         stack[GUITelevision.BACK.slot()] = back;
         // close
-        ItemStack close = new ItemStack(GUITelevision.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUITelevision.CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(TARDIS.plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);

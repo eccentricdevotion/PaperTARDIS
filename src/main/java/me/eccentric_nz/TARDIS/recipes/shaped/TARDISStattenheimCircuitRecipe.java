@@ -55,7 +55,7 @@ public class TARDISStattenheimCircuitRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.GLOWSTONE_DUST, 1);
+        ItemStack is = ItemStack.of(Material.GLOWSTONE_DUST, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Stattenheim Circuit"));
         CustomModelDataComponent component = im.getCustomModelDataComponent();
@@ -64,7 +64,7 @@ public class TARDISStattenheimCircuitRecipe {
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "tardis_stattenheim_circuit");
         ShapedRecipe r = new ShapedRecipe(key, is);
-        ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
+        ItemStack exact = ItemStack.of(Material.GLOWSTONE_DUST, 1);
         ItemMeta em = exact.getItemMeta();
         em.displayName(ComponentUtils.toWhite("TARDIS Materialisation Circuit"));
         CustomModelDataComponent ecomponent = em.getCustomModelDataComponent();
@@ -76,7 +76,7 @@ public class TARDISStattenheimCircuitRecipe {
                 : Component.text(plugin.getConfig().getString("circuits.uses.materialisation", "50"), NamedTextColor.YELLOW);
         em.lore(List.of(Component.text("Uses left"), uses));
         exact.setItemMeta(em);
-        ItemStack locator = new ItemStack(Material.GLOWSTONE_DUST, 1);
+        ItemStack locator = ItemStack.of(Material.GLOWSTONE_DUST, 1);
         ItemMeta lim = locator.getItemMeta();
         lim.displayName(ComponentUtils.toWhite("TARDIS Locator Circuit"));
         CustomModelDataComponent lcomponent = lim.getCustomModelDataComponent();

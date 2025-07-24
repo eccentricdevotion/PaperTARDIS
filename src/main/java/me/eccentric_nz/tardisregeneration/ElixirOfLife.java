@@ -44,7 +44,7 @@ import java.util.List;
 public class ElixirOfLife {
 
     public static ItemStack create() {
-        ItemStack goblet = new ItemStack(Material.GOLD_INGOT);
+        ItemStack goblet = ItemStack.of(Material.GOLD_INGOT);
         ItemMeta im = goblet.getItemMeta();
         im.setUseRemainder(null);
         UseCooldownComponent cooldown = im.getUseCooldown();

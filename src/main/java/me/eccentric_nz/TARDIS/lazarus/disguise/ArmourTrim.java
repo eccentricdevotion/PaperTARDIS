@@ -42,7 +42,7 @@ public class ArmourTrim {
         if (pattern != null) {
             ArmorTrim trim = new ArmorTrim(material, pattern);
             // make a chestplate
-            ItemStack chestplate = new ItemStack(Material.CHAINMAIL_CHESTPLATE);
+            ItemStack chestplate = ItemStack.of(Material.CHAINMAIL_CHESTPLATE);
             ArmorMeta chestMeta = (ArmorMeta) chestplate.getItemMeta();
             // hide the "upgrade" text on the item
             chestMeta.addItemFlags(ItemFlag.HIDE_ARMOR_TRIM);
@@ -50,14 +50,14 @@ public class ArmourTrim {
             chestplate.setItemMeta(chestMeta);
             player.getInventory().setChestplate(chestplate);
             // make some leggings
-            ItemStack leggings = new ItemStack(Material.CHAINMAIL_LEGGINGS);
+            ItemStack leggings = ItemStack.of(Material.CHAINMAIL_LEGGINGS);
             ArmorMeta legMeta = (ArmorMeta) leggings.getItemMeta();
             legMeta.addItemFlags(ItemFlag.HIDE_ARMOR_TRIM);
             legMeta.setTrim(trim);
             leggings.setItemMeta(legMeta);
             player.getInventory().setLeggings(leggings);
             // make a helmet
-            ItemStack helmet = new ItemStack(Material.CHAINMAIL_HELMET);
+            ItemStack helmet = ItemStack.of(Material.CHAINMAIL_HELMET);
             ArmorMeta headMeta = (ArmorMeta) helmet.getItemMeta();
             headMeta.addItemFlags(ItemFlag.HIDE_ARMOR_TRIM);
             headMeta.setTrim(trim);

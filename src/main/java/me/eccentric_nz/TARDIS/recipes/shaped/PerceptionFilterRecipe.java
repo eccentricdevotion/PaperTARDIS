@@ -52,7 +52,7 @@ public class PerceptionFilterRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.OMINOUS_TRIAL_KEY, 1);
+        ItemStack is = ItemStack.of(Material.OMINOUS_TRIAL_KEY, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Perception Filter"));
         is.setItemMeta(im);
@@ -63,7 +63,7 @@ public class PerceptionFilterRecipe {
         r.setIngredient('R', Material.REDSTONE);
         r.setIngredient('G', Material.GOLD_NUGGET);
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
-            ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
+            ItemStack exact = ItemStack.of(Material.GLOWSTONE_DUST, 1);
             ItemMeta em = exact.getItemMeta();
             em.displayName(ComponentUtils.toWhite("Perception Circuit"));
             CustomModelDataComponent component = em.getCustomModelDataComponent();

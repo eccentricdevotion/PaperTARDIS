@@ -26,7 +26,7 @@ import java.util.List;
 public class ElementBuilder {
 
     public static ItemStack getElement(Element element) {
-        ItemStack is = new ItemStack(Material.FEATHER, 1);
+        ItemStack is = ItemStack.of(Material.FEATHER, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(Component.text(element.toString()));
         if (element.equals(Element.Unknown)) {

@@ -48,7 +48,7 @@ public class TARDISTinter {
         ItemDisplay display = (ItemDisplay) block.getWorld().spawnEntity(location, EntityType.ITEM_DISPLAY);
         String glass = dye.replace("DYE", "STAINED_GLASS");
         Material material = Material.valueOf(glass);
-        ItemStack is = new ItemStack(material, 1);
+        ItemStack is = ItemStack.of(material, 1);
         ItemMeta im = is.getItemMeta();
         switch (glass) {
             case "BLACK_STAINED_GLASS" -> im.setItemModel(TintVariant.TINT_BLACK.getKey());

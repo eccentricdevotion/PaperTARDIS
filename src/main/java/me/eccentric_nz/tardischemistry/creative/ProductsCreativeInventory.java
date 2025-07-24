@@ -73,21 +73,21 @@ public class ProductsCreativeInventory implements InventoryHolder {
             }
         }
         // elements
-        ItemStack elements = new ItemStack(GUIChemistry.ELEMENTS.material(), 1);
+        ItemStack elements = ItemStack.of(GUIChemistry.ELEMENTS.material(), 1);
         ItemMeta eim = elements.getItemMeta();
         eim.displayName(Component.text("Elements"));
         eim.setItemModel(GUIChemistry.ELEMENTS.key());
         elements.setItemMeta(eim);
         stack[GUIChemistry.ELEMENTS.slot()] = elements;
         // compounds
-        ItemStack compounds = new ItemStack(GUIChemistry.COMPOUNDS.material(), 1);
+        ItemStack compounds = ItemStack.of(GUIChemistry.COMPOUNDS.material(), 1);
         ItemMeta cim = compounds.getItemMeta();
         cim.displayName(Component.text("Compounds"));
         cim.setItemModel(GUIChemistry.COMPOUNDS.key());
         compounds.setItemMeta(cim);
         stack[GUIChemistry.COMPOUNDS.slot()] = compounds;
         // close
-        ItemStack close = new ItemStack(GUIChemistry.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIChemistry.CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close_im.setItemModel(GUIChemistry.CLOSE.key());

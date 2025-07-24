@@ -75,7 +75,7 @@ public class TARDISBook {
         // two line breaks = new page
         List<String> pages = List.of(book_str.split(ls + ls));
         // make the book
-        ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
+        ItemStack book = ItemStack.of(Material.WRITTEN_BOOK);
         BookMeta meta = (BookMeta) book.getItemMeta();
         String[] title = title_reward.split(" - ");
         meta.setTitle(title[0]);

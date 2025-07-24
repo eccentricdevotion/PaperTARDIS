@@ -55,7 +55,7 @@ public class TARDISSmelterDrop {
             }
             int distrib = value / fsize;
             fuelChests.forEach((fc) -> {
-                HashMap<Integer, ItemStack> leftoverfuel = fc.getInventory().addItem(new ItemStack(key, distrib));
+                HashMap<Integer, ItemStack> leftoverfuel = fc.getInventory().addItem(ItemStack.of(key, distrib));
                 if (!leftoverfuel.isEmpty()) {
                     for (ItemStack f : leftoverfuel.values()) {
                         Material fm = f.getType();
@@ -74,7 +74,7 @@ public class TARDISSmelterDrop {
             }
             int distrib = value / osize;
             oreChests.forEach((fc) -> {
-                HashMap<Integer, ItemStack> leftoverore = fc.getInventory().addItem(new ItemStack(key, distrib));
+                HashMap<Integer, ItemStack> leftoverore = fc.getInventory().addItem(ItemStack.of(key, distrib));
                 if (!leftoverore.isEmpty()) {
                     for (ItemStack o : leftoverore.values()) {
                         Material om = o.getType();
@@ -90,13 +90,13 @@ public class TARDISSmelterDrop {
             if (value > max) {
                 int remainder = value % max;
                 for (int i = 0; i < value / max; i++) {
-                    inv.addItem(new ItemStack(key, max));
+                    inv.addItem(ItemStack.of(key, max));
                 }
                 if (remainder > 0) {
-                    inv.addItem(new ItemStack(key, remainder));
+                    inv.addItem(ItemStack.of(key, remainder));
                 }
             } else {
-                inv.addItem(new ItemStack(key, value));
+                inv.addItem(ItemStack.of(key, value));
             }
         });
     }

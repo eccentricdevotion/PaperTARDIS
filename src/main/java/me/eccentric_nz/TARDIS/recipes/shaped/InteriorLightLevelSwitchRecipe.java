@@ -51,7 +51,7 @@ public class InteriorLightLevelSwitchRecipe {
 
     public void addRecipe() {
         // add interior recipe
-        ItemStack is = new ItemStack(Material.LEVER, 1);
+        ItemStack is = ItemStack.of(Material.LEVER, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Interior Light Level Switch"));
         im.setItemModel(RecipeItem.INTERIOR_LIGHT_LEVEL_SWITCH.getModel());

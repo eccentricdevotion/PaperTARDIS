@@ -89,7 +89,7 @@ public class FormulaViewer implements InventoryHolder {
                     try {
                         // is it a Spigot material?
                         Material material = Material.valueOf(data[i][j]);
-                        is = new ItemStack(material, 1);
+                        is = ItemStack.of(material, 1);
                     } catch (IllegalArgumentException me) {
                         // is it a compound?
                         try {
@@ -146,7 +146,7 @@ public class FormulaViewer implements InventoryHolder {
 
     private void showView() {
         // close
-        ItemStack close = new ItemStack(Material.BOWL, 1);
+        ItemStack close = ItemStack.of(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close_im.setItemModel(GUIChemistry.CLOSE.key());

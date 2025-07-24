@@ -73,7 +73,7 @@ public class TARDISShellPresetInventory implements InventoryHolder {
         for (ChameleonPreset preset : ChameleonPreset.values()) {
             if (!ChameleonPreset.NOT_THESE.contains(preset.getCraftMaterial()) && !preset.usesArmourStand()) {
                 if (TARDISPermission.hasPermission(player, "tardis.preset." + preset.toString().toLowerCase(Locale.ROOT))) {
-                    ItemStack is = new ItemStack(preset.getGuiDisplay(), 1);
+                    ItemStack is = ItemStack.of(preset.getGuiDisplay(), 1);
                     ItemMeta im = is.getItemMeta();
                     im.displayName(Component.text(preset.getDisplayName()));
                     is.setItemMeta(im);
@@ -82,7 +82,7 @@ public class TARDISShellPresetInventory implements InventoryHolder {
             }
         }
         // load current preset
-        ItemStack current = new ItemStack(GUIChameleonPresets.CURRENT.material(), 1);
+        ItemStack current = ItemStack.of(GUIChameleonPresets.CURRENT.material(), 1);
         ItemMeta pre = current.getItemMeta();
         pre.displayName(Component.text("Current Chameleon preset"));
         current.setItemMeta(pre);
@@ -92,14 +92,14 @@ public class TARDISShellPresetInventory implements InventoryHolder {
         wherec.put("tardis_id", id);
         ResultSetChameleon rsc = new ResultSetChameleon(plugin, wherec);
         if (rsc.resultSet()) {
-            ItemStack saved = new ItemStack(GUIChameleonPresets.SAVED.material(), 1);
+            ItemStack saved = ItemStack.of(GUIChameleonPresets.SAVED.material(), 1);
             ItemMeta con = saved.getItemMeta();
             con.displayName(Component.text("Saved Construct"));
             saved.setItemMeta(con);
             stacks[GUIChameleonPresets.SAVED.slot()] = saved;
         }
         // Cancel / close
-        ItemStack close = new ItemStack(GUIChameleonPresets.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIChameleonPresets.CLOSE.material(), 1);
         ItemMeta can = close.getItemMeta();
         can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);

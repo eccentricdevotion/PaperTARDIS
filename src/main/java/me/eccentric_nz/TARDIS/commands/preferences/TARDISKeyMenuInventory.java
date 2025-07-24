@@ -68,7 +68,7 @@ class TARDISKeyMenuInventory implements InventoryHolder {
             material = Material.GOLD_NUGGET;
         }
         for (GUIKeyPreferences key : GUIKeyPreferences.values()) {
-            ItemStack is = new ItemStack(key.getMaterial(), 1);
+            ItemStack is = ItemStack.of(key.getMaterial(), 1);
             ItemMeta im = is.getItemMeta();
             if (key == GUIKeyPreferences.CLOSE || key == GUIKeyPreferences.INSTRUCTIONS || key == GUIKeyPreferences.NAME || key == GUIKeyPreferences.DISPLAY_NAME_COLOUR) {
                 im.displayName(Component.text(key.getName()));

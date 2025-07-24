@@ -48,7 +48,7 @@ public class HeadBuilder {
         if (material == null || model == null) {
             return null;
         }
-        ItemStack is = new ItemStack(material, 1);
+        ItemStack is = ItemStack.of(material, 1);
         ItemMeta im = is.getItemMeta();
         im.getPersistentDataContainer().set(TARDISWeepingAngels.MONSTER_HEAD, PersistentDataType.INTEGER, 99);
         String head = switch (monster) {
@@ -73,7 +73,7 @@ public class HeadBuilder {
     }
 
     public static ItemStack getK9() {
-        ItemStack is = new ItemStack(Material.BONE);
+        ItemStack is = ItemStack.of(Material.BONE);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("K9"));
         im.setItemModel(K9Variant.K9.getKey());

@@ -48,7 +48,7 @@ public class TARDISMonitorRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.MAP, 1);
+        ItemStack is = ItemStack.of(Material.MAP, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Monitor"));
         im.setItemModel(RecipeItem.TARDIS_MONITOR.getModel());

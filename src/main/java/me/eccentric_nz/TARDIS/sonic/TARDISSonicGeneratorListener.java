@@ -114,7 +114,7 @@ public class TARDISSonicGeneratorListener implements Listener {
             double full = plugin.getArtronConfig().getDouble("full_charge") / 100.0d;
             int cost = (int) (plugin.getArtronConfig().getDouble("sonic_generator.standard") * full);
             int level = rs.getArtronLevel();
-            ItemStack sonic = new ItemStack(Material.BLAZE_ROD, 1);
+            ItemStack sonic = ItemStack.of(Material.BLAZE_ROD, 1);
             ItemMeta screw = sonic.getItemMeta();
             screw.displayName(ComponentUtils.toWhite("Sonic Screwdriver"));
             List<Component> upgrades = new ArrayList<>();
@@ -213,7 +213,7 @@ public class TARDISSonicGeneratorListener implements Listener {
             // set block to AIR
             b.setBlockData(TARDISConstants.AIR);
             // drop a custom FLOWER_POT_ITEM
-            ItemStack is = new ItemStack(Material.FLOWER_POT, 1);
+            ItemStack is = ItemStack.of(Material.FLOWER_POT, 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(Component.text("Sonic Generator"));
             im.setItemModel(SonicItem.SONIC_GENERATOR.getKey());

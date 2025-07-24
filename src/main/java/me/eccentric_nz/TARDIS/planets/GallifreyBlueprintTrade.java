@@ -65,7 +65,7 @@ public class GallifreyBlueprintTrade {
         Material roomMaterial = Material.valueOf(TARDISARS.valueOf(bpr.toString()).getMaterial());
         // determine the stack size of the ingredient
         int roomAmount = plugin.getRoomsConfig().getInt("rooms." + bpr + ".cost") / 20;
-        roomRecipe.addIngredient(new ItemStack(roomMaterial, roomAmount));
+        roomRecipe.addIngredient(ItemStack.of(roomMaterial, roomAmount));
         return roomRecipe;
     }
 
@@ -82,7 +82,7 @@ public class GallifreyBlueprintTrade {
         // determine the stack size of the ingredient
         int consoleAmount = plugin.getArtronConfig().getInt("upgrades." + perm) / 250;
         // add the ingredient
-        consoleRecipe.addIngredient(new ItemStack(consoleMaterial, consoleAmount));
+        consoleRecipe.addIngredient(ItemStack.of(consoleMaterial, consoleAmount));
         return consoleRecipe;
     }
 
@@ -93,7 +93,7 @@ public class GallifreyBlueprintTrade {
     }
 
     private ItemStack buildResult(String perm, String name) {
-        ItemStack is = new ItemStack(Material.MUSIC_DISC_MELLOHI, 1);
+        ItemStack is = ItemStack.of(Material.MUSIC_DISC_MELLOHI, 1);
         ItemMeta im = is.getItemMeta();
         PersistentDataContainer pdc = im.getPersistentDataContainer();
         pdc.set(plugin.getTimeLordUuidKey(), plugin.getPersistentDataTypeUUID(), UUID.randomUUID());

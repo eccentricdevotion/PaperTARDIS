@@ -57,7 +57,7 @@ public class TARDISDiskWriterCommand {
         ItemStack is;
         boolean makeAndSaveDisk = !plugin.getConfig().getBoolean("difficulty.disk_in_hand_for_write");
         if (makeAndSaveDisk) {
-            is = new ItemStack(Material.MUSIC_DISC_CHIRP, 1);
+            is = ItemStack.of(Material.MUSIC_DISC_CHIRP, 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(Component.text("Save Storage Disk"));
             im.lore(List.of(Component.text("Blank")));

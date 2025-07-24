@@ -61,7 +61,7 @@ class TARDISHumInventory implements InventoryHolder {
         List<ItemStack> options = new ArrayList<>();
         // get HUM sounds
         for (Hum hum : Hum.values()) {
-            ItemStack is = new ItemStack(Material.BOWL, 1);
+            ItemStack is = ItemStack.of(Material.BOWL, 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(Component.text(hum.toString()));
             is.setItemMeta(im);
@@ -77,14 +77,14 @@ class TARDISHumInventory implements InventoryHolder {
             }
         }
         // play / save
-        ItemStack play = new ItemStack(GUIInteriorSounds.ACTION.material(), 1);
+        ItemStack play = ItemStack.of(GUIInteriorSounds.ACTION.material(), 1);
         ItemMeta save = play.getItemMeta();
         save.displayName(Component.text("Action"));
         save.lore(List.of(Component.text("PLAY")));
         play.setItemMeta(save);
         stack[GUIInteriorSounds.ACTION.slot()] = play;
         // close
-        ItemStack close = new ItemStack(GUIInteriorSounds.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIInteriorSounds.CLOSE.material(), 1);
         ItemMeta c_im = close.getItemMeta();
         c_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(c_im);

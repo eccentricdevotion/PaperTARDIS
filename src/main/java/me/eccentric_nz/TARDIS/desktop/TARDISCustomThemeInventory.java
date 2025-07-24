@@ -75,7 +75,7 @@ public class TARDISCustomThemeInventory extends TARDISThemeInventory {
         }
         if (plugin.getConfig().getBoolean("desktop.previews")) {
             // info
-            ItemStack info = new ItemStack(GUIChameleonConstructor.INFO.material(), 1);
+            ItemStack info = ItemStack.of(GUIChameleonConstructor.INFO.material(), 1);
             ItemMeta io = info.getItemMeta();
             io.displayName(Component.text("Info"));
             io.lore(List.of(
@@ -90,13 +90,13 @@ public class TARDISCustomThemeInventory extends TARDISThemeInventory {
             stack[GUIUpgrade.INFO.slot()] = info;
         }
         // built-in consoles page
-        ItemStack custom = new ItemStack(GUIChameleonPoliceBoxes.GO_TO_PAGE_1.material(), 1);
+        ItemStack custom = ItemStack.of(GUIChameleonPoliceBoxes.GO_TO_PAGE_1.material(), 1);
         ItemMeta custom_im = custom.getItemMeta();
         custom_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_1")));
         custom.setItemMeta(custom_im);
         stack[GUIChameleonPoliceBoxes.GO_TO_PAGE_1.slot()] = custom;
         // close
-        ItemStack close = new ItemStack(GUIChameleonPoliceBoxes.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIChameleonPoliceBoxes.CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);

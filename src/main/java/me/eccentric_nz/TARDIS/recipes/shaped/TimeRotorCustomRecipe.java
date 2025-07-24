@@ -55,7 +55,7 @@ public class TimeRotorCustomRecipe {
         for (String r : plugin.getCustomRotorsConfig().getKeys(false)) {
             try {
                 Material material = Material.valueOf(plugin.getCustomRotorsConfig().getString(r + ".animated_material"));
-                ItemStack is = new ItemStack(Material.LIGHT_GRAY_DYE, 1);
+                ItemStack is = ItemStack.of(Material.LIGHT_GRAY_DYE, 1);
                 ItemMeta im = is.getItemMeta();
                 String dn = TARDISStringUtils.capitalise(r);
                 im.displayName(ComponentUtils.toWhite("Time Rotor " + dn));

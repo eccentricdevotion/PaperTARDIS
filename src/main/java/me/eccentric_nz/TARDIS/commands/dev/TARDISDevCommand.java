@@ -132,7 +132,7 @@ public class TARDISDevCommand implements CommandExecutor {
                                 eyeLocation.setYaw(player.getLocation().getYaw() - 180.0f);
                                 Skeleton skeleton = (Skeleton) eyeLocation.getWorld().spawnEntity(eyeLocation, EntityType.SKELETON);
                                 EntityEquipment ee = skeleton.getEquipment();
-                                ItemStack head = new ItemStack(Material.SLIME_BALL);
+                                ItemStack head = ItemStack.of(Material.SLIME_BALL);
                                 ItemMeta him = head.getItemMeta();
                                 him.setItemModel(new NamespacedKey(plugin, "dalek_independent_head"));
                                 EquippableComponent component = him.getEquippable();
@@ -141,7 +141,7 @@ public class TARDISDevCommand implements CommandExecutor {
                                 him.setEquippable(component);
                                 head.setItemMeta(him);
                                 ee.setHelmet(head);
-                                ItemStack body = new ItemStack(Material.SLIME_BALL);
+                                ItemStack body = ItemStack.of(Material.SLIME_BALL);
                                 ItemMeta bim = body.getItemMeta();
                                 bim.setItemModel(new NamespacedKey(plugin, "dalek_body"));
                                 body.setItemMeta(bim);
@@ -194,7 +194,7 @@ public class TARDISDevCommand implements CommandExecutor {
                         }
                         case "leather" -> {
                             if (sender instanceof Player player) {
-                                ItemStack is = new ItemStack(Material.LEATHER_HORSE_ARMOR);
+                                ItemStack is = ItemStack.of(Material.LEATHER_HORSE_ARMOR);
                                 LeatherArmorMeta im = (LeatherArmorMeta) is.getItemMeta();
                                 im.setColor(Color.fromRGB(255, 0, 0));
                                 im.addItemFlags(ItemFlag.values());
@@ -438,7 +438,7 @@ public class TARDISDevCommand implements CommandExecutor {
                                 Block block = player.getTargetBlock(null, 8);
                                 sender.sendMessage(block.getState().toString());
                             } else {
-                                ItemStack sand = new ItemStack(Material.SUSPICIOUS_SAND);
+                                ItemStack sand = ItemStack.of(Material.SUSPICIOUS_SAND);
                                 BlockStateMeta sandMeta = (BlockStateMeta) sand.getItemMeta();
                                 BrushableBlock blockState = (BrushableBlock) sandMeta.getBlockState();
                                 blockState.setItem(player.getInventory().getItemInMainHand());

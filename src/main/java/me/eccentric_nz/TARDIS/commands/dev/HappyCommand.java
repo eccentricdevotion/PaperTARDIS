@@ -16,7 +16,7 @@ public class HappyCommand {
     public void leash(Player player) {
         TARDISHappyGhast happy = new TARDISHappyGhast();
         happy.setHealth(20.0d);
-        happy.setHarness(new ItemStack(Material.CYAN_HARNESS, 1));
+        happy.setHarness(ItemStack.of(Material.CYAN_HARNESS, 1));
         happy.setName("Cuthbert");
         happy.setAge(7);
         happy.setBaby(false);

@@ -68,7 +68,7 @@ public class ArtronChargeAction {
                 if (a2 > 0) {
                     player.getInventory().getItemInMainHand().setAmount(a2);
                 } else {
-                    player.getInventory().removeItem(new ItemStack(full, 1));
+                    player.getInventory().removeItem(ItemStack.of(full, 1));
                 }
                 plugin.getMessenger().send(player, TardisModule.TARDIS, "ENERGY_AT_MAX");
             } else {

@@ -25,7 +25,7 @@ public class InfoDialog {
             List<DialogBody> body = new ArrayList<>();
             if (ItemLookup.ITEMS.containsKey(tardisInfoMenu)) {
                 InfoIcon infoIcon = ItemLookup.ITEMS.get(tardisInfoMenu);
-                ItemStack icon = new ItemStack(infoIcon.item());
+                ItemStack icon = ItemStack.of(infoIcon.item());
                 ItemMeta im = icon.getItemMeta();
                 im.setItemModel(infoIcon.model());
                 icon.setItemMeta(im);

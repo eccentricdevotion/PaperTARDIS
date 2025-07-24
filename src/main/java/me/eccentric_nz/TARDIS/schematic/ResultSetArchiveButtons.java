@@ -66,7 +66,7 @@ public class ResultSetArchiveButtons {
             int i = 0;
             if (rs.isBeforeFirst()) {
                 while (rs.next()) {
-                    ItemStack is = new ItemStack(terracotta[i], 1);
+                    ItemStack is = ItemStack.of(terracotta[i], 1);
                     ItemMeta im = is.getItemMeta();
                     im.displayName(Component.text(rs.getString("name")));
                     List<Component> lore = new ArrayList<>();

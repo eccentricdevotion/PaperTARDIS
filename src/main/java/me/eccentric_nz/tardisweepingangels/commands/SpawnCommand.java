@@ -97,7 +97,7 @@ public class SpawnCommand {
                         if (args[2].equalsIgnoreCase("flying")) {
                             // make the Dalek fly
                             EntityEquipment ee = a.getEquipment();
-                            ee.setChestplate(new ItemStack(Material.ELYTRA, 1));
+                            ee.setChestplate(ItemStack.of(Material.ELYTRA, 1));
                             // teleport them straight up
                             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                                 a.teleport(a.getLocation().add(0.0d, 20.0d, 0.0d));
@@ -125,7 +125,7 @@ public class SpawnCommand {
                                     case MAGENTA -> head = DalekVariant.DALEK_MAGENTA.getKey();
                                     case ORANGE -> head = DalekVariant.DALEK_ORANGE.getKey();
                                 }
-                                ItemStack helmet = new ItemStack(Material.SLIME_BALL, 1);
+                                ItemStack helmet = ItemStack.of(Material.SLIME_BALL, 1);
                                 ItemMeta headMeta = helmet.getItemMeta();
                                 headMeta.displayName(Component.text("Dalek Head"));
                                 headMeta.setItemModel(head);

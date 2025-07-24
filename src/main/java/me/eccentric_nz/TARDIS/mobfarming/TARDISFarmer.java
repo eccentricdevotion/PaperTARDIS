@@ -227,7 +227,7 @@ public class TARDISFarmer {
                                 hump.setAge(camel.getAge());
                                 hump.setBaby(!camel.isAdult());
                                 hump.setHorseInventory(camel.getInventory().getContents());
-                                hump.setName(camel.getCustomName());
+                                hump.setName(ComponentUtils.stripColour(camel.customName()));
                                 hump.setDomesticity(camel.getDomestication());
                                 camels.add(hump);
                                 entity.remove();
@@ -300,7 +300,7 @@ public class TARDISFarmer {
                                         tmhor.setHasChest(true);
                                     }
                                 }
-                                tmhor.setName(horse.getCustomName());
+                                tmhor.setName(ComponentUtils.stripColour(horse.customName()));
                                 tmhor.setHorseInventory(horse.getInventory().getContents());
                                 tmhor.setDomesticity(horse.getDomestication());
                                 tmhor.setJumpStrength(horse.getJumpStrength());
@@ -405,7 +405,7 @@ public class TARDISFarmer {
                                 if (llama.isCarryingChest()) {
                                     tmlla.setHasChest(true);
                                 }
-                                tmlla.setName(llama.getCustomName());
+                                tmlla.setName(ComponentUtils.stripColour(llama.customName()));
                                 tmlla.setHorseInventory(llama.getInventory().getContents());
                                 tmlla.setDomesticity(llama.getDomestication());
                                 tmlla.setJumpStrength(llama.getJumpStrength());
@@ -519,7 +519,7 @@ public class TARDISFarmer {
                                 TARDISRabbit tmrabbit = new TARDISRabbit();
                                 tmrabbit.setAge(rabbit.getAge());
                                 tmrabbit.setBaby(!rabbit.isAdult());
-                                tmrabbit.setName(rabbit.getCustomName());
+                                tmrabbit.setName(ComponentUtils.stripColour(rabbit.customName()));
                                 tmrabbit.setBunnyType(rabbit.getRabbitType());
                                 rabbits.add(tmrabbit);
                                 entity.remove();
@@ -596,7 +596,7 @@ public class TARDISFarmer {
                                 tv.setAge(v.getAge());
                                 tv.setHealth(v.getHealth());
                                 tv.setBaby(!v.isAdult());
-                                tv.setName(v.getCustomName());
+                                tv.setName(ComponentUtils.stripColour(v.customName()));
                                 tv.setTrades(v.getRecipes());
                                 tv.setLevel(v.getVillagerLevel());
                                 tv.setVillagerType(v.getVillagerType());
@@ -690,7 +690,7 @@ public class TARDISFarmer {
                     } else if (spawnEggs) {
                         // give spawn eggs
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.ALLAY_SPAWN_EGG, allays.size());
+                        ItemStack is = ItemStack.of(Material.ALLAY_SPAWN_EGG, allays.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -724,7 +724,7 @@ public class TARDISFarmer {
                     } else if (spawnEggs) {
                         // give spawn eggs
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.BEE_SPAWN_EGG, bees.size());
+                        ItemStack is = ItemStack.of(Material.BEE_SPAWN_EGG, bees.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -754,7 +754,7 @@ public class TARDISFarmer {
                         tf.setPatternColor(fish.getPatternColour());
                     }
                     // change fish bucket to empty bucket
-                    p.getInventory().getItemInOffHand().setType(Material.BUCKET);
+                    p.getInventory().setItemInOffHand(ItemStack.of(Material.BUCKET));
                     p.updateInventory();
                 }
                 if (farmPrefs.shouldFarmPandas() && !pandas.isEmpty()) {
@@ -783,7 +783,7 @@ public class TARDISFarmer {
                     } else if (spawnEggs) {
                         // give spawn eggs
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.PANDA_SPAWN_EGG, pandas.size());
+                        ItemStack is = ItemStack.of(Material.PANDA_SPAWN_EGG, pandas.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -899,23 +899,23 @@ public class TARDISFarmer {
                         // no farm, give the player spawn eggs
                         Inventory inv = p.getInventory();
                         if (!chickens.isEmpty()) {
-                            ItemStack is = new ItemStack(Material.CHICKEN_SPAWN_EGG, chickens.size());
+                            ItemStack is = ItemStack.of(Material.CHICKEN_SPAWN_EGG, chickens.size());
                             inv.addItem(is);
                         }
                         if (!cows.isEmpty()) {
-                            ItemStack is = new ItemStack(Material.COW_SPAWN_EGG, cows.size());
+                            ItemStack is = ItemStack.of(Material.COW_SPAWN_EGG, cows.size());
                             inv.addItem(is);
                         }
                         if (!pigs.isEmpty()) {
-                            ItemStack is = new ItemStack(Material.PIG_SPAWN_EGG, pigs.size());
+                            ItemStack is = ItemStack.of(Material.PIG_SPAWN_EGG, pigs.size());
                             inv.addItem(is);
                         }
                         if (!sheep.isEmpty()) {
-                            ItemStack is = new ItemStack(Material.SHEEP_SPAWN_EGG, sheep.size());
+                            ItemStack is = ItemStack.of(Material.SHEEP_SPAWN_EGG, sheep.size());
                             inv.addItem(is);
                         }
                         if (!mooshrooms.isEmpty()) {
-                            ItemStack is = new ItemStack(Material.MOOSHROOM_SPAWN_EGG, mooshrooms.size());
+                            ItemStack is = ItemStack.of(Material.MOOSHROOM_SPAWN_EGG, mooshrooms.size());
                             inv.addItem(is);
                         }
                         p.updateInventory();
@@ -948,7 +948,7 @@ public class TARDISFarmer {
                     } else if (spawnEggs) {
                         // give spawn eggs
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.AXOLOTL_SPAWN_EGG, axolotls.size());
+                        ItemStack is = ItemStack.of(Material.AXOLOTL_SPAWN_EGG, axolotls.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -997,7 +997,7 @@ public class TARDISFarmer {
                             inv.setContents(e.getHorseinventory());
                             if (e.isLeashed()) {
                                 Inventory pinv = p.getInventory();
-                                ItemStack leash = new ItemStack(Material.LEAD, 1);
+                                ItemStack leash = ItemStack.of(Material.LEAD, 1);
                                 pinv.addItem(leash);
                                 p.updateInventory();
                             }
@@ -1006,7 +1006,7 @@ public class TARDISFarmer {
                         });
                     } else if (spawnEggs) {
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.HORSE_SPAWN_EGG, horses.size());
+                        ItemStack is = ItemStack.of(Material.HORSE_SPAWN_EGG, horses.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -1066,7 +1066,7 @@ public class TARDISFarmer {
                         }
                     } else if (spawnEggs) {
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.HAPPY_GHAST_SPAWN_EGG, ghasts.size());
+                        ItemStack is = ItemStack.of(Material.HAPPY_GHAST_SPAWN_EGG, ghasts.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -1112,7 +1112,7 @@ public class TARDISFarmer {
                             inv.setDecor(ll.getDecor());
                             if (ll.isLeashed()) {
                                 Inventory pinv = p.getInventory();
-                                ItemStack leash = new ItemStack(Material.LEAD, 1);
+                                ItemStack leash = ItemStack.of(Material.LEAD, 1);
                                 pinv.addItem(leash);
                                 p.updateInventory();
                             }
@@ -1121,7 +1121,7 @@ public class TARDISFarmer {
                         });
                     } else if (spawnEggs) {
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.LLAMA_SPAWN_EGG, llamas.size());
+                        ItemStack is = ItemStack.of(Material.LLAMA_SPAWN_EGG, llamas.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -1153,7 +1153,7 @@ public class TARDISFarmer {
                         });
                     } else if (spawnEggs) {
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.RABBIT_SPAWN_EGG, rabbits.size());
+                        ItemStack is = ItemStack.of(Material.RABBIT_SPAWN_EGG, rabbits.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -1191,7 +1191,7 @@ public class TARDISFarmer {
                         });
                     } else if (spawnEggs) {
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.VILLAGER_SPAWN_EGG, villagers.size());
+                        ItemStack is = ItemStack.of(Material.VILLAGER_SPAWN_EGG, villagers.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -1222,7 +1222,7 @@ public class TARDISFarmer {
                         });
                     } else if (spawnEggs) {
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.POLAR_BEAR_SPAWN_EGG, polarbears.size());
+                        ItemStack is = ItemStack.of(Material.POLAR_BEAR_SPAWN_EGG, polarbears.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -1253,7 +1253,7 @@ public class TARDISFarmer {
                         });
                     } else if (spawnEggs) {
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.SNIFFER_EGG, sniffers.size());
+                        ItemStack is = ItemStack.of(Material.SNIFFER_EGG, sniffers.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -1284,7 +1284,7 @@ public class TARDISFarmer {
                         });
                     } else if (spawnEggs) {
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.STRIDER_SPAWN_EGG, striders.size());
+                        ItemStack is = ItemStack.of(Material.STRIDER_SPAWN_EGG, striders.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -1317,7 +1317,7 @@ public class TARDISFarmer {
                         });
                     } else if (spawnEggs) {
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.CAMEL_SPAWN_EGG, camels.size());
+                        ItemStack is = ItemStack.of(Material.CAMEL_SPAWN_EGG, camels.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -1351,7 +1351,7 @@ public class TARDISFarmer {
                     } else if (spawnEggs) {
                         // give spawn eggs
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.PARROT_SPAWN_EGG, parrots.size());
+                        ItemStack is = ItemStack.of(Material.PARROT_SPAWN_EGG, parrots.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -1381,7 +1381,7 @@ public class TARDISFarmer {
                     } else if (spawnEggs) {
                         // give spawn eggs
                         Inventory inv = p.getInventory();
-                        ItemStack is = new ItemStack(Material.FROG_SPAWN_EGG, frogs.size());
+                        ItemStack is = ItemStack.of(Material.FROG_SPAWN_EGG, frogs.size());
                         inv.addItem(is);
                         p.updateInventory();
                     } else {
@@ -1401,7 +1401,7 @@ public class TARDISFarmer {
         for (Entity entity : mobs) {
             if (entity.getType().equals(EntityType.CAT) || entity.getType().equals(EntityType.WOLF) || entity.getType().equals(EntityType.PARROT)) {
                 Tameable tamed = (Tameable) entity;
-                if (tamed.isTamed() && tamed.getOwner().getUniqueId().equals(player.getUniqueId())) {
+                if (tamed.isTamed() && tamed.getOwner() != null && tamed.getOwner().getUniqueId().equals(player.getUniqueId())) {
                     double health;
                     switch (entity.getType()) {
                         case WOLF -> {

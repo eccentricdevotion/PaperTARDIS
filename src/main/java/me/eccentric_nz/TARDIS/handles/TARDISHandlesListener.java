@@ -65,7 +65,7 @@ public class TARDISHandlesListener implements Listener {
         // set block to AIR
         b.setBlockData(TARDISConstants.AIR);
         // drop a custom BIRCH_BUTTON
-        ItemStack is = new ItemStack(Material.BIRCH_BUTTON, 1);
+        ItemStack is = ItemStack.of(Material.BIRCH_BUTTON, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(Component.text("Handles"));
         im.lore(List.of(Component.text("Cyberhead from the"), Component.text("Maldovar Market")));

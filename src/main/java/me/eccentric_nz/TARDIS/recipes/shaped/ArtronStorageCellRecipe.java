@@ -51,7 +51,7 @@ public class ArtronStorageCellRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.BUCKET, 1);
+        ItemStack is = ItemStack.of(Material.BUCKET, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Artron Storage Cell"));
         im.lore(List.of(

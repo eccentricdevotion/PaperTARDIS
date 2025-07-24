@@ -59,7 +59,7 @@ public class TARDISCompanionInventory implements InventoryHolder {
         for (String c : companionData) {
             if (!c.isEmpty() && i < 45) {
                 OfflinePlayer op = plugin.getServer().getOfflinePlayer(UUID.fromString(c));
-                ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
+                ItemStack head = ItemStack.of(Material.PLAYER_HEAD, 1);
                 SkullMeta skull = (SkullMeta) head.getItemMeta();
                 skull.setOwningPlayer(op);
                 skull.displayName(Component.text(op.getName()));
@@ -70,7 +70,7 @@ public class TARDISCompanionInventory implements InventoryHolder {
             }
         }
         // add buttons
-        ItemStack info = new ItemStack(GUICompanion.INFO.material(), 1);
+        ItemStack info = ItemStack.of(GUICompanion.INFO.material(), 1);
         ItemMeta ii = info.getItemMeta();
         ii.displayName(Component.text("Info"));
         ii.lore(List.of(
@@ -84,18 +84,18 @@ public class TARDISCompanionInventory implements InventoryHolder {
         ));
         info.setItemMeta(ii);
         heads[GUICompanion.INFO.slot()] = info;
-        ItemStack add = new ItemStack(GUICompanion.ADD_COMPANION.material(), 1);
+        ItemStack add = ItemStack.of(GUICompanion.ADD_COMPANION.material(), 1);
         ItemMeta aa = add.getItemMeta();
         aa.displayName(Component.text("Add"));
         add.setItemMeta(aa);
         heads[GUICompanion.ADD_COMPANION.slot()] = add;
-        ItemStack del = new ItemStack(GUICompanion.DELETE_COMPANION.material(), 1);
+        ItemStack del = ItemStack.of(GUICompanion.DELETE_COMPANION.material(), 1);
         ItemMeta dd = del.getItemMeta();
         dd.displayName(Component.text("Remove"));
         del.setItemMeta(dd);
         heads[GUICompanion.DELETE_COMPANION.slot()] = del;
         // Cancel / close
-        ItemStack close = new ItemStack(GUICompanion.BUTTON_CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUICompanion.BUTTON_CLOSE.material(), 1);
         ItemMeta can = close.getItemMeta();
         can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);

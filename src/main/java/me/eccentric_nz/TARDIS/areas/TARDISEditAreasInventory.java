@@ -55,7 +55,7 @@ public class TARDISEditAreasInventory implements InventoryHolder {
             int i = 0;
             for (Location l : rs.getLocations()) {
                 if (i < 45) {
-                    ItemStack is = new ItemStack(Material.MAP);
+                    ItemStack is = ItemStack.of(Material.MAP);
                     ItemMeta im = is.getItemMeta();
                     im.displayName(Component.text("Location " + (i + 1)));
                     im.lore(List.of(
@@ -72,7 +72,7 @@ public class TARDISEditAreasInventory implements InventoryHolder {
             }
         }
         // Info
-        ItemStack info = new ItemStack(Material.BOOK, 1);
+        ItemStack info = ItemStack.of(Material.BOOK, 1);
         ItemMeta ii = info.getItemMeta();
         ii.displayName(Component.text("Info"));
         ii.lore(List.of(
@@ -88,20 +88,20 @@ public class TARDISEditAreasInventory implements InventoryHolder {
         info.setItemMeta(ii);
         stacks[45] = info;
         // add
-        ItemStack add = new ItemStack(Material.NETHER_STAR, 1);
+        ItemStack add = ItemStack.of(Material.NETHER_STAR, 1);
         ItemMeta er = add.getItemMeta();
         er.displayName(Component.text("Add"));
         er.lore(List.of(Component.text("area_id: " + area_id)));
         add.setItemMeta(er);
         stacks[48] = add;
         // remove
-        ItemStack del = new ItemStack(Material.BUCKET, 1);
+        ItemStack del = ItemStack.of(Material.BUCKET, 1);
         ItemMeta dd = del.getItemMeta();
         dd.displayName(Component.text("Remove"));
         del.setItemMeta(dd);
         stacks[50] = del;
         // close
-        ItemStack close = new ItemStack(GUIMap.BUTTON_CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIMap.BUTTON_CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);

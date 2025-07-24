@@ -51,7 +51,7 @@ public class TARDISColourPickerGUI implements InventoryHolder {
 
     private ItemStack[] getItemStack() {
         // display
-        ItemStack dis = new ItemStack(Material.LEATHER_HORSE_ARMOR, 1);
+        ItemStack dis = ItemStack.of(Material.LEATHER_HORSE_ARMOR, 1);
         LeatherArmorMeta play = (LeatherArmorMeta) dis.getItemMeta();
         play.displayName(Component.text("Colour"));
         play.lore(List.of(
@@ -65,22 +65,22 @@ public class TARDISColourPickerGUI implements InventoryHolder {
         play.setAttributeModifiers(Multimaps.forMap(Map.of()));
         dis.setItemMeta(play);
         // red
-        ItemStack red = new ItemStack(Material.RED_WOOL, 1);
+        ItemStack red = ItemStack.of(Material.RED_WOOL, 1);
         ItemMeta rrr = red.getItemMeta();
         rrr.displayName(Component.text("Red"));
         red.setItemMeta(rrr);
         // green
-        ItemStack green = new ItemStack(Material.LIME_WOOL, 1);
+        ItemStack green = ItemStack.of(Material.LIME_WOOL, 1);
         ItemMeta ggg = green.getItemMeta();
         ggg.displayName(Component.text("Green"));
         green.setItemMeta(ggg);
         // blue
-        ItemStack blue = new ItemStack(Material.LIGHT_BLUE_WOOL, 1);
+        ItemStack blue = ItemStack.of(Material.LIGHT_BLUE_WOOL, 1);
         ItemMeta bbb = blue.getItemMeta();
         bbb.displayName(Component.text("Blue"));
         blue.setItemMeta(bbb);
         // red tint
-        ItemStack redtint = new ItemStack(Material.LEATHER_HORSE_ARMOR, 1);
+        ItemStack redtint = ItemStack.of(Material.LEATHER_HORSE_ARMOR, 1);
         LeatherArmorMeta rrrtint = (LeatherArmorMeta) redtint.getItemMeta();
         rrrtint.setColor(Color.fromRGB(255, 0, 0)); // red
         rrrtint.setItemModel(ColouredVariant.TINT.getKey());
@@ -89,7 +89,7 @@ public class TARDISColourPickerGUI implements InventoryHolder {
         rrrtint.setAttributeModifiers(Multimaps.forMap(Map.of()));
         redtint.setItemMeta(rrrtint);
         // green tint
-        ItemStack greentint = new ItemStack(Material.LEATHER_HORSE_ARMOR, 1);
+        ItemStack greentint = ItemStack.of(Material.LEATHER_HORSE_ARMOR, 1);
         LeatherArmorMeta gggtint = (LeatherArmorMeta) greentint.getItemMeta();
         gggtint.setColor(Color.fromRGB(0, 255, 0)); // green
         gggtint.setItemModel(ColouredVariant.TINT.getKey());
@@ -98,7 +98,7 @@ public class TARDISColourPickerGUI implements InventoryHolder {
         gggtint.setAttributeModifiers(Multimaps.forMap(Map.of()));
         greentint.setItemMeta(gggtint);
         // blue tint
-        ItemStack bluetint = new ItemStack(Material.LEATHER_HORSE_ARMOR, 1);
+        ItemStack bluetint = ItemStack.of(Material.LEATHER_HORSE_ARMOR, 1);
         LeatherArmorMeta bbbtint = (LeatherArmorMeta) bluetint.getItemMeta();
         bbbtint.setColor(Color.fromRGB(0, 0, 255)); // blue
         bbbtint.setItemModel(ColouredVariant.TINT.getKey());
@@ -107,22 +107,22 @@ public class TARDISColourPickerGUI implements InventoryHolder {
         bbbtint.setAttributeModifiers(Multimaps.forMap(Map.of()));
         bluetint.setItemMeta(bbbtint);
         // less
-        ItemStack less = new ItemStack(Material.ARROW, 1);
+        ItemStack less = ItemStack.of(Material.ARROW, 1);
         ItemMeta lll = less.getItemMeta();
         lll.displayName(Component.text("Less"));
         less.setItemMeta(lll);
         // more
-        ItemStack more = new ItemStack(Material.ARROW, 1);
+        ItemStack more = ItemStack.of(Material.ARROW, 1);
         ItemMeta mmm = more.getItemMeta();
         mmm.displayName(Component.text("More"));
         more.setItemMeta(mmm);
         // select
-        ItemStack select = new ItemStack(Material.BOWL, 1);
+        ItemStack select = ItemStack.of(Material.BOWL, 1);
         ItemMeta sss = select.getItemMeta();
         sss.displayName(Component.text("Select colour"));
         select.setItemMeta(sss);
         // close
-        ItemStack close = new ItemStack(Material.BOWL, 1);
+        ItemStack close = ItemStack.of(Material.BOWL, 1);
         ItemMeta win = close.getItemMeta();
         win.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(win);

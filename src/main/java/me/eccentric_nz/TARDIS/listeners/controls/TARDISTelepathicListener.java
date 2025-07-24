@@ -151,7 +151,7 @@ public class TARDISTelepathicListener implements Listener {
         // set block to AIR
         b.setBlockData(TARDISConstants.AIR);
         // drop a custom GLOWSTONE_DUST
-        ItemStack is = new ItemStack(Material.GLOWSTONE_DUST, 1);
+        ItemStack is = ItemStack.of(Material.GLOWSTONE_DUST, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Telepathic Circuit"));
         Component uses = (plugin.getConfig().getString("circuits.uses.telepathic", "20").equals("0") || !plugin.getConfig().getBoolean("circuits.damage"))

@@ -123,7 +123,7 @@ public class TARDISSonicGeneratorMenuListener extends TARDISMenuListener {
                 // set display name of sonic in slot 49
                 sonic = view.getItem(49);
                 if (sonic == null) {
-                    sonic = new ItemStack(Material.BLAZE_ROD, 1);
+                    sonic = ItemStack.of(Material.BLAZE_ROD, 1);
                     slotWasNull = true;
                 }
                 // get custom model data of selected sonic
@@ -143,7 +143,7 @@ public class TARDISSonicGeneratorMenuListener extends TARDISMenuListener {
                 Component upgrade_name = upgrade_im.displayName();
                 sonic = view.getItem(49);
                 if (sonic == null) {
-                    sonic = new ItemStack(Material.BLAZE_ROD, 1);
+                    sonic = ItemStack.of(Material.BLAZE_ROD, 1);
                     slotWasNull = true;
                 }
                 sonic_im = sonic.getItemMeta();
@@ -171,7 +171,7 @@ public class TARDISSonicGeneratorMenuListener extends TARDISMenuListener {
                 // reset to standard
                 sonic = view.getItem(49);
                 if (sonic == null) {
-                    sonic = new ItemStack(Material.BLAZE_ROD, 1);
+                    sonic = ItemStack.of(Material.BLAZE_ROD, 1);
                     slotWasNull = true;
                 }
                 sonic_im = sonic.getItemMeta();

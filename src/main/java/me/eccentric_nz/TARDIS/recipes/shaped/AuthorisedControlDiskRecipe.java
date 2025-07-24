@@ -47,7 +47,7 @@ public class AuthorisedControlDiskRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.MUSIC_DISC_FAR, 1);
+        ItemStack is = ItemStack.of(Material.MUSIC_DISC_FAR, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Authorised Control Disk"));
         is.setItemMeta(im);

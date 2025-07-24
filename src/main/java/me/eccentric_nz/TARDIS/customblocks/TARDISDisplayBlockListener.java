@@ -524,7 +524,7 @@ public class TARDISDisplayBlockListener implements Listener {
                                     ItemStack vis = vd.getItemStack();
                                     if (vis != null) {
                                         Material variable = vis.getType();
-                                        ItemStack ret = new ItemStack(Material.GLASS, 1);
+                                        ItemStack ret = ItemStack.of(Material.GLASS, 1);
                                         ItemMeta im = ret.getItemMeta();
                                         im.displayName(ComponentUtils.toWhite("Variable Light"));
                                         im.lore(List.of(Component.text(variable.toString())));
@@ -573,7 +573,7 @@ public class TARDISDisplayBlockListener implements Listener {
         } else if (breaking == null) {
             // only one item display entity...
             // so spawn a destroy entity
-            ItemStack destroy = new ItemStack(Material.GRAVEL);
+            ItemStack destroy = ItemStack.of(Material.GRAVEL);
             ItemMeta dim = destroy.getItemMeta();
             dim.getPersistentDataContainer().set(plugin.getDestroyKey(), PersistentDataType.INTEGER, 0);
             dim.setItemModel(BlockBreak.DESTROY_0.getKey());

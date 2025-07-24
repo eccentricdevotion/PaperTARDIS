@@ -120,7 +120,7 @@ public class MonsterInteractListener implements Listener {
                         if (!milkers.contains(uuid)) {
                             milkers.add(uuid);
                             p.playSound(zombie.getLocation(), "milk", 1.0f, 1.0f);
-                            ItemStack milk = new ItemStack(Material.MILK_BUCKET);
+                            ItemStack milk = ItemStack.of(Material.MILK_BUCKET);
                             ItemMeta m = milk.getItemMeta();
                             m.displayName(ComponentUtils.toWhite("Sontaran Lactic Fluid"));
                             milk.setItemMeta(m);

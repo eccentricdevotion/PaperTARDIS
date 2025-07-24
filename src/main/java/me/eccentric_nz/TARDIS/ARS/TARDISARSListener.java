@@ -115,7 +115,7 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
                     if (checkSavedGrid(playerUUID, selected_slot.get(playerUUID), 0)) {
                         setLore(view, slot, plugin.getLanguage().getString("ARS_RESET_SLOT"));
                     } else {
-                        ItemStack stone = new ItemStack(Material.STONE, 1);
+                        ItemStack stone = ItemStack.of(Material.STONE, 1);
                         ItemMeta s1 = stone.getItemMeta();
                         s1.displayName(Component.text("Empty slot"));
                         stone.setItemMeta(s1);
@@ -165,7 +165,7 @@ public class TARDISARSListener extends TARDISARSMethods implements Listener {
                 // jettison
                 if (selected_slot.containsKey(playerUUID)) {
                     // need to check for gravity wells, and jettison both layers...
-                    ItemStack tnt = new ItemStack(Material.TNT, 1);
+                    ItemStack tnt = ItemStack.of(Material.TNT, 1);
                     ItemMeta j = tnt.getItemMeta();
                     j.displayName(Component.text("Jettison"));
                     tnt.setItemMeta(j);

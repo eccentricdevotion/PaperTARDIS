@@ -56,12 +56,12 @@ public class ArtronCapacitorRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.BUCKET, 1);
+        ItemStack is = ItemStack.of(Material.BUCKET, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Artron Capacitor"));
         is.setItemMeta(im);
         // exact choice
-        ItemStack storage = new ItemStack(Material.BUCKET, 1);
+        ItemStack storage = ItemStack.of(Material.BUCKET, 1);
         ItemMeta cell = storage.getItemMeta();
         cell.displayName(ComponentUtils.toWhite("Artron Storage Cell"));
         cell.lore(List.of(

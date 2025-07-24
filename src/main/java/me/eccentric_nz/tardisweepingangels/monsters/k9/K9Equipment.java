@@ -32,7 +32,7 @@ import org.bukkit.potion.PotionEffectType;
 public class K9Equipment {
 
     public static void set(OfflinePlayer player, LivingEntity entity, boolean disguise) {
-        ItemStack head = new ItemStack(Material.BONE);
+        ItemStack head = ItemStack.of(Material.BONE);
         ItemMeta headMeta = head.getItemMeta();
         headMeta.displayName(Component.text("K9 Head"));
         headMeta.setItemModel(K9Variant.K9.getKey());

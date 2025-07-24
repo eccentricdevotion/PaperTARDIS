@@ -66,7 +66,7 @@ public class TARDISWallsInventory implements InventoryHolder {
             if (i > 52) {
                 break;
             }
-            ItemStack is = new ItemStack(entry, 1);
+            ItemStack is = ItemStack.of(entry, 1);
             stack[i] = is;
             if (i % 9 == 7) {
                 i += 2;
@@ -76,31 +76,31 @@ public class TARDISWallsInventory implements InventoryHolder {
         }
 
         // scroll up
-        ItemStack scroll_up = new ItemStack(GUIWallFloor.BUTTON_SCROLL_U.material(), 1);
+        ItemStack scroll_up = ItemStack.of(GUIWallFloor.BUTTON_SCROLL_U.material(), 1);
         ItemMeta uim = scroll_up.getItemMeta();
         uim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_U")));
         scroll_up.setItemMeta(uim);
         stack[GUIWallFloor.BUTTON_SCROLL_U.slot()] = scroll_up;
         // scroll down
-        ItemStack scroll_down = new ItemStack(GUIWallFloor.BUTTON_SCROLL_D.material(), 1);
+        ItemStack scroll_down = ItemStack.of(GUIWallFloor.BUTTON_SCROLL_D.material(), 1);
         ItemMeta dim = scroll_down.getItemMeta();
         dim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_D")));
         scroll_down.setItemMeta(dim);
         stack[GUIWallFloor.BUTTON_SCROLL_D.slot()] = scroll_down;
         // default wall
-        ItemStack wall = new ItemStack(GUIWallFloor.WALL.material(), 1);
+        ItemStack wall = ItemStack.of(GUIWallFloor.WALL.material(), 1);
         ItemMeta wim = wall.getItemMeta();
         wim.displayName(Component.text("Default Wall Block"));
         wall.setItemMeta(wim);
         stack[GUIWallFloor.WALL.slot()] = wall;
         // default floor
-        ItemStack floor = new ItemStack(GUIWallFloor.FLOOR.material(), 1);
+        ItemStack floor = ItemStack.of(GUIWallFloor.FLOOR.material(), 1);
         ItemMeta fim = floor.getItemMeta();
         fim.displayName(Component.text("Default Floor Block"));
         floor.setItemMeta(fim);
         stack[GUIWallFloor.FLOOR.slot()] = floor;
         // close
-        ItemStack close = new ItemStack(GUIWallFloor.BUTTON_ABORT.material(), 1);
+        ItemStack close = ItemStack.of(GUIWallFloor.BUTTON_ABORT.material(), 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text("Abort upgrade"));
         close.setItemMeta(close_im);

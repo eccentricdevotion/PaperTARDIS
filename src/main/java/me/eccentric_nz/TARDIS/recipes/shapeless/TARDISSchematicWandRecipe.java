@@ -43,7 +43,7 @@ public class TARDISSchematicWandRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.BONE, 1);
+        ItemStack is = ItemStack.of(Material.BONE, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Schematic Wand"));
         im.lore(List.of(

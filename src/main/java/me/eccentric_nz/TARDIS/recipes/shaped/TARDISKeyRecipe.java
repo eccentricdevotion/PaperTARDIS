@@ -74,7 +74,7 @@ public class TARDISKeyRecipe {
         } catch (IllegalArgumentException e) {
             material = Material.GOLD_NUGGET;
         }
-        ItemStack is = new ItemStack(material, 1);
+        ItemStack is = ItemStack.of(material, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Key"));
         im.lore(List.of(Component.text("Enter and exit your TARDIS")));

@@ -51,7 +51,7 @@ public class TARDISCommunicatorRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.LEATHER_HELMET, 1);
+        ItemStack is = ItemStack.of(Material.LEATHER_HELMET, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Communicator"));
         EquippableComponent equippable = im.getEquippable();

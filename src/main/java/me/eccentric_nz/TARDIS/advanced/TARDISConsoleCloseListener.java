@@ -94,7 +94,7 @@ public class TARDISConsoleCloseListener implements Listener {
                 Material mat = is.getType();
                 if (!onlythese.contains(mat)) {
                     p.getLocation().getWorld().dropItemNaturally(p.getLocation(), is);
-                    view.setItem(i, new ItemStack(Material.AIR));
+                    view.setItem(i, ItemStack.of(Material.AIR));
                 }
             }
         }

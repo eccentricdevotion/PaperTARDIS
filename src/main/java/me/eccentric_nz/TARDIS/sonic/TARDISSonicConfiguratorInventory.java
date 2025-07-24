@@ -52,7 +52,7 @@ public class TARDISSonicConfiguratorInventory implements InventoryHolder {
         ItemStack[] stack = new ItemStack[54];
         for (GUISonicConfigurator gui : GUISonicConfigurator.values()) {
             if (gui.getSlot() != -1) {
-                ItemStack is = new ItemStack(gui.getMaterial(), 1);
+                ItemStack is = ItemStack.of(gui.getMaterial(), 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(Component.text(gui.getName()));
                 if (!gui.getLore().isEmpty()) {
@@ -66,7 +66,7 @@ public class TARDISSonicConfiguratorInventory implements InventoryHolder {
                 stack[gui.getSlot()] = is;
             }
         }
-        ItemStack wool = new ItemStack(GUISonicConfigurator.WAITING.getMaterial(), 1);
+        ItemStack wool = ItemStack.of(GUISonicConfigurator.WAITING.getMaterial(), 1);
         ItemMeta wim = wool.getItemMeta();
         wim.displayName(Component.text(" "));
         wool.setItemMeta(wim);
@@ -74,7 +74,7 @@ public class TARDISSonicConfiguratorInventory implements InventoryHolder {
             stack[i] = wool;
         }
         stack[27] = wool;
-        ItemStack place = new ItemStack(GUISonicConfigurator.PLACE_SONIC.getMaterial(), 1);
+        ItemStack place = ItemStack.of(GUISonicConfigurator.PLACE_SONIC.getMaterial(), 1);
         ItemMeta pim = place.getItemMeta();
         pim.displayName(Component.text(GUISonicConfigurator.PLACE_SONIC.getName()));
         place.setItemMeta(pim);

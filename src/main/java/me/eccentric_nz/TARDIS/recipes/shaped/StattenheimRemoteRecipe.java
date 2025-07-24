@@ -56,7 +56,7 @@ public class StattenheimRemoteRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.FLINT, 1);
+        ItemStack is = ItemStack.of(Material.FLINT, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Stattenheim Remote"));
         String uses = plugin.getConfig().getString("circuits.uses.stattenheim", "15");
@@ -74,7 +74,7 @@ public class StattenheimRemoteRecipe {
         ShapedRecipe r = new ShapedRecipe(key, is);
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
             r.shape("OBO", "OLO", "RRR");
-            ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
+            ItemStack exact = ItemStack.of(Material.GLOWSTONE_DUST, 1);
             ItemMeta em = exact.getItemMeta();
             em.displayName(ComponentUtils.toWhite("TARDIS Stattenheim Circuit"));
             CustomModelDataComponent component = em.getCustomModelDataComponent();

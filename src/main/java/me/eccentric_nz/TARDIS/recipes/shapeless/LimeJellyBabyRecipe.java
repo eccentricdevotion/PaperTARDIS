@@ -39,7 +39,7 @@ public class LimeJellyBabyRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.MELON_SLICE, 4);
+        ItemStack is = ItemStack.of(Material.MELON_SLICE, 4);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Lime Jelly Baby"));
         is.setItemMeta(im);

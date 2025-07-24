@@ -44,7 +44,7 @@ public class ArmourEquipper {
 
     public NamespacedKey dress(LivingEntity entity, Monster monster) {
         // helmet
-        ItemStack head = new ItemStack(monster.getMaterial());
+        ItemStack head = ItemStack.of(monster.getMaterial());
         ItemMeta headMeta = head.getItemMeta();
         headMeta.getPersistentDataContainer().set(TARDISWeepingAngels.MONSTER_HEAD, PersistentDataType.INTEGER, 99);
         // get armour key once, so random variants (OOD, CLOCKWORK_DROIDS, CYBERMEN) have the same chestplate and leggings
@@ -74,7 +74,7 @@ public class ArmourEquipper {
         head.setItemMeta(headMeta);
         entity.getEquipment().setHelmet(head);
         // chest
-        ItemStack body = new ItemStack(monster.getMaterial());
+        ItemStack body = ItemStack.of(monster.getMaterial());
         ItemMeta bodyMeta = body.getItemMeta();
         bodyMeta.setItemModel(ArmourVariant.CHESTPLATE.getKey());
         bodyMeta.displayName(Component.text(monster.getName() + " Chestplate"));
@@ -88,7 +88,7 @@ public class ArmourEquipper {
         body.setItemMeta(bodyMeta);
         entity.getEquipment().setChestplate(body);
         // leggings
-        ItemStack legs = new ItemStack(monster.getMaterial());
+        ItemStack legs = ItemStack.of(monster.getMaterial());
         ItemMeta legsMeta = legs.getItemMeta();
         legsMeta.setItemModel(ArmourVariant.LEGGINGS.getKey());
         legsMeta.displayName(Component.text(monster.getName() + " Leggings"));

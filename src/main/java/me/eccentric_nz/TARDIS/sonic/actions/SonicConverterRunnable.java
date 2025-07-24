@@ -41,7 +41,7 @@ public class SonicConverterRunnable implements Runnable {
         count++;
         if (count > 4) {
             block.setType(Material.AIR);
-            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(to, 1));
+            block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(to, 1));
             Bukkit.getServer().getScheduler().cancelTask(taskId);
         }
     }

@@ -41,7 +41,7 @@ public class TARDISVariableLightRecipe {
 
     public void addRecipe() {
         ItemStack is;
-        is = new ItemStack(Material.GLASS, 1);
+        is = ItemStack.of(Material.GLASS, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Variable Light"));
         im.setItemModel(LightVariant.VARIABLE.getKey());

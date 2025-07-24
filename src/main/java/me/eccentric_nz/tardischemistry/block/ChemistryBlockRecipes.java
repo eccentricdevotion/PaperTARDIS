@@ -37,7 +37,7 @@ public class ChemistryBlockRecipes {
 
     public void addRecipes() {
         for (RecipeData data : ChemistryBlock.RECIPES.values()) {
-            ItemStack is = new ItemStack(data.displayItem().getMaterial(), 1);
+            ItemStack is = ItemStack.of(data.displayItem().getMaterial(), 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(ComponentUtils.toWhite(data.displayName()));
             im.lore(data.lore());

@@ -46,7 +46,7 @@ public class TVDoctorsInventory extends TVGUI {
         int i = 0;
         if (PlayerHeadCache.DOCTORS.isEmpty()) {
             for (Skin doctor : DoctorSkins.DOCTORS) {
-                ItemStack is = new ItemStack(Material.PLAYER_HEAD, 1);
+                ItemStack is = ItemStack.of(Material.PLAYER_HEAD, 1);
                 SkullMeta im = (SkullMeta) is.getItemMeta();
                 PlayerProfile profile = SkinUtils.getHeadProfile(doctor);
                 im.setPlayerProfile(profile);

@@ -24,9 +24,6 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTravellers;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -131,23 +128,21 @@ public class TARDISBlockBreakListener implements Listener {
                     int z = plugin.getConfig().getInt("rechargers." + r + ".z");
                     String l = w.getName() + "," + x + "," + y + "," + z;
                     if (l.equals(b)) {
-                        if (plugin.getConfig().getString("rechargers." + r + ".uuid").equals(player.getUniqueId().toString())) {
+                        event.setCancelled(true);
+                        if (player.getUniqueId().toString().equals(plugin.getConfig().getString("rechargers." + r + ".uuid"))) {
                             plugin.getConfig().set("rechargers." + r, null);
                             plugin.getMessenger().send(player, TardisModule.TARDIS, "RIFT_REMOVED");
-                            event.setCancelled(true);
                             // drop Rift Manipulator
                             event.getBlock().setBlockData(TARDISConstants.AIR);
-                            ItemStack rm = new ItemStack(Material.BEACON, 1);
+                            ItemStack rm = ItemStack.of(Material.BEACON, 1);
                             ItemMeta im = rm.getItemMeta();
                             im.displayName(ComponentUtils.toWhite("Rift Manipulator"));
                             rm.setItemMeta(im);
                             w.dropItem(loc, rm);
-                            break;
                         } else {
-                            event.setCancelled(true);
                             plugin.getMessenger().send(player, TardisModule.TARDIS, "RIFT_PLAYER");
-                            break;
                         }
+                        break;
                     }
                 }
             }

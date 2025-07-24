@@ -68,7 +68,7 @@ public class TARDISTransmatInventory implements InventoryHolder {
                 if (i > 52) {
                     break;
                 }
-                ItemStack is = new ItemStack(Material.MAP, 1);
+                ItemStack is = ItemStack.of(Material.MAP, 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(Component.text(t.name()));
                 List<Component> lore = new ArrayList<>();
@@ -86,7 +86,7 @@ public class TARDISTransmatInventory implements InventoryHolder {
                 }
             }
             // info
-            ItemStack info = new ItemStack(GUITransmat.INFO.material(), 1);
+            ItemStack info = ItemStack.of(GUITransmat.INFO.material(), 1);
             ItemMeta meta = info.getItemMeta();
             meta.displayName(Component.text(plugin.getChameleonGuis().getString("INFO", "Info")));
             List<Component> metaLore = new ArrayList<>();
@@ -97,28 +97,28 @@ public class TARDISTransmatInventory implements InventoryHolder {
             info.setItemMeta(meta);
             stack[GUITransmat.INFO.slot()] = info;
             // delete
-            ItemStack delete = new ItemStack(GUITransmat.DELETE.material(), 1);
+            ItemStack delete = ItemStack.of(GUITransmat.DELETE.material(), 1);
             ItemMeta dim = delete.getItemMeta();
             dim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_DELETE", "Delete")));
             delete.setItemMeta(dim);
             stack[GUITransmat.DELETE.slot()] = delete;
         }
         // teleport
-        ItemStack tele = new ItemStack(GUITransmat.TRANSMAT.material(), 1);
+        ItemStack tele = ItemStack.of(GUITransmat.TRANSMAT.material(), 1);
         ItemMeta port = tele.getItemMeta();
         port.displayName(Component.text(plugin.getLanguage().getString("BUTTON_TRANSMAT", "Transmat")));
         tele.setItemMeta(port);
         stack[GUITransmat.TRANSMAT.slot()] = tele;
         // rooms world
         if (plugin.getPlanetsConfig().getBoolean("planets.rooms.enabled") && plugin.getServer().getWorld("rooms") != null && TARDISPermission.hasPermission(player, "tardis.transmat.rooms")) {
-            ItemStack rooms = new ItemStack(GUITransmat.ROOMS.material(), 1);
+            ItemStack rooms = ItemStack.of(GUITransmat.ROOMS.material(), 1);
             ItemMeta world = rooms.getItemMeta();
             world.displayName(Component.text("Rooms World"));
             rooms.setItemMeta(world);
             stack[GUITransmat.ROOMS.slot()] = rooms;
         }
         // close
-        ItemStack close = new ItemStack(GUITransmat.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUITransmat.CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);

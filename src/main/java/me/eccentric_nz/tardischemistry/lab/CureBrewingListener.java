@@ -156,23 +156,23 @@ public class CureBrewingListener implements Listener {
                                     PotionType potionType = map.getKey();
                                     boolean milk = cures.contains(potionType);
                                     if (milk) {
-                                        is = new ItemStack(Material.MILK_BUCKET);
+                                        is = ItemStack.of(Material.MILK_BUCKET);
                                     } else if (isSplash && isLingering) {
-                                        is = new ItemStack(Material.LINGERING_POTION);
+                                        is = ItemStack.of(Material.LINGERING_POTION);
                                     } else if (isSplash) {
-                                        is = new ItemStack(Material.SPLASH_POTION);
+                                        is = ItemStack.of(Material.SPLASH_POTION);
                                     } else {
-                                        is = new ItemStack(Material.POTION);
+                                        is = ItemStack.of(Material.POTION);
                                     }
                                     boolean extend = isLonger && potionType.isExtendable();
                                     if (isLonger && !extend) {
                                         // give back the redstone
-                                        location.getWorld().dropItem(location.add(0, 1.0d, 0), new ItemStack(Material.REDSTONE, 1));
+                                        location.getWorld().dropItem(location.add(0, 1.0d, 0), ItemStack.of(Material.REDSTONE, 1));
                                     }
                                     boolean upgrade = isStronger && potionType.isUpgradeable();
                                     if (isStronger && !upgrade) {
                                         // give back the glowstone dust
-                                        location.getWorld().dropItem(location.add(0, 1.0d, 0), new ItemStack(Material.GLOWSTONE_DUST, 1));
+                                        location.getWorld().dropItem(location.add(0, 1.0d, 0), ItemStack.of(Material.GLOWSTONE_DUST, 1));
                                     }
                                     plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                                         plugin.getServer().getScheduler().cancelTask(task);

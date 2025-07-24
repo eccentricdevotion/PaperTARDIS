@@ -46,7 +46,7 @@ public class TARDISSonicBlasterRecipe {
 
     public void addShapedRecipes() {
         // blaster battery
-        ItemStack battery = new ItemStack(Material.BUCKET, 1);
+        ItemStack battery = ItemStack.of(Material.BUCKET, 1);
         ItemMeta batteryMeta = battery.getItemMeta();
         batteryMeta.displayName(ComponentUtils.toWhite("Blaster Battery"));
 //        batteryMeta.setItemModel(RecipeItem.BLASTER_BATTERY.getModel());
@@ -61,7 +61,7 @@ public class TARDISSonicBlasterRecipe {
         plugin.getFigura().getShapedRecipes().put("Blaster Battery", bbr);
 
         // sonic blaster
-        ItemStack blaster = new ItemStack(Material.GOLDEN_HOE, 1);
+        ItemStack blaster = ItemStack.of(Material.GOLDEN_HOE, 1);
         ItemMeta blasterMeta = blaster.getItemMeta();
         blasterMeta.displayName(ComponentUtils.toWhite("Sonic Blaster"));
         blasterMeta.lore(List.of(Component.text("The Squareness Gun")));
@@ -73,7 +73,7 @@ public class TARDISSonicBlasterRecipe {
         ShapedRecipe sbr = new ShapedRecipe(key, blaster);
         // set shape
         sbr.shape("DTD", "TST", "EBE");
-        ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
+        ItemStack exact = ItemStack.of(Material.GLOWSTONE_DUST, 1);
         ItemMeta em = exact.getItemMeta();
         em.displayName(ComponentUtils.toWhite("Sonic Oscillator"));
         CustomModelDataComponent ecomponent = em.getCustomModelDataComponent();
@@ -88,7 +88,7 @@ public class TARDISSonicBlasterRecipe {
         plugin.getFigura().getShapedRecipes().put("Sonic Blaster", sbr);
 
         // landing pad
-        ItemStack pad = new ItemStack(Material.SLIME_BLOCK, 1);
+        ItemStack pad = ItemStack.of(Material.SLIME_BLOCK, 1);
         ItemMeta padMeta = pad.getItemMeta();
         padMeta.displayName(ComponentUtils.toWhite("Landing Pad"));
 //        padMeta.setItemModel(RecipeItem.LANDING_PAD.getModel());

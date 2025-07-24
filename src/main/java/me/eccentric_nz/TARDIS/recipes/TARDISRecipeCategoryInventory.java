@@ -51,7 +51,7 @@ public class TARDISRecipeCategoryInventory implements InventoryHolder {
     private ItemStack[] getItemStack() {
         ItemStack[] stack = new ItemStack[36];
         // info
-        ItemStack info = new ItemStack(Material.BOWL, 1);
+        ItemStack info = ItemStack.of(Material.BOWL, 1);
         ItemMeta info_im = info.getItemMeta();
         info_im.displayName(Component.text("Info"));
         info_im.lore(List.of(
@@ -63,7 +63,7 @@ public class TARDISRecipeCategoryInventory implements InventoryHolder {
         stack[0] = info;
         for (RecipeCategory category : RecipeCategory.values()) {
             if (!category.equals(RecipeCategory.UNUSED) && category != RecipeCategory.UNCRAFTABLE && category != RecipeCategory.CHEMISTRY) {
-                ItemStack cat = new ItemStack(category.getMaterial(), 1);
+                ItemStack cat = ItemStack.of(category.getMaterial(), 1);
                 ItemMeta egory = cat.getItemMeta();
                 egory.displayName(Component.text(category.getName()));
                 if (category == RecipeCategory.ITEMS) {

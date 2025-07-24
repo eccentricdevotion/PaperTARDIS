@@ -46,7 +46,7 @@ public class TARDISArtronFurnaceRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.FURNACE, 1);
+        ItemStack is = ItemStack.of(Material.FURNACE, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Artron Furnace"));
         is.setItemMeta(im);

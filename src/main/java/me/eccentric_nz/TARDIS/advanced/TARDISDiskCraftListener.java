@@ -93,7 +93,7 @@ public class TARDISDiskCraftListener implements Listener {
                 if (disk_lore.isEmpty()) {
                     return;
                 }
-                disk = new ItemStack(Material.MUSIC_DISC_CAT, 1);
+                disk = ItemStack.of(Material.MUSIC_DISC_CAT, 1);
                 ItemMeta dim = disk.getItemMeta();
                 dim.displayName(Component.text("Biome Storage Disk"));
                 dim.lore(disk_lore);
@@ -127,7 +127,7 @@ public class TARDISDiskCraftListener implements Listener {
                 if (preset.isEmpty()) {
                     return;
                 }
-                disk = new ItemStack(Material.MUSIC_DISC_MALL, 1);
+                disk = ItemStack.of(Material.MUSIC_DISC_MALL, 1);
                 ItemMeta dim = disk.getItemMeta();
                 dim.displayName(Component.text("Preset Storage Disk"));
                 dim.lore(List.of(Component.text(preset)));

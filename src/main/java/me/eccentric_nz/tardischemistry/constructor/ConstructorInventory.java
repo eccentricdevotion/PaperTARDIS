@@ -46,7 +46,7 @@ public class ConstructorInventory implements InventoryHolder {
     private ItemStack[] getItemStack() {
         ItemStack[] stack = new ItemStack[27];
         // info
-        ItemStack info = new ItemStack(GUIChemistry.INFO.material(), 1);
+        ItemStack info = ItemStack.of(GUIChemistry.INFO.material(), 1);
         ItemMeta info_im = info.getItemMeta();
         info_im.displayName(Component.text("Info"));
         info_im.lore(List.of(
@@ -58,84 +58,84 @@ public class ConstructorInventory implements InventoryHolder {
         info.setItemMeta(info_im);
         stack[9] = info;
         // proton count
-        ItemStack p_zero = new ItemStack(Material.PAPER, 1);
+        ItemStack p_zero = ItemStack.of(Material.PAPER, 1);
         ItemMeta pzim = p_zero.getItemMeta();
         pzim.displayName(Component.text("0"));
         pzim.setItemModel(HandlesVariant.HANDLES_NUMBER_ZERO.getKey());
         p_zero.setItemMeta(pzim);
         stack[3] = p_zero;
         // protons
-        ItemStack protons = new ItemStack(GUIChemistry.PROTONS.material(), 1);
+        ItemStack protons = ItemStack.of(GUIChemistry.PROTONS.material(), 1);
         ItemMeta pim = protons.getItemMeta();
         pim.displayName(Component.text("Protons"));
         pim.setItemModel(GUIChemistry.PROTONS.key());
         protons.setItemMeta(pim);
         stack[GUIChemistry.PROTONS.slot()] = protons;
         // proton down
-        ItemStack proton_down = new ItemStack(GUIChemistry.MINUS.material(), 1);
+        ItemStack proton_down = ItemStack.of(GUIChemistry.MINUS.material(), 1);
         ItemMeta pdim = proton_down.getItemMeta();
         pdim.displayName(Component.text("-"));
         pdim.setItemModel(GUIChemistry.MINUS.key());
         proton_down.setItemMeta(pdim);
         stack[5] = proton_down;
         // proton up
-        ItemStack proton_up = new ItemStack(GUIChemistry.PLUS.material(), 1);
+        ItemStack proton_up = ItemStack.of(GUIChemistry.PLUS.material(), 1);
         ItemMeta puim = proton_up.getItemMeta();
         puim.displayName(Component.text("+"));
         puim.setItemModel(GUIChemistry.PLUS.key());
         proton_up.setItemMeta(puim);
         stack[6] = proton_up;
         // neutron count
-        ItemStack n_zero = new ItemStack(Material.PAPER, 1);
+        ItemStack n_zero = ItemStack.of(Material.PAPER, 1);
         ItemMeta nzim = n_zero.getItemMeta();
         nzim.displayName(Component.text("0"));
         nzim.setItemModel(HandlesVariant.HANDLES_NUMBER_ZERO.getKey());
         n_zero.setItemMeta(nzim);
         stack[12] = n_zero;
         // neutrons
-        ItemStack neutrons = new ItemStack(GUIChemistry.NEUTRONS.material(), 1);
+        ItemStack neutrons = ItemStack.of(GUIChemistry.NEUTRONS.material(), 1);
         ItemMeta nim = neutrons.getItemMeta();
         nim.displayName(Component.text("Neutrons"));
         nim.setItemModel(GUIChemistry.NEUTRONS.key());
         neutrons.setItemMeta(nim);
         stack[GUIChemistry.NEUTRONS.slot()] = neutrons;
         // neutron down
-        ItemStack neutron_down = new ItemStack(GUIChemistry.MINUS.material(), 1);
+        ItemStack neutron_down = ItemStack.of(GUIChemistry.MINUS.material(), 1);
         ItemMeta ndim = neutron_down.getItemMeta();
         ndim.displayName(Component.text("-"));
         ndim.setItemModel(GUIChemistry.MINUS.key());
         neutron_down.setItemMeta(ndim);
         stack[14] = neutron_down;
         // neutron up
-        ItemStack neutron_up = new ItemStack(GUIChemistry.PLUS.material(), 1);
+        ItemStack neutron_up = ItemStack.of(GUIChemistry.PLUS.material(), 1);
         ItemMeta nuim = neutron_up.getItemMeta();
         nuim.displayName(Component.text("+"));
         nuim.setItemModel(GUIChemistry.PLUS.key());
         neutron_up.setItemMeta(nuim);
         stack[15] = neutron_up;
         // electron count
-        ItemStack e_zero = new ItemStack(Material.PAPER, 1);
+        ItemStack e_zero = ItemStack.of(Material.PAPER, 1);
         ItemMeta ezim = e_zero.getItemMeta();
         ezim.displayName(Component.text("0"));
         ezim.setItemModel(HandlesVariant.HANDLES_NUMBER_ZERO.getKey());
         e_zero.setItemMeta(ezim);
         stack[21] = e_zero;
         // electrons
-        ItemStack electrons = new ItemStack(GUIChemistry.ELECTRONS.material(), 1);
+        ItemStack electrons = ItemStack.of(GUIChemistry.ELECTRONS.material(), 1);
         ItemMeta eim = electrons.getItemMeta();
         eim.displayName(Component.text("Electrons"));
         eim.setItemModel(GUIChemistry.ELECTRONS.key());
         electrons.setItemMeta(eim);
         stack[GUIChemistry.ELECTRONS.slot()] = electrons;
         // electron down
-        ItemStack electron_down = new ItemStack(GUIChemistry.MINUS.material(), 1);
+        ItemStack electron_down = ItemStack.of(GUIChemistry.MINUS.material(), 1);
         ItemMeta edim = electron_down.getItemMeta();
         edim.displayName(Component.text("-"));
         edim.setItemModel(GUIChemistry.MINUS.key());
         electron_down.setItemMeta(edim);
         stack[GUIChemistry.MINUS.slot()] = electron_down;
         // electron up
-        ItemStack electron_up = new ItemStack(GUIChemistry.PLUS.material(), 1);
+        ItemStack electron_up = ItemStack.of(GUIChemistry.PLUS.material(), 1);
         ItemMeta euim = electron_up.getItemMeta();
         euim.displayName(Component.text("+"));
         euim.setItemModel(GUIChemistry.PLUS.key());

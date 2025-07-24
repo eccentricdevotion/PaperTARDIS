@@ -77,7 +77,7 @@ public class TARDISDevBoxCommand {
                     return true;
                 }
                 Material dye = TARDISBuilderUtility.getMaterialForArmourStand(preset, -1, true);
-                ItemStack is = new ItemStack(dye, 1);
+                ItemStack is = ItemStack.of(dye, 1);
                 ItemMeta im = is.getItemMeta();
                 NamespacedKey model = ChameleonVariant.BLUE_CLOSED.getKey();
                 if (args.length > 2) {

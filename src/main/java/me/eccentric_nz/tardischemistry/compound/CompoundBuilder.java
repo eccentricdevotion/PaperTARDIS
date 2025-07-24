@@ -29,25 +29,25 @@ public class CompoundBuilder {
     public static ItemStack getCompound(Compound compound) {
         ItemStack is;
         switch (compound) {
-            case Ink -> is = new ItemStack(Material.INK_SAC, 1);
-            case Charcoal -> is = new ItemStack(Material.CHARCOAL, 1);
+            case Ink -> is = ItemStack.of(Material.INK_SAC, 1);
+            case Charcoal -> is = ItemStack.of(Material.CHARCOAL, 1);
             case Rust -> {
-                is = new ItemStack(Material.LAVA_BUCKET, 1);
+                is = ItemStack.of(Material.LAVA_BUCKET, 1);
                 ItemMeta rm = is.getItemMeta();
                 rm.displayName(Component.text("Rust Bucket"));
                 rm.setItemModel(Whoniverse.RUST_BUCKET.getKey());
                 is.setItemMeta(rm);
             }
-            case Sugar -> is = new ItemStack(Material.SUGAR, 1);
+            case Sugar -> is = ItemStack.of(Material.SUGAR, 1);
             case Sulphuric_Acid -> {
-                is = new ItemStack(Material.WATER_BUCKET, 1);
+                is = ItemStack.of(Material.WATER_BUCKET, 1);
                 ItemMeta am = is.getItemMeta();
                 am.displayName(Component.text("Acid Bucket"));
                 am.setItemModel(Whoniverse.ACID_BUCKET.getKey());
                 is.setItemMeta(am);
             }
             default -> {
-                is = new ItemStack(Material.GLASS_BOTTLE, 1);
+                is = ItemStack.of(Material.GLASS_BOTTLE, 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(Component.text(compound.getName()));
                 im.lore(List.of(Component.text(compound.getSymbol())));

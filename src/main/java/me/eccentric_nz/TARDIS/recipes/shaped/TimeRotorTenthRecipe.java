@@ -50,7 +50,7 @@ public class TimeRotorTenthRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.LIGHT_GRAY_DYE, 1);
+        ItemStack is = ItemStack.of(Material.LIGHT_GRAY_DYE, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Time Rotor Tenth"));
         im.setItemModel(RecipeItem.TIME_ROTOR_TENTH.getModel());

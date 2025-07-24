@@ -54,7 +54,7 @@ public class TARDISEveryoneCompanionInventory implements InventoryHolder {
         for (Player c : plugin.getServer().getOnlinePlayers()) {
             if (i < 45) {
                 if (VanishChecker.canSee(player, c)) {
-                    ItemStack head = new ItemStack(Material.PLAYER_HEAD, 1);
+                    ItemStack head = ItemStack.of(Material.PLAYER_HEAD, 1);
                     SkullMeta skull = (SkullMeta) head.getItemMeta();
                     skull.setOwningPlayer(c);
                     skull.displayName(Component.text(c.getName()));
@@ -66,7 +66,7 @@ public class TARDISEveryoneCompanionInventory implements InventoryHolder {
             }
         }
         // add buttons
-        ItemStack info = new ItemStack(Material.BOOK, 1);
+        ItemStack info = ItemStack.of(Material.BOOK, 1);
         ItemMeta ii = info.getItemMeta();
         ii.displayName(Component.text("Info"));
         ii.lore(List.of(
@@ -80,18 +80,18 @@ public class TARDISEveryoneCompanionInventory implements InventoryHolder {
         ));
         info.setItemMeta(ii);
         heads[45] = info;
-        ItemStack add = new ItemStack(Material.NETHER_STAR, 1);
+        ItemStack add = ItemStack.of(Material.NETHER_STAR, 1);
         ItemMeta aa = add.getItemMeta();
         aa.displayName(Component.text("Add"));
         add.setItemMeta(aa);
         heads[48] = add;
-        ItemStack del = new ItemStack(Material.BUCKET, 1);
+        ItemStack del = ItemStack.of(Material.BUCKET, 1);
         ItemMeta dd = add.getItemMeta();
         dd.displayName(Component.text("Remove"));
         del.setItemMeta(dd);
         heads[51] = del;
         // Cancel / close
-        ItemStack close = new ItemStack(Material.BOWL, 1);
+        ItemStack close = ItemStack.of(Material.BOWL, 1);
         ItemMeta can = close.getItemMeta();
         can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);

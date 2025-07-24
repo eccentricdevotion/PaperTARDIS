@@ -64,7 +64,7 @@ public class TARDISThemeInventory implements InventoryHolder {
         // get console
         Material m = Material.getMaterial(schematic.getSeed());
         if (m != null && !m.equals(Material.COBBLESTONE)) {
-            is = new ItemStack(m, 1);
+            is = ItemStack.of(m, 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(Component.text(schematic.getDescription()));
             int cost = plugin.getArtronConfig().getInt("upgrades." + schematic.getPermission());

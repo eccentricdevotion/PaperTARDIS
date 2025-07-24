@@ -104,7 +104,7 @@ public class Equipper {
         switch (monster) {
             case ANGEL_OF_LIBERTY -> {
                 // torch
-                hand = new ItemStack(Material.TORCH);
+                hand = ItemStack.of(Material.TORCH);
                 ItemMeta tim = hand.getItemMeta();
                 tim.setItemModel(Features.ANGEL_OF_LIBERTY_TORCH.getKey());
                 hand.setItemMeta(tim);
@@ -122,7 +122,7 @@ public class Equipper {
             case CLOCKWORK_DROID -> {
                 ArmourVariant variant = getVariant(armourKey);
                 // key
-                hand = new ItemStack(Material.GOLD_NUGGET);
+                hand = ItemStack.of(Material.GOLD_NUGGET);
                 ItemMeta tim = hand.getItemMeta();
                 tim.setItemModel(variant.equals(ArmourVariant.CLOCKWORK_DROID) ? DroidVariant.CLOCKWORK_DROID_KEY.getKey() : DroidVariant.CLOCKWORK_DROID_FEMALE_KEY.getKey());
                 hand.setItemMeta(tim);
@@ -132,34 +132,34 @@ public class Equipper {
                 switch (variant) {
                     case CYBERMAN -> {
                         // weapon
-                        hand = new ItemStack(Material.IRON_NUGGET);
+                        hand = ItemStack.of(Material.IRON_NUGGET);
                         ItemMeta tim = hand.getItemMeta();
                         tim.setItemModel(CybermanVariant.CYBER_WEAPON.getKey());
                         hand.setItemMeta(tim);
                     }
                     case WOOD_CYBERMAN -> {
                         // weapon
-                        hand = new ItemStack(Material.SPRUCE_BUTTON);
+                        hand = ItemStack.of(Material.SPRUCE_BUTTON);
                         ItemMeta tim = hand.getItemMeta();
                         tim.setItemModel(CybermanVariant.WOOD_CYBER_WEAPON.getKey());
                         hand.setItemMeta(tim);
                     }
                     case CYBERMAN_INVASION -> {
-                        hand = new ItemStack(Material.IRON_NUGGET);
+                        hand = ItemStack.of(Material.IRON_NUGGET);
                         ItemMeta tim = hand.getItemMeta();
                         tim.setItemModel(CybermanVariant.CYBERMAN_INVASION_ARM.getKey());
                         hand.setItemMeta(tim);
-                        offhand = new ItemStack(Material.IRON_NUGGET);
+                        offhand = ItemStack.of(Material.IRON_NUGGET);
                         ItemMeta oim = offhand.getItemMeta();
                         oim.setItemModel(CybermanVariant.CYBERMAN_INVASION_ARM.getKey());
                         offhand.setItemMeta(oim);
                     }
                     case CYBER_LORD, CYBERMAN_RISE, CYBERMAN_MOONBASE -> {
-                        hand = new ItemStack(Material.IRON_NUGGET);
+                        hand = ItemStack.of(Material.IRON_NUGGET);
                         ItemMeta tim = hand.getItemMeta();
                         tim.setItemModel(CybermanVariant.CYBERMAN_RISE_ARM.getKey());
                         hand.setItemMeta(tim);
-                        offhand = new ItemStack(Material.IRON_NUGGET);
+                        offhand = ItemStack.of(Material.IRON_NUGGET);
                         ItemMeta oim = offhand.getItemMeta();
                         oim.setItemModel(CybermanVariant.CYBERMAN_RISE_ARM.getKey());
                         offhand.setItemMeta(oim);
@@ -170,82 +170,82 @@ public class Equipper {
             }
             case HATH -> {
                 // weapon
-                hand = new ItemStack(monster.getMaterial());
+                hand = ItemStack.of(monster.getMaterial());
                 ItemMeta tim = hand.getItemMeta();
                 tim.setItemModel(HathVariant.HATH_WEAPON.getKey());
                 hand.setItemMeta(tim);
             }
             case HEADLESS_MONK -> {
                 // sword
-                hand = new ItemStack(Material.GOLDEN_SWORD);
+                hand = ItemStack.of(Material.GOLDEN_SWORD);
                 ItemMeta tim = hand.getItemMeta();
                 tim.setItemModel(MonkVariant.HEADLESS_MONK_SWORD.getKey());
                 hand.setItemMeta(tim);
             }
             case ICE_WARRIOR -> {
                 // dagger
-                hand = new ItemStack(Material.IRON_SWORD);
+                hand = ItemStack.of(Material.IRON_SWORD);
                 ItemMeta tim = hand.getItemMeta();
                 tim.setItemModel(IceWarriorVariant.ICE_WARRIOR_DAGGER.getKey());
                 hand.setItemMeta(tim);
             }
             case JUDOON -> {
                 // weapon
-                hand = new ItemStack(Material.END_ROD);
+                hand = ItemStack.of(Material.END_ROD);
                 ItemMeta tim = hand.getItemMeta();
                 tim.setItemModel(JudoonVariant.JUDOON_WEAPON_RESTING.getKey());
                 hand.setItemMeta(tim);
             }
             case MIRE -> {
                 // both hands/arms
-                hand = new ItemStack(Material.NETHERITE_SCRAP);
+                hand = ItemStack.of(Material.NETHERITE_SCRAP);
                 ItemMeta tim = hand.getItemMeta();
                 tim.setItemModel(MireVariant.MIRE_RIGHT_ARM.getKey());
                 hand.setItemMeta(tim);
-                offhand = new ItemStack(Material.NETHERITE_SCRAP);
+                offhand = ItemStack.of(Material.NETHERITE_SCRAP);
                 ItemMeta oim = offhand.getItemMeta();
                 oim.setItemModel(MireVariant.MIRE_LEFT_ARM.getKey());
                 offhand.setItemMeta(oim);
             }
             case SEA_DEVIL -> {
                 // invisible trident
-                hand = new ItemStack(Material.TRIDENT, 1);
+                hand = ItemStack.of(Material.TRIDENT, 1);
                 ItemMeta tim = hand.getItemMeta();
                 tim.setItemModel(DalekVariant.DALEK_BOW.getKey());
                 hand.setItemMeta(tim);
             }
             case SILENT -> {
                 // both hands
-                hand = new ItemStack(Material.END_STONE_BRICK_SLAB);
+                hand = ItemStack.of(Material.END_STONE_BRICK_SLAB);
                 ItemMeta tim = hand.getItemMeta();
                 tim.setItemModel(SilentVariant.SILENCE_HAND.getKey());
                 hand.setItemMeta(tim);
-                offhand = new ItemStack(Material.END_STONE_BRICK_SLAB);
+                offhand = ItemStack.of(Material.END_STONE_BRICK_SLAB);
                 ItemMeta oim = offhand.getItemMeta();
                 oim.setItemModel(SilentVariant.SILENCE_OFFHAND.getKey());
                 offhand.setItemMeta(oim);
             }
             case SILURIAN -> {
                 // gun
-                hand = new ItemStack(Material.BOW, 1);
+                hand = ItemStack.of(Material.BOW, 1);
                 ItemMeta bim = hand.getItemMeta();
                 bim.setItemModel(SilurianVariant.SILURIAN_GUN.getKey());
                 hand.setItemMeta(bim);
             }
             case SLITHEEN -> {
                 // both hands
-                hand = new ItemStack(Material.TURTLE_EGG);
+                hand = ItemStack.of(Material.TURTLE_EGG);
                 ItemMeta tim = hand.getItemMeta();
                 tim.setItemModel(SlitheenVariant.SLITHEEN_CLAW_RIGHT.getKey());
                 hand.setItemMeta(tim);
-                offhand = new ItemStack(Material.TURTLE_EGG);
+                offhand = ItemStack.of(Material.TURTLE_EGG);
                 ItemMeta oim = offhand.getItemMeta();
                 oim.setItemModel(SlitheenVariant.SLITHEEN_CLAW_LEFT.getKey());
                 offhand.setItemMeta(oim);
             }
             case SONTARAN -> {
                 // weapon
-                hand = new ItemStack(Material.END_ROD);
+                hand = ItemStack.of(Material.END_ROD);
                 ItemMeta tim = hand.getItemMeta();
                 tim.setItemModel(SontaranVariant.SONTARAN_WEAPON.getKey());
                 hand.setItemMeta(tim);

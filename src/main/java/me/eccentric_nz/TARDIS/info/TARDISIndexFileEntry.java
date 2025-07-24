@@ -50,7 +50,7 @@ public class TARDISIndexFileEntry implements InventoryHolder {
 
     private ItemStack[] getItemStack() {
         ItemStack[] stack = new ItemStack[27];
-        ItemStack entry = new ItemStack(Material.WRITTEN_BOOK, 1);
+        ItemStack entry = ItemStack.of(Material.WRITTEN_BOOK, 1);
         ItemMeta entryMeta = entry.getItemMeta();
         entryMeta.displayName(Component.text(TARDISStringUtils.capitalise(tardisInfoMenu.toString())));
         entryMeta.addItemFlags(ItemFlag.values());
@@ -59,7 +59,7 @@ public class TARDISIndexFileEntry implements InventoryHolder {
         stack[0] = entry;
         int i = 9;
         for (String key : TARDISInfoMenu.getChildren(tardisInfoMenu.toString()).keySet()) {
-            ItemStack is = new ItemStack(Material.BOOK);
+            ItemStack is = ItemStack.of(Material.BOOK);
             ItemMeta im = is.getItemMeta();
             im.displayName(Component.text(key));
             is.setItemMeta(im);
@@ -67,7 +67,7 @@ public class TARDISIndexFileEntry implements InventoryHolder {
             i++;
         }
         // close
-        ItemStack close = new ItemStack(Material.BOWL, 1);
+        ItemStack close = ItemStack.of(Material.BOWL, 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);

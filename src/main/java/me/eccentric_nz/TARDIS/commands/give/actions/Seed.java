@@ -85,11 +85,11 @@ public class Seed {
                 ItemStack is;
                 NamespacedKey model = TARDISDisplayItem.CUSTOM.getCustomModel();
                 if (schm.isCustom()) {
-                    is = new ItemStack(schm.getSeedMaterial(), 1);
+                    is = ItemStack.of(schm.getSeedMaterial(), 1);
                 } else {
                     try {
                         TARDISDisplayItem tdi = TARDISDisplayItem.valueOf(type);
-                        is = new ItemStack(tdi.getMaterial(), 1);
+                        is = ItemStack.of(tdi.getMaterial(), 1);
                         model = tdi.getCustomModel();
                     } catch (IllegalArgumentException e) {
                         plugin.getMessenger().send(player, TardisModule.TARDIS, "SEED_NOT_VALID");

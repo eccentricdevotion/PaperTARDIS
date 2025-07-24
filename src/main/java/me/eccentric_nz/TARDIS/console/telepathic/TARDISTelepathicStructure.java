@@ -70,7 +70,7 @@ public class TARDISTelepathicStructure implements InventoryHolder {
         ItemStack end = make(Structure.END_CITY, Material.PURPUR_BLOCK);
         stack[i] = end;
         // close
-        ItemStack close = new ItemStack(GUIMap.BUTTON_CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIMap.BUTTON_CLOSE.material(), 1);
         ItemMeta gui = close.getItemMeta();
         gui.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         gui.setItemModel(GUIMap.BUTTON_CLOSE.key());
@@ -80,7 +80,7 @@ public class TARDISTelepathicStructure implements InventoryHolder {
     }
 
     private ItemStack make(Structure structure, Material material) {
-        ItemStack is = new ItemStack(material, 1);
+        ItemStack is = ItemStack.of(material, 1);
         ItemMeta im = is.getItemMeta();
         if (material == Material.GRASS_BLOCK) {
             CustomModelDataComponent component = im.getCustomModelDataComponent();

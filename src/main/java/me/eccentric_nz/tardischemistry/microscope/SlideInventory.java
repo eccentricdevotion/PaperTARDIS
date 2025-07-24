@@ -48,7 +48,7 @@ class SlideInventory implements InventoryHolder {
         ItemStack[] stacks = new ItemStack[54];
         // make slides
         for (Slide slide : Slide.values()) {
-            ItemStack is = new ItemStack(Material.GLASS, 1);
+            ItemStack is = ItemStack.of(Material.GLASS, 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(Component.text(slide.getName()));
             im.setItemModel(ChemistryEquipment.GLASS_SLIDE.getKey());
@@ -57,7 +57,7 @@ class SlideInventory implements InventoryHolder {
             stacks[slide.ordinal()] = is;
         }
         // Cancel / close
-        ItemStack close = new ItemStack(Material.BOWL, 1);
+        ItemStack close = ItemStack.of(Material.BOWL, 1);
         ItemMeta can = close.getItemMeta();
         can.displayName(Component.text("Close"));
         can.setItemModel(GuiVariant.CLOSE.getKey());

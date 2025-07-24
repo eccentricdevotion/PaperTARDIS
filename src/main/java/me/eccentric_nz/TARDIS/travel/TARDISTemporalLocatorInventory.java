@@ -59,7 +59,7 @@ public class TARDISTemporalLocatorInventory implements InventoryHolder {
     private ItemStack[] getItemStack() {
         ItemStack[] clocks = new ItemStack[27];
         for (GUITemporalLocator clock : GUITemporalLocator.values()) {
-            ItemStack is = new ItemStack(clock.getMaterial(), 1);
+            ItemStack is = ItemStack.of(clock.getMaterial(), 1);
             ItemMeta im = is.getItemMeta();
             if (clock.ordinal() < 4) {
                 im.displayName(Component.text(plugin.getLanguage().getString(clock.toString())));

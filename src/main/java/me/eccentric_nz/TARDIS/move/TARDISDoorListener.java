@@ -353,7 +353,7 @@ public class TARDISDoorListener {
                 Material m = Material.valueOf(key);
                 ItemStack oh = inv.getItemInOffHand();
                 if (!inv.contains(m) && !oh.getType().equals(m)) {
-                    ItemStack is = new ItemStack(m, 1);
+                    ItemStack is = ItemStack.of(m, 1);
                     TARDISItemRenamer ir = new TARDISItemRenamer(plugin, player, is);
                     ir.setName("TARDIS Key", true);
                     inv.addItem(is);

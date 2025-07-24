@@ -117,7 +117,7 @@ public class TARDISAchievementFactory {
                     if (reward_type.equalsIgnoreCase("XP")) {
                         new TARDISXPRewarder(player).changeExp(reward_amount);
                     } else {
-                        ItemStack is = new ItemStack(Material.valueOf(reward_type), reward_amount);
+                        ItemStack is = ItemStack.of(Material.valueOf(reward_type), reward_amount);
                         Inventory inv = player.getInventory();
                         HashMap<Integer, ItemStack> excess = inv.addItem(is);
                         excess.forEach((key, value) -> player.getWorld().dropItem(player.getLocation(), value));

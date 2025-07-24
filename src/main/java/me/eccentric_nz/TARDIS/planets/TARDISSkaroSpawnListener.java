@@ -61,7 +61,7 @@ public class TARDISSkaroSpawnListener implements Listener {
             if (plugin.getPlanetsConfig().getBoolean("planets.skaro.flying_daleks") && TARDISConstants.RANDOM.nextInt(100) < 10) {
                 // make the Dalek fly
                 EntityEquipment ee = le.getEquipment();
-                ee.setChestplate(new ItemStack(Material.ELYTRA, 1));
+                ee.setChestplate(ItemStack.of(Material.ELYTRA, 1));
                 // teleport them straight up
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                     le.teleport(le.getLocation().add(0.0d, 20.0d, 0.0d));

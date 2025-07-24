@@ -25,7 +25,7 @@ import org.bukkit.persistence.PersistentDataType;
 public class LabBuilder {
 
     public static ItemStack getLabProduct(Lab lab) {
-        ItemStack is = new ItemStack(lab.getItemMaterial(), 1);
+        ItemStack is = ItemStack.of(lab.getItemMaterial(), 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(Component.text(lab.getName()));
         im.setItemModel(lab.getModel());

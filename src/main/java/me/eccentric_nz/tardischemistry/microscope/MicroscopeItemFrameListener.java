@@ -93,7 +93,7 @@ public class MicroscopeItemFrameListener implements Listener {
                     // remember item in hand for restoration
                     MicroscopeUtils.STORED_STACKS.put(player.getUniqueId(), is);
                     // set item in hand
-                    ItemStack slide = new ItemStack(Material.GLASS, 1);
+                    ItemStack slide = ItemStack.of(Material.GLASS, 1);
                     ItemMeta slideMeta = slide.getItemMeta();
                     String[] split = key.split("/");
                     slideMeta.displayName(Component.text(TARDISStringUtils.sentenceCase(split[1])));
@@ -124,7 +124,7 @@ public class MicroscopeItemFrameListener implements Listener {
                     // remember item in hand for restoration
                     MicroscopeUtils.STORED_STACKS.put(player.getUniqueId(), is);
                     // set item in hand
-                    ItemStack screen = new ItemStack(Material.LIME_STAINED_GLASS, 1);
+                    ItemStack screen = ItemStack.of(Material.LIME_STAINED_GLASS, 1);
                     ItemMeta screenMeta = screen.getItemMeta();
                     String[] split = key.split("/");
                     screenMeta.displayName(Component.text(TARDISStringUtils.sentenceCase(split[1])));
@@ -155,7 +155,7 @@ public class MicroscopeItemFrameListener implements Listener {
                     // remember item in hand for restoration
                     MicroscopeUtils.STORED_STACKS.put(player.getUniqueId(), is);
                     // set item in hand
-                    ItemStack helmet = new ItemStack(Material.GRAY_STAINED_GLASS, 1);
+                    ItemStack helmet = ItemStack.of(Material.GRAY_STAINED_GLASS, 1);
                     ItemMeta helmetMeta = helmet.getItemMeta();
                     String[] split = key.split("/");
                     helmetMeta.displayName(Component.text(TARDISStringUtils.sentenceCase(split[1])));

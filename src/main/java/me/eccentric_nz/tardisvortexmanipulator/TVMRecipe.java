@@ -26,7 +26,7 @@ public class TVMRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.CLOCK, 1);
+        ItemStack is = ItemStack.of(Material.CLOCK, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Vortex Manipulator"));
         im.lore(List.of(Component.text("Cheap and nasty time travel")));

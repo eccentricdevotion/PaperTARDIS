@@ -65,7 +65,7 @@ class TARDISAreaDisks {
             rsa.getData().forEach((a) -> {
                 String name = a.areaName();
                 if (TARDISPermission.hasPermission(p, "tardis.area." + name) || TARDISPermission.hasPermission(p, "tardis.area.*")) {
-                    ItemStack is = new ItemStack(Material.MUSIC_DISC_BLOCKS, 1);
+                    ItemStack is = ItemStack.of(Material.MUSIC_DISC_BLOCKS, 1);
                     ItemMeta im = is.getItemMeta();
                     im.displayName(Component.text("Area Storage Disk"));
                     im.lore(List.of(
@@ -151,7 +151,7 @@ class TARDISAreaDisks {
                             // add new area if there is room
                             int empty = getNextEmptySlot(inv);
                             if (empty != -1) {
-                                ItemStack is = new ItemStack(Material.MUSIC_DISC_BLOCKS, 1);
+                                ItemStack is = ItemStack.of(Material.MUSIC_DISC_BLOCKS, 1);
                                 ItemMeta im = is.getItemMeta();
                                 im.displayName(Component.text("Area Storage Disk"));
                                 im.lore(List.of(

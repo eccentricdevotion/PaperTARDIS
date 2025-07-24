@@ -54,7 +54,7 @@ public class ElixirOfLifeRecipe {
         } else {
             r.shape("GPG", " G ", " G ");
         }
-        ItemStack potion = new ItemStack(Material.POTION, 1);
+        ItemStack potion = ItemStack.of(Material.POTION, 1);
         PotionMeta pm = (PotionMeta) potion.getItemMeta();
         pm.setBasePotionType(PotionType.AWKWARD);
         potion.setItemMeta(pm);

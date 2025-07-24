@@ -87,7 +87,7 @@ public class TARDISLampToggler {
                     } else {
                         // switch the itemstack
                         if (display != null) {
-                            ItemStack is = new ItemStack(light.getOff().getMaterial());
+                            ItemStack is = ItemStack.of(light.getOff().getMaterial());
                             ItemMeta im = is.getItemMeta();
                             im.displayName(ComponentUtils.toWhite(light.getOff().getDisplayName()));
                             NamespacedKey model = light.getOff().getCustomModel();
@@ -109,7 +109,7 @@ public class TARDISLampToggler {
                     b.setBlockData(levelled);
                     // switch the itemstack
                     if (display != null) {
-                        ItemStack is = new ItemStack(light.getOn().getMaterial());
+                        ItemStack is = ItemStack.of(light.getOn().getMaterial());
                         ItemMeta im = is.getItemMeta();
                         im.displayName(ComponentUtils.toWhite(light.getOn().getDisplayName()));
                         NamespacedKey model = light.getOn().getCustomModel();

@@ -127,7 +127,7 @@ public class TARDISItemDisplaySetter {
 
     public static void setInRoom(Block block, Material material, NamespacedKey model) {
         ItemDisplay display = (ItemDisplay) block.getWorld().spawnEntity(block.getLocation().clone().add(0.5d, 0.25d, 0.5d), EntityType.ITEM_DISPLAY);
-        ItemStack is = new ItemStack(material);
+        ItemStack is = ItemStack.of(material);
         if (model != null) {
             ItemMeta im = is.getItemMeta();
             im.displayName(model.getKey().equals("xray")

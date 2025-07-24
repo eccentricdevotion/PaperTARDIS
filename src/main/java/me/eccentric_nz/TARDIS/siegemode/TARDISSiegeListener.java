@@ -132,7 +132,7 @@ public class TARDISSiegeListener implements Listener {
             }
         }
         String tl = tardis.getOwner();
-        ItemStack is = new ItemStack(TARDISDisplayItem.SIEGE_CUBE.getMaterial(), 1);
+        ItemStack is = ItemStack.of(TARDISDisplayItem.SIEGE_CUBE.getMaterial(), 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Siege Cube"));
         im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, TARDISDisplayItem.SIEGE_CUBE.getCustomModel().getKey());

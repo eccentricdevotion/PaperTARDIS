@@ -74,13 +74,13 @@ class TARDISArchiveInventory implements InventoryHolder {
             }
         }
         // back
-        ItemStack back = new ItemStack(GUIArchive.BACK.material(), 1);
+        ItemStack back = ItemStack.of(GUIArchive.BACK.material(), 1);
         ItemMeta back_im = back.getItemMeta();
         back_im.displayName(Component.text("Back"));
         back.setItemMeta(back_im);
         stack[17] = back;
         // size
-        ItemStack size = new ItemStack(GUIArchive.SET_SIZE.material(), 1);
+        ItemStack size = ItemStack.of(GUIArchive.SET_SIZE.material(), 1);
         ItemMeta size_im = size.getItemMeta();
         size_im.displayName(Component.text("Set size"));
         String s = "SMALL";
@@ -100,13 +100,13 @@ class TARDISArchiveInventory implements InventoryHolder {
         size.setItemMeta(size_im);
         stack[18] = size;
         // scan
-        ItemStack scan = new ItemStack(GUIArchive.SCAN_CONSOLE.material(), 1);
+        ItemStack scan = ItemStack.of(GUIArchive.SCAN_CONSOLE.material(), 1);
         ItemMeta but_im = scan.getItemMeta();
         but_im.displayName(Component.text("Scan console"));
         scan.setItemMeta(but_im);
         stack[19] = scan;
         // archive
-        ItemStack arc = new ItemStack(GUIArchive.ARCHIVE_CURRENT_CONSOLE.material(), 1);
+        ItemStack arc = ItemStack.of(GUIArchive.ARCHIVE_CURRENT_CONSOLE.material(), 1);
         ItemMeta hive_im = arc.getItemMeta();
         hive_im.displayName(Component.text("Archive current console"));
         hive_im.lore(List.of(
@@ -121,7 +121,7 @@ class TARDISArchiveInventory implements InventoryHolder {
         int t = 22;
         for (ConsoleSize c : ConsoleSize.values()) {
             if (!c.equals(ConsoleSize.MASSIVE)) {
-                ItemStack temp = new ItemStack(GUIArchive.SMALL.material(), 1);
+                ItemStack temp = ItemStack.of(GUIArchive.SMALL.material(), 1);
                 ItemMeta late = temp.getItemMeta();
                 late.displayName(Component.text(c.toString()));
                 late.lore(List.of(
@@ -134,7 +134,7 @@ class TARDISArchiveInventory implements InventoryHolder {
             }
         }
         // close
-        ItemStack close = new ItemStack(GUIArchive.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIArchive.CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);

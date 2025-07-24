@@ -156,7 +156,7 @@ public class TARDISARSMethods {
      * @param playerUUID the player using the GUI
      */
     void setSlot(InventoryView view, int slot, Material material, String room, UUID playerUUID, boolean showPerms) {
-        ItemStack is = new ItemStack(material, 1);
+        ItemStack is = ItemStack.of(material, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(Component.text(room));
         if (!room.equals("Empty slot")) {
@@ -286,7 +286,7 @@ public class TARDISARSMethods {
                 md.setY(i - 27);
                 map_data.put(playerUUID, md);
             }
-            ItemStack is = new ItemStack(material, 1);
+            ItemStack is = ItemStack.of(material, 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(Component.text(levels[i - 27]));
             is.setItemMeta(im);

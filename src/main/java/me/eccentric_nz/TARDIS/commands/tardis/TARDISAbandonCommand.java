@@ -286,7 +286,7 @@ public class TARDISAbandonCommand {
                             for (Entity e : world.getNearbyEntities(current.location(), 1.0d, 1.0d, 1.0d)) {
                                 if (e instanceof ItemFrame frame) {
                                     Material dye = TARDISBuilderUtility.getMaterialForArmourStand(preset, id, true);
-                                    ItemStack is = new ItemStack(dye, 1);
+                                    ItemStack is = ItemStack.of(dye, 1);
                                     ItemMeta im = is.getItemMeta();
                                     NamespacedKey model = switch (is.getType()) {
                                         case BLACK_DYE -> ChameleonVariant.BLACK_CLOSED.getKey();

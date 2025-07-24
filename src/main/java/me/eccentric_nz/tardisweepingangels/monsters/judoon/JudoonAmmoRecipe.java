@@ -37,7 +37,7 @@ public class JudoonAmmoRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.ARROW, 2);
+        ItemStack is = ItemStack.of(Material.ARROW, 2);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Judoon Ammunition"));
         im.setItemModel(ArrowVariant.JUDOON_AMMO.getKey());

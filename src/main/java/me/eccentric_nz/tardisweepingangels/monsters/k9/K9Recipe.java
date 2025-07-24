@@ -34,7 +34,7 @@ public class K9Recipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.BONE);
+        ItemStack is = ItemStack.of(Material.BONE);
         ItemMeta im = is.getItemMeta();
         im.displayName(Component.text("K9"));
         im.setItemModel(K9Variant.K9.getKey());

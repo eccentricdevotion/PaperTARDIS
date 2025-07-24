@@ -74,7 +74,7 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
             String underscored = s.replace(" ", "_");
             if (TARDISPermission.hasPermission(player, "tardis.preset.police_box_" + underscored.toLowerCase(Locale.ROOT))) {
                 String dye = underscored.toUpperCase(Locale.ROOT) + "_DYE";
-                ItemStack is = new ItemStack(Material.valueOf(dye), 1);
+                ItemStack is = ItemStack.of(Material.valueOf(dye), 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(Component.text(s + " Police Box"));
                 switch (s) {
@@ -102,7 +102,7 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
         }
         // tennant
         if (TARDISPermission.hasPermission(player, "tardis.preset.police_box_tennant")) {
-            ItemStack david = new ItemStack(Material.CYAN_STAINED_GLASS_PANE, 1);
+            ItemStack david = ItemStack.of(Material.CYAN_STAINED_GLASS_PANE, 1);
             ItemMeta tennant = david.getItemMeta();
             tennant.displayName(Component.text("Tennant Era Police Box"));
             tennant.setItemModel(ChameleonVariant.TENNANT_CLOSED.getKey());
@@ -112,7 +112,7 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
         }
         // weeping angel
         if (TARDISPermission.hasPermission(player, "tardis.preset.weeping_angel")) {
-            ItemStack is = new ItemStack(Material.GRAY_STAINED_GLASS_PANE, 1);
+            ItemStack is = ItemStack.of(Material.GRAY_STAINED_GLASS_PANE, 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(Component.text("Weeping Angel"));
             im.setItemModel(ChameleonVariant.WEEPING_ANGEL_CLOSED.getKey());
@@ -122,7 +122,7 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
         }
         // pandorica
         if (TARDISPermission.hasPermission(player, "tardis.preset.pandorica")) {
-            ItemStack pan = new ItemStack(Material.ENDER_PEARL, 1);
+            ItemStack pan = ItemStack.of(Material.ENDER_PEARL, 1);
             ItemMeta ica = pan.getItemMeta();
             ica.displayName(Component.text("Pandorica"));
             ica.setItemModel(ChameleonVariant.PANDORICA_CLOSED.getKey());
@@ -133,7 +133,7 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
         // colour picker police boxes broken in 1.21.4
         /*
         if (TARDISPermission.hasPermission(player, "tardis.preset.police_box_tinted")) {
-            ItemStack any = new ItemStack(Material.LEATHER_HORSE_ARMOR, 1);
+            ItemStack any = ItemStack.of(Material.LEATHER_HORSE_ARMOR, 1);
             ItemMeta colour = any.getItemMeta();
             colour.displayName(Component.text("Pick a colour Police Box"));
             colour.setItemModel(ColouredVariant.TINTED_CLOSED.getKey());
@@ -146,7 +146,7 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
             if (i < 50) {
                 try {
                     Material cm = Material.valueOf(plugin.getCustomModelConfig().getString("models." + custom + ".item"));
-                    ItemStack cis = new ItemStack(cm);
+                    ItemStack cis = ItemStack.of(cm);
                     ItemMeta cim = cis.getItemMeta();
                     cim.displayName(Component.text(custom));
                     String key = TARDISStringUtils.toUnderscoredLowercase(custom);
@@ -160,19 +160,19 @@ public class TARDISPoliceBoxInventory implements InventoryHolder {
             }
         }
         // page one
-        ItemStack page = new ItemStack(GUIChameleonPoliceBoxes.GO_TO_PAGE_1.material(), 1);
+        ItemStack page = ItemStack.of(GUIChameleonPoliceBoxes.GO_TO_PAGE_1.material(), 1);
         ItemMeta one = page.getItemMeta();
         one.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_1")));
         page.setItemMeta(one);
         boxes[GUIChameleonPoliceBoxes.GO_TO_PAGE_1.slot()] = page;
         // back
-        ItemStack back = new ItemStack(GUIChameleonPoliceBoxes.BACK.material(), 1);
+        ItemStack back = ItemStack.of(GUIChameleonPoliceBoxes.BACK.material(), 1);
         ItemMeta but = back.getItemMeta();
         but.displayName(Component.text("Back"));
         back.setItemMeta(but);
         boxes[GUIChameleonPoliceBoxes.BACK.slot()] = back;
         // Cancel / close
-        ItemStack close = new ItemStack(GUIChameleonPoliceBoxes.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIChameleonPoliceBoxes.CLOSE.material(), 1);
         ItemMeta can = close.getItemMeta();
         can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);

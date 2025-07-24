@@ -56,7 +56,7 @@ public class TARDISTelepathicCircuitRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.GLOWSTONE_DUST, 1);
+        ItemStack is = ItemStack.of(Material.GLOWSTONE_DUST, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Telepathic Circuit"));
         CustomModelDataComponent component = im.getCustomModelDataComponent();
@@ -71,7 +71,7 @@ public class TARDISTelepathicCircuitRecipe {
         ShapedRecipe r = new ShapedRecipe(key, is);
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
             r.shape(" S ", "SPS", "ESE");
-            ItemStack potion = new ItemStack(Material.POTION, 1);
+            ItemStack potion = ItemStack.of(Material.POTION, 1);
             PotionMeta pm = (PotionMeta) potion.getItemMeta();
             pm.setBasePotionType(PotionType.AWKWARD);
             potion.setItemMeta(pm);

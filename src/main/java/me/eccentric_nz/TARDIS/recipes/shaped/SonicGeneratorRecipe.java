@@ -50,7 +50,7 @@ public class SonicGeneratorRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.FLOWER_POT, 1);
+        ItemStack is = ItemStack.of(Material.FLOWER_POT, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Sonic Generator"));
         im.setItemModel(RecipeItem.SONIC_GENERATOR.getModel());

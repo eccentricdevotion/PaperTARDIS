@@ -76,7 +76,7 @@ public class TARDISPluginThemeInventory extends TARDISThemeInventory {
         }
         if (plugin.getConfig().getBoolean("desktop.previews")) {
             // info
-            ItemStack info = new ItemStack(GUIChameleonConstructor.INFO.material(), 1);
+            ItemStack info = ItemStack.of(GUIChameleonConstructor.INFO.material(), 1);
             ItemMeta io = info.getItemMeta();
             io.displayName(Component.text("Info"));
             io.lore(List.of(
@@ -90,7 +90,7 @@ public class TARDISPluginThemeInventory extends TARDISThemeInventory {
         }
         // archive consoles
         if (TARDISPermission.hasPermission(player, "tardis.archive")) {
-            ItemStack arc = new ItemStack(GUIUpgrade.ARCHIVE_CONSOLES.material(), 1);
+            ItemStack arc = ItemStack.of(GUIUpgrade.ARCHIVE_CONSOLES.material(), 1);
             ItemMeta hive_im = arc.getItemMeta();
             hive_im.displayName(Component.text("Archive Consoles"));
             arc.setItemMeta(hive_im);
@@ -99,7 +99,7 @@ public class TARDISPluginThemeInventory extends TARDISThemeInventory {
         if (plugin.getConfig().getBoolean("allow.repair")) {
             // repair
             if (TARDISPermission.hasPermission(player, "tardis.repair")) {
-                ItemStack rep = new ItemStack(GUIUpgrade.REPAIR_CONSOLE.material(), 1);
+                ItemStack rep = ItemStack.of(GUIUpgrade.REPAIR_CONSOLE.material(), 1);
                 ItemMeta air_im = rep.getItemMeta();
                 air_im.displayName(Component.text("Repair Console"));
                 rep.setItemMeta(air_im);
@@ -107,7 +107,7 @@ public class TARDISPluginThemeInventory extends TARDISThemeInventory {
             }
             // clean
             if (TARDISPermission.hasPermission(player, "tardis.repair")) {
-                ItemStack cle = new ItemStack(GUIUpgrade.CLEAN.material(), 1);
+                ItemStack cle = ItemStack.of(GUIUpgrade.CLEAN.material(), 1);
                 ItemMeta an_im = cle.getItemMeta();
                 an_im.displayName(Component.text("Clean"));
                 cle.setItemMeta(an_im);
@@ -115,13 +115,13 @@ public class TARDISPluginThemeInventory extends TARDISThemeInventory {
             }
         }
         // custom consoles page
-        ItemStack custom = new ItemStack(GUIChameleonPresets.GO_TO_PAGE_2.material(), 1);
+        ItemStack custom = ItemStack.of(GUIChameleonPresets.GO_TO_PAGE_2.material(), 1);
         ItemMeta custom_im = custom.getItemMeta();
         custom_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_2")));
         custom.setItemMeta(custom_im);
         stack[51] = custom;
         // close
-        ItemStack close = new ItemStack(GUIUpgrade.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIUpgrade.CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);

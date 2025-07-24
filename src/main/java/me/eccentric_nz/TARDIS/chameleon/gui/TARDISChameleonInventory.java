@@ -60,8 +60,8 @@ public class TARDISChameleonInventory implements InventoryHolder {
         this.adapt = adapt;
         this.preset = preset;
         this.model = model;
-        on = new ItemStack(Material.LIME_WOOL, 1);
-        off = new ItemStack(Material.LIGHT_GRAY_CARPET, 1);
+        on = ItemStack.of(Material.LIME_WOOL, 1);
+        off = ItemStack.of(Material.LIGHT_GRAY_CARPET, 1);
         this.inventory = plugin.getServer().createInventory(this, 27, Component.text("Chameleon Circuit", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
@@ -79,7 +79,7 @@ public class TARDISChameleonInventory implements InventoryHolder {
     private ItemStack[] getItemStack() {
 
         // Apply now
-        ItemStack apply = new ItemStack(GUIChameleon.BUTTON_APPLY.material(), 1);
+        ItemStack apply = ItemStack.of(GUIChameleon.BUTTON_APPLY.material(), 1);
         ItemMeta now = apply.getItemMeta();
         now.displayName(Component.text(plugin.getChameleonGuis().getString("APPLY")));
         List<Component> nowLore = new ArrayList<>();
@@ -89,7 +89,7 @@ public class TARDISChameleonInventory implements InventoryHolder {
         now.lore(nowLore);
         apply.setItemMeta(now);
         // Disabled
-        ItemStack dis = new ItemStack(GUIChameleon.BUTTON_CHAMELEON.material(), 1);
+        ItemStack dis = ItemStack.of(GUIChameleon.BUTTON_CHAMELEON.material(), 1);
         ItemMeta abled = dis.getItemMeta();
         abled.displayName(Component.text("Chameleon Circuit"));
         List<Component> ioLore = new ArrayList<>();
@@ -99,7 +99,7 @@ public class TARDISChameleonInventory implements InventoryHolder {
         abled.lore(ioLore);
         dis.setItemMeta(abled);
         // Adaptive
-        ItemStack adap = new ItemStack(GUIChameleon.BUTTON_ADAPT.material(), 1);
+        ItemStack adap = ItemStack.of(GUIChameleon.BUTTON_ADAPT.material(), 1);
         ItemMeta tive = adap.getItemMeta();
         tive.displayName(Component.text(plugin.getChameleonGuis().getString("ADAPT")));
         List<Component> tiveLore = new ArrayList<>();
@@ -111,7 +111,7 @@ public class TARDISChameleonInventory implements InventoryHolder {
         // Invisible
         ItemStack invis;
         if (plugin.getConfig().getBoolean("allow.invisibility")) {
-            invis = new ItemStack(GUIChameleon.BUTTON_INVISIBLE.material(), 1);
+            invis = ItemStack.of(GUIChameleon.BUTTON_INVISIBLE.material(), 1);
             ItemMeta ible = invis.getItemMeta();
             ible.displayName(Component.text(plugin.getChameleonGuis().getString("INVISIBLE")));
             List<Component> ilore = new ArrayList<>();
@@ -128,7 +128,7 @@ public class TARDISChameleonInventory implements InventoryHolder {
             invis = null;
         }
         // Shorted out
-        ItemStack shor = new ItemStack(GUIChameleon.BUTTON_SHORT.material(), 1);
+        ItemStack shor = ItemStack.of(GUIChameleon.BUTTON_SHORT.material(), 1);
         ItemMeta tout = shor.getItemMeta();
         tout.displayName(Component.text(plugin.getChameleonGuis().getString("SHORT")));
         List<Component> toutLore = new ArrayList<>();
@@ -138,7 +138,7 @@ public class TARDISChameleonInventory implements InventoryHolder {
         tout.lore(toutLore);
         shor.setItemMeta(tout);
         // construction GUI
-        ItemStack cons = new ItemStack(GUIChameleon.BUTTON_CONSTRUCT.material(), 1);
+        ItemStack cons = ItemStack.of(GUIChameleon.BUTTON_CONSTRUCT.material(), 1);
         ItemMeta truct = cons.getItemMeta();
         truct.displayName(Component.text(plugin.getChameleonGuis().getString("CONSTRUCT")));
         List<Component> tructLore = new ArrayList<>();
@@ -150,7 +150,7 @@ public class TARDISChameleonInventory implements InventoryHolder {
         // lock current preset
         ItemStack lock = null;
         if (adapt.equals(Adaption.BIOME)) {
-            lock = new ItemStack(GUIChameleon.BUTTON_LOCK.material(), 1);
+            lock = ItemStack.of(GUIChameleon.BUTTON_LOCK.material(), 1);
             ItemMeta circuit = lock.getItemMeta();
             circuit.displayName(Component.text(plugin.getChameleonGuis().getString("LOCK")));
             List<Component> circuitLore = new ArrayList<>();
@@ -204,7 +204,7 @@ public class TARDISChameleonInventory implements InventoryHolder {
         lder.displayName(conoff);
         bui.setItemMeta(lder);
         // Cancel / close
-        ItemStack close = new ItemStack(GUIChameleon.BUTTON_CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIChameleon.BUTTON_CLOSE.material(), 1);
         ItemMeta can = close.getItemMeta();
         can.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(can);

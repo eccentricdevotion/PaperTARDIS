@@ -67,7 +67,7 @@ class TARDISHandlesSavedInventory implements InventoryHolder {
         ResultSetPrograms rs = new ResultSetPrograms(plugin, uuid);
         if (rs.resultSet()) {
             for (Program p : rs.getPrograms()) {
-                ItemStack is = new ItemStack(Material.MUSIC_DISC_WARD, 1);
+                ItemStack is = ItemStack.of(Material.MUSIC_DISC_WARD, 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(Component.text("Handles Program Disk"));
                 String checked = (p.isCheckedOut()) ? "Checked OUT" : "Checked IN";
@@ -96,37 +96,37 @@ class TARDISHandlesSavedInventory implements InventoryHolder {
             }
         }
         // back
-        ItemStack back = new ItemStack(Material.ARROW, 1);
+        ItemStack back = ItemStack.of(Material.ARROW, 1);
         ItemMeta bk = back.getItemMeta();
         bk.displayName(Component.text("Back to editor"));
         back.setItemMeta(bk);
         stack[45] = back;
         // load button
-        ItemStack load = new ItemStack(Material.BOWL, 1);
+        ItemStack load = ItemStack.of(Material.BOWL, 1);
         ItemMeta ld = load.getItemMeta();
         ld.displayName(Component.text("Load selected program in editor"));
         load.setItemMeta(ld);
         stack[47] = load;
         // deactivate
-        ItemStack deactivate = new ItemStack(Material.BUCKET, 1);
+        ItemStack deactivate = ItemStack.of(Material.BUCKET, 1);
         ItemMeta dem = deactivate.getItemMeta();
         dem.displayName(Component.text("Deactivate selected program"));
         deactivate.setItemMeta(dem);
         stack[48] = deactivate;
         // delete
-        ItemStack delete = new ItemStack(Material.BUCKET, 1);
+        ItemStack delete = ItemStack.of(Material.BUCKET, 1);
         ItemMeta dm = delete.getItemMeta();
         dm.displayName(Component.text("Delete selected program"));
         delete.setItemMeta(dm);
         stack[49] = delete;
         // check out
-        ItemStack checked = new ItemStack(Material.BOWL, 1);
+        ItemStack checked = ItemStack.of(Material.BOWL, 1);
         ItemMeta km = checked.getItemMeta();
         km.displayName(Component.text("Check out selected program"));
         checked.setItemMeta(km);
         stack[51] = checked;
         // close
-        ItemStack close = new ItemStack(Material.BOWL, 1);
+        ItemStack close = ItemStack.of(Material.BOWL, 1);
         ItemMeta cm = close.getItemMeta();
         cm.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(cm);

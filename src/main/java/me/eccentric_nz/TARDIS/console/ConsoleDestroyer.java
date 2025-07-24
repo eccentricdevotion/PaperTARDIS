@@ -159,7 +159,7 @@ public class ConsoleDestroyer {
                 case GRAY_CONCRETE -> key = ConsoleVariant.CONSOLE_GRAY.getKey();
                 default -> key = ConsoleVariant.CONSOLE_LIGHT_GRAY.getKey();
             }
-            ItemStack console = new ItemStack(material, 1);
+            ItemStack console = ItemStack.of(material, 1);
             ItemMeta im = console.getItemMeta();
             String dn = ((isRustic) ? "Rustic" : TARDISStringUtils.capitalise(colour)) + " Console";
             im.displayName(Component.text(dn));

@@ -45,9 +45,9 @@ public class TARDISDisplayItemRecipe {
             if (tdi.getCraftMaterial() != null) {
                 ItemStack is;
                 if (tdi == TARDISDisplayItem.CLASSIC_DOOR || tdi == TARDISDisplayItem.BONE_DOOR) {
-                    is = new ItemStack(tdi.getCraftMaterial(), 1);
+                    is = ItemStack.of(tdi.getCraftMaterial(), 1);
                 } else {
-                    is = new ItemStack(tdi.getMaterial(), 1);
+                    is = ItemStack.of(tdi.getMaterial(), 1);
                 }
                 ItemMeta im = is.getItemMeta();
                 im.displayName(ComponentUtils.toWhite(tdi.getDisplayName()));

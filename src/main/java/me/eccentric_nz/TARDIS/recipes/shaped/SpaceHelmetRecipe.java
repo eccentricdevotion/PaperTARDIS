@@ -54,7 +54,7 @@ public class SpaceHelmetRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.GLASS, 1);
+        ItemStack is = ItemStack.of(Material.GLASS, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Space Helmet"));
         im.setMaxStackSize(1);
@@ -71,7 +71,7 @@ public class SpaceHelmetRecipe {
         r.setIngredient('B', Material.BLACK_DYE);
         r.setIngredient('G', Material.GLASS_PANE);
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
-            ItemStack exact = new ItemStack(Material.LEATHER_HELMET, 1);
+            ItemStack exact = ItemStack.of(Material.LEATHER_HELMET, 1);
             LeatherArmorMeta am = (LeatherArmorMeta) exact.getItemMeta();
             Color black = Color.fromARGB(-14869215); // [argb0xFF1D1D21] not BLACK!
             am.setColor(black);

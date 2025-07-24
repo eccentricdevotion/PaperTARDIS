@@ -111,7 +111,7 @@ public class ToclafaneListener implements Listener {
                             location.getWorld().createExplosion(location, 2.0f, false, destroy);
                             // give drops
                             plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-                                ItemStack stack = new ItemStack(drops.get(TARDISConstants.RANDOM.nextInt(drops.size())), TARDISConstants.RANDOM.nextInt(1) + 1);
+                                ItemStack stack = ItemStack.of(drops.get(TARDISConstants.RANDOM.nextInt(drops.size())), TARDISConstants.RANDOM.nextInt(1) + 1);
                                 location.getWorld().dropItemNaturally(location, stack);
                             }, 3L);
                         } else {

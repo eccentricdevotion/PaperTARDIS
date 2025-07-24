@@ -57,7 +57,7 @@ public class TVInventory implements InventoryHolder {
         Close
          */
         for (GUIData tv : GUITelevision.values()) {
-            ItemStack is = new ItemStack(tv.material(), 1);
+            ItemStack is = ItemStack.of(tv.material(), 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(Component.text(tv.name()));
             if (tv == GUITelevision.DOWNLOAD) {

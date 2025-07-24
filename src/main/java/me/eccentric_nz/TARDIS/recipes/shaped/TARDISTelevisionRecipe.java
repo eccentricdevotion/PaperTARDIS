@@ -57,13 +57,13 @@ public class TARDISTelevisionRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.BROWN_STAINED_GLASS, 1);
+        ItemStack is = ItemStack.of(Material.BROWN_STAINED_GLASS, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Television"));
         im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, RecipeItem.TARDIS_TELEVISION.getModel().getKey());
         is.setItemMeta(im);
         // exact choice
-        ItemStack capac = new ItemStack(Material.BUCKET, 1);
+        ItemStack capac = ItemStack.of(Material.BUCKET, 1);
         ItemMeta itor = capac.getItemMeta();
         itor.displayName(ComponentUtils.toWhite("Artron Capacitor"));
         capac.setItemMeta(itor);
@@ -72,7 +72,7 @@ public class TARDISTelevisionRecipe {
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
             r.shape("GGG", "GBG", "GEC");
             // exact choice
-            ItemStack chameleon = new ItemStack(Material.GLOWSTONE_DUST, 1);
+            ItemStack chameleon = ItemStack.of(Material.GLOWSTONE_DUST, 1);
             ItemMeta circuit = chameleon.getItemMeta();
             circuit.displayName(ComponentUtils.toWhite("TARDIS Chameleon Circuit"));
             CustomModelDataComponent ecomponent = circuit.getCustomModelDataComponent();

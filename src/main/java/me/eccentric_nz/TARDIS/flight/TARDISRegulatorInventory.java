@@ -52,36 +52,36 @@ class TARDISRegulatorInventory implements InventoryHolder {
             for (int row = 0; row < 5; row++) {
                 int s = col + row;
                 if (s != 20) {
-                    is[s] = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
+                    is[s] = ItemStack.of(Material.BLACK_STAINED_GLASS_PANE, 1);
                 }
             }
         }
         // direction pad up
-        ItemStack pad_up = new ItemStack(Material.LIME_WOOL, 1);
+        ItemStack pad_up = ItemStack.of(Material.LIME_WOOL, 1);
         ItemMeta up = pad_up.getItemMeta();
         up.displayName(Component.text("Up"));
         pad_up.setItemMeta(up);
         is[16] = pad_up;
         // regulator
-        ItemStack wobb = new ItemStack(Material.BLUE_WOOL, 1);
+        ItemStack wobb = ItemStack.of(Material.BLUE_WOOL, 1);
         ItemMeta ler = wobb.getItemMeta();
         ler.displayName(Component.text("Regulator"));
         wobb.setItemMeta(ler);
         is[20] = wobb;
         // direction pad left
-        ItemStack pad_left = new ItemStack(Material.LIME_WOOL, 1);
+        ItemStack pad_left = ItemStack.of(Material.LIME_WOOL, 1);
         ItemMeta left = pad_left.getItemMeta();
         left.displayName(Component.text("Left"));
         pad_left.setItemMeta(left);
         is[24] = pad_left;
         // direction pad right
-        ItemStack pad_right = new ItemStack(Material.LIME_WOOL, 1);
+        ItemStack pad_right = ItemStack.of(Material.LIME_WOOL, 1);
         ItemMeta right = pad_right.getItemMeta();
         right.displayName(Component.text("Right"));
         pad_right.setItemMeta(right);
         is[26] = pad_right;
         // direction pad down
-        ItemStack pad_down = new ItemStack(Material.LIME_WOOL, 1);
+        ItemStack pad_down = ItemStack.of(Material.LIME_WOOL, 1);
         ItemMeta down = pad_down.getItemMeta();
         down.displayName(Component.text("Down"));
         pad_down.setItemMeta(down);

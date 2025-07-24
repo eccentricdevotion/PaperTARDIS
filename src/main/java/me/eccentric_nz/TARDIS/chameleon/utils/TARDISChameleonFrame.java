@@ -34,7 +34,7 @@ public class TARDISChameleonFrame {
             for (Entity e : location.getChunk().getEntities()) {
                 if (e instanceof ItemFrame frame) {
                     if (compareLocations(e.getLocation(), location)) {
-                        ItemStack is = new ItemStack(preset.getGuiDisplay());
+                        ItemStack is = ItemStack.of(preset.getGuiDisplay());
                         ItemMeta im = is.getItemMeta();
                         im.displayName(Component.text(preset.toString()));
                         is.setItemMeta(im);

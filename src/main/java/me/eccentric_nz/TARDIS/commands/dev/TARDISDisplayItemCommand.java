@@ -74,7 +74,7 @@ public class TARDISDisplayItemCommand {
                     material = Material.DIAMOND_AXE;
                 }
                 ItemDisplay display = (ItemDisplay) block.getWorld().spawnEntity(block.getLocation().clone().add(0.5d, 1.25d, 0.5d), EntityType.ITEM_DISPLAY);
-                ItemStack is = new ItemStack(material);
+                ItemStack is = ItemStack.of(material);
                 if (args.length > 4) {
                     try {
                         ShopItem shopItem = ShopItem.valueOf(args[4].toUpperCase(Locale.ROOT));
@@ -99,7 +99,7 @@ public class TARDISDisplayItemCommand {
             case "animate" -> {
                 if (player.getPassengers().isEmpty()) {
                     if (args.length == 2) {
-                        ItemStack box = new ItemStack(Material.BLUE_DYE, 1);
+                        ItemStack box = ItemStack.of(Material.BLUE_DYE, 1);
                         ItemMeta im = box.getItemMeta();
                         im.setItemModel(ChameleonVariant.BLUE_CLOSED.getKey());
                         box.setItemMeta(im);
@@ -137,7 +137,7 @@ public class TARDISDisplayItemCommand {
                 }
                 TARDISDisplayItem tdi = TARDISDisplayItem.getBY_NAME().get(args[2]);
                 if (tdi != null) {
-                    ItemStack is = new ItemStack(tdi.getMaterial());
+                    ItemStack is = ItemStack.of(tdi.getMaterial());
                     ItemMeta im = is.getItemMeta();
                     im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, tdi.getCustomModel().getKey());
                     im.setItemModel(tdi.getCustomModel());

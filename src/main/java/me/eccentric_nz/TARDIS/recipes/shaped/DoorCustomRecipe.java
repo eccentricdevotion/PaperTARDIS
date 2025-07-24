@@ -38,7 +38,7 @@ public class DoorCustomRecipe {
         for (String r : plugin.getCustomDoorsConfig().getKeys(false)) {
             try {
                 Material material = Material.valueOf(plugin.getCustomDoorsConfig().getString(r + ".material"));
-                ItemStack is = new ItemStack(material);
+                ItemStack is = ItemStack.of(material);
                 ItemMeta im = is.getItemMeta();
                 String dn = TARDISStringUtils.capitalise(r);
                 im.displayName(ComponentUtils.toWhite(dn + "Door "));

@@ -110,7 +110,7 @@ public class TARDISSavesInventory implements InventoryHolder {
                                 material = TARDISConstants.GUI_IDS.get(i);
                             }
                         }
-                        ItemStack is = new ItemStack(material, 1);
+                        ItemStack is = ItemStack.of(material, 1);
                         ItemMeta im = is.getItemMeta();
                         im.displayName(Component.text(map.dest_name()));
                         List<Component> lore = new ArrayList<>();
@@ -136,17 +136,17 @@ public class TARDISSavesInventory implements InventoryHolder {
             }
         }
         // add button to allow rearranging saves
-        ItemStack tool = new ItemStack(GUISaves.REARRANGE_SAVES.material(), 1);
+        ItemStack tool = ItemStack.of(GUISaves.REARRANGE_SAVES.material(), 1);
         ItemMeta rearrange = tool.getItemMeta();
         rearrange.displayName(Component.text("Rearrange saves"));
         tool.setItemMeta(rearrange);
         // add button to allow deleting saves
-        ItemStack bucket = new ItemStack(GUISaves.DELETE_SAVE.material(), 1);
+        ItemStack bucket = ItemStack.of(GUISaves.DELETE_SAVE.material(), 1);
         ItemMeta delete = bucket.getItemMeta();
         delete.displayName(Component.text("Delete save"));
         bucket.setItemMeta(delete);
         // add button to go back to planets
-        ItemStack planet = new ItemStack(GUISaves.BACK_TO_PLANETS.material(), 1);
+        ItemStack planet = ItemStack.of(GUISaves.BACK_TO_PLANETS.material(), 1);
         ItemMeta map = planet.getItemMeta();
         map.displayName(Component.text("Back to Dimension Map"));
         planet.setItemMeta(map);

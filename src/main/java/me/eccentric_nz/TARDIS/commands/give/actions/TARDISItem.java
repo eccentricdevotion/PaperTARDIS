@@ -113,7 +113,7 @@ public class TARDISItem {
                 return true;
             }
             if (item.equals("acid-bucket") || item.equals("rust-bucket")) {
-                result = new ItemStack((item.equals("acid-bucket") ? Material.WATER_BUCKET : Material.LAVA_BUCKET), 1);
+                result = ItemStack.of((item.equals("acid-bucket") ? Material.WATER_BUCKET : Material.LAVA_BUCKET), 1);
                 im = result.getItemMeta();
             } else if (item.equals("save-storage-disk") || item.equals("preset-storage-disk") || item.equals("biome-storage-disk") || item.equals("player-storage-disk") || item.equals("bowl-of-custard") || item.equals("jelly-baby") || item.equals("schematic-wand") || item.equals("judoon-ammunition")) {
                 result = plugin.getIncomposita().getShapelessRecipes().get(item_to_give).getResult();

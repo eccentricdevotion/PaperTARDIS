@@ -58,7 +58,7 @@ public class TARDISInvisibilityCircuitRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.GLOWSTONE_DUST, 1);
+        ItemStack is = ItemStack.of(Material.GLOWSTONE_DUST, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Invisibility Circuit"));
         CustomModelDataComponent component = im.getCustomModelDataComponent();
@@ -71,14 +71,14 @@ public class TARDISInvisibilityCircuitRecipe {
         is.setItemMeta(im);
         NamespacedKey key = new NamespacedKey(plugin, "tardis_invisibility_circuit");
         ShapedRecipe r = new ShapedRecipe(key, is);
-        ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
+        ItemStack exact = ItemStack.of(Material.GLOWSTONE_DUST, 1);
         ItemMeta em = exact.getItemMeta();
         em.displayName(ComponentUtils.toWhite("Perception Circuit"));
         CustomModelDataComponent ecomponent = em.getCustomModelDataComponent();
         ecomponent.setFloats(CircuitVariant.PERCEPTION.getFloats());
         em.setCustomModelDataComponent(ecomponent);
         exact.setItemMeta(em);
-        ItemStack potion = new ItemStack(Material.POTION, 1);
+        ItemStack potion = ItemStack.of(Material.POTION, 1);
         PotionMeta pm = (PotionMeta) potion.getItemMeta();
         pm.setBasePotionType(PotionType.INVISIBILITY);
         potion.setItemMeta(pm);

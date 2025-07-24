@@ -52,7 +52,7 @@ public class ThreeDGlassesRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.LEATHER_HELMET, 1);
+        ItemStack is = ItemStack.of(Material.LEATHER_HELMET, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("3-D Glasses"));
         EquippableComponent equippable = im.getEquippable();

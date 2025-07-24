@@ -185,7 +185,7 @@ public class TARDISKeyMenuListener extends TARDISMenuListener {
             Player p = (Player) event.getPlayer();
             Location loc = p.getLocation();
             loc.getWorld().dropItemNaturally(loc, key);
-            view.setItem(18, new ItemStack(Material.AIR));
+            view.setItem(18, ItemStack.of(Material.AIR));
         }
     }
 }

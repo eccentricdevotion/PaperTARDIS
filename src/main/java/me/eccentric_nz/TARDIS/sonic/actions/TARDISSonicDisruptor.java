@@ -40,9 +40,9 @@ public class TARDISSonicDisruptor {
                 Location l = block.getLocation();
                 if (mat.equals(Material.SNOW)) {
                     Snow snow = (Snow) block.getBlockData();
-                    block.getLocation().getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SNOWBALL, 1 + snow.getLayers()));
+                    block.getLocation().getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.SNOWBALL, 1 + snow.getLayers()));
                 } else {
-                    l.getWorld().dropItemNaturally(l, new ItemStack(block.getType(), 1));
+                    l.getWorld().dropItemNaturally(l, ItemStack.of(block.getType(), 1));
                 }
                 l.getWorld().playSound(l, Sound.ENTITY_SHEEP_SHEAR, 1.0F, 1.5F);
                 // set the block to AIR
@@ -57,7 +57,7 @@ public class TARDISSonicDisruptor {
                     balls = 1 + snow.getLayers();
                 }
                 block.setBlockData(TARDISConstants.AIR);
-                block.getLocation().getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SNOWBALL, balls));
+                block.getLocation().getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.SNOWBALL, balls));
             } else {
                 block.breakNaturally();
                 block.getLocation().getWorld().playSound(block.getLocation(), Sound.ENTITY_SHEEP_SHEAR, 1.0F, 1.5F);

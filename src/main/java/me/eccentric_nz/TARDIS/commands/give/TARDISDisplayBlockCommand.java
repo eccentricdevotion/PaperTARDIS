@@ -44,7 +44,7 @@ public class TARDISDisplayBlockCommand {
         String display = TARDISStringUtils.toEnumUppercase(arg);
         if (display.startsWith("DOOR_") || display.endsWith("_DOOR")) {
             Door door = Door.byName.get(display);
-            ItemStack is = new ItemStack(door.getMaterial(), 1);
+            ItemStack is = ItemStack.of(door.getMaterial(), 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(ComponentUtils.toWhite("Door " + TARDISStringUtils.capitalise(door.getName())));
             NamespacedKey key = switch (door.getMaterial()) {
@@ -59,7 +59,7 @@ public class TARDISDisplayBlockCommand {
             return is;
         } else if (display.startsWith("TIME_")) {
             Rotor rotor = Rotor.byName.get(display);
-            ItemStack is = new ItemStack(Material.LIGHT_GRAY_DYE, 1);
+            ItemStack is = ItemStack.of(Material.LIGHT_GRAY_DYE, 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(ComponentUtils.toWhite("Time Rotor " + rotor.name()));
             im.getPersistentDataContainer().set(plugin.getCustomBlockKey(), PersistentDataType.STRING, rotor.offModel().getKey());
@@ -69,7 +69,7 @@ public class TARDISDisplayBlockCommand {
         } else {
             try {
                 TARDISDisplayItem tdi = TARDISDisplayItem.valueOf(display);
-                ItemStack is = new ItemStack(tdi.getMaterial(), 1);
+                ItemStack is = ItemStack.of(tdi.getMaterial(), 1);
                 ItemMeta im = is.getItemMeta();
                 im.displayName(ComponentUtils.toWhite(tdi.getDisplayName()));
                 if (tdi.getCustomModel() != null) {

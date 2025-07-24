@@ -48,7 +48,7 @@ class ComputerInventory implements InventoryHolder {
         ItemStack[] stacks = new ItemStack[54];
         // make screens
         for (Screen screen : Screen.values()) {
-            ItemStack is = new ItemStack(Material.LIME_STAINED_GLASS, 1);
+            ItemStack is = ItemStack.of(Material.LIME_STAINED_GLASS, 1);
             ItemMeta im = is.getItemMeta();
             im.displayName(Component.text(screen.getName()));
             im.setItemModel(ChemistryEquipment.COMPUTER_DISK.getKey());
@@ -57,7 +57,7 @@ class ComputerInventory implements InventoryHolder {
             stacks[screen.ordinal()] = is;
         }
         // Cancel / close
-        ItemStack close = new ItemStack(Material.BOWL, 1);
+        ItemStack close = ItemStack.of(Material.BOWL, 1);
         ItemMeta can = close.getItemMeta();
         can.displayName(Component.text("Close"));
         can.setItemModel(GuiVariant.CLOSE.getKey());

@@ -204,7 +204,7 @@ public class TARDISBeaconColouringListener implements Listener {
         if (amount > needed) {
             player.getInventory().getItemInMainHand().setAmount(amount - needed);
         } else {
-            player.getInventory().removeItem(new ItemStack(dye.getType(), needed));
+            player.getInventory().removeItem(ItemStack.of(dye.getType(), needed));
         }
         player.updateInventory();
         candidates.forEach((bb) -> changeColour(bb, dye));

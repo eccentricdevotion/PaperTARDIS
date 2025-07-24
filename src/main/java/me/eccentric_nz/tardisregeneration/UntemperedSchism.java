@@ -37,7 +37,7 @@ import java.util.List;
 public class UntemperedSchism {
 
     public static ItemStack create() {
-        ItemStack untempered = new ItemStack(Material.ANCIENT_DEBRIS);
+        ItemStack untempered = ItemStack.of(Material.ANCIENT_DEBRIS);
         ItemMeta im = untempered.getItemMeta();
         im.setItemModel(Schism.UNTEMPERED_SCHISM_BLOCK.getKey());
         im.displayName(ComponentUtils.toWhite("Untempered Schism"));

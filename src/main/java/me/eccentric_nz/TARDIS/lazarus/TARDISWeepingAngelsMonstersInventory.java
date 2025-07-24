@@ -56,7 +56,7 @@ public class TARDISWeepingAngelsMonstersInventory implements InventoryHolder {
         ItemStack[] stacks = new ItemStack[54];
         int i = 0;
         for (Monster monster : Monster.values()) {
-            ItemStack mon = new ItemStack(monster.getMaterial(), 1);
+            ItemStack mon = ItemStack.of(monster.getMaterial(), 1);
             ItemMeta ster = mon.getItemMeta();
             ster.displayName(Component.text(monster.getName()));
             mon.setItemMeta(ster);
@@ -64,25 +64,25 @@ public class TARDISWeepingAngelsMonstersInventory implements InventoryHolder {
             i++;
         }
         // page one
-        ItemStack page1 = new ItemStack(GUIChameleonPoliceBoxes.GO_TO_PAGE_1.material(), 1);
+        ItemStack page1 = ItemStack.of(GUIChameleonPoliceBoxes.GO_TO_PAGE_1.material(), 1);
         ItemMeta one = page1.getItemMeta();
         one.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_1")));
         page1.setItemMeta(one);
         stacks[42] = page1;
         // page two
-        ItemStack page2 = new ItemStack(GUIChameleonPresets.GO_TO_PAGE_2.material(), 1);
+        ItemStack page2 = ItemStack.of(GUIChameleonPresets.GO_TO_PAGE_2.material(), 1);
         ItemMeta two = page2.getItemMeta();
         two.displayName(Component.text(plugin.getLanguage().getString("BUTTON_PAGE_2")));
         page2.setItemMeta(two);
         stacks[43] = page2;
         // add skins
-        ItemStack down = new ItemStack(GUIGeneticManipulator.BUTTON_SKINS.material(), 1);
+        ItemStack down = ItemStack.of(GUIGeneticManipulator.BUTTON_SKINS.material(), 1);
         ItemMeta load = down.getItemMeta();
         load.displayName(Component.text("TARDIS Television"));
         down.setItemMeta(load);
         stacks[44] = down;
         // master
-        ItemStack the = new ItemStack(GUIGeneticManipulator.BUTTON_MASTER.material(), 1);
+        ItemStack the = ItemStack.of(GUIGeneticManipulator.BUTTON_MASTER.material(), 1);
         ItemMeta master = the.getItemMeta();
         master.displayName(Component.text(plugin.getLanguage().getString("BUTTON_MASTER")));
         master.lore(List.of(Component.text(plugin.getLanguage().getString("SET_OFF", "OFF"))));
@@ -92,19 +92,19 @@ public class TARDISWeepingAngelsMonstersInventory implements InventoryHolder {
         the.setItemMeta(master);
         stacks[GUIGeneticManipulator.BUTTON_MASTER.slot()] = the;
         // add buttons
-        ItemStack rem = new ItemStack(GUIGeneticManipulator.BUTTON_RESTORE.material(), 1);
+        ItemStack rem = ItemStack.of(GUIGeneticManipulator.BUTTON_RESTORE.material(), 1);
         ItemMeta ove = rem.getItemMeta();
         ove.displayName(Component.text(plugin.getLanguage().getString("BUTTON_RESTORE")));
         rem.setItemMeta(ove);
         stacks[GUIGeneticManipulator.BUTTON_RESTORE.slot()] = rem;
         // set
-        ItemStack s = new ItemStack(GUIGeneticManipulator.BUTTON_DNA.material(), 1);
+        ItemStack s = ItemStack.of(GUIGeneticManipulator.BUTTON_DNA.material(), 1);
         ItemMeta sim = s.getItemMeta();
         sim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_DNA")));
         s.setItemMeta(sim);
         stacks[GUIGeneticManipulator.BUTTON_DNA.slot()] = s;
         // cancel
-        ItemStack can = new ItemStack(GUIGeneticManipulator.BUTTON_CANCEL.material(), 1);
+        ItemStack can = ItemStack.of(GUIGeneticManipulator.BUTTON_CANCEL.material(), 1);
         ItemMeta cel = can.getItemMeta();
         cel.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CANCEL")));
         can.setItemMeta(cel);

@@ -57,7 +57,7 @@ public class TARDISRandomiserCircuitRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.GLOWSTONE_DUST, 1);
+        ItemStack is = ItemStack.of(Material.GLOWSTONE_DUST, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Randomiser Circuit"));
         CustomModelDataComponent component = im.getCustomModelDataComponent();

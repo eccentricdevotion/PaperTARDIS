@@ -49,7 +49,7 @@ public class HeadlessShootRunnable implements Runnable {
             ((LivingEntity) monk).launchProjectile(SmallFireball.class, bulletVelocity);
         } else {
             Snowball snowball = ((LivingEntity) monk).launchProjectile(Snowball.class, bulletVelocity);
-            snowball.setItem(new ItemStack(Material.FIRE_CHARGE, 1));
+            snowball.setItem(ItemStack.of(Material.FIRE_CHARGE, 1));
         }
     }
 

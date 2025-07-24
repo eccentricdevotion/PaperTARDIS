@@ -40,7 +40,7 @@ import java.util.UUID;
 public class MonitorUtils {
 
     public static ItemStack createMap(Location location, int distance) {
-        ItemStack itemStack = new ItemStack(Material.FILLED_MAP);
+        ItemStack itemStack = ItemStack.of(Material.FILLED_MAP);
         MapMeta mapMeta = (MapMeta) itemStack.getItemMeta();
         MapView mapView = Bukkit.createMap(location.getWorld());
         mapView.setTrackingPosition(false);
@@ -55,7 +55,7 @@ public class MonitorUtils {
     }
 
     public static void createSnapshot(Location location, Player player, int distance) {
-        ItemStack itemStack = new ItemStack(Material.FILLED_MAP);
+        ItemStack itemStack = ItemStack.of(Material.FILLED_MAP);
         MapMeta mapMeta = (MapMeta) itemStack.getItemMeta();
         MapView mapView = Bukkit.createMap(location.getWorld());
         mapView.setTrackingPosition(false);

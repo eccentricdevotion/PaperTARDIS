@@ -47,7 +47,7 @@ public class JammyDodgerRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.COOKIE, 8);
+        ItemStack is = ItemStack.of(Material.COOKIE, 8);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("Jammy Dodger"));
         im.lore(List.of(Component.text("Best eaten with custard!")));

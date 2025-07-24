@@ -65,7 +65,7 @@ class TARDISHowtoWallsInventory implements InventoryHolder {
             if (i > 52) {
                 break;
             }
-            ItemStack is = new ItemStack(entry, 1);
+            ItemStack is = ItemStack.of(entry, 1);
             stack[i] = is;
             if (i % 9 == 7) {
                 i += 2;
@@ -75,25 +75,25 @@ class TARDISHowtoWallsInventory implements InventoryHolder {
         }
 
         // scroll up
-        ItemStack scroll_up = new ItemStack(GUIWallFloor.BUTTON_SCROLL_U.material(), 1);
+        ItemStack scroll_up = ItemStack.of(GUIWallFloor.BUTTON_SCROLL_U.material(), 1);
         ItemMeta uim = scroll_up.getItemMeta();
         uim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_U")));
         scroll_up.setItemMeta(uim);
         stack[GUIWallFloor.BUTTON_SCROLL_U.slot()] = scroll_up;
         // scroll down
-        ItemStack scroll_down = new ItemStack(GUIWallFloor.BUTTON_SCROLL_D.material(), 1);
+        ItemStack scroll_down = ItemStack.of(GUIWallFloor.BUTTON_SCROLL_D.material(), 1);
         ItemMeta dim = scroll_down.getItemMeta();
         dim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_SCROLL_D")));
         scroll_down.setItemMeta(dim);
         stack[26] = scroll_down;
         // back
-        ItemStack back = new ItemStack(GUIChameleonPresets.BACK.material(), 1);
+        ItemStack back = ItemStack.of(GUIChameleonPresets.BACK.material(), 1);
         ItemMeta back_im = back.getItemMeta();
         back_im.displayName(Component.text("Back"));
         back.setItemMeta(back_im);
         stack[44] = back;
         // close
-        ItemStack close = new ItemStack(GUIChameleonPresets.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUIChameleonPresets.CLOSE.material(), 1);
         ItemMeta close_im = close.getItemMeta();
         close_im.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(close_im);

@@ -42,11 +42,11 @@ class TARDISRegulatorSlot {
     final ItemStack vortex;
 
     TARDISRegulatorSlot() {
-        box = new ItemStack(Material.BLUE_WOOL, 1);
+        box = ItemStack.of(Material.BLUE_WOOL, 1);
         ItemMeta ler = box.getItemMeta();
         ler.displayName(Component.text("Regulator"));
         box.setItemMeta(ler);
-        vortex = new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1);
+        vortex = ItemStack.of(Material.BLACK_STAINED_GLASS_PANE, 1);
     }
 
     int upSlot(int current_slot) {

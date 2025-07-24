@@ -44,7 +44,7 @@ public class TARDISShopItemSpawner {
         String toEnum = TARDISStringUtils.toEnumUppercase(what.item());
         try {
             ShopItem si = ShopItem.valueOf(toEnum);
-            ItemStack is = new ItemStack(si.getMaterial(), 1);
+            ItemStack is = ItemStack.of(si.getMaterial(), 1);
             ItemMeta im = is.getItemMeta();
             if (si.getRecipeType() == ShopItemRecipe.MODELLED || si.getRecipeType() == ShopItemRecipe.TWA) {
                 im.setItemModel(si.getModel());

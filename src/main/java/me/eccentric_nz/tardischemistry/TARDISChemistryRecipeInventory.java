@@ -32,18 +32,18 @@ public class TARDISChemistryRecipeInventory implements InventoryHolder {
 
     private ItemStack[] getStacks() {
         ItemStack[] stacks = new ItemStack[27];
-        ItemStack ingredient = new ItemStack(material, 1);
+        ItemStack ingredient = ItemStack.of(material, 1);
         stacks[0] = ingredient;
         stacks[1] = ingredient;
         stacks[2] = ingredient;
         stacks[9] = ingredient;
-        stacks[10] = new ItemStack(Material.CRAFTING_TABLE, 1);
+        stacks[10] = ItemStack.of(Material.CRAFTING_TABLE, 1);
         stacks[11] = ingredient;
         stacks[18] = ingredient;
         stacks[19] = ingredient;
         stacks[20] = ingredient;
         RecipeData data = ChemistryBlock.RECIPES.get(which);
-        ItemStack result = new ItemStack(data.displayItem().getMaterial(), 1);
+        ItemStack result = ItemStack.of(data.displayItem().getMaterial(), 1);
         ItemMeta im = result.getItemMeta();
         im.displayName(ComponentUtils.toWhite(data.displayName()));
         im.lore(data.lore());

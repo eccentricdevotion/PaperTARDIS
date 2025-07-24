@@ -47,7 +47,7 @@ public class Regenerator {
         // make player invulnerable
         player.setInvulnerable(true);
         // create the regeneration item model
-        ItemStack totem = new ItemStack(Material.TOTEM_OF_UNDYING, 1);
+        ItemStack totem = ItemStack.of(Material.TOTEM_OF_UNDYING, 1);
         ItemMeta im = totem.getItemMeta();
         // hide player
         for (Player p : plugin.getServer().getOnlinePlayers()) {

@@ -50,7 +50,7 @@ public class TARDISLocatorRecipe {
     }
 
     public void addRecipe() {
-        ItemStack is = new ItemStack(Material.COMPASS, 1);
+        ItemStack is = ItemStack.of(Material.COMPASS, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(ComponentUtils.toWhite("TARDIS Locator"));
         is.setItemMeta(im);
@@ -59,7 +59,7 @@ public class TARDISLocatorRecipe {
         r.shape("OIO", "ICI", "OIO");
         if (plugin.getCraftingDifficulty() == CraftingDifficulty.HARD) {
             r.setIngredient('O', Material.OBSIDIAN);
-            ItemStack exact = new ItemStack(Material.GLOWSTONE_DUST, 1);
+            ItemStack exact = ItemStack.of(Material.GLOWSTONE_DUST, 1);
             ItemMeta em = exact.getItemMeta();
             em.displayName(ComponentUtils.toWhite("TARDIS Locator Circuit"));
             CustomModelDataComponent component = em.getCustomModelDataComponent();

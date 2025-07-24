@@ -50,7 +50,7 @@ public class TARDISTimeRotor {
     }
 
     public static void setRotor(NamespacedKey key, ItemFrame itemFrame) {
-        ItemStack is = new ItemStack(Material.LIGHT_GRAY_DYE, 1);
+        ItemStack is = ItemStack.of(Material.LIGHT_GRAY_DYE, 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(Component.text("Time Rotor"));
         im.setItemModel(key);
@@ -62,7 +62,7 @@ public class TARDISTimeRotor {
     }
 
     public static void setRotor(Rotor which, ItemFrame itemFrame) {
-        ItemStack is = new ItemStack(which.material(), 1);
+        ItemStack is = ItemStack.of(which.material(), 1);
         ItemMeta im = is.getItemMeta();
         im.displayName(Component.text("Time Rotor"));
         im.setItemModel(which.offModel());

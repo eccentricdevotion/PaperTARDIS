@@ -51,17 +51,17 @@ public class TARDISLightEmittingInventory implements InventoryHolder {
         ItemStack[] stacks = new ItemStack[27];
         // 0 -> lightEmitting.size() - 1
         for (int i = 0; i < Sequences.LIGHT_EMITTING.size(); i++) {
-            ItemStack light = new ItemStack(Sequences.LIGHT_EMITTING.get(i), 1);
+            ItemStack light = ItemStack.of(Sequences.LIGHT_EMITTING.get(i), 1);
             stacks[i] = light;
         }
         // back button
-        ItemStack back = new ItemStack(GUIChameleonTemplate.BACK_HELP.material(), 1);
+        ItemStack back = ItemStack.of(GUIChameleonTemplate.BACK_HELP.material(), 1);
         ItemMeta bk = back.getItemMeta();
         bk.displayName(Component.text("Back"));
         back.setItemMeta(bk);
         stacks[24] = back;
         // 26 close
-        ItemStack close = new ItemStack(GUILights.CLOSE.material(), 1);
+        ItemStack close = ItemStack.of(GUILights.CLOSE.material(), 1);
         ItemMeta clim = close.getItemMeta();
         clim.displayName(Component.text(plugin.getLanguage().getString("BUTTON_CLOSE", "Close")));
         close.setItemMeta(clim);

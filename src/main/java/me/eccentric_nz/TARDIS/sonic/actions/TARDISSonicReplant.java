@@ -58,21 +58,21 @@ public class TARDISSonicReplant implements Runnable {
                 if (under.getType().equals(soil) && block.getType().equals(air)) {
                     block.setBlockData(Material.BEETROOTS.createBlockData());
                 } else {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.BEETROOT));
+                    block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.BEETROOT));
                 }
             }
             case CACTUS -> {
                 if (dirt.contains(under.getType()) || Tag.SAND.isTagged(under.getType()) && block.getType().equals(air)) {
                     block.setBlockData(Material.CACTUS.createBlockData());
                 } else {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.CACTUS));
+                    block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.CACTUS));
                 }
             }
             case CARROT -> {
                 if (under.getType().equals(soil) && block.getType().equals(air)) {
                     block.setBlockData(Material.CARROTS.createBlockData());
                 } else {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.CARROT));
+                    block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.CARROT));
                 }
             }
             case COCOA_BEANS -> {
@@ -87,70 +87,70 @@ public class TARDISSonicReplant implements Runnable {
                         }
                     });
                 } else {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.COCOA_BEANS, 1));
+                    block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.COCOA_BEANS, 1));
                 }
             }
             case MELON_SEEDS -> {
                 if (under.getType().equals(soil) && block.getType().equals(air)) {
                     block.setBlockData(Material.MELON_STEM.createBlockData());
                 } else {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.MELON_SEEDS));
+                    block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.MELON_SEEDS));
                 }
             }
             case NETHER_WART -> {
                 if (under.getType().equals(soul) && block.getType().equals(air)) {
                     block.setBlockData(Material.NETHER_WART.createBlockData());
                 } else {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.NETHER_WART));
+                    block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.NETHER_WART));
                 }
             }
             case POTATO -> {
                 if (under.getType().equals(soil) && block.getType().equals(air)) {
                     block.setBlockData(Material.POTATOES.createBlockData());
                 } else {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.POTATO));
+                    block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.POTATO));
                 }
             }
             case PUMPKIN_SEEDS -> {
                 if (under.getType().equals(soil) && block.getType().equals(air)) {
                     block.setBlockData(Material.PUMPKIN_STEM.createBlockData());
                 } else {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.PUMPKIN_SEEDS));
+                    block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.PUMPKIN_SEEDS));
                 }
             }
             case SUGAR_CANE -> {
                 if (dirt.contains(under.getType()) || Tag.SAND.isTagged(under.getType()) && block.getType().equals(air)) {
                     block.setBlockData(Material.SUGAR_CANE.createBlockData());
                 } else {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SUGAR_CANE));
+                    block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.SUGAR_CANE));
                 }
             }
             case WHEAT_SEEDS -> {
                 if (under.getType().equals(soil) && block.getType().equals(air)) {
                     block.setBlockData(Material.WHEAT.createBlockData());
                 } else {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.WHEAT_SEEDS));
+                    block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.WHEAT_SEEDS));
                 }
             }
             case SWEET_BERRIES -> {
                 if (dirt.contains(under.getType()) && block.getType().equals(air)) {
                     block.setBlockData(Material.SWEET_BERRY_BUSH.createBlockData());
                 } else {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.SWEET_BERRIES));
+                    block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.SWEET_BERRIES));
                 }
             }
             case PITCHER_POD -> {
                 if (under.getType().equals(soil) && block.getType().equals(air)) {
                     block.setBlockData(Material.PITCHER_CROP.createBlockData());
                 } else {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.PITCHER_PLANT));
+                    block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.PITCHER_PLANT));
                 }
             }
             case TORCHFLOWER, TORCHFLOWER_SEEDS -> {
                 if (under.getType().equals(soil) && block.getType().equals(air)) {
                     block.setBlockData(Material.TORCHFLOWER_CROP.createBlockData());
                 } else {
-                    block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.TORCHFLOWER));
+                    block.getWorld().dropItemNaturally(block.getLocation(), ItemStack.of(Material.TORCHFLOWER));
                 }
             }
             default -> {

@@ -36,7 +36,7 @@ public class HeadCommand {
             URL url = URI.create("http://textures.minecraft.net/texture/3583ce755f1fc238393e11f64b7214d9602075c214b9ed99cec4e35cf1e24c4").toURL();
             textures.setSkin(url);
             profile.setTextures(textures);
-            ItemStack is = new ItemStack(Material.PLAYER_HEAD);
+            ItemStack is = ItemStack.of(Material.PLAYER_HEAD);
             SkullMeta im = (SkullMeta) is.getItemMeta();
             im.setPlayerProfile(profile);
             is.setItemMeta(im);
