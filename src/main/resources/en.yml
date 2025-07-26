@@ -367,6 +367,7 @@ CONFIG_CREATION_WORLD: "The plugin no longer supports creating TARDISes undergro
 CONFIG_OPTION: "The config option [%s] is set to %s"
 CONFIG_OPTION_ARTRON: "The Artron config option [%s] is set to %s"
 CONFIG_OPTION_SET: "To set a config option, supply a valid value e.g. '/tconfig %s [value]'"
+CONFIG_SECTION_UPDATED: "The config section [%s] was updated!"
 CONFIG_UPDATED: "The config option [%s] was updated!"
 CONSOLE_COLOUR_AMOUNT: "You need 6 concrete powder to change the console color!"
 CONSOLE_HAS: "You already have an integrated console!"

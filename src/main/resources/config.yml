@@ -101,6 +101,7 @@ difficulty:
   tardis_locator: false
   system_upgrades: false
 # eye of harmony preferences
+# https://tardis.pages.dev/configuration/eye-of-harmony
 eye_of_harmony:
   player_damage: true
   damage_amount: 0.5

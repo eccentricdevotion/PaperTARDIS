@@ -24,6 +24,7 @@ import me.eccentric_nz.TARDIS.artron.TARDISArtronLevels;
 import me.eccentric_nz.TARDIS.artron.TARDISBeaconToggler;
 import me.eccentric_nz.TARDIS.autonomous.TARDISAutonomousInventory;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
+import me.eccentric_nz.TARDIS.commands.config.ConfigDialog;
 import me.eccentric_nz.TARDIS.commands.config.TARDISConfigMenuInventory;
 import me.eccentric_nz.TARDIS.custommodels.GUIPlayerPreferences;
 import me.eccentric_nz.TARDIS.database.data.Tardis;
@@ -42,6 +43,7 @@ import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -147,7 +149,7 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
             // cycle through flight modes
             FlightMode flight = FlightMode.valueOf(ComponentUtils.stripColour(lore.getFirst()));
             int mode = flight.getMode() + 1;
-            int limit = (TARDISPermission.hasPermission(p,"tardis.fly")) ? 4 : 3;
+            int limit = (TARDISPermission.hasPermission(p, "tardis.fly")) ? 4 : 3;
             if (mode > limit) {
                 mode = 1;
             }
@@ -288,8 +290,16 @@ public class TARDISPrefsMenuListener extends TARDISMenuListener {
         }
         if (slot == GUIPlayerPreferences.ADMIN_MENU.getSlot() && ComponentUtils.stripColour(im.displayName()).equals("Admin Config Menu")) {
             // close this gui and load the Admin Menu
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () ->
-                    p.openInventory(new TARDISConfigMenuInventory(plugin).getInventory()), 1L);
+            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                ResultSetPlayerPrefs rsp = new ResultSetPlayerPrefs(plugin, uuid.toString());
+                if (rsp.resultSet() && rsp.isDialogsOn()) {
+                    // close inventory
+                    p.closeInventory();
+                    Audience.audience(p).showDialog(new ConfigDialog(plugin).create());
+                } else {
+                    p.openInventory(new TARDISConfigMenuInventory(plugin).getInventory());
+                }
+            }, 1L);
             return;
         }
         List<Component> lore = im.lore();
