@@ -38,7 +38,7 @@ public class ConfigSectionProcessor {
                     if (dv.equals("true") || dv.equals("false")) {
                         // DialogInput.bool
                         boolean b = plugin.getConfig().getBoolean(section + "." + key + "." + deep);
-                        inputs.add(DialogInput.bool(key + "9" + deep, Component.text(deep), b, "true", "false"));
+                        inputs.add(DialogInput.bool(key + "9" + deep, Component.text(TARDISStringUtils.rightPad(deep, 180)), b, "true", "false"));
                     } else {
                         // DialogInput.text
                         inputs.add(DialogInput.text(key + "9" + deep, 200, Component.text(deep), true, dv, value.length() + 16, null));
@@ -47,7 +47,7 @@ public class ConfigSectionProcessor {
             } else if (value.equals("true") || value.equals("false")) {
                 // DialogInput.bool
                 boolean b = plugin.getConfig().getBoolean(section + "." + key);
-                inputs.add(DialogInput.bool(key, Component.text(key), b, "true", "false"));
+                inputs.add(DialogInput.bool(key, Component.text(TARDISStringUtils.rightPad(key, 180)), b, "true", "false"));
             } else {
                 // DialogInput.text
                 inputs.add(DialogInput.text(key, 200, Component.text(key), true, value, value.length() + 16, null));

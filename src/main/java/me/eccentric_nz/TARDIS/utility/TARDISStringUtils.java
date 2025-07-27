@@ -16,6 +16,8 @@
  */
 package me.eccentric_nz.TARDIS.utility;
 
+import me.eccentric_nz.TARDIS.playerprefs.DefaultFontInfo;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -121,5 +123,22 @@ public class TARDISStringUtils {
     public static String getValuesFromWallString(String str) {
         String[] split = str.split(": ");
         return split[1];
+    }
+
+    public static String rightPad(String message, int length) {
+        int size = 0;
+        for (char c : message.toCharArray()) {
+            DefaultFontInfo info = DefaultFontInfo.getDefaultFontInfo(c);
+            size += info.getLength();
+            size++;
+        }
+        int spaceLength = DefaultFontInfo.SPACE.getLength() + 1;
+        int compensated = 0;
+        StringBuilder sb = new StringBuilder(message);
+        while (compensated < length - size) {
+            sb.append(" ");
+            compensated += spaceLength;
+        }
+        return sb.toString();
     }
 }
