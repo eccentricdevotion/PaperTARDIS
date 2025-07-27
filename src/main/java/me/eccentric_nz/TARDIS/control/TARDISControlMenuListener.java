@@ -23,7 +23,7 @@ import me.eccentric_nz.TARDIS.advanced.TARDISCircuitChecker;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.chameleon.gui.TARDISChameleonInventory;
 import me.eccentric_nz.TARDIS.commands.dev.SystemTreeCommand;
-import me.eccentric_nz.TARDIS.commands.preferences.TARDISPrefsMenuInventory;
+import me.eccentric_nz.TARDIS.playerprefs.TARDISPrefsMenuInventory;
 import me.eccentric_nz.TARDIS.commands.tardis.TARDISHideCommand;
 import me.eccentric_nz.TARDIS.commands.tardis.TARDISRebuildCommand;
 import me.eccentric_nz.TARDIS.companionGUI.TARDISCompanionAddInventory;

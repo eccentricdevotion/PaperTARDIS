@@ -52,15 +52,18 @@ public enum GUIPlayerPreferences {
     INFO_GUI(SwitchVariant.INFO_ON.getFloats(), SwitchVariant.INFO_OFF.getFloats(), 24, Material.REPEATER),
     ANNOUNCE_REPEATERS(SwitchVariant.ANNOUNCE_REPEATERS_ON.getFloats(), SwitchVariant.ANNOUNCE_REPEATERS_OFF.getFloats(), 25, Material.REPEATER),
     OPEN_DISPLAY_DOOR(SwitchVariant.OPEN_DISPLAY_DOOR_ON.getFloats(), SwitchVariant.OPEN_DISPLAY_DOOR_OFF.getFloats(), 26, Material.REPEATER),
-    FLIGHT_MODE(null, null, 27, Material.ELYTRA),
-    INTERIOR_HUM_SOUND(null, null, 28, Material.BOWL),
-    AUTONOMOUS_PREFERENCES(null, null, 29, Material.BOWL),
-    FARMING_PREFERENCES(null, null, 30, Material.BOWL),
-    PARTICLES(null, null, 31, Material.BOWL),
-    SONIC_CONFIGURATOR(null, null, 32, Material.BOWL),
-    HANDBRAKE(null, null, 33, Material.LEVER),
-    TARDIS_MAP(null, null, 34, Material.MAP),
-    ADMIN_MENU(null, null, 35, Material.NETHER_STAR);
+    DIALOGS(SwitchVariant.DIALOGS_ON.getFloats(), SwitchVariant.DIALOGS_OFF.getFloats(), 27, Material.REPEATER),
+    // main menu
+    FLIGHT_MODE(null, null, 0, Material.ELYTRA),
+    INTERIOR_HUM_SOUND(null, null, 2, Material.BOWL),
+    AUTONOMOUS_PREFERENCES(null, null, 4, Material.BOWL),
+    FARMING_PREFERENCES(null, null, 6, Material.BOWL),
+    PARTICLES(null, null, 8, Material.BOWL),
+    SONIC_CONFIGURATOR(null, null, 10, Material.BOWL),
+    HANDBRAKE(null, null, 12, Material.LEVER),
+    TARDIS_MAP(null, null, 14, Material.MAP),
+    GENERAL_PREFERENCES_MENU(null, null, 24, Material.NETHER_STAR),
+    ADMIN_MENU(null, null, 26, Material.NETHER_STAR);
 
     private final List<Float> onFloats;
     private final List<Float> offFloats;

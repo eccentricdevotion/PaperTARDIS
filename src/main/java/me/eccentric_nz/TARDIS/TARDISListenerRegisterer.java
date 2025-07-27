@@ -34,9 +34,7 @@ import me.eccentric_nz.TARDIS.chameleon.gui.*;
 import me.eccentric_nz.TARDIS.chameleon.shell.TARDISPlayerShellListener;
 import me.eccentric_nz.TARDIS.chameleon.shell.TARDISShellLoaderListener;
 import me.eccentric_nz.TARDIS.commands.config.TARDISConfigMenuListener;
-import me.eccentric_nz.TARDIS.commands.preferences.TARDISHumListener;
-import me.eccentric_nz.TARDIS.commands.preferences.TARDISKeyMenuListener;
-import me.eccentric_nz.TARDIS.commands.preferences.TARDISPrefsMenuListener;
+import me.eccentric_nz.TARDIS.playerprefs.*;
 import me.eccentric_nz.TARDIS.commands.utils.TARDISWeatherListener;
 import me.eccentric_nz.TARDIS.companionGUI.TARDISCompanionAddGUIListener;
 import me.eccentric_nz.TARDIS.companionGUI.TARDISCompanionGUIListener;
@@ -272,6 +270,7 @@ class TARDISListenerRegisterer {
         plugin.getPM().registerEvents(new TARDISParticleGUIListener(plugin), plugin);
         plugin.getPM().registerEvents(new TARDISPortalListener(plugin), plugin);
         plugin.getPM().registerEvents(new TARDISPrefsMenuListener(plugin), plugin);
+        plugin.getPM().registerEvents(new TARDISGeneralPrefsListener(plugin), plugin);
         plugin.getPM().registerEvents(new TARDISPresetListener(plugin), plugin);
         plugin.getPM().registerEvents(new TARDISQuitListener(plugin), plugin);
         plugin.getPM().registerEvents(new TARDISRecipeListener(plugin), plugin);

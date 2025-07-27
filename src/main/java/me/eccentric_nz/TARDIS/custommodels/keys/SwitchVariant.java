@@ -67,6 +67,8 @@ public enum SwitchVariant {
     CREATION_ON(new NamespacedKey(TARDIS.plugin, "switch_creation_on"), List.of(231f)),
     DEBUG_OFF(new NamespacedKey(TARDIS.plugin, "switch_debug_off"), List.of(140f)),
     DEBUG_ON(new NamespacedKey(TARDIS.plugin, "switch_debug_on"), List.of(240f)),
+    DIALOGS_OFF(new NamespacedKey(TARDIS.plugin, "switch_dialogs_off"), List.of(155f)),
+    DIALOGS_ON(new NamespacedKey(TARDIS.plugin, "switch_dialogs_on"), List.of(255f)),
     DIFFICULTY_OFF(new NamespacedKey(TARDIS.plugin, "switch_difficulty_off"), List.of(132f)),
     DIFFICULTY_ON(new NamespacedKey(TARDIS.plugin, "switch_difficulty_on"), List.of(232f)),
     DISPLAY_DOOR_CLOSED(new NamespacedKey(TARDIS.plugin, "switch_display_door_off"), List.of(154f)),

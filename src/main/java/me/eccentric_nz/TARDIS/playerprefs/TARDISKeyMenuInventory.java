@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.eccentric_nz.TARDIS.commands.preferences;
+package me.eccentric_nz.TARDIS.playerprefs;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.custommodels.GUIKeyPreferences;
@@ -38,11 +38,11 @@ import java.util.List;
  *
  * @author eccentric_nz
  */
-class TARDISKeyMenuInventory implements InventoryHolder {
+public class TARDISKeyMenuInventory implements InventoryHolder {
 
     private final Inventory inventory;
 
-    TARDISKeyMenuInventory(TARDIS plugin) {
+    public TARDISKeyMenuInventory(TARDIS plugin) {
         this.inventory = plugin.getServer().createInventory(this, 27, Component.text("TARDIS Key Prefs Menu", NamedTextColor.DARK_RED));
         this.inventory.setContents(getItemStack());
     }
@@ -58,7 +58,6 @@ class TARDISKeyMenuInventory implements InventoryHolder {
      * @return an Array of itemStacks (an inventory)
      */
     private ItemStack[] getItemStack() {
-
         ItemStack[] itemStacks = new ItemStack[27];
         Material material;
         try {
@@ -99,7 +98,6 @@ class TARDISKeyMenuInventory implements InventoryHolder {
             is.setItemMeta(im);
             itemStacks[key.getSlot()] = is;
         }
-
         return itemStacks;
     }
 }

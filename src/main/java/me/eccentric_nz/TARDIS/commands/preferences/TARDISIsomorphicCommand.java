@@ -37,7 +37,7 @@ public class TARDISIsomorphicCommand {
         this.plugin = plugin;
     }
 
-    boolean toggleIsomorphicControls(Player player) {
+    public boolean toggleIsomorphicControls(Player player) {
         return toggleIsomorphicControls(player.getUniqueId(), player);
     }
 

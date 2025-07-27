@@ -30,15 +30,15 @@ import java.util.HashMap;
 /**
  * @author eccentric_nz
  */
-class TARDISBuildCommand {
+public class TARDISBuildCommand {
 
     private final TARDIS plugin;
 
-    TARDISBuildCommand(TARDIS plugin) {
+    public TARDISBuildCommand(TARDIS plugin) {
         this.plugin = plugin;
     }
 
-    boolean toggleCompanionBuilding(Player player, String[] args) {
+    public boolean toggleCompanionBuilding(Player player, String[] args) {
         if (!plugin.isWorldGuardOnServer() || !plugin.getConfig().getBoolean("allow.wg_flag_set")) {
             plugin.getMessenger().send(player, TardisModule.TARDIS, "CMD_DISABLED");
             return true;

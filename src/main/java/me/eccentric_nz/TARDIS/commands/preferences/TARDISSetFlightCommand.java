@@ -47,16 +47,8 @@ public class TARDISSetFlightCommand {
             plugin.getMessenger().send(player, TardisModule.TARDIS, "FLIGHT_INFO");
             return true;
         }
-        int mode = 1;
-        switch (fm) {
-            case REGULATOR -> mode = 2;
-            case MANUAL -> mode = 3;
-            case EXTERIOR -> mode = 4;
-            default -> {
-            }
-        }
         HashMap<String, Object> setf = new HashMap<>();
-        setf.put("flying_mode", mode);
+        setf.put("flying_mode", fm.getMode());
         HashMap<String, Object> where = new HashMap<>();
         where.put("uuid", player.getUniqueId().toString());
         plugin.getQueryFactory().doUpdate("player_prefs", setf, where);

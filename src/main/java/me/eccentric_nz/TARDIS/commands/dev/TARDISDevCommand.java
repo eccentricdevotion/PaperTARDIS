@@ -31,6 +31,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.lazarus.disguise.ArmourTrim;
 import me.eccentric_nz.TARDIS.monitor.MonitorSnapshot;
 import me.eccentric_nz.TARDIS.move.TARDISTeleportLocation;
+import me.eccentric_nz.TARDIS.playerprefs.PreferencesDialog;
 import me.eccentric_nz.TARDIS.skins.ArchSkins;
 import me.eccentric_nz.TARDIS.skins.DoctorSkins;
 import me.eccentric_nz.TARDIS.skins.Skin;
@@ -155,7 +156,7 @@ public class TARDISDevCommand implements CommandExecutor {
                         }
                         case "dialog" -> {
                             if (sender instanceof Player player) {
-                                Dialog dialog = new ConfigDialog(plugin).create();
+                                Dialog dialog = new PreferencesDialog(plugin, player.getUniqueId()).create();
                                 Audience.audience(player).showDialog(dialog);
                             }
                             return true;
