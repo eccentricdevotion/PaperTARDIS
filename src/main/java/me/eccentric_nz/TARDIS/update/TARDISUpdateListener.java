@@ -32,6 +32,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.enumeration.Updateable;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -208,10 +209,10 @@ public class TARDISUpdateListener implements Listener {
                     // add text to sign
                     Sign cs = (Sign) block.getState();
                     SignSide front = cs.getSide(Side.FRONT);
-                    front.setLine(0, plugin.getSigns().getStringList("chameleon").getFirst());
-                    front.setLine(1, plugin.getSigns().getStringList("chameleon").get(1));
-                    front.setLine(2, "");
-                    front.setLine(3, tardis.getPreset().toString());
+                    front.line(0, Component.text(plugin.getSigns().getStringList("chameleon").getFirst()));
+                    front.line(1, Component.text(plugin.getSigns().getStringList("chameleon").get(1)));
+                    front.line(2, Component.empty());
+                    front.line(3, Component.text(tardis.getPreset().toString()));
                     cs.update();
                 }
                 case KEYBOARD -> {
@@ -219,9 +220,9 @@ public class TARDISUpdateListener implements Listener {
                     // add text to sign
                     Sign ks = (Sign) block.getState();
                     SignSide front = ks.getSide(Side.FRONT);
-                    front.setLine(0, plugin.getSigns().getStringList("keyboard").getFirst());
+                    front.line(0, Component.text(plugin.getSigns().getStringList("keyboard").getFirst()));
                     for (int i = 1; i < 4; i++) {
-                        front.setLine(i, "");
+                        front.line(i, Component.empty());
                     }
                     ks.update();
                 }
@@ -230,10 +231,10 @@ public class TARDISUpdateListener implements Listener {
                     // add text to sign
                     Sign ss = (Sign) block.getState();
                     SignSide front = ss.getSide(Side.FRONT);
-                    front.setLine(0, "TARDIS");
-                    front.setLine(1, plugin.getSigns().getStringList("saves").getFirst());
-                    front.setLine(2, plugin.getSigns().getStringList("saves").get(1));
-                    front.setLine(3, "");
+                    front.line(0, Component.text("TARDIS"));
+                    front.line(1, Component.text(plugin.getSigns().getStringList("saves").getFirst()));
+                    front.line(2, Component.text(plugin.getSigns().getStringList("saves").get(1)));
+                    front.line(3, Component.empty());
                     ss.update();
                 }
                 case TERMINAL -> {
@@ -241,10 +242,10 @@ public class TARDISUpdateListener implements Listener {
                     // add text to sign
                     Sign ts = (Sign) block.getState();
                     SignSide front = ts.getSide(Side.FRONT);
-                    front.setLine(0, "");
-                    front.setLine(1, plugin.getSigns().getStringList("terminal").getFirst());
-                    front.setLine(2, plugin.getSigns().getStringList("terminal").get(1));
-                    front.setLine(3, "");
+                    front.line(0, Component.empty());
+                    front.line(1, Component.text(plugin.getSigns().getStringList("terminal").getFirst()));
+                    front.line(2, Component.text(plugin.getSigns().getStringList("terminal").get(1)));
+                    front.line(3, Component.empty());
                     ts.update();
                 }
                 case CONTROL -> {
@@ -252,10 +253,10 @@ public class TARDISUpdateListener implements Listener {
                     // add text to sign
                     Sign os = (Sign) block.getState();
                     SignSide front = os.getSide(Side.FRONT);
-                    front.setLine(0, "");
-                    front.setLine(1, plugin.getSigns().getStringList("control").getFirst());
-                    front.setLine(2, plugin.getSigns().getStringList("control").get(1));
-                    front.setLine(3, "");
+                    front.line(0, Component.empty());
+                    front.line(1, Component.text(plugin.getSigns().getStringList("control").getFirst()));
+                    front.line(2, Component.text(plugin.getSigns().getStringList("control").get(1)));
+                    front.line(3, Component.empty());
                     os.update();
                 }
                 case ARS -> new UpdateARS(plugin).process(block, tardis.getSchematic(), id, uuid);
@@ -282,10 +283,10 @@ public class TARDISUpdateListener implements Listener {
                     // add text to sign
                     Sign es = (Sign) block.getState();
                     SignSide front = es.getSide(Side.FRONT);
-                    front.setLine(0, "");
-                    front.setLine(1, plugin.getSigns().getStringList("temporal").getFirst());
-                    front.setLine(2, plugin.getSigns().getStringList("temporal").get(1));
-                    front.setLine(3, "");
+                    front.line(0, Component.empty());
+                    front.line(1, Component.text(plugin.getSigns().getStringList("temporal").getFirst()));
+                    front.line(2, Component.text(plugin.getSigns().getStringList("temporal").get(1)));
+                    front.line(3, Component.empty());
                     es.update();
                 }
                 case ADVANCED, STORAGE -> {
@@ -303,10 +304,10 @@ public class TARDISUpdateListener implements Listener {
                     // add text to sign
                     Sign s = (Sign) block.getState();
                     SignSide front = s.getSide(Side.FRONT);
-                    front.setLine(0, "-----");
-                    front.setLine(1, "TARDIS");
-                    front.setLine(2, plugin.getSigns().getStringList("info").getFirst());
-                    front.setLine(3, plugin.getSigns().getStringList("info").get(1));
+                    front.line(0, Component.text("-----"));
+                    front.line(1, Component.text("TARDIS"));
+                    front.line(2, Component.text(plugin.getSigns().getStringList("info").getFirst()));
+                    front.line(3, Component.text(plugin.getSigns().getStringList("info").get(1)));
                     s.update();
                 }
                 case THROTTLE -> {

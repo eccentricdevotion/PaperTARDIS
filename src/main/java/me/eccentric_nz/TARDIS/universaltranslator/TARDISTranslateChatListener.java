@@ -16,13 +16,15 @@
  */
 package me.eccentric_nz.TARDIS.universaltranslator;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
+import net.kyori.adventure.audience.Audience;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 /**
  * @author eccentric_nz
@@ -36,17 +38,17 @@ public class TARDISTranslateChatListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    public void onTranslateChat(AsyncPlayerChatEvent event) {
+    public void onTranslateChat(AsyncChatEvent event) {
         if (plugin.getTrackerKeeper().getTranslators().isEmpty()) {
             return;
         }
         String sender = event.getPlayer().getName(); // the player SENDING the chat message
-        for (Player p : event.getRecipients()) {
-            if (plugin.getTrackerKeeper().getTranslators().containsKey(p.getUniqueId())) {
+        for (Audience audience : event.viewers()) {
+            if (audience instanceof Player p && plugin.getTrackerKeeper().getTranslators().containsKey(p.getUniqueId())) {
                 TranslateData data = plugin.getTrackerKeeper().getTranslators().get(p.getUniqueId());
                 // should we translate for this sender?
                 if ((data != null) && (data.getSender().equals(sender))) {
-                    translateChat(p, data.getFrom(), data.getTo(), event.getMessage());
+                    translateChat(p, data.getFrom(), data.getTo(), ComponentUtils.stripColour(event.message()));
                 }
             }
         }

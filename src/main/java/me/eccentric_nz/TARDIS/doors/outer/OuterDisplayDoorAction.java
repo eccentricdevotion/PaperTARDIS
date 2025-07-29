@@ -198,8 +198,9 @@ public class OuterDisplayDoorAction extends TARDISDoorListener {
                                                 }
                                                 long now = System.currentTimeMillis();
                                                 TARDISSonicSound.playSonicSound(plugin, player, now, 600L, "sonic_short");
-                                                dye.setType(colour.getType());
-                                                ee.setHelmet(dye, true);
+                                                ItemStack sub = ItemStack.of(colour.getType());
+                                                sub.setItemMeta(colour.getItemMeta());
+                                                ee.setHelmet(sub, true);
                                                 // remove one dye
                                                 int a = colour.getAmount();
                                                 int a2 = a - 1;

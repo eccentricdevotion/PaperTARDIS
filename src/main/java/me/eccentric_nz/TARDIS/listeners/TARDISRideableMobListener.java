@@ -26,6 +26,8 @@ import me.eccentric_nz.TARDIS.mobfarming.TARDISMob;
 import me.eccentric_nz.TARDIS.mobfarming.TARDISPig;
 import me.eccentric_nz.TARDIS.move.TARDISDoorListener;
 import me.eccentric_nz.TARDIS.travel.TARDISDoorLocation;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -127,7 +129,7 @@ public class TARDISRideableMobListener implements Listener {
                                     tmhor.setHorseStyle(hh.getStyle());
                                 }
                                 tmhor.setHorseVariant(e.getType());
-                                tmhor.setName(horse.getCustomName());
+                                tmhor.setName(ComponentUtils.stripColour(horse.customName()));
                                 tmhor.setTamed(true);
                                 if (horse instanceof ChestedHorse ch) {
                                     if (ch.isCarryingChest()) {
@@ -159,7 +161,7 @@ public class TARDISRideableMobListener implements Listener {
                                 if (llama.isCarryingChest()) {
                                     tmlla.setHasChest(true);
                                 }
-                                tmlla.setName(llama.getCustomName());
+                                tmlla.setName(ComponentUtils.stripColour(llama.customName()));
                                 tmlla.setHorseInventory(llama.getInventory().getContents());
                                 tmlla.setDomesticity(llama.getDomestication());
                                 tmlla.setJumpStrength(llama.getJumpStrength());
@@ -182,7 +184,7 @@ public class TARDISRideableMobListener implements Listener {
                                 tmpig.setPigVariant(pig.getVariant());
                                 tmpig.setAge(pig.getAge());
                                 tmpig.setBaby(!pig.isAdult());
-                                tmpig.setName(e.getCustomName());
+                                tmpig.setName(ComponentUtils.stripColour(e.customName()));
                                 tmpig.setSaddled(pig.hasSaddle());
                             }
                             case STRIDER -> {
@@ -191,7 +193,7 @@ public class TARDISRideableMobListener implements Listener {
                                 mob.setType(type);
                                 mob.setAge(strider.getAge());
                                 mob.setBaby(!strider.isAdult());
-                                mob.setName(e.getCustomName());
+                                mob.setName(ComponentUtils.stripColour(e.customName()));
                             }
                             default -> { }
                         }
@@ -213,7 +215,7 @@ public class TARDISRideableMobListener implements Listener {
                                 equine.setJumpStrength(tmhor.getJumpStrength());
                                 String name = tmhor.getName();
                                 if (!name.isEmpty()) {
-                                    equine.setCustomName(name);
+                                    equine.customName(Component.text(name));
                                 }
                                 if (tmhor.hasChest()) {
                                     ChestedHorse chested = (ChestedHorse) equine;
@@ -246,7 +248,7 @@ public class TARDISRideableMobListener implements Listener {
                                 llama.setHealth(tmlla.getHealth());
                                 String name = tmlla.getName();
                                 if (!name.isEmpty()) {
-                                    llama.setCustomName(name);
+                                    llama.customName(Component.text(name));
                                 }
                                 if (tmlla.isTamed()) {
                                     llama.setTamed(true);
@@ -272,7 +274,7 @@ public class TARDISRideableMobListener implements Listener {
                                 }
                                 String name = e.getName();
                                 if (!name.isEmpty()) {
-                                    pig.setCustomName(name);
+                                    pig.customName(Component.text(name));
                                 }
                                 pig.setSaddle(true);
                                 pig.setRemoveWhenFarAway(false);
@@ -285,7 +287,7 @@ public class TARDISRideableMobListener implements Listener {
                                 }
                                 String name = e.getName();
                                 if (!name.isEmpty()) {
-                                    strider.setCustomName(name);
+                                    strider.customName(Component.text(name));
                                 }
                                 strider.setRemoveWhenFarAway(false);
                             }

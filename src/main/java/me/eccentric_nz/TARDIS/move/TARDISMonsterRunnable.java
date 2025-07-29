@@ -26,6 +26,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.lazarus.LazarusVariants;
 import me.eccentric_nz.TARDIS.utility.*;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Difficulty;
 import org.bukkit.Location;
 import org.bukkit.block.Biome;
@@ -192,7 +193,7 @@ public class TARDISMonsterRunnable implements Runnable {
                     tm.setType(type);
                     tm.setAge(e.getTicksLived());
                     tm.setHealth(((LivingEntity) e).getHealth());
-                    tm.setName(e.getCustomName());
+                    tm.setName(ComponentUtils.stripColour(e.customName()));
                     if (!e.getPassengers().isEmpty()) {
                         tm.setPassenger(e.getPassengers().getFirst().getType());
                     }
@@ -420,7 +421,7 @@ public class TARDISMonsterRunnable implements Runnable {
                 ((LivingEntity) ent).setHealth(m.getHealth());
             }
             if (m.getName() != null && !m.getName().isEmpty()) {
-                ent.setCustomName(m.getName());
+                ent.customName(Component.text(m.getName()));
             }
             if (m.getPassenger() != null) {
                 if (plugin.getConfig().getBoolean("modules.weeping_angels") && m.getPassenger().equals(EntityType.GUARDIAN)) {

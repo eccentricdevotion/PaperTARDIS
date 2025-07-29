@@ -27,6 +27,7 @@ import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngelSpawnEvent;
 import me.eccentric_nz.tardisweepingangels.equip.Equipper;
 import me.eccentric_nz.tardisweepingangels.nms.MonsterSpawner;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -80,7 +81,7 @@ public class TARDISTimeLordDeathListener implements Listener {
             new Equipper(Monster.OSSIFIED, e, false).setHelmetAndInvisibility();
             plugin.getServer().getPluginManager().callEvent(new TARDISWeepingAngelSpawnEvent(e, EntityType.ZOMBIE, Monster.OSSIFIED, l));
             String name = player.getName();
-            e.setCustomName(name);
+            e.customName(Component.text(name));
             e.setCustomNameVisible(true);
         }
         // always remove player from eye damage list

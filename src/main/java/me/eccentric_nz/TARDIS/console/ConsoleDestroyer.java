@@ -96,28 +96,45 @@ public class ConsoleDestroyer {
                     if (e instanceof ItemDisplay display) {
                         // get colour
                         ItemStack is = display.getItemStack();
-                        if (colour.isEmpty() && is != null && is.hasItemMeta()) {
+                        if (colour.isEmpty() && is.hasItemMeta()) {
                             ItemMeta im = is.getItemMeta();
                             model = im.getItemModel();
-                            if (model == null && im.hasCustomModelData()) {
-                                switch (im.getCustomModelData()) {
-                                    case 1017, 2017 -> model = ConsolePart.CONSOLE_RUSTIC.getKey();
-                                    case 1016, 2016 -> model = ConsolePart.CONSOLE_BROWN.getKey();
-                                    case 1015, 2015 -> model = ConsolePart.CONSOLE_PINK.getKey();
-                                    case 1014, 2014 -> model = ConsolePart.CONSOLE_MAGENTA.getKey();
-                                    case 1013, 2013 -> model = ConsolePart.CONSOLE_PURPLE.getKey();
-                                    case 1012, 2012 -> model = ConsolePart.CONSOLE_BLUE.getKey();
-                                    case 1011, 2011 -> model = ConsolePart.CONSOLE_LIGHT_BLUE.getKey();
-                                    case 1010, 2010 -> model = ConsolePart.CONSOLE_CYAN.getKey();
-                                    case 1009, 2009 -> model = ConsolePart.CONSOLE_GREEN.getKey();
-                                    case 1008, 2008 -> model = ConsolePart.CONSOLE_LIME.getKey();
-                                    case 1007, 2007 -> model = ConsolePart.CONSOLE_YELLOW.getKey();
-                                    case 1006, 2006 -> model = ConsolePart.CONSOLE_ORANGE.getKey();
-                                    case 1005, 2005 -> model = ConsolePart.CONSOLE_RED.getKey();
-                                    case 1004, 2004 -> model = ConsolePart.CONSOLE_WHITE.getKey();
-                                    case 1003, 2003 -> model = ConsolePart.CONSOLE_BLACK.getKey();
-                                    case 1002, 2002 -> model = ConsolePart.CONSOLE_GRAY.getKey();
-                                    default -> model = ConsolePart.CONSOLE_LIGHT_GRAY.getKey();
+                            if (model == null && im.hasCustomModelDataComponent()) {
+                                float convertedCMD = im.getCustomModelDataComponent().getFloats().getFirst();
+                                if (convertedCMD == 1017.0f || convertedCMD == 2017.0f) {
+                                    model = ConsolePart.CONSOLE_RUSTIC.getKey();
+                                } else if (convertedCMD == 1016.0f || convertedCMD == 2016.0f) {
+                                    model = ConsolePart.CONSOLE_BROWN.getKey();
+                                } else if (convertedCMD == 1015.0f || convertedCMD == 2015.0f) {
+                                    model = ConsolePart.CONSOLE_PINK.getKey();
+                                } else if (convertedCMD == 1014.0f || convertedCMD == 2014.0f) {
+                                    model = ConsolePart.CONSOLE_MAGENTA.getKey();
+                                } else if (convertedCMD == 1013.0f || convertedCMD == 2013.0f) {
+                                    model = ConsolePart.CONSOLE_PURPLE.getKey();
+                                } else if (convertedCMD == 1012.0f || convertedCMD == 2012.0f) {
+                                    model = ConsolePart.CONSOLE_BLUE.getKey();
+                                } else if (convertedCMD == 1011.0f || convertedCMD == 2011.0f) {
+                                    model = ConsolePart.CONSOLE_LIGHT_BLUE.getKey();
+                                } else if (convertedCMD == 1010.0f || convertedCMD == 2010.0f) {
+                                    model = ConsolePart.CONSOLE_CYAN.getKey();
+                                } else if (convertedCMD == 1009.0f || convertedCMD == 2009.0f) {
+                                    model = ConsolePart.CONSOLE_GREEN.getKey();
+                                } else if (convertedCMD == 1008.0f || convertedCMD == 2008.0f) {
+                                    model = ConsolePart.CONSOLE_LIME.getKey();
+                                } else if (convertedCMD == 1007.0f || convertedCMD == 2007.0f) {
+                                    model = ConsolePart.CONSOLE_YELLOW.getKey();
+                                } else if (convertedCMD == 1006.0f || convertedCMD == 2006.0f) {
+                                    model = ConsolePart.CONSOLE_ORANGE.getKey();
+                                } else if (convertedCMD == 1005.0f || convertedCMD == 2005.0f) {
+                                    model = ConsolePart.CONSOLE_RED.getKey();
+                                } else if (convertedCMD == 1004.0f || convertedCMD == 2004.0f) {
+                                    model = ConsolePart.CONSOLE_WHITE.getKey();
+                                } else if (convertedCMD == 1003.0f || convertedCMD == 2003.0f) {
+                                    model = ConsolePart.CONSOLE_BLACK.getKey();
+                                } else if (convertedCMD == 1002.0f || convertedCMD == 2002.0f) {
+                                    model = ConsolePart.CONSOLE_GRAY.getKey();
+                                } else {
+                                    model = ConsolePart.CONSOLE_LIGHT_GRAY.getKey();
                                 }
                             } else {
                                 plugin.debug("found model -> " + model.getKey());
@@ -134,9 +151,9 @@ public class ConsoleDestroyer {
             new ClearInteractions(plugin).removeRecords(id);
             // build item stack
             boolean isRustic = model != null && (
-                model.equals(ConsolePart.CONSOLE_RUSTIC.getKey())
-                || model.equals(ConsolePart.CONSOLE_CENTRE_RUSTIC.getKey())
-                || model.equals(ConsolePart.CONSOLE_DIVISION_RUSTIC.getKey())
+                    model.equals(ConsolePart.CONSOLE_RUSTIC.getKey())
+                            || model.equals(ConsolePart.CONSOLE_CENTRE_RUSTIC.getKey())
+                            || model.equals(ConsolePart.CONSOLE_DIVISION_RUSTIC.getKey())
             );
             Material material = (isRustic) ? Material.WAXED_OXIDIZED_COPPER : Material.valueOf(colour + "_CONCRETE");
             NamespacedKey key;

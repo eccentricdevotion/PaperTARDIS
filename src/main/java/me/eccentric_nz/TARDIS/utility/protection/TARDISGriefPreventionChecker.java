@@ -18,6 +18,7 @@ package me.eccentric_nz.TARDIS.utility.protection;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.ryanhamshire.GriefPrevention.Claim;
+import me.ryanhamshire.GriefPrevention.ClaimPermission;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -48,7 +49,7 @@ public class TARDISGriefPreventionChecker {
         if (griefprevention != null) {
             Claim claim = griefprevention.dataStore.getClaimAt(l, true, null);
             // if no claim at this location or the player has access to the claim - allow
-            if (claim == null || claim.allowAccess(p) == null) {
+            if (claim == null || claim.checkPermission(p, ClaimPermission.Access, null) == null) {
                 bool = false;
             }
         }

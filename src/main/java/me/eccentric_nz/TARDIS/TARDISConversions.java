@@ -99,11 +99,6 @@ public class TARDISConversions {
                 conversions++;
             }
         }
-        if (!plugin.getConfig().getBoolean("conversions.restore_biomes")) {
-            plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> new TARDISBiomeConverter(plugin).convertBiomes(), 1200);
-            plugin.getConfig().set("conversions.restore_biomes", true);
-            conversions++;
-        }
         if (!plugin.getConfig().getBoolean("conversions.interior_door_id")) {
             if (new TARDISInteractionDoorUpdater(plugin).addIds()) {
                 plugin.getConfig().set("conversions.interior_door_id", true);

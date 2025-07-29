@@ -26,6 +26,7 @@ import me.eccentric_nz.TARDIS.enumeration.GlowstoneCircuit;
 import me.eccentric_nz.TARDIS.enumeration.Storage;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -105,7 +106,7 @@ public class DiskStorageAction {
             setstore.put("tardis_id", id);
             plugin.getQueryFactory().doInsert("storage", setstore);
         }
-        Inventory inv = plugin.getServer().createInventory(player, 54, Storage.SAVE_1.getTitle());
+        Inventory inv = plugin.getServer().createInventory(player, 54, Component.text(Storage.SAVE_1.getTitle()));
         inv.setContents(stack);
         player.openInventory(inv);
         // update note block if it's not BARRIER + Item Display

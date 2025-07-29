@@ -26,6 +26,7 @@ import me.eccentric_nz.TARDIS.destroyers.DestroyData;
 import me.eccentric_nz.TARDIS.enumeration.*;
 import me.eccentric_nz.TARDIS.files.TARDISBlockLoader;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
@@ -144,7 +145,7 @@ public class TARDISDeleteCommand {
                 if ((plugin.getConfig().getBoolean("creation.create_worlds") && !plugin.getConfig().getBoolean("creation.default_world")) || wname.contains("TARDIS_WORLD_")) {
                     // delete TARDIS world
                     List<Player> players = cw.getPlayers();
-                    players.forEach((p) -> p.kickPlayer("World scheduled for deletion!"));
+                    players.forEach((p) -> p.kick(Component.text("World scheduled for deletion!")));
                     if (!plugin.getPlanetsConfig().getBoolean("planets." + cw + ".enabled") && plugin.getWorldManager().equals(WorldManager.MULTIVERSE)) {
                         plugin.getServer().dispatchCommand(plugin.getConsole(), "mv remove " + wname);
                     }

@@ -75,22 +75,24 @@ public class TARDISFarmingMenuListener extends TARDISMenuListener {
         ItemStack option = view.getItem(slot);
         ItemMeta im = option.getItemMeta();
         Material material = option.getType();
+        Material m = Material.LIME_WOOL;;
         int onOff = -1;
         switch (material) {
             case LIME_WOOL -> {
                 // disable
                 im.displayName(Component.text("Disabled"));
-                option.setType(Material.RED_WOOL);
+                m = Material.RED_WOOL;
                 onOff = 0;
             }
             case RED_WOOL -> {
                 // enable
                 im.displayName(Component.text("Enabled"));
-                option.setType(Material.LIME_WOOL);
                 onOff = 1;
             }
         }
-        option.setItemMeta(im);
+        ItemStack sub = ItemStack.of(m);
+        sub.setItemMeta(im);
+        view.setItem(slot, sub);
         // update database
         plugin.getQueryFactory().updateFarmingPref(uuid, rooms.get(slot), onOff);
     }

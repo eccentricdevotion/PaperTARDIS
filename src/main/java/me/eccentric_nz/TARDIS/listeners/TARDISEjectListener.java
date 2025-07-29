@@ -22,6 +22,8 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.mobfarming.TARDISLlama;
 import me.eccentric_nz.TARDIS.move.TARDISDoorListener;
 import me.eccentric_nz.TARDIS.travel.TARDISDoorLocation;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -114,9 +116,9 @@ public class TARDISEjectListener implements Listener {
                 Allay a = (Allay) ent;
                 Allay allay = (Allay) l.getWorld().spawnEntity(l, EntityType.ALLAY);
                 allay.setTicksLived(a.getTicksLived());
-                String allayname = ent.getCustomName();
-                if (allayname != null && !allayname.isEmpty()) {
-                    allay.setCustomName(allayname);
+                Component allayname = ent.customName();
+                if (allayname != null) {
+                    allay.customName(allayname);
                 }
                 allay.setCanDuplicate(a.canDuplicate());
                 allay.setDuplicationCooldown(a.getDuplicationCooldown());
@@ -131,9 +133,9 @@ public class TARDISEjectListener implements Listener {
                 if (!b.isAdult()) {
                     bee.setBaby();
                 }
-                String beename = ent.getCustomName();
-                if (beename != null && !beename.isEmpty()) {
-                    bee.setCustomName(beename);
+                Component beename = ent.customName();
+                if (beename != null) {
+                    bee.customName(beename);
                 }
                 bee.setHasStung(b.hasStung());
                 bee.setHasNectar(b.hasNectar());
@@ -147,9 +149,9 @@ public class TARDISEjectListener implements Listener {
                 if ((!k.isAdult())) {
                     chicken.setBaby();
                 }
-                String chickname = ent.getCustomName();
-                if (chickname != null && !chickname.isEmpty()) {
-                    chicken.setCustomName(chickname);
+                Component chickname = ent.customName();
+                if (chickname != null) {
+                    chicken.customName(chickname);
                 }
                 ent.remove();
             }
@@ -161,9 +163,9 @@ public class TARDISEjectListener implements Listener {
                     hump.setBaby();
                 }
                 hump.getInventory().setContents(camel.getInventory().getContents());
-                String camelname = ent.getCustomName();
-                if (camelname != null && !camelname.isEmpty()) {
-                    hump.setCustomName(camelname);
+                Component camelname = ent.customName();
+                if (camelname != null) {
+                    hump.customName(camelname);
                 }
                 hump.setDomestication(camel.getDomestication());
                 ent.remove();
@@ -175,9 +177,9 @@ public class TARDISEjectListener implements Listener {
                 if ((!c.isAdult())) {
                     cow.setBaby();
                 }
-                String cowname = ent.getCustomName();
-                if (cowname != null && !cowname.isEmpty()) {
-                    cow.setCustomName(cowname);
+                Component cowname = ent.customName();
+                if (cowname != null) {
+                    cow.customName(cowname);
                 }
                 ent.remove();
             }
@@ -199,7 +201,7 @@ public class TARDISEjectListener implements Listener {
                 if (ll.isCarryingChest()) {
                     tmlla.setHasChest(true);
                 }
-                tmlla.setName(ll.getCustomName());
+                tmlla.setName(ComponentUtils.stripColour(ll.customName()));
                 tmlla.setHorseInventory(ll.getInventory().getContents());
                 tmlla.setDomesticity(ll.getDomestication());
                 tmlla.setJumpStrength(ll.getJumpStrength());
@@ -225,7 +227,7 @@ public class TARDISEjectListener implements Listener {
                 attribute.setBaseValue(tmlla.getHorseHealth());
                 String name = tmlla.getName();
                 if (name != null && !name.isEmpty()) {
-                    llama.setCustomName(name);
+                    llama.customName(Component.text(name));
                 }
                 if (tmlla.isTamed()) {
                     llama.setTamed(true);
@@ -256,9 +258,9 @@ public class TARDISEjectListener implements Listener {
                     mush.setBaby();
                 }
                 mush.setVariant(m.getVariant());
-                String mushname = ent.getCustomName();
-                if (mushname != null && !mushname.isEmpty()) {
-                    mush.setCustomName(mushname);
+                Component mushname = ent.customName();
+                if (mushname != null) {
+                    mush.customName(mushname);
                 }
                 ent.remove();
             }
@@ -271,9 +273,9 @@ public class TARDISEjectListener implements Listener {
                 }
                 outer_panda.setMainGene(inner_panda.getMainGene());
                 outer_panda.setHiddenGene(inner_panda.getHiddenGene());
-                String panda_name = ent.getCustomName();
-                if (panda_name != null && !panda_name.isEmpty()) {
-                    outer_panda.setCustomName(panda_name);
+                Component panda_name = ent.customName();
+                if (panda_name != null) {
+                    outer_panda.customName(panda_name);
                 }
                 ent.remove();
             }
@@ -281,9 +283,9 @@ public class TARDISEjectListener implements Listener {
                 Parrot inner_parrot = (Parrot) ent;
                 Parrot outer_parrot = (Parrot) l.getWorld().spawnEntity(l, EntityType.PARROT);
                 outer_parrot.setTicksLived(inner_parrot.getTicksLived());
-                String parrot_name = ent.getCustomName();
-                if (parrot_name != null && !parrot_name.isEmpty()) {
-                    outer_parrot.setCustomName(parrot_name);
+                Component parrot_name = ent.customName();
+                if (parrot_name != null) {
+                    outer_parrot.customName(parrot_name);
                 }
                 outer_parrot.setVariant(inner_parrot.getVariant());
                 ent.remove();
@@ -297,9 +299,9 @@ public class TARDISEjectListener implements Listener {
                 if ((!g.isAdult())) {
                     pig.setBaby();
                 }
-                String pigname = ent.getCustomName();
-                if (pigname != null && !pigname.isEmpty()) {
-                    pig.setCustomName(pigname);
+                Component pigname = ent.customName();
+                if (pigname != null) {
+                    pig.customName(pigname);
                 }
                 if (g.hasSaddle()) {
                     pig.setSaddle(true);
@@ -313,9 +315,9 @@ public class TARDISEjectListener implements Listener {
                 if ((!polar.isAdult())) {
                     bear.setBaby();
                 }
-                String bearname = ent.getCustomName();
-                if (bearname != null && !bearname.isEmpty()) {
-                    bear.setCustomName(bearname);
+                Component bearname = ent.customName();
+                if (bearname != null) {
+                    bear.customName(bearname);
                 }
                 ent.remove();
             }
@@ -326,9 +328,9 @@ public class TARDISEjectListener implements Listener {
                 if ((!s.isAdult())) {
                     sheep.setBaby();
                 }
-                String sheepname = ent.getCustomName();
-                if (sheepname != null && !sheepname.isEmpty()) {
-                    sheep.setCustomName(sheepname);
+                Component sheepname = ent.customName();
+                if (sheepname != null) {
+                    sheep.customName(sheepname);
                 }
                 sheep.setColor(s.getColor());
                 ent.remove();
@@ -340,9 +342,9 @@ public class TARDISEjectListener implements Listener {
                 if ((!s.isAdult())) {
                     sniffer.setBaby();
                 }
-                String sniffername = ent.getCustomName();
-                if (sniffername != null && !sniffername.isEmpty()) {
-                    sniffer.setCustomName(sniffername);
+                Component sniffername = ent.customName();
+                if (sniffername != null) {
+                    sniffer.customName(sniffername);
                 }
                 ent.remove();
             }
@@ -353,9 +355,9 @@ public class TARDISEjectListener implements Listener {
                 if ((!s.isAdult())) {
                     strider.setBaby();
                 }
-                String stridername = ent.getCustomName();
-                if (stridername != null && !stridername.isEmpty()) {
-                    strider.setCustomName(stridername);
+                Component stridername = ent.customName();
+                if (stridername != null) {
+                    strider.customName(stridername);
                 }
                 ent.remove();
             }
@@ -366,9 +368,9 @@ public class TARDISEjectListener implements Listener {
                 if ((!r.isAdult())) {
                     bunny.setBaby();
                 }
-                String rabbitname = ent.getCustomName();
-                if (rabbitname != null && !rabbitname.isEmpty()) {
-                    bunny.setCustomName(rabbitname);
+                Component rabbitname = ent.customName();
+                if (rabbitname != null) {
+                    bunny.customName(rabbitname);
                 }
                 bunny.setRabbitType(r.getRabbitType());
                 ent.remove();
@@ -382,9 +384,9 @@ public class TARDISEjectListener implements Listener {
                     if ((!w.isAdult())) {
                         wolf.setBaby();
                     }
-                    String wolfname = ent.getCustomName();
-                    if (wolfname != null && !wolfname.isEmpty()) {
-                        wolf.setCustomName(wolfname);
+                    Component wolfname = ent.customName();
+                    if (wolfname != null) {
+                        wolf.customName(wolfname);
                     }
                     wolf.setSitting(w.isSitting());
                     wolf.setCollarColor(w.getCollarColor());
@@ -402,9 +404,9 @@ public class TARDISEjectListener implements Listener {
                     if ((!o.isAdult())) {
                         cat.setBaby();
                     }
-                    String catname = ent.getCustomName();
-                    if (catname != null && !catname.isEmpty()) {
-                        cat.setCustomName(catname);
+                    Component catname = ent.customName();
+                    if (catname != null) {
+                        cat.customName(catname);
                     }
                     cat.setSitting(o.isSitting());
                     cat.setCatType(o.getCatType());
@@ -429,9 +431,9 @@ public class TARDISEjectListener implements Listener {
                 villager.setVillagerExperience(v.getVillagerExperience());
                 villager.setVillagerLevel(v.getVillagerLevel());
                 plugin.getTardisHelper().setReputation(villager, uuid, plugin.getTardisHelper().getReputation(v, uuid));
-                String vilname = ent.getCustomName();
-                if (vilname != null && !vilname.isEmpty()) {
-                    villager.setCustomName(vilname);
+                Component vilname = ent.customName();
+                if (vilname != null) {
+                    villager.customName(vilname);
                 }
                 ent.remove();
             }
@@ -445,9 +447,9 @@ public class TARDISEjectListener implements Listener {
                     frog.setBaby();
                 }
                 frog.setHealth(f.getHealth());
-                String frogname = ent.getCustomName();
-                if (frogname != null && !frogname.isEmpty()) {
-                    frog.setCustomName(frogname);
+                Component frogname = ent.customName();
+                if (frogname != null) {
+                    frog.customName(frogname);
                 }
                 ent.remove();
             }
@@ -461,9 +463,9 @@ public class TARDISEjectListener implements Listener {
                     axolotl.setBaby();
                 }
                 axolotl.setHealth(a.getHealth());
-                String axname = ent.getCustomName();
-                if (axname != null && !axname.isEmpty()) {
-                    axolotl.setCustomName(axname);
+                Component axname = ent.customName();
+                if (axname != null) {
+                    axolotl.customName(axname);
                 }
                 ent.remove();
             }

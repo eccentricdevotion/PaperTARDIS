@@ -18,6 +18,7 @@ package me.eccentric_nz.TARDIS.flight;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -49,7 +50,7 @@ public class TARDISRegulatorListener extends TARDISRegulatorSlot implements List
     @EventHandler(ignoreCancelled = true)
     public void onHelmicRegulatorClose(InventoryCloseEvent event) {
         InventoryView view = event.getView();
-        if (view.getTitle().equals("Helmic Regulator")) {
+        if (ComponentUtils.stripColour(view.title()).equals("Helmic Regulator")) {
             Player player = (Player) event.getPlayer();
             UUID uuid = player.getUniqueId();
             if (plugin.getTrackerKeeper().getRegulating().containsKey(uuid)) {
@@ -66,7 +67,7 @@ public class TARDISRegulatorListener extends TARDISRegulatorSlot implements List
     @EventHandler(ignoreCancelled = true)
     public void onHelmicRegulatorOpen(InventoryOpenEvent event) {
         InventoryView view = event.getView();
-        if (view.getTitle().equals("Helmic Regulator")) {
+        if (ComponentUtils.stripColour(view.title()).equals("Helmic Regulator")) {
             Player player = (Player) event.getPlayer();
             UUID uuid = player.getUniqueId();
             // start the runnable
@@ -103,7 +104,7 @@ public class TARDISRegulatorListener extends TARDISRegulatorSlot implements List
     public void onHelmicRegulatorClick(InventoryClickEvent event) {
         InventoryView view = event.getView();
         UUID uuid = event.getWhoClicked().getUniqueId();
-        if (view.getTitle().equals("Helmic Regulator") && plugin.getTrackerKeeper().getRegulating().containsKey(uuid)) {
+        if (ComponentUtils.stripColour(view.title()).equals("Helmic Regulator") && plugin.getTrackerKeeper().getRegulating().containsKey(uuid)) {
             int slot = event.getRawSlot();
             int old_slot = plugin.getTrackerKeeper().getRegulating().get(uuid).getSlot();
             if (directions.contains(slot)) {

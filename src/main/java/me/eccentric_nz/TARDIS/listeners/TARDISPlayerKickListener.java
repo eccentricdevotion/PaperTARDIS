@@ -18,6 +18,7 @@ package me.eccentric_nz.TARDIS.listeners;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.utility.TARDISVoidFall;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
@@ -42,7 +43,7 @@ public class TARDISPlayerKickListener implements Listener {
         Player player = event.getPlayer();
         Location location = player.getLocation();
         if (location.getBlockY() < 1 && plugin.getUtils().inTARDISWorld(player)) {
-            event.setReason(player.getName() + " fell out of their TARDIS!");
+            event.reason(Component.text(player.getName() + " fell out of their TARDIS!"));
             event.setCancelled(true);
             if (plugin.getConfig().getString("preferences.vortex_fall").equals("kill")) {
                 player.damage(Float.MAX_VALUE, DamageSource.builder(DamageType.GENERIC_KILL).build());

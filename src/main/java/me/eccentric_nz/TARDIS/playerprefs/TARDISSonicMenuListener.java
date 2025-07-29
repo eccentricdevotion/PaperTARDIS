@@ -94,7 +94,10 @@ public class TARDISSonicMenuListener extends TARDISMenuListener {
                 NamedTextColor color = TARDISStaticUtils.getColor(meta.displayName());
                 Material material = TARDISKeyMenuListener.REVERSE_LOOKUP.get(color);
                 ItemStack choice = view.getItem(28);
-                choice.setType(material);
+                ItemMeta cim = choice.getItemMeta();
+                ItemStack wool = ItemStack.of(material);
+                wool.setItemMeta(cim);
+                view.setItem(28, wool);
             }
             case 28 -> {
                 event.setCancelled(true);
@@ -107,7 +110,7 @@ public class TARDISSonicMenuListener extends TARDISMenuListener {
                 ItemStack choice = view.getItem(28);
                 Material wool = getNextWool(choice.getType());
                 // set wool colour to next in line
-                choice.setType(wool);
+                view.setItem(28, ItemStack.of(wool));
                 NamedTextColor display = TARDISKeyMenuListener.COLOUR_LOOKUP.get(wool);
                 ItemMeta sonic_im = sonic.getItemMeta();
                 sonic_im.displayName(Component.text("Sonic Screwdriver", display));

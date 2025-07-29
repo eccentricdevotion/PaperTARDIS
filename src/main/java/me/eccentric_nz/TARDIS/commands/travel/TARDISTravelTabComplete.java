@@ -17,10 +17,11 @@
 package me.eccentric_nz.TARDIS.commands.travel;
 
 import com.google.common.collect.ImmutableList;
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.commands.TARDISCompleter;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetAreas;
-import org.bukkit.Registry;
 import org.bukkit.block.Biome;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -39,7 +40,7 @@ public class TARDISTravelTabComplete extends TARDISCompleter implements TabCompl
     private final List<String> STRUCTURE_SUBS;
 
     public TARDISTravelTabComplete(TARDIS plugin) {
-        for (Biome bi : Registry.BIOME) {
+        for (Biome bi : RegistryAccess.registryAccess().getRegistry(RegistryKey.BIOME)) {
             if (!bi.equals(Biome.THE_VOID)) {
                 BIOME_SUBS.add(bi.toString());
             }

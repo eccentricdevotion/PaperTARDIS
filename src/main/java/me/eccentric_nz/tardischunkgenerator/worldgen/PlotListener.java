@@ -4,7 +4,9 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetPlotCount;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
@@ -56,10 +58,10 @@ public class PlotListener implements Listener {
                     // check name on the sign
                     // if it matches, and we are tracking the player
                     // update the plot name
-                    if (sign.getSide(Side.FRONT).getLine(1).equals(player.getName()) && plugin.getTrackerKeeper().getPlotters().containsKey(player.getUniqueId())) {
+                    if (ComponentUtils.stripColour(sign.getSide(Side.FRONT).line(1)).equals(player.getName()) && plugin.getTrackerKeeper().getPlotters().containsKey(player.getUniqueId())) {
                         String name = plugin.getTrackerKeeper().getPlotters().get(player.getUniqueId());
-                        sign.getSide(Side.FRONT).setLine(0, name);
-                        sign.getSide(Side.BACK).setLine(0, name);
+                        sign.getSide(Side.FRONT).line(0, Component.text(name));
+                        sign.getSide(Side.BACK).line(0, Component.text(name));
                         sign.update();
                         // update the database
                         HashMap<String, Object> set = new HashMap<>();
@@ -67,7 +69,7 @@ public class PlotListener implements Listener {
                         HashMap<String, Object> where = new HashMap<>();
                         where.put("uuid", player.getUniqueId().toString());
                         where.put("world", player.getWorld().getName());
-                        String[] split = sign.getSide(Side.FRONT).getLine(3).split(", ");
+                        String[] split = ComponentUtils.stripColour(sign.getSide(Side.FRONT).line(3)).split(", ");
                         String[] sx = split[0].split(":");
                         int dx = TARDISNumberParsers.parseInt(sx[1]);
                         String[] sz = split[1].split(":");
@@ -91,13 +93,13 @@ public class PlotListener implements Listener {
                 }
                 SignSide front = sign.getSide(Side.FRONT);
                 // suggest command
-                front.setLine(0, "/tplot name [name]");
-                front.setLine(1, player.getName());
-                front.setLine(3, "X:" + x + ", Z:" + z);
+                front.line(0, Component.text("/tplot name [name]"));
+                front.line(1, Component.text(player.getName()));
+                front.line(3, Component.text("X:" + x + ", Z:" + z));
                 SignSide back = sign.getSide(Side.BACK);
-                back.setLine(0, "/tplot name [name]");
-                back.setLine(1, player.getName());
-                back.setLine(3, "X:" + x + ", Z:" + z);
+                back.line(0, Component.text("/tplot name [name]"));
+                back.line(1, Component.text(player.getName()));
+                back.line(3, Component.text("X:" + x + ", Z:" + z));
                 sign.setWaxed(true);
                 sign.update(true);
                 // make locations

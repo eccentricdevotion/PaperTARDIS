@@ -28,8 +28,10 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisPreset;
 import me.eccentric_nz.TARDIS.destroyers.DestroyData;
 import me.eccentric_nz.TARDIS.enumeration.*;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -227,9 +229,9 @@ public class TARDISJunkControlListener implements Listener {
         Sign s = getDestinationSign(id);
         if (s != null) {
             SignSide front = s.getSide(Side.FRONT);
-            String line1 = front.getLine(1);
-            String line2 = front.getLine(2);
-            String line3 = front.getLine(3);
+            String line1 = ComponentUtils.stripColour(front.line(1));
+            String line2 = ComponentUtils.stripColour(front.line(2));
+            String line3 = ComponentUtils.stripColour(front.line(3));
             if (line1.isEmpty() || line2.isEmpty() || line3.isEmpty()) {
                 if (line1.isEmpty() && line2.isEmpty() && line3.isEmpty()) {
                     // check location
@@ -278,7 +280,7 @@ public class TARDISJunkControlListener implements Listener {
                 pos = (v < worlds.size() - 1) ? v + 1 : 0;
             }
             worldMap.put(uuid, pos);
-            s.getSide(Side.FRONT).setLine(1, worlds.get(pos));
+            s.getSide(Side.FRONT).line(1, Component.text(worlds.get(pos)));
             s.update();
         }
     }
@@ -293,7 +295,7 @@ public class TARDISJunkControlListener implements Listener {
         Block cb = getControlBlock(id, 3);
         Comparator c = (cb != null) ? (Comparator) cb.getBlockData() : null;
         if (s != null && r != null && c != null) {
-            String txt = s.getSide(Side.FRONT).getLine(line);
+            String txt = ComponentUtils.stripColour(s.getSide(Side.FRONT).line(line));
             if (txt.isEmpty()) {
                 txt = "0";
             }
@@ -303,7 +305,7 @@ public class TARDISJunkControlListener implements Listener {
             int current = TARDISNumberParsers.parseInt(txt);
             // increment / decrement sign coord value
             int amount = current + (multiplier * positiveNegative);
-            s.getSide(Side.FRONT).setLine(line, "" + amount);
+            s.getSide(Side.FRONT).line(line, Component.text(amount));
             s.update();
         }
     }

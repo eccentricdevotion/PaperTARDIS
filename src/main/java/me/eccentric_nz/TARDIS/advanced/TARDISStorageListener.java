@@ -25,6 +25,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.handles.TARDISHandlesProgramInventory;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -72,7 +73,7 @@ public class TARDISStorageListener extends TARDISMenuListener {
     @EventHandler(ignoreCancelled = true)
     public void onDiskStorageClose(InventoryCloseEvent event) {
         InventoryView view = event.getView();
-        String title = view.getTitle();
+        String title = ComponentUtils.stripColour(view.title());
         if (inv_titles.contains(title)) {
             // which inventory screen is it?
             String[] split = title.split(" ");
@@ -106,7 +107,7 @@ public class TARDISStorageListener extends TARDISMenuListener {
     @EventHandler(ignoreCancelled = true)
     public void onDiskStorageInteract(InventoryClickEvent event) {
         InventoryView view = event.getView();
-        String title = view.getTitle();
+        String title = ComponentUtils.stripColour(view.title());
         if (!inv_titles.contains(title)) {
             return;
         }
@@ -268,10 +269,6 @@ public class TARDISStorageListener extends TARDISMenuListener {
                                     is.setItemMeta(im);
                                 }
                             } else {
-//                                if (TARDISStaticUtils.isMusicDisk(is)) {
-//                                    switch (is.getType()) {
-//                                    }
-//                                } else
                                 if (is.getType().equals(Material.LIME_WOOL)) {
                                     is.setType(Material.BOWL);
                                     is.setItemMeta(im);
@@ -291,7 +288,7 @@ public class TARDISStorageListener extends TARDISMenuListener {
             p.closeInventory();
             if (stack != null) {
                 // open new inventory
-                Inventory inv = plugin.getServer().createInventory(p, 54, s.getTitle());
+                Inventory inv = plugin.getServer().createInventory(p, 54, Component.text(s.getTitle()));
                 inv.setContents(stack);
                 p.openInventory(inv);
             }

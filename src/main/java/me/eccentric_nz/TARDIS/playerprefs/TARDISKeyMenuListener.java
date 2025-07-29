@@ -140,8 +140,7 @@ public class TARDISKeyMenuListener extends TARDISMenuListener {
                 // set wool colour from display name of placed key
                 NamedTextColor color = TARDISStaticUtils.getColor(meta.displayName());
                 Material wool = TARDISKeyMenuListener.REVERSE_LOOKUP.get(color);
-                ItemStack choice = view.getItem(19);
-                choice.setType(wool);
+                view.setItem(19, ItemStack.of(wool));
             }
             case 19 -> {
                 event.setCancelled(true);
@@ -154,7 +153,8 @@ public class TARDISKeyMenuListener extends TARDISMenuListener {
                 ItemStack choice = view.getItem(19);
                 Material wool = getNextWool(choice.getType());
                 // set wool colour to next in line
-                choice.setType(wool);
+                view.setItem(19, ItemStack.of(wool));
+                // set sonic display name colour
                 NamedTextColor display = COLOUR_LOOKUP.get(wool);
                 ItemMeta key_im = key.getItemMeta();
                 key_im.displayName(Component.text("TARDIS Key", display));

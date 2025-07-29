@@ -18,6 +18,7 @@ package me.eccentric_nz.TARDIS.achievement;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -26,6 +27,7 @@ import org.bukkit.inventory.meta.BookMeta;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -73,14 +75,17 @@ public class TARDISBook {
         }
         book_str = AT_P.matcher(book_str).replaceAll(p.getName());
         // two line breaks = new page
-        List<String> pages = List.of(book_str.split(ls + ls));
+        List<Component> pages = new ArrayList<>();
+        for (String b : List.of(book_str.split(ls + ls))) {
+            pages.add(Component.text(b));
+        }
         // make the book
         ItemStack book = ItemStack.of(Material.WRITTEN_BOOK);
         BookMeta meta = (BookMeta) book.getItemMeta();
         String[] title = title_reward.split(" - ");
         meta.setTitle(title[0]);
         meta.setAuthor(author);
-        meta.setPages(pages);
+        meta.pages(pages);
         book.setItemMeta(meta);
         // put the book in the player's inventory
         Inventory inv = p.getInventory();

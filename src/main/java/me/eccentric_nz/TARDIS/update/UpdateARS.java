@@ -23,6 +23,7 @@ import com.google.gson.JsonParser;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetARS;
 import me.eccentric_nz.TARDIS.enumeration.Schematic;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -83,10 +84,10 @@ public class UpdateARS {
             // add text to sign
             Sign as = (Sign) block.getState();
             SignSide front = as.getSide(Side.FRONT);
-            front.setLine(0, "TARDIS");
-            front.setLine(1, plugin.getSigns().getStringList("ars").getFirst());
-            front.setLine(2, plugin.getSigns().getStringList("ars").get(1));
-            front.setLine(3, plugin.getSigns().getStringList("ars").get(2));
+            front.line(0, Component.text("TARDIS"));
+            front.line(1, Component.text(plugin.getSigns().getStringList("ars").getFirst()));
+            front.line(2, Component.text(plugin.getSigns().getStringList("ars").get(1)));
+            front.line(3, Component.text(plugin.getSigns().getStringList("ars").get(2)));
             as.setWaxed(true);
             as.update();
         }

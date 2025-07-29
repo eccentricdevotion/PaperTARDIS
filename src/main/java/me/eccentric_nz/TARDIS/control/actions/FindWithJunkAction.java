@@ -22,6 +22,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetCurrentFromId;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.junk.TARDISJunkControlListener;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Chunk;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
@@ -48,9 +49,9 @@ public class FindWithJunkAction {
                 int x = TARDISConstants.RANDOM.nextInt(16) + (chunk.getX() * 16);
                 int z = TARDISConstants.RANDOM.nextInt(16) + (chunk.getZ() * 16);
                 Sign sign = TARDISJunkControlListener.getDestinationSign(id);
-                sign.getSide(Side.FRONT).setLine(1, chunk.getWorld().getName());
-                sign.getSide(Side.FRONT).setLine(2, "" + x);
-                sign.getSide(Side.FRONT).setLine(3, "" + z);
+                sign.getSide(Side.FRONT).line(1, Component.text(chunk.getWorld().getName()));
+                sign.getSide(Side.FRONT).line(2, Component.text(x));
+                sign.getSide(Side.FRONT).line(3, Component.text(z));
                 sign.update();
             } else {
                 plugin.getMessenger().send(player, TardisModule.TARDIS, "CURRENT_NOT_FOUND");

@@ -48,8 +48,6 @@ public class TARDISFurnaceCommand {
                     for (ItemStack i : e.getChoices()) {
                         plugin.debug(i.getType().toString());
                     }
-                } else {
-                    plugin.debug(f.getInput().getType().toString());
                 }
             }
         }

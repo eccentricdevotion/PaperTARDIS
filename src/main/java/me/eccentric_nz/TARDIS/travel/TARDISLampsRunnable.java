@@ -72,12 +72,11 @@ class TARDISLampsRunnable implements Runnable {
                         b.setBlockData(levelled);
                     } else {
                         TARDISDisplayItem tdi = (lights_on) ? light.getOn() : light.getOff();
-                        ItemStack is = display.getItemStack();
-                        ItemMeta im = is.getItemMeta();
+                        ItemMeta im = display.getItemStack().getItemMeta();
                         im.setItemModel(tdi.getCustomModel());
-                        is.setType(tdi.getMaterial());
-                        is.setItemMeta(im);
-                        display.setItemStack(is);
+                        ItemStack sub = ItemStack.of(tdi.getMaterial());
+                        sub.setItemMeta(im);
+                        display.setItemStack(sub);
                     }
                 }
             });
@@ -97,12 +96,11 @@ class TARDISLampsRunnable implements Runnable {
                         // switch the item stack
                         TARDISDisplayItem tdi = light.getCloister();
                         if (i == 0 && tdi != TARDISDisplayItem.NONE) {
-                            ItemStack is = display.getItemStack();
-                            ItemMeta im = is.getItemMeta();
+                            ItemMeta im = display.getItemStack().getItemMeta();
                             im.setItemModel(tdi.getCustomModel());
-                            is.setType(tdi.getMaterial());
-                            is.setItemMeta(im);
-                            display.setItemStack(is);
+                            ItemStack sub = ItemStack.of(tdi.getMaterial());
+                            sub.setItemMeta(im);
+                            display.setItemStack(sub);
                         } else if (tdi == TARDISDisplayItem.NONE) {
                             // if tdi == TARDISDisplay.NONE, flash the lights instead
                             boolean off = (i % 2 == 0);

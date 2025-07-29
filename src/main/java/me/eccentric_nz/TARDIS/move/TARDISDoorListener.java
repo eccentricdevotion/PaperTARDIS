@@ -33,6 +33,7 @@ import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeRecord;
 import me.eccentric_nz.TARDIS.utility.TARDISItemRenamer;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
@@ -282,7 +283,7 @@ public class TARDISDoorListener {
             }
             String pet_name = pet.getName();
             if (pet_name != null && !pet_name.isEmpty()) {
-                ent.setCustomName(pet.getName());
+                ent.customName(Component.text(pet.getName()));
             }
             ent.setHealth(pet.getHealth());
             ((Tameable) ent).setTamed(true);

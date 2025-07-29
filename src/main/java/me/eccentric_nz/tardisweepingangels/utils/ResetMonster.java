@@ -30,6 +30,7 @@ import me.eccentric_nz.tardisweepingangels.monsters.k9.K9Equipment;
 import me.eccentric_nz.tardisweepingangels.monsters.ood.OodEquipment;
 import me.eccentric_nz.tardisweepingangels.monsters.silent.SilentEquipment;
 import me.eccentric_nz.tardisweepingangels.nms.*;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
@@ -146,7 +147,7 @@ public class ResetMonster {
                 case STRAX -> {
                     PigZombie strax = (PigZombie) a;
                     strax.setAngry(false);
-                    a.setCustomName("Strax");
+                    a.customName(Component.text("Strax"));
                 }
                 default -> { }
             }

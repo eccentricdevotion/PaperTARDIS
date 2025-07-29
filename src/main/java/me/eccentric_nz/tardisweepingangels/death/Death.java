@@ -26,6 +26,7 @@ import me.eccentric_nz.tardisweepingangels.nms.TWAJudoon;
 import me.eccentric_nz.tardisweepingangels.utils.HeadBuilder;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
 import net.citizensnpcs.api.CitizensAPI;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.entity.CraftEntity;
@@ -456,7 +457,7 @@ public class Death implements Listener {
                         plugin.getServer().getPluginManager().callEvent(new TARDISWeepingAngelSpawnEvent(e, EntityType.ZOMBIE, Monster.CYBERMAN, l));
                         if (event.getEntity() instanceof Player) {
                             String name = event.getEntity().getName();
-                            e.setCustomName(name);
+                            e.customName(Component.text(name));
                             e.setCustomNameVisible(true);
                         }
                         return;

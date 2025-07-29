@@ -20,6 +20,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
 import me.eccentric_nz.tardisweepingangels.nms.TWAFollower;
 import me.eccentric_nz.tardisweepingangels.nms.TWAJudoon;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.entity.CraftEntity;
@@ -72,7 +73,7 @@ public class JudoonGuardRunnable implements Runnable {
                             entity.setRotation(yaw,0);
                             ammo -= 1;
                             if (ammo > 0) {
-                                entity.setCustomName("Ammunition: " + ammo);
+                                entity.customName(Component.text("Ammunition: " + ammo));
                                 entity.setCustomNameVisible(true);
                                 judoon.setAmmo(ammo);
                             }

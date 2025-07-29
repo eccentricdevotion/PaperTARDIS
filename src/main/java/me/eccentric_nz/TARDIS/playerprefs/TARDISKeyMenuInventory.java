@@ -66,12 +66,15 @@ public class TARDISKeyMenuInventory implements InventoryHolder {
             material = Material.GOLD_NUGGET;
         }
         for (GUIKeyPreferences key : GUIKeyPreferences.values()) {
-            ItemStack is = ItemStack.of(key.getMaterial(), 1);
-            ItemMeta im = is.getItemMeta();
+            ItemStack is;
+            ItemMeta im;
             if (key == GUIKeyPreferences.CLOSE || key == GUIKeyPreferences.INSTRUCTIONS || key == GUIKeyPreferences.NAME || key == GUIKeyPreferences.DISPLAY_NAME_COLOUR) {
+                is = ItemStack.of(key.getMaterial(), 1);
+                im = is.getItemMeta();
                 im.displayName(Component.text(key.getName()));
             } else {
-                is.setType(material);
+                is = ItemStack.of(material);
+                im = is.getItemMeta();
                 im.displayName(ComponentUtils.toWhite("TARDIS Key"));
             }
             if (!key.getLore().isEmpty()) {

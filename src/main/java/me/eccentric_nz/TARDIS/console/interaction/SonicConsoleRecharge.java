@@ -22,6 +22,7 @@ import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItemUtils;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetArtronLeveID;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -128,7 +129,7 @@ public class SonicConsoleRecharge implements Runnable {
             text.setTransformation(transformation);
             text.setSeeThrough(true);
             text.setBillboard(Display.Billboard.VERTICAL);
-            text.setText("Sonic Dock: " + amount);
+            text.text(Component.text("Sonic Dock: " + amount));
         }
     }
 }

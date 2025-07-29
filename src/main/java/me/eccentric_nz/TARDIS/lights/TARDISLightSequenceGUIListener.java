@@ -104,7 +104,7 @@ public class TARDISLightSequenceGUIListener extends TARDISMenuListener {
             index = 0;
         }
         Material next = colours.get(index);
-        wool.setType(next);
+        view.setItem(slot, ItemStack.of(next));
     }
 
     private void setDelay(InventoryView view, int slot, boolean shift) {
@@ -153,7 +153,7 @@ public class TARDISLightSequenceGUIListener extends TARDISMenuListener {
         // set sequence
         List<Material> sequence = Sequences.PRESETS.get(next);
         for (int i = 9; i < 18; i++) {
-            view.getItem(i).setType(sequence.get(i - 9));
+            view.setItem(i, ItemStack.of(sequence.get(i - 9)));
         }
         // set delays
         List<Integer> delays = Sequences.DELAYS.get(next);

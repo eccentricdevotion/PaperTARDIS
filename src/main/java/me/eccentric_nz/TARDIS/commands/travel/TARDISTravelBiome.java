@@ -16,6 +16,8 @@
  */
 package me.eccentric_nz.TARDIS.commands.travel;
 
+import io.papermc.paper.registry.RegistryAccess;
+import io.papermc.paper.registry.RegistryKey;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.advanced.TARDISCircuitChecker;
@@ -30,7 +32,6 @@ import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
 import me.eccentric_nz.TARDIS.travel.TARDISBiomeFinder;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
-import org.bukkit.Registry;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
@@ -105,7 +106,7 @@ public class TARDISTravelBiome {
         }
         if (upper.equals("LIST")) {
             StringBuilder buf = new StringBuilder();
-            for (Biome bi : Registry.BIOME) {
+            for (Biome bi : RegistryAccess.registryAccess().getRegistry(RegistryKey.BIOME)) {
                 if (!bi.equals(Biome.THE_VOID)) {
                     buf.append(bi).append(", ");
                 }

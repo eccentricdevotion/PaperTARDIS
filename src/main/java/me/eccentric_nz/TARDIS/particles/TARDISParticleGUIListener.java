@@ -104,8 +104,11 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
         for (int s = 1; s < 8; s++) {
             ItemStack is = view.getItem(s);
             if (is != null) {
-                is.setType(s == slot ? Material.LAPIS_ORE : Material.LAPIS_LAZULI);
-                view.setItem(s, is);
+                ItemMeta im = is.getItemMeta();
+                ItemStack toSet = ItemStack.of(s == slot ? Material.LAPIS_ORE : Material.LAPIS_LAZULI);
+                toSet.setItemMeta(im);
+//                is.setType(s == slot ? Material.LAPIS_ORE : Material.LAPIS_LAZULI);
+                view.setItem(s, toSet);
             }
         }
         HashMap<String, Object> set = new HashMap<>();
@@ -119,9 +122,10 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
         for (int s = 10; s < 44; s++) {
             ItemStack is = view.getItem(s);
             if (is != null && s != GUIParticle.COLOUR.slot() && s != GUIParticle.BLOCK_INFO.slot() && s != GUIParticle.BLOCK.slot() && s != GUIParticle.TOGGLE.slot()) {
-                is.setType(s == slot ? Material.REDSTONE_ORE : Material.REDSTONE);
-//                setModel(is, s == slot ? ParticleItem.EFFECT_SELECTED.getKey() : ParticleItem.EFFECT.getKey());
-                view.setItem(s, is);
+                ItemMeta im = is.getItemMeta();
+                ItemStack toSet = ItemStack.of(s == slot ? Material.REDSTONE_ORE : Material.REDSTONE);
+                toSet.setItemMeta(im);
+                view.setItem(s, toSet);
             }
         }
         HashMap<String, Object> set = new HashMap<>();
@@ -178,8 +182,7 @@ public class TARDISParticleGUIListener extends TARDISMenuListener {
         component.setFloats(on ? SwitchVariant.BUTTON_TOGGLE_OFF.getFloats() : SwitchVariant.BUTTON_TOGGLE_ON.getFloats());
         im.setCustomModelDataComponent(component);
         List<Component> lore = im.lore();
-        // TODO should use plugin.getLanguage().getString()
-        lore.set(0, on ? Component.text("OFF") : Component.text("ON"));
+        lore.set(0, on ? Component.text(plugin.getLanguage().getString("SET_OFF", "OFF")) : Component.text(plugin.getLanguage().getString("SET_ON", "ON")));
         im.lore(lore);
         is.setItemMeta(im);
         view.setItem(GUIParticle.TOGGLE.slot(), is);

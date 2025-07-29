@@ -18,6 +18,8 @@ package me.eccentric_nz.TARDIS.commands.preferences;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -44,9 +46,9 @@ class TARDISEPSMessageCommand {
         ItemStack bq = player.getInventory().getItemInMainHand();
         if (bq.getType().equals(Material.WRITABLE_BOOK) || bq.getType().equals(Material.WRITTEN_BOOK)) {
             BookMeta bm = (BookMeta) bq.getItemMeta();
-            List<String> pages = bm.getPages();
+            List<Component> pages = bm.pages();
             StringBuilder sb = new StringBuilder();
-            pages.forEach((s) -> sb.append(s).append(" "));
+            pages.forEach((s) -> sb.append(ComponentUtils.stripColour(s)).append(" "));
             message = sb.toString();
         } else {
             if (count < 2) {

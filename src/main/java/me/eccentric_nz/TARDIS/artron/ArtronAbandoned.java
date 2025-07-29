@@ -33,6 +33,7 @@ import me.eccentric_nz.TARDIS.doors.outer.OuterMinecraftDoorCloser;
 import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
 import org.bukkit.block.sign.Side;
@@ -94,9 +95,9 @@ public class ArtronAbandoned {
                         owner = (player_name.length() > 14) ? player_name.substring(0, 12) + "'s" : player_name + "'s";
                     }
                     switch (preset) {
-                        case GRAVESTONE -> front.setLine(3, owner);
-                        case ANGEL, JAIL -> front.setLine(2, owner);
-                        default -> front.setLine(0, owner);
+                        case GRAVESTONE -> front.line(3, Component.text(owner));
+                        case ANGEL, JAIL -> front.line(2, Component.text(owner));
+                        default -> front.line(0, Component.text(owner));
                     }
                     sign.update();
                 }

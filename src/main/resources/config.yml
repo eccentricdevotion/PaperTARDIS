@@ -289,5 +289,4 @@ conversions:
   paintings: true
   exploding: true
   player_prefs_materials: true
-  restore_biomes: true
   short_grass: true

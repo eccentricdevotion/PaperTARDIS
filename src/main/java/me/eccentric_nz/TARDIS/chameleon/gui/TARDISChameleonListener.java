@@ -296,8 +296,9 @@ public class TARDISChameleonListener extends TARDISMenuListener {
                 m = Material.LIME_WOOL;
             }
             im.displayName(onoff);
-            is.setItemMeta(im);
-            is.setType(m);
+            ItemStack sub = ItemStack.of(m);
+            sub.setItemMeta(im);
+            view.setItem(co.getSlot(), sub);
         }
     }
 

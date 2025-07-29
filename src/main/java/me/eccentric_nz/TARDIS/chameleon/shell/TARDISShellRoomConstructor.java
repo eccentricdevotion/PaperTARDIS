@@ -28,6 +28,7 @@ import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.enumeration.Control;
 import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISMaterials;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
 import org.bukkit.Location;
@@ -165,10 +166,10 @@ public class TARDISShellRoomConstructor {
             if (sign != null) {
                 Sign s = (Sign) sign.getState();
                 SignSide front = s.getSide(Side.FRONT);
-                String s1 = (front.getLine(0).contains("&PLAYER")) ? player.getName() + "'s" : front.getLine(0);
-                String s2 = (front.getLine(1).contains("&PLAYER")) ? player.getName() + "'s" : front.getLine(1);
-                String s3 = (front.getLine(2).contains("&PLAYER")) ? player.getName() + "'s" : front.getLine(2);
-                String s4 = (front.getLine(3).contains("&PLAYER")) ? player.getName() + "'s" : front.getLine(3);
+                String s1 = (ComponentUtils.stripColour(front.line(0)).contains("&PLAYER")) ? player.getName() + "'s" : ComponentUtils.stripColour(front.line(0));
+                String s2 = (ComponentUtils.stripColour(front.line(1)).contains("&PLAYER")) ? player.getName() + "'s" : ComponentUtils.stripColour(front.line(1));
+                String s3 = (ComponentUtils.stripColour(front.line(2)).contains("&PLAYER")) ? player.getName() + "'s" : ComponentUtils.stripColour(front.line(2));
+                String s4 = (ComponentUtils.stripColour(front.line(3)).contains("&PLAYER")) ? player.getName() + "'s" : ComponentUtils.stripColour(front.line(3));
                 set.put("line1", s1);
                 set.put("line2", s2);
                 set.put("line3", s3);

@@ -73,8 +73,7 @@ public class TARDISSonicConfiguratorMenuListener extends TARDISMenuListener {
                 loadSonic(view.getItem(45), player, view);
                 setOptions(player, view);
             }, 1L);
-            case 9, 10, 11, 12, 13, 14, 15, 16, 17, 27 ->
-                    toggleOption(view.getItem(slot)); // toggle option enabled / disabled
+            case 9, 10, 11, 12, 13, 14, 15, 16, 17, 27 -> toggleOption(view, slot); // toggle option enabled / disabled
             case 52 -> saveConfiguredSonic(player, view); // save selected options
             case 53 -> close(player);
             default -> event.setCancelled(true);
@@ -103,76 +102,87 @@ public class TARDISSonicConfiguratorMenuListener extends TARDISMenuListener {
             return;
         }
         ItemStack bio = view.getItem(9);
-        bio.setType(configuredSonic.getBio().getMaterial());
         ItemMeta bim = bio.getItemMeta();
         bim.displayName(Component.text(configuredSonic.getBio().getName()));
-        bio.setItemMeta(bim);
+        ItemStack biosub = ItemStack.of(configuredSonic.getBio().getMaterial());
+        biosub.setItemMeta(bim);
+        view.setItem(9, biosub);
         ItemStack dia = view.getItem(10);
-        dia.setType(configuredSonic.getDiamond().getMaterial());
         ItemMeta dim = dia.getItemMeta();
         dim.displayName(Component.text(configuredSonic.getDiamond().getName()));
-        dia.setItemMeta(dim);
+        ItemStack diasub = ItemStack.of(configuredSonic.getDiamond().getMaterial());
+        diasub.setItemMeta(dim);
+        view.setItem(10, diasub);
         ItemStack eme = view.getItem(11);
-        eme.setType(configuredSonic.getEmerald().getMaterial());
         ItemMeta eim = eme.getItemMeta();
         eim.displayName(Component.text(configuredSonic.getEmerald().getName()));
-        eme.setItemMeta(eim);
+        ItemStack emesub = ItemStack.of(configuredSonic.getEmerald().getMaterial());
+        emesub.setItemMeta(eim);
+        view.setItem(11, emesub);
         ItemStack red = view.getItem(12);
-        red.setType(configuredSonic.getRedstone().getMaterial());
         ItemMeta rim = red.getItemMeta();
         rim.displayName(Component.text(configuredSonic.getRedstone().getName()));
-        red.setItemMeta(rim);
+        ItemStack redsub = ItemStack.of(configuredSonic.getRedstone().getMaterial());
+        redsub.setItemMeta(rim);
+        view.setItem(12, redsub);
         ItemStack pai = view.getItem(13);
-        pai.setType(configuredSonic.getPainter().getMaterial());
         ItemMeta pim = pai.getItemMeta();
         pim.displayName(Component.text(configuredSonic.getPainter().getName()));
-        pai.setItemMeta(pim);
+        ItemStack paisub = ItemStack.of(configuredSonic.getPainter().getMaterial());
+        paisub.setItemMeta(pim);
+        view.setItem(13, paisub);
         ItemStack ign = view.getItem(14);
-        ign.setType(configuredSonic.getIgnite().getMaterial());
         ItemMeta iim = ign.getItemMeta();
         iim.displayName(Component.text(configuredSonic.getIgnite().getName()));
-        ign.setItemMeta(iim);
+        ItemStack ignsub = ItemStack.of(configuredSonic.getIgnite().getMaterial());
+        ignsub.setItemMeta(iim);
+        view.setItem(14, ignsub);
         ItemStack arr = view.getItem(15);
-        arr.setType(configuredSonic.getArrow().getMaterial());
         ItemMeta aim = arr.getItemMeta();
         aim.displayName(Component.text(configuredSonic.getArrow().getName()));
-        arr.setItemMeta(aim);
+        ItemStack arrsub = ItemStack.of(configuredSonic.getArrow().getMaterial());
+        arrsub.setItemMeta(aim);
+        view.setItem(15, arrsub);
         ItemStack kno = view.getItem(16);
-        kno.setType(configuredSonic.getKnockback().getMaterial());
         ItemMeta kim = kno.getItemMeta();
         kim.displayName(Component.text(configuredSonic.getKnockback().getName()));
-        kno.setItemMeta(kim);
+        ItemStack knosub = ItemStack.of(configuredSonic.getKnockback().getMaterial());
+        knosub.setItemMeta(kim);
+        view.setItem(16, knosub);
         ItemStack bru = view.getItem(17);
-        bru.setType(configuredSonic.getBrush().getMaterial());
         ItemMeta sh = bru.getItemMeta();
         sh.displayName(Component.text(configuredSonic.getBrush().getName()));
-        bru.setItemMeta(sh);
+        ItemStack brusub = ItemStack.of(configuredSonic.getBrush().getMaterial());
+        brusub.setItemMeta(sh);
+        view.setItem(17, brusub);
         ItemStack con = view.getItem(27);
-        con.setType(configuredSonic.getConversion().getMaterial());
         ItemMeta ver = con.getItemMeta();
         ver.displayName(Component.text(configuredSonic.getConversion().getName()));
-        con.setItemMeta(ver);
+        ItemStack consub = ItemStack.of(configuredSonic.getConversion().getMaterial());
+        consub.setItemMeta(ver);
+        view.setItem(27, consub);
     }
 
-    private void toggleOption(ItemStack option) {
+    private void toggleOption(InventoryView view, int slot) {
+        ItemStack option = view.getItem(slot);
         ItemMeta im = option.getItemMeta();
         Material cmd = option.getType();
+        Material m = Material.LIME_WOOL;
         switch (cmd) {
             case LIME_WOOL -> {
                 // disable
                 im.displayName(Component.text("Disabled"));
-                option.setType(Material.RED_WOOL);
+                m = Material.RED_WOOL;
             }
             case RED_WOOL -> {
                 // enable
                 im.displayName(Component.text("Enabled"));
-                option.setType(Material.LIME_WOOL);
             }
-            default -> {
-                // not upgraded, do nothing
-            }
+            default -> m = Material.RED_WOOL; // not upgraded, do nothing
         }
-        option.setItemMeta(im);
+        ItemStack sub = ItemStack.of(m);
+        sub.setItemMeta(im);
+        view.setItem(slot, sub);
     }
 
     private ConfiguredSonic getConfiguredSonic(UUID sonic_uuid, ItemMeta im) {

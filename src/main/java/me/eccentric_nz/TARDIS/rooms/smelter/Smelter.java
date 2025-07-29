@@ -100,8 +100,6 @@ public class Smelter {
                     for (ItemStack i : e.getChoices()) {
                         smeltables.add(i.getType());
                     }
-                } else {
-                    smeltables.add(f.getInput().getType());
                 }
             }
         }

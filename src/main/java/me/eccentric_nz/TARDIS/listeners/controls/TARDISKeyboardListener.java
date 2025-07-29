@@ -24,6 +24,7 @@ import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
 import me.eccentric_nz.TARDIS.database.resultset.*;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.planets.TARDISAliasResolver;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
@@ -66,7 +67,7 @@ public class TARDISKeyboardListener implements Listener {
         }
         Player player = event.getPlayer();
         Sign sign = (Sign) b.getState();
-        if (sign.getSide(Side.FRONT).getLine(0).equalsIgnoreCase("[TARDIS Wiki]")) {
+        if (ComponentUtils.stripColour(sign.getSide(Side.FRONT).line(0)).equalsIgnoreCase("[TARDIS Wiki]")) {
             plugin.getMessenger().sendSign(player);
         }
     }
@@ -99,8 +100,8 @@ public class TARDISKeyboardListener implements Listener {
         if (!rs.resultSet()) {
             return;
         }
-        String firstLine = event.getLine(0);
-        if (firstLine == null) {
+        String firstLine = ComponentUtils.stripColour(event.line(0));
+        if (firstLine.isEmpty()) {
             return;
         }
         // wiki?
@@ -119,7 +120,10 @@ public class TARDISKeyboardListener implements Listener {
         // location?
         if (TARDISAliasResolver.getWorldFromAlias(firstLine) != null) {
             // set location to coords
-            String command = firstLine + " " + event.getLine(1) + " " + event.getLine(2) + " " + event.getLine(3);
+            String command = firstLine + " "
+                    + ComponentUtils.stripColour(event.line(1)) + " "
+                    + ComponentUtils.stripColour(event.line(2)) + " "
+                    + ComponentUtils.stripColour(event.line(3));
             p.performCommand("tardistravel " + command);
             plugin.getMessenger().message(plugin.getConsole(), TardisModule.TARDIS, p.getName() + " issued server command: /tardistravel " + command);
             return;

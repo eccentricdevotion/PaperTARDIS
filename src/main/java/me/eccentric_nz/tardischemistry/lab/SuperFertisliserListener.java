@@ -39,6 +39,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SuperFertisliserListener implements Listener {
 
@@ -144,7 +145,7 @@ public class SuperFertisliserListener implements Listener {
                 TreeType treeType = TREE_LOOKUP.get(block.getType());
                 plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                     block.setBlockData(TARDISConstants.AIR);
-                    block.getWorld().generateTree(block.getLocation(), treeType);
+                    block.getWorld().generateTree(block.getLocation(), ThreadLocalRandom.current(), treeType);
                 }, 3L);
                 int amount = is.getAmount() - 1;
                 if (amount > 0) {

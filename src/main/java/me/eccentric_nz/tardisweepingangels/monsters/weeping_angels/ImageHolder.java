@@ -16,8 +16,10 @@
  */
 package me.eccentric_nz.tardisweepingangels.monsters.weeping_angels;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngelSpawnEvent;
 import me.eccentric_nz.tardisweepingangels.equip.Equipper;
 import me.eccentric_nz.tardisweepingangels.nms.MonsterSpawner;
@@ -28,7 +30,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.Locale;
 
@@ -41,8 +42,8 @@ public class ImageHolder implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onChatAboutWeepingAngel(AsyncPlayerChatEvent event) {
-        String message = event.getMessage();
+    public void onChatAboutWeepingAngel(AsyncChatEvent event) {
+        String message = ComponentUtils.stripColour(event.message());
         if (message.toLowerCase(Locale.ROOT).contains("angel") && TARDISConstants.RANDOM.nextInt(100) < plugin.getMonstersConfig().getInt("angels.spawn_from_chat.chance")) {
             int dist = plugin.getMonstersConfig().getInt("angels.spawn_from_chat.distance_from_player");
             Block b = event.getPlayer().getLocation().getBlock().getRelative(plugin.getGeneralKeeper().getFaces().get(TARDISConstants.RANDOM.nextInt(4)), dist);

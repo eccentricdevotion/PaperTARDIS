@@ -25,7 +25,10 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetCurrentFromId;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
-import org.bukkit.*;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -96,7 +99,7 @@ public class TARDISStructureTravel {
             Structure structure = null;
             if (args.length > 1) {
                 // check it is a valid structure type
-                structure = Registry.STRUCTURE.get(NamespacedKey.minecraft(args[1].toLowerCase(Locale.ROOT)));
+                structure = RegistryAccess.registryAccess().getRegistry(RegistryKey.STRUCTURE).get(NamespacedKey.minecraft(args[1].toLowerCase(Locale.ROOT)));
                 if (structure == null) {
                     plugin.getMessenger().send(p, TardisModule.TARDIS, "VILLAGE_NO_STRUCTURE", args[1]);
                     return null;

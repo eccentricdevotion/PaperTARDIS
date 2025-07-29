@@ -21,6 +21,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetControls;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetTardisID;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Tag;
 import org.bukkit.block.Block;
@@ -66,7 +67,7 @@ class TARDISARSRemoveCommand {
                 Sign sign = (Sign) b.getState();
                 SignSide front = sign.getSide(Side.FRONT);
                 for (int i = 0; i < 4; i++) {
-                    front.setLine(i, "");
+                    front.line(i, Component.empty());
                 }
                 sign.update();
             }

@@ -17,6 +17,7 @@
 package me.eccentric_nz.TARDIS.rooms.library;
 
 import me.eccentric_nz.TARDIS.TARDISConstants;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Display;
@@ -53,7 +54,7 @@ public class LibraryCatalogue {
             for (int l = 1; l <= shelf.getMaxLevel(); l++) {
                 Location text = card.clone().add(0, l, 0);
                 TextDisplay display = (TextDisplay) start.getWorld().spawnEntity(text, EntityType.TEXT_DISPLAY);
-                display.setText(shelf.getMinecraftName() + roman(l));
+                display.text(Component.text(shelf.getMinecraftName() + roman(l)));
                 display.setAlignment(TextDisplay.TextAlignment.CENTER);
                 display.setTransformation(new Transformation(TARDISConstants.VECTOR_ZERO, TARDISConstants.AXIS_ANGLE_ZERO, TARDISConstants.VECTOR_QUARTER, TARDISConstants.AXIS_ANGLE_ZERO));
                 display.setBillboard(Display.Billboard.FIXED);

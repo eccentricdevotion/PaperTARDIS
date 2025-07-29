@@ -25,10 +25,7 @@ import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.achievement.TARDISAchievementFactory;
 import me.eccentric_nz.TARDIS.bStats.ARSRoomCounts;
 import me.eccentric_nz.TARDIS.commands.TARDISCommandHelper;
-import me.eccentric_nz.TARDIS.commands.config.ConfigDialog;
-import me.eccentric_nz.TARDIS.commands.dev.wiki.ChoiceDialog;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.lazarus.disguise.ArmourTrim;
 import me.eccentric_nz.TARDIS.monitor.MonitorSnapshot;
 import me.eccentric_nz.TARDIS.move.TARDISTeleportLocation;
 import me.eccentric_nz.TARDIS.playerprefs.PreferencesDialog;
@@ -96,7 +93,7 @@ public class TARDISDevCommand implements CommandExecutor {
             "plurals",
             "recipe", "regen", "registry", "rooms",
             "screen", "skin", "snapshot", "stats", "systree",
-            "tis", "tips", "tree", "trim",
+            "tis", "tips", "tree",
             "zero"
     );
     private final TARDIS plugin;
@@ -463,15 +460,6 @@ public class TARDISDevCommand implements CommandExecutor {
                         if (sender instanceof Player player) {
                             return new TARDISDevEffectCommand(plugin).show(player, args);
                         }
-                    }
-                    case "trim" -> {
-                        if (sender instanceof Player player) {
-                            new ArmourTrim().giveCustomArmour(player, args);
-                        }
-                        return true;
-                    }
-                    default -> {
-                        return false;
                     }
                 }
             } else {

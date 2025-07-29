@@ -30,6 +30,7 @@ import me.eccentric_nz.TARDIS.schematic.TARDISSchematicGZip;
 import me.eccentric_nz.TARDIS.utility.TARDISBlockSetters;
 import me.eccentric_nz.TARDIS.utility.TARDISSounds;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -205,7 +206,7 @@ public class TARDISJunkBuilder implements Runnable {
                             postTerminalBlock.setBlockData(sign);
                             if (Tag.WALL_SIGNS.isTagged(postTerminalBlock.getType())) {
                                 Sign ts = (Sign) postTerminalBlock.getState();
-                                ts.getSide(Side.FRONT).setLine(0, plugin.getSigns().getStringList("junk").getFirst());
+                                ts.getSide(Side.FRONT).line(0, Component.text(plugin.getSigns().getStringList("junk").getFirst()));
                                 ts.update();
                             }
                         }

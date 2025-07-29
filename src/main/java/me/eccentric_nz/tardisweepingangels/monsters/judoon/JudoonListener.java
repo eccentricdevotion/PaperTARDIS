@@ -23,6 +23,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
 import me.eccentric_nz.tardisweepingangels.nms.TWAJudoon;
 import me.eccentric_nz.tardisweepingangels.utils.ResetMonster;
+import net.kyori.adventure.text.Component;
 import net.minecraft.world.entity.Entity;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -86,7 +87,7 @@ public class JudoonListener implements Listener {
                                     bsm.setBlockState(shulkerBox);
                                     box.setItemMeta(bsm);
                                     judoon.setAmmo(ammo + remove);
-                                    husk.setCustomName("Ammunition: " + (ammo + remove));
+                                    husk.customName(Component.text("Ammunition: " + (ammo + remove)));
                                     plugin.getMessenger().send(player, TardisModule.MONSTERS, "WA_RELOADED", remove);
                                 }
                             }
@@ -98,7 +99,7 @@ public class JudoonListener implements Listener {
                                     // point weapon
                                     judoon.setGuard(true);
                                     message = "WA_ACTION";
-                                    husk.setCustomName("Ammunition: " + ammo);
+                                    husk.customName(Component.text("Ammunition: " + ammo));
                                     husk.setCustomNameVisible(true);
                                     // add to repeating task
                                     TARDISWeepingAngels.getGuards().add(judoon.getUUID());

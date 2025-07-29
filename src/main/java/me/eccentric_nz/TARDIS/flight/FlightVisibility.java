@@ -48,7 +48,7 @@ public class FlightVisibility {
         // set item display to invisible to hide police box
         player.eject();
         display.remove();
-        if (stand.getCustomName() != null) {
+        if (stand.customName() != null) {
             // hide the display name
             stand.setCustomNameVisible(false);
         }
@@ -60,7 +60,7 @@ public class FlightVisibility {
         UUID uuid = frd.stand();
         Entity as = plugin.getServer().getEntity(uuid);
         if (as instanceof ArmorStand stand) {
-            if (stand.getCustomName() != null) {
+            if (stand.customName() != null) {
                 // set name visible
                 stand.setCustomNameVisible(true);
             }

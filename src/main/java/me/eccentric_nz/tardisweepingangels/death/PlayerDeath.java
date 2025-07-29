@@ -18,6 +18,7 @@ package me.eccentric_nz.tardisweepingangels.death;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.tardisweepingangels.TARDISWeepingAngels;
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -48,72 +49,72 @@ public class PlayerDeath implements Listener {
                     String name = event.getEntity().getName();
                     if (attacker instanceof Zombie) {
                         if (pdc.has(TARDISWeepingAngels.ANGEL_OF_LIBERTY, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by the Angel of Liberty");
+                            event.deathMessage(Component.text(name + " was slain by the Angel of Liberty"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.BEAST, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by The Beast");
+                            event.deathMessage(Component.text(name + " was slain by The Beast"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.CLOCKWORK_DROID, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Clockwork Droid");
+                            event.deathMessage(Component.text(name + " was slain by a Clockwork Droid"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.CYBERMAN, PersistentDataType.INTEGER)) {
                             String what_happened = (plugin.getMonstersConfig().getBoolean("cybermen.can_upgrade")) ? "upgraded" : "slain";
-                            event.setDeathMessage(name + " was " + what_happened + " by a Cyberman");
+                            event.deathMessage(Component.text(name + " was " + what_happened + " by a Cyberman"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.CYBERSHADE, PersistentDataType.INTEGER)) {
                             String what_happened = (plugin.getMonstersConfig().getBoolean("cybermen.can_upgrade")) ? "upgraded" : "slain";
-                            event.setDeathMessage(name + " was " + what_happened + " by a Cybershade");
+                            event.deathMessage(Component.text(name + " was " + what_happened + " by a Cybershade"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.EMPTY, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by an Empty Child");
+                            event.deathMessage(Component.text(name + " was slain by an Empty Child"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.HEAVENLY_HOST, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Heavenly Host");
+                            event.deathMessage(Component.text(name + " was slain by a Heavenly Host"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.NIMON, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Nimon");
+                            event.deathMessage(Component.text(name + " was slain by a Nimon"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.SCARECROW, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Scarecrow");
+                            event.deathMessage(Component.text(name + " was slain by a Scarecrow"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.SLITHEEN, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Slitheen");
+                            event.deathMessage(Component.text(name + " was slain by a Slitheen"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.SMILER, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Smiler");
+                            event.deathMessage(Component.text(name + " was slain by a Smiler"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.SONTARAN, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Sontaran");
+                            event.deathMessage(Component.text(name + " was slain by a Sontaran"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.SYCORAX, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Sycorax");
+                            event.deathMessage(Component.text(name + " was slain by a Sycorax"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.VASHTA, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was eaten by a Vashta Nerada");
+                            event.deathMessage(Component.text(name + " was eaten by a Vashta Nerada"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.ZYGON, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Zygon");
+                            event.deathMessage(Component.text(name + " was slain by a Zygon"));
                             return;
                         }
                     }
                     if (attacker instanceof Guardian) {
                         Entity silent = attacker.getVehicle();
                         if (silent != null && silent.getType().equals(EntityType.SKELETON)) {
-                            event.setDeathMessage(name + " was slain by a Silent");
+                            event.deathMessage(Component.text(name + " was slain by a Silent"));
                             return;
                         }
                     }
@@ -121,86 +122,86 @@ public class PlayerDeath implements Listener {
                         if (!attacker.getPassengers().isEmpty()) {
                             Entity passenger = attacker.getPassengers().getFirst();
                             if (passenger != null && passenger.getType().equals(EntityType.ARMOR_STAND)) {
-                                event.setDeathMessage(name + " was slain by a Toclafane");
+                                event.deathMessage(Component.text(name + " was slain by a Toclafane"));
                                 return;
                             }
                         }
                     }
                     if (attacker instanceof PigZombie) {
                         if (pdc.has(TARDISWeepingAngels.DALEK_SEC, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by Dalek Sec");
+                            event.deathMessage(Component.text(name + " was slain by Dalek Sec"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.DAVROS, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was exterminated by Davros");
+                            event.deathMessage(Component.text(name + " was exterminated by Davros"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.WARRIOR, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by an Ice Warrior");
+                            event.deathMessage(Component.text(name + " was slain by an Ice Warrior"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.STRAX, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a very angry Sontaran butler called Strax");
+                            event.deathMessage(Component.text(name + " was slain by a very angry Sontaran butler called Strax"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.HATH, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was killed by a Hath blaster rifle");
+                            event.deathMessage(Component.text(name + " was killed by a Hath blaster rifle"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.RACNOSS, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Racnoss");
+                            event.deathMessage(Component.text(name + " was slain by a Racnoss"));
                             return;
                         }
                     }
                     if (attacker instanceof Skeleton) {
                         if (pdc.has(TARDISWeepingAngels.ANGEL, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Weeping Angel");
+                            event.deathMessage(Component.text(name + " was slain by a Weeping Angel"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.SILURIAN, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Silurian");
+                            event.deathMessage(Component.text(name + " was slain by a Silurian"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.MONK, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Headless Monk");
+                            event.deathMessage(Component.text(name + " was slain by a Headless Monk"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.MIRE, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by the Mire");
+                            event.deathMessage(Component.text(name + " was slain by the Mire"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.OMEGA, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by Omega");
+                            event.deathMessage(Component.text(name + " was slain by Omega"));
                             return;
                         }
                         if (!attacker.getPassengers().isEmpty()) {
                             Entity passenger = attacker.getPassengers().getFirst();
                             if (passenger != null && passenger.getType().equals(EntityType.GUARDIAN)) {
-                                event.setDeathMessage(name + " was slain by a Silent");
+                                event.deathMessage(Component.text(name + " was slain by a Silent"));
                                 return;
                             }
                         }
                     }
                     if (attacker instanceof Drowned) {
                         if (pdc.has(TARDISWeepingAngels.SATURNYNIAN, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Saturnynian");
+                            event.deathMessage(Component.text(name + " was slain by a Saturnynian"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.SLITHEEN, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Sea Devil");
+                            event.deathMessage(Component.text(name + " was slain by a Sea Devil"));
                             return;
                         }
                         if (pdc.has(TARDISWeepingAngels.VAMPIRE, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Vampire of Venice");
+                            event.deathMessage(Component.text(name + " was slain by a Vampire of Venice"));
                             return;
                         }
                     }
                     if (attacker instanceof PiglinBrute && pdc.has(TARDISWeepingAngels.RACNOSS, PersistentDataType.INTEGER)) {
-                        event.setDeathMessage(name + " was slain by a Racnoss");
+                        event.deathMessage(Component.text(name + " was slain by a Racnoss"));
                         return;
                     }
                     if (attacker instanceof Stray && pdc.has(TARDISWeepingAngels.SUTEKH, PersistentDataType.INTEGER)) {
-                        event.setDeathMessage(name + " was slain by Sutekh");
+                        event.deathMessage(Component.text(name + " was slain by Sutekh"));
                         return;
                     }
                 }
@@ -211,17 +212,17 @@ public class PlayerDeath implements Listener {
                         PersistentDataContainer spdc = skeleton.getPersistentDataContainer();
                         String name = event.getEntity().getName();
                         if (spdc.has(TARDISWeepingAngels.DALEK, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Dalek");
+                            event.deathMessage(Component.text(name + " was slain by a Dalek"));
                             return;
                         }
                         if (spdc.has(TARDISWeepingAngels.SILURIAN, PersistentDataType.INTEGER)) {
-                            event.setDeathMessage(name + " was slain by a Silurian");
+                            event.deathMessage(Component.text(name + " was slain by a Silurian"));
                         }
                     }
                 }
             } else if (damage.getCause().equals(DamageCause.BLOCK_EXPLOSION)) {
                 if (event.getDeathMessage().contains("Bee")) {
-                    event.setDeathMessage(event.getEntity().getName() + " was slain by a Toclafane");
+                    event.deathMessage(Component.text(event.getEntity().getName() + " was slain by a Toclafane"));
                 }
             }
         }

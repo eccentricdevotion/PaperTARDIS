@@ -3,6 +3,7 @@ package me.eccentric_nz.TARDIS.areas;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetAreas;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Tag;
 import org.bukkit.World;
@@ -70,13 +71,13 @@ public class PlotArea implements Runnable {
             Sign sign = (Sign) block.getState();
             SignSide front = sign.getSide(Side.FRONT);
             // server name
-            front.setLine(0, "TARDIS");
-            front.setLine(1, "Landing Area");
-            front.setLine(3, "X:0, Z:0");
+            front.line(0, Component.text("TARDIS"));
+            front.line(1, Component.text("Landing Area"));
+            front.line(3, Component.text("X:0, Z:0"));
             SignSide back = sign.getSide(Side.BACK);
-            back.setLine(0, "TARDIS");
-            back.setLine(1, "Landing Area");
-            back.setLine(3, "X:0, Z:0");
+            back.line(0, Component.text("TARDIS"));
+            back.line(1, Component.text("Landing Area"));
+            back.line(3, Component.text("X:0, Z:0"));
             sign.setWaxed(true);
             sign.update(true);
         }

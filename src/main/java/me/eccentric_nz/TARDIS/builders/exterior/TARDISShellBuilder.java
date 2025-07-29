@@ -23,6 +23,7 @@ import me.eccentric_nz.TARDIS.database.resultset.ResultSetShells;
 import me.eccentric_nz.TARDIS.enumeration.COMPASS;
 import me.eccentric_nz.TARDIS.enumeration.ChameleonPreset;
 import me.eccentric_nz.TARDIS.utility.TARDISBlockSetters;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Tag;
@@ -172,10 +173,10 @@ public class TARDISShellBuilder {
                                     HashMap<String, String> map = rss.getData().getFirst();
                                     Sign sign = (Sign) world.getBlockAt(xx, (y + yy), zz).getState();
                                     SignSide front = sign.getSide(Side.FRONT);
-                                    front.setLine(0, map.get("line1"));
-                                    front.setLine(1, map.get("line2"));
-                                    front.setLine(2, map.get("line3"));
-                                    front.setLine(3, map.get("line4"));
+                                    front.line(0, Component.text(map.get("line1")));
+                                    front.line(1, Component.text(map.get("line2")));
+                                    front.line(2, Component.text(map.get("line3")));
+                                    front.line(3, Component.text(map.get("line4")));
                                     sign.update();
                                 }
                             }

@@ -16,6 +16,7 @@
  */
 package me.eccentric_nz.TARDIS.listeners;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.commands.utils.TARDISAcceptor;
 import me.eccentric_nz.TARDIS.desktop.PreviewData;
@@ -25,13 +26,13 @@ import me.eccentric_nz.TARDIS.handles.TARDISHandlesRequest;
 import me.eccentric_nz.TARDIS.howto.TARDISSeedsInventory;
 import me.eccentric_nz.TARDIS.travel.ComehereAction;
 import me.eccentric_nz.TARDIS.travel.ComehereRequest;
+import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -64,10 +65,10 @@ public class TARDISChatListener implements Listener {
      * @param event a player typing in chat
      */
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onChat(AsyncPlayerChatEvent event) {
+    public void onChat(AsyncChatEvent event) {
         Player player = event.getPlayer();
         UUID chatter = player.getUniqueId();
-        String chat = event.getMessage().toLowerCase(Locale.ROOT);
+        String chat = ComponentUtils.stripColour(event.message()).toLowerCase(Locale.ROOT);
         if (chat.equals("tardis rescue accept") || chat.equals("tardis request accept")) {
             event.setCancelled(true);
             boolean request = (chat.equals("tardis request accept"));
@@ -90,7 +91,7 @@ public class TARDISChatListener implements Listener {
         } else if (handlesPattern.matcher(chat).lookingAt()) {
             event.setCancelled(true);
             // process handles request
-            new TARDISHandlesRequest(plugin).process(chatter, event.getMessage());
+            new TARDISHandlesRequest(plugin).process(chatter, ComponentUtils.stripColour(event.message()));
         } else if (chat.equals("done") && plugin.getTrackerKeeper().getPreviewers().containsKey(chatter)) {
             event.setCancelled(true);
             // transmat back to TARDIS
@@ -115,7 +116,7 @@ public class TARDISChatListener implements Listener {
                 }, 10L);
             }
         } else {
-            handleChat(player, event.getMessage());
+            handleChat(player, ComponentUtils.stripColour(event.message()));
         }
     }
 

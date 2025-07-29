@@ -39,6 +39,7 @@ import me.eccentric_nz.TARDIS.utility.TARDISSounds;
 import me.eccentric_nz.TARDIS.utility.TARDISSponge;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
 import me.eccentric_nz.tardischunkgenerator.worldgen.TARDISChunkGenerator;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -338,14 +339,14 @@ public class TARDISMaterialisePreset implements Runnable {
                                         Sign s = (Sign) sign.getState();
                                         SignSide front = s.getSide(Side.FRONT);
                                         SignSide back = s.getSide(Side.BACK);
-                                        front.setLine(0, "TARDIS");
-                                        front.setLine(1, plugin.getSigns().getStringList("saves").getFirst());
-                                        front.setLine(2, plugin.getSigns().getStringList("saves").get(1));
-                                        front.setLine(3, "");
-                                        back.setLine(0, "TARDIS");
-                                        back.setLine(1, plugin.getSigns().getStringList("saves").getFirst());
-                                        back.setLine(2, plugin.getSigns().getStringList("saves").get(1));
-                                        back.setLine(3, "");
+                                        front.line(0, Component.text("TARDIS"));
+                                        front.line(1, Component.text(plugin.getSigns().getStringList("saves").getFirst()));
+                                        front.line(2, Component.text(plugin.getSigns().getStringList("saves").get(1)));
+                                        front.line(3, Component.empty());
+                                        back.line(0, Component.text("TARDIS"));
+                                        back.line(1, Component.text(plugin.getSigns().getStringList("saves").getFirst()));
+                                        back.line(2, Component.text(plugin.getSigns().getStringList("saves").get(1)));
+                                        back.line(3, Component.empty());
                                         s.setWaxed(true);
                                         s.update();
                                     }
@@ -373,9 +374,9 @@ public class TARDISMaterialisePreset implements Runnable {
                                                     owner = (player_name.length() > 14) ? player_name.substring(0, 12) + "'s" : player_name + "'s";
                                                 }
                                                 switch (preset) {
-                                                    case GRAVESTONE -> front.setLine(3, owner);
-                                                    case ANGEL, JAIL -> front.setLine(2, owner);
-                                                    default -> front.setLine(0, owner);
+                                                    case GRAVESTONE -> front.line(3, Component.text(owner));
+                                                    case ANGEL, JAIL -> front.line(2, Component.text(owner));
+                                                    default -> front.line(0, Component.text(owner));
                                                 }
                                             }
                                         }
@@ -390,43 +391,43 @@ public class TARDISMaterialisePreset implements Runnable {
                                         }
                                         switch (preset) {
                                             case ANGEL -> {
-                                                front.setLine(0, sign_colour + line1);
-                                                front.setLine(1, sign_colour + line2);
-                                                front.setLine(3, sign_colour + "TARDIS");
+                                                front.line(0, Component.text(line1, sign_colour));
+                                                front.line(1, Component.text(line2, sign_colour));
+                                                front.line(3, Component.text("TARDIS", sign_colour));
                                             }
                                             case APPERTURE -> {
-                                                front.setLine(1, sign_colour + line1);
-                                                front.setLine(2, sign_colour + line2);
-                                                front.setLine(3, sign_colour + "LAB");
+                                                front.line(1, Component.text(line1, sign_colour));
+                                                front.line(2, Component.text(line2, sign_colour));
+                                                front.line(3, Component.text("LAB", sign_colour));
                                             }
                                             case JAIL -> {
-                                                front.setLine(0, sign_colour + line1);
-                                                front.setLine(1, sign_colour + line2);
-                                                front.setLine(3, sign_colour + "CAPTURE");
+                                                front.line(0, Component.text(line1, sign_colour));
+                                                front.line(1, Component.text(line2, sign_colour));
+                                                front.line(3, Component.text("CAPTURE", sign_colour));
                                             }
                                             case THEEND -> {
-                                                front.setLine(1, sign_colour + line1);
-                                                front.setLine(2, sign_colour + line2);
-                                                front.setLine(3, sign_colour + "HOT ROD");
+                                                front.line(1, Component.text(line1, sign_colour));
+                                                front.line(2, Component.text(line2, sign_colour));
+                                                front.line(3, Component.text("HOT ROD", sign_colour));
                                             }
                                             case CONSTRUCT -> {
                                                 // get sign text from database
                                                 ResultSetConstructSign rscs = new ResultSetConstructSign(plugin, bd.getTardisID());
                                                 if (rscs.resultSet()) {
                                                     if (rscs.getLine1().isEmpty() && rscs.getLine2().isEmpty() && rscs.getLine3().isEmpty() && rscs.getLine4().isEmpty()) {
-                                                        front.setLine(1, sign_colour + line1);
-                                                        front.setLine(2, sign_colour + line2);
+                                                        front.line(1, Component.text(line1, sign_colour));
+                                                        front.line(2, Component.text(line2, sign_colour));
                                                     } else {
-                                                        front.setLine(0, rscs.getLine1());
-                                                        front.setLine(1, rscs.getLine2());
-                                                        front.setLine(2, rscs.getLine3());
-                                                        front.setLine(3, rscs.getLine4());
+                                                        front.line(0, Component.text(rscs.getLine1()));
+                                                        front.line(1, Component.text(rscs.getLine2()));
+                                                        front.line(2, Component.text(rscs.getLine3()));
+                                                        front.line(3, Component.text(rscs.getLine4()));
                                                     }
                                                 }
                                             }
                                             default -> {
-                                                front.setLine(1, sign_colour + line1);
-                                                front.setLine(2, sign_colour + line2);
+                                                front.line(1, Component.text(line1, sign_colour));
+                                                front.line(2, Component.text(line2, sign_colour));
                                             }
                                         }
                                         s.setWaxed(true);

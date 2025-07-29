@@ -91,7 +91,7 @@ public class TARDISDisplayItemCommand {
                 if (args.length > 3 && args[4].equalsIgnoreCase("true")) {
                     TextDisplay text = (TextDisplay) block.getWorld().spawnEntity(block.getLocation().clone().add(0.5d, 1.75d, 0.5d), EntityType.TEXT_DISPLAY);
                     text.setAlignment(TextDisplay.TextAlignment.CENTER);
-                    text.setText(TARDISStringUtils.capitalise(material.toString()) + ", Cost: 25.00");
+                    text.text(Component.text(TARDISStringUtils.capitalise(material.toString()) + ", Cost: 25.00"));
                     text.setTransformation(new Transformation(TARDISConstants.VECTOR_ZERO, TARDISConstants.AXIS_ANGLE_ZERO, TARDISConstants.VECTOR_QUARTER, TARDISConstants.AXIS_ANGLE_ZERO));
                     text.setBillboard(Display.Billboard.VERTICAL);
                 }
