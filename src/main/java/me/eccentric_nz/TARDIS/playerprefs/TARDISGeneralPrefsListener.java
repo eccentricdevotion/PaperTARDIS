@@ -16,35 +16,22 @@
  */
 package me.eccentric_nz.TARDIS.playerprefs;
 
-import me.eccentric_nz.TARDIS.ARS.TARDISARSMap;
 import me.eccentric_nz.TARDIS.TARDIS;
-import me.eccentric_nz.TARDIS.advanced.TARDISCircuitChecker;
-import me.eccentric_nz.TARDIS.advanced.TARDISCircuitDamager;
-import me.eccentric_nz.TARDIS.artron.TARDISArtronLevels;
 import me.eccentric_nz.TARDIS.artron.TARDISBeaconToggler;
-import me.eccentric_nz.TARDIS.autonomous.TARDISAutonomousInventory;
 import me.eccentric_nz.TARDIS.blueprints.TARDISPermission;
-import me.eccentric_nz.TARDIS.commands.config.ConfigDialog;
-import me.eccentric_nz.TARDIS.commands.config.TARDISConfigMenuInventory;
 import me.eccentric_nz.TARDIS.commands.preferences.TARDISBuildCommand;
+import me.eccentric_nz.TARDIS.commands.preferences.TARDISIsomorphicCommand;
+import me.eccentric_nz.TARDIS.commands.preferences.TARDISLabelsCommand;
 import me.eccentric_nz.TARDIS.custommodels.GUIPlayerPreferences;
 import me.eccentric_nz.TARDIS.database.data.Tardis;
 import me.eccentric_nz.TARDIS.database.resultset.*;
-import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
-import me.eccentric_nz.TARDIS.enumeration.FlightMode;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
-import me.eccentric_nz.TARDIS.floodgate.FloodgateMapForm;
-import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
 import me.eccentric_nz.TARDIS.forcefield.TARDISForceField;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
-import me.eccentric_nz.TARDIS.mobfarming.TARDISFarmingInventory;
-import me.eccentric_nz.TARDIS.particles.TARDISParticleInventory;
-import me.eccentric_nz.TARDIS.sonic.TARDISSonicConfiguratorInventory;
 import me.eccentric_nz.TARDIS.upgrades.SystemTree;
 import me.eccentric_nz.TARDIS.upgrades.SystemUpgradeChecker;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
-import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -53,7 +40,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -161,7 +147,25 @@ public class TARDISGeneralPrefsListener extends TARDISMenuListener {
         String value = (bool) ? plugin.getLanguage().getString("SET_OFF", "OFF") : plugin.getLanguage().getString("SET_ON", "ON");
         int b = (bool) ? 0 : 1;
         String which = ComponentUtils.stripColour(im.displayName());
+        // get tardis record
+        Tardis tardis = null;
+        HashMap<String, Object> wherep = new HashMap<>();
+        wherep.put("uuid", uuid.toString());
+        ResultSetTardis rsp = new ResultSetTardis(plugin, wherep, "", false);
+        if (rsp.resultSet()) {
+            tardis = rsp.getTardis();
+        }
         switch (which) {
+            case "Console Labels" -> {
+                String[] args = new String[]{"console_labels", bool ? "off" : "on"};
+                new TARDISLabelsCommand(plugin).toggle(player, args);
+                return;
+            }
+            case "Isometric" -> {
+                if (tardis!=null && (tardis.isIsomorphicOn() && !bool || !tardis.isIsomorphicOn() && bool)) {
+                    new TARDISIsomorphicCommand(plugin).toggleIsomorphicControls(player);
+                }
+            }
             case "Junk TARDIS" -> {
                 // must be on the outside of the TARDIS
                 HashMap<String, Object> wheret = new HashMap<>();
@@ -184,12 +188,7 @@ public class TARDISGeneralPrefsListener extends TARDISMenuListener {
                 where.put("uuid", uuid.toString());
                 ResultSetJunk rsj = new ResultSetJunk(plugin, where);
                 boolean has = rsj.resultSet();
-                // get preset
-                HashMap<String, Object> wherep = new HashMap<>();
-                wherep.put("uuid", uuid.toString());
-                ResultSetTardis rsp = new ResultSetTardis(plugin, wherep, "", false);
-                if (rsp.resultSet()) {
-                    Tardis tardis = rsp.getTardis();
+                if (tardis != null) {
                     String current = tardis.getPreset().toString();
                     // make sure is opposite
                     if (current.equals("JUNK_MODE") && !bool) {

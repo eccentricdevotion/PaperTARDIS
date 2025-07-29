@@ -25,15 +25,15 @@ import org.bukkit.entity.Player;
 /**
  * @author eccentric_nz
  */
-class TARDISLabelsCommand {
+public class TARDISLabelsCommand {
 
     private final TARDIS plugin;
 
-    TARDISLabelsCommand(TARDIS plugin) {
+    public TARDISLabelsCommand(TARDIS plugin) {
         this.plugin = plugin;
     }
 
-    boolean toggle(Player player, String[] args) {
+    public boolean toggle(Player player, String[] args) {
         if (args.length < 2 || (!args[1].equalsIgnoreCase("on") && !args[1].equalsIgnoreCase("off"))) {
             plugin.getMessenger().send(player, TardisModule.TARDIS, "PREF_ON_OFF", "console_labels");
             return false;
