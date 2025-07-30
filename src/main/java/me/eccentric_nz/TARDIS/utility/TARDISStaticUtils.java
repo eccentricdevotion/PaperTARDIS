@@ -346,8 +346,11 @@ public class TARDISStaticUtils {
             JsonObject object = JsonParser.parseString(json).getAsJsonObject();
             if (object.has("color")) {
                 String c = object.get("color").getAsString();
-                TARDIS.plugin.debug(c.toUpperCase(Locale.ROOT));
-                colour = NamedTextColor.NAMES.value(c.toUpperCase(Locale.ROOT));
+                for (NamedTextColor ntc : NamedTextColor.NAMES.values()) {
+                    if (c.equalsIgnoreCase(ntc.toString())) {
+                        colour = ntc;
+                    }
+                }
             }
         }
         return colour;

@@ -21,6 +21,7 @@ import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.TARDISStaticUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -41,8 +42,11 @@ import org.bukkit.inventory.meta.components.CustomModelDataComponent;
  */
 public class TARDISSonicMenuListener extends TARDISMenuListener {
 
+    private final TARDIS plugin;
+
     public TARDISSonicMenuListener(TARDIS plugin) {
         super(plugin);
+        this.plugin = plugin;
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -92,7 +96,7 @@ public class TARDISSonicMenuListener extends TARDISMenuListener {
                 }
                 // set wool colour from display name of placed sonic
                 NamedTextColor color = TARDISStaticUtils.getColor(meta.displayName());
-                Material material = TARDISKeyMenuListener.REVERSE_LOOKUP.get(color);
+                Material material = TARDISKeyMenuListener.REVERSE_LOOKUP.getOrDefault(color, Material.WHITE_WOOL);
                 ItemStack choice = view.getItem(28);
                 ItemMeta cim = choice.getItemMeta();
                 ItemStack wool = ItemStack.of(material);
@@ -113,7 +117,7 @@ public class TARDISSonicMenuListener extends TARDISMenuListener {
                 view.setItem(28, ItemStack.of(wool));
                 NamedTextColor display = TARDISKeyMenuListener.COLOUR_LOOKUP.get(wool);
                 ItemMeta sonic_im = sonic.getItemMeta();
-                sonic_im.displayName(Component.text("Sonic Screwdriver", display));
+                sonic_im.displayName(Component.text("Sonic Screwdriver", display).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
                 sonic.setItemMeta(sonic_im);
             }
             case 35 -> {
