@@ -82,7 +82,7 @@ public class TARDISDevCommand implements CommandExecutor {
             "biome", "box", "brushable",
             "chunks", "chunky", "circuit", "component",
             "dalek", "debug", "dialog", "dismount", "displayitem",
-            "effect",
+            "effect", "empty",
             "frame", "furnace",
             "gravity", "give",
             "happy", "head",
@@ -157,6 +157,9 @@ public class TARDISDevCommand implements CommandExecutor {
                                 Audience.audience(player).showDialog(dialog);
                             }
                             return true;
+                        }
+                        case  "empty" -> {
+                            return new TARDISFixStorageCommand(plugin).convertStacks();
                         }
                         case "furnace" -> {
                             return new TARDISFurnaceCommand(plugin).list();

@@ -44,7 +44,7 @@ public class TARDISDevTabComplete extends TARDISCompleter implements TabComplete
             "biome", "box", "brushable",
             "chunks", "chunky", "circuit", "component",
             "dalek", "debug", "dialog", "dismount", "displayitem",
-            "effect",
+            "effect", "empty",
             "frame", "furnace",
             "gravity", "give",
             "happy", "head",
