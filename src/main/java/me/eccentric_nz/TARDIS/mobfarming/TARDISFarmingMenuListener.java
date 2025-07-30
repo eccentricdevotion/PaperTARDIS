@@ -45,15 +45,16 @@ public class TARDISFarmingMenuListener extends TARDISMenuListener {
         rooms.put(13, "birdcage");
         rooms.put(14, "farm");
         rooms.put(15, "geode");
-        rooms.put(16, "hutch");
-        rooms.put(17, "igloo");
-        rooms.put(27, "iistubil");
-        rooms.put(28, "lava");
-        rooms.put(29, "mangrove");
-        rooms.put(30, "pen");
-        rooms.put(31, "stable");
-        rooms.put(32, "stall");
-        rooms.put(33, "village");
+        rooms.put(16, "happy");
+        rooms.put(17, "hutch");
+        rooms.put(27, "igloo");
+        rooms.put(28, "iistubil");
+        rooms.put(29, "lava");
+        rooms.put(30, "mangrove");
+        rooms.put(31, "pen");
+        rooms.put(32, "stable");
+        rooms.put(33, "stall");
+        rooms.put(34, "village");
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -65,7 +66,7 @@ public class TARDISFarmingMenuListener extends TARDISMenuListener {
         int slot = event.getRawSlot();
         event.setCancelled(true);
         switch (slot) {
-            case 9, 10, 11, 12, 13, 14, 15, 16, 17, 27, 28, 29, 30, 31, 32, 33 -> toggleOption(player.getUniqueId(), event.getView(), slot); // toggle option enabled / disabled
+            case 9, 10, 11, 12, 13, 14, 15, 16, 17, 27, 28, 29, 30, 31, 32, 33, 34 -> toggleOption(player.getUniqueId(), event.getView(), slot); // toggle option enabled / disabled
             case 35 -> close(player);
             default -> event.setCancelled(true);
         }
