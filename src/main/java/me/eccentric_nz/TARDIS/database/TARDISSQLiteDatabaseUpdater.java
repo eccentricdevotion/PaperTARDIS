@@ -448,6 +448,14 @@ class TARDISSQLiteDatabaseUpdater {
                 String happy_alter = "ALTER TABLE " + prefix + "farming_prefs ADD happy INTEGER DEFAULT 1";
                 statement.executeUpdate(happy_alter);
             }
+            // add version to storage
+            String version_query = "SELECT sql FROM sqlite_master WHERE tbl_name = '" + prefix + "storage' AND sql LIKE '%versions%'";
+            ResultSet rsversion = statement.executeQuery(version_query);
+            if (!rsversion.next()) {
+                i++;
+                String happy_alter = "ALTER TABLE " + prefix + "storage ADD versions TEXT DEFAULT '0,0,0,0,0,0,0,0,0'";
+                statement.executeUpdate(happy_alter);
+            }
             // add y to archive
             String y_query = "SELECT sql FROM sqlite_master WHERE tbl_name = '" + prefix + "archive' AND sql LIKE '%y INTEGER%'";
             ResultSet rsy = statement.executeQuery(y_query);

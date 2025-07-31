@@ -387,6 +387,14 @@ class TARDISMySQLDatabaseUpdater {
                 String happy_alter = "ALTER TABLE " + prefix + "farming_prefs ADD happy int(1) DEFAULT '1'";
                 statement.executeUpdate(happy_alter);
             }
+            // add versions to storage
+            String versions_query = "SHOW COLUMNS FROM " + prefix + "storage LIKE 'versions'";
+            ResultSet rsversions = statement.executeQuery(versions_query);
+            if (!rsversions.next()) {
+                i++;
+                String happy_alter = "ALTER TABLE " + prefix + "storage ADD versions varchar(24) DEFAULT '0,0,0,0,0,0,0,0,0'";
+                statement.executeUpdate(happy_alter);
+            }
             // add y to archive
             String y_query = "SHOW COLUMNS FROM " + prefix + "archive LIKE 'y'";
             ResultSet rsy = statement.executeQuery(y_query);
