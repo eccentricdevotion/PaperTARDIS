@@ -39,9 +39,9 @@ public class TARDISAdvancedConsoleInventory implements InventoryHolder {
         ItemStack[] stacks;
         HashMap<String, Object> where = new HashMap<>();
         where.put("uuid", uuid);
-        ResultSetDiskStorage rsds = new ResultSetDiskStorage(plugin, where);
-        if (rsds.resultSet()) {
-            String console = rsds.getConsole();
+        ResultSetDiskStorage storage = new ResultSetDiskStorage(plugin, where);
+        if (storage.resultSet()) {
+            String console = storage.getConsole();
             if (!console.isEmpty()) {
                 try {
                     stacks = TARDISSerializeInventory.itemStacksFromString(console);
@@ -72,10 +72,12 @@ public class TARDISAdvancedConsoleInventory implements InventoryHolder {
     }
 
     private ItemStack[] create(int id) {
-        HashMap<String, Object> setstore = new HashMap<>();
-        setstore.put("uuid", uuid);
-        setstore.put("tardis_id", id);
-        plugin.getQueryFactory().doInsert("storage", setstore);
+        HashMap<String, Object> set = new HashMap<>();
+        set.put("uuid", uuid);
+        set.put("tardis_id", id);
+        // a non-empty console record is required for area storage
+        set.put("console", "rO0ABXcEAAAAEnBwcHBwcHBwcHBwcHBwcHBwcA==");
+        plugin.getQueryFactory().doInsert("storage", set);
         return new ItemStack[18];
     }
 }

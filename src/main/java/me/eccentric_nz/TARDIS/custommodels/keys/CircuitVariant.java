@@ -74,6 +74,45 @@ public enum CircuitVariant {
         this.floats = floats;
     }
 
+    public static CircuitVariant fromDisplayName(String name) {
+        switch (name) {
+            case "TARDIS ARS Circuit" -> {
+                return ARS;
+            }
+            case "TARDIS Chameleon Circuit" -> {
+                return CHAMELEON;
+            }
+            case "TARDIS Input Circuit" -> {
+                return INPUT;
+            }
+            case "TARDIS Invisibility Circuit" -> {
+                return INVISIBILITY;
+            }
+            case "TARDIS Materialisation Circuit" -> {
+                return MATERIALISATION;
+            }
+            case "TARDIS Memory Circuit" -> {
+                return MEMORY;
+            }
+            case "TARDIS Randomiser Circuit" -> {
+                return RANDOM;
+            }
+            case "TARDIS Scanner Circuit" -> {
+                return SCANNER;
+            }
+            case "TARDIS Telepathic Circuit" -> {
+                return TELEPATHIC;
+            }
+            case "TARDIS Temporal Circuit" -> {
+                return TEMPORAL;
+            }
+            default -> {
+                return GALLIFREY;
+            }
+        }
+
+    }
+
     public NamespacedKey getKey() {
         return key;
     }

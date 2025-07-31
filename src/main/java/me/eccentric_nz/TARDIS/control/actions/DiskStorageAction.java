@@ -19,20 +19,18 @@ package me.eccentric_nz.TARDIS.control.actions;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.TARDISConstants;
 import me.eccentric_nz.TARDIS.advanced.TARDISSerializeInventory;
+import me.eccentric_nz.TARDIS.advanced.TARDISStorageConverter;
+import me.eccentric_nz.TARDIS.advanced.TARDISStorageInventory;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItem;
 import me.eccentric_nz.TARDIS.customblocks.TARDISDisplayItemUtils;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetDiskStorage;
-import me.eccentric_nz.TARDIS.enumeration.GlowstoneCircuit;
 import me.eccentric_nz.TARDIS.enumeration.Storage;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.floodgate.TARDISFloodgate;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -57,14 +55,21 @@ public class DiskStorageAction {
             return;
         }
         // do they have a storage record?
-        HashMap<String, Object> wherestore = new HashMap<>();
-        wherestore.put("uuid", playerUUID);
-        ResultSetDiskStorage rsstore = new ResultSetDiskStorage(plugin, wherestore);
+        HashMap<String, Object> where = new HashMap<>();
+        where.put("uuid", playerUUID);
+        ResultSetDiskStorage rsStore = new ResultSetDiskStorage(plugin, where);
         ItemStack[] stack = new ItemStack[54];
-        if (rsstore.resultSet()) {
+        if (rsStore.resultSet()) {
             try {
-                if (!rsstore.getSavesOne().isEmpty()) {
-                    stack = TARDISSerializeInventory.itemStacksFromString(rsstore.getSavesOne());
+                if (!rsStore.getSavesOne().isEmpty()) {
+                    // convert stacks if necessary
+                    String[] split = rsStore.getVersions().split(",");
+                    if (split[0].equals("0")) {
+                        plugin.debug("TARDISStorageConverter.updateDisks");
+                        stack = TARDISStorageConverter.updateDisks(rsStore.getSavesOne());
+                    } else {
+                        stack = TARDISSerializeInventory.itemStacksFromString(rsStore.getSavesOne());
+                    }
                 } else {
                     stack = TARDISSerializeInventory.itemStacksFromString(Storage.SAVE_1.getEmpty());
                 }
@@ -74,41 +79,18 @@ public class DiskStorageAction {
         } else {
             try {
                 stack = TARDISSerializeInventory.itemStacksFromString(Storage.SAVE_1.getEmpty());
-                for (ItemStack is : stack) {
-                    if (is != null && is.hasItemMeta()) {
-                        ItemMeta im = is.getItemMeta();
-                        if (im.hasDisplayName()) {
-                            if (is.getType().equals(Material.FILLED_MAP)) {
-                                GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(im.displayName());
-                                if (glowstone != null) {
-                                    is.setType(Material.GLOWSTONE_DUST);
-                                    is.setItemMeta(im);
-                                }
-                            } else {
-                                if (is.getType().equals(Material.LIME_WOOL)) { // next
-                                    is.setType(Material.BOWL);
-                                    is.setItemMeta(im);
-                                } else if (is.getType().equals(Material.RED_WOOL)) { // prev
-                                    is.setType(Material.BOWL);
-                                    is.setItemMeta(im);
-                                }
-                                is.setItemMeta(im);
-                            }
-                        }
-                    }
-                }
             } catch (IOException ex) {
                 plugin.debug("Could not get default Storage Inventory: " + ex.getMessage());
             }
             // make a record
-            HashMap<String, Object> setstore = new HashMap<>();
-            setstore.put("uuid", player.getUniqueId().toString());
-            setstore.put("tardis_id", id);
-            plugin.getQueryFactory().doInsert("storage", setstore);
+            HashMap<String, Object> set = new HashMap<>();
+            set.put("uuid", player.getUniqueId().toString());
+            set.put("tardis_id", id);
+            // a non-empty console record is required for area storage
+            set.put("console", "rO0ABXcEAAAAEnBwcHBwcHBwcHBwcHBwcHBwcA==");
+            plugin.getQueryFactory().doInsert("storage", set);
         }
-        Inventory inv = plugin.getServer().createInventory(player, 54, Component.text(Storage.SAVE_1.getTitle()));
-        inv.setContents(stack);
-        player.openInventory(inv);
+        player.openInventory(new TARDISStorageInventory(plugin, Storage.SAVE_1.getTitle(), stack).getInventory());
         // update note block if it's not BARRIER + Item Display
         if (!TARDISFloodgate.isFloodgateEnabled() || !TARDISFloodgate.isBedrockPlayer(player.getUniqueId())) {
             if (block.getType().equals(Material.NOTE_BLOCK) || block.getType().equals(Material.MUSHROOM_STEM)) {

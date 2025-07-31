@@ -57,6 +57,7 @@ public class ResultSetDiskStorage {
     private String presetsTwo;
     private String circuits;
     private String console;
+    private String versions;
 
     /**
      * Creates a class instance that can be used to retrieve an SQL ResultSet from the ars table.
@@ -151,6 +152,10 @@ public class ResultSetDiskStorage {
                     if (rs.wasNull()) {
                         console = "";
                     }
+                    versions = rs.getString("versions");
+                    if (rs.wasNull()) {
+                        versions = "0,0,0,0,0,0,0,0,0";
+                    }
                 }
             } else {
                 return false;
@@ -211,5 +216,9 @@ public class ResultSetDiskStorage {
 
     public String getConsole() {
         return console;
+    }
+
+    public String getVersions() {
+        return versions;
     }
 }

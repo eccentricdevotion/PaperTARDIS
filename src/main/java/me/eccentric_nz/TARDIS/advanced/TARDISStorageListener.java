@@ -19,13 +19,11 @@ package me.eccentric_nz.TARDIS.advanced;
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetDiskStorage;
 import me.eccentric_nz.TARDIS.enumeration.DiskCircuit;
-import me.eccentric_nz.TARDIS.enumeration.GlowstoneCircuit;
 import me.eccentric_nz.TARDIS.enumeration.Storage;
 import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.handles.TARDISHandlesProgramInventory;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -54,15 +52,11 @@ import java.util.Locale;
 public class TARDISStorageListener extends TARDISMenuListener {
 
     private final TARDIS plugin;
-    private final List<String> inv_titles = new ArrayList<>();
     private final List<Material> onlythese = new ArrayList<>();
 
     public TARDISStorageListener(TARDIS plugin) {
         super(plugin);
         this.plugin = plugin;
-        for (Storage s : Storage.values()) {
-            inv_titles.add(s.getTitle());
-        }
         for (DiskCircuit dc : DiskCircuit.values()) {
             if (!onlythese.contains(dc.getMaterial())) {
                 onlythese.add(dc.getMaterial());
@@ -73,16 +67,16 @@ public class TARDISStorageListener extends TARDISMenuListener {
     @EventHandler(ignoreCancelled = true)
     public void onDiskStorageClose(InventoryCloseEvent event) {
         InventoryView view = event.getView();
-        String title = ComponentUtils.stripColour(view.title());
-        if (inv_titles.contains(title)) {
+        if (event.getInventory().getHolder(false) instanceof TARDISStorageInventory) {
             // which inventory screen is it?
+            String title = ComponentUtils.stripColour(view.title());
             String[] split = title.split(" ");
             String tmp = split[0].toUpperCase(Locale.ROOT);
             if (split.length > 2) {
                 tmp = tmp + "_" + split[2];
             }
             Storage store = Storage.valueOf(tmp);
-            saveCurrentStorage(event.getInventory(), store.getTable(), (Player) event.getPlayer());
+            saveCurrentStorage(event.getInventory(), store.getColumn(), (Player) event.getPlayer());
         } else if (!(event.getInventory().getHolder(false) instanceof TARDISAdvancedConsoleInventory)
                 && !(event.getInventory().getHolder(false) instanceof TARDISHandlesProgramInventory)) {
             // scan the inventory for area disks and spit them out
@@ -106,9 +100,7 @@ public class TARDISStorageListener extends TARDISMenuListener {
 
     @EventHandler(ignoreCancelled = true)
     public void onDiskStorageInteract(InventoryClickEvent event) {
-        InventoryView view = event.getView();
-        String title = ComponentUtils.stripColour(view.title());
-        if (!inv_titles.contains(title)) {
+        if (!(event.getInventory().getHolder(false) instanceof TARDISStorageInventory)) {
             return;
         }
         int slot = event.getRawSlot();
@@ -124,6 +116,7 @@ public class TARDISStorageListener extends TARDISMenuListener {
             return;
         }
         // which inventory screen is it?
+        String title = ComponentUtils.stripColour(event.getView().title());
         String[] split = title.split(" ");
         String tmp = split[0].toUpperCase(Locale.ROOT);
         if (split.length > 2) {
@@ -131,43 +124,44 @@ public class TARDISStorageListener extends TARDISMenuListener {
         }
         Storage store = Storage.valueOf(tmp);
         if ((slot >= 0 && slot < 6) || slot == 18 || slot == 26) {
-            saveCurrentStorage(event.getClickedInventory(), store.getTable(), player);
+            saveCurrentStorage(event.getClickedInventory(), store.getColumn(), player);
         }
+        String[] versions = rs.getVersions().split(",");
         switch (slot) {
             case 0 -> {
                 if (!store.equals(Storage.SAVE_1)) {
                     // switch to saves
-                    loadInventory(rs.getSavesOne(), player, Storage.SAVE_1);
+                    loadInventory(rs.getSavesOne(), player, Storage.SAVE_1, versions);
                 }
             }
             case 1 -> {
                 if (!store.equals(Storage.AREA)) {
                     // switch to areas
-                    loadInventory(rs.getAreas(), player, Storage.AREA);
+                    loadInventory(rs.getAreas(), player, Storage.AREA, versions);
                 }
             }
             case 2 -> {
                 if (!store.equals(Storage.PLAYER)) {
                     // switch to players
-                    loadInventory(rs.getPlayers(), player, Storage.PLAYER);
+                    loadInventory(rs.getPlayers(), player, Storage.PLAYER, versions);
                 }
             }
             case 3 -> {
                 if (!store.equals(Storage.BIOME_1)) {
                     // switch to biomes
-                    loadInventory(rs.getBiomesOne(), player, Storage.BIOME_1);
+                    loadInventory(rs.getBiomesOne(), player, Storage.BIOME_1, versions);
                 }
             }
             case 4 -> {
                 if (!store.equals(Storage.PRESET_1)) {
                     // switch to presets
-                    loadInventory(rs.getPresetsOne(), player, Storage.PRESET_1);
+                    loadInventory(rs.getPresetsOne(), player, Storage.PRESET_1, versions);
                 }
             }
             case 5 -> {
                 if (!store.equals(Storage.CIRCUIT)) {
                     // switch to circuits
-                    loadInventory(rs.getCircuits(), player, Storage.CIRCUIT);
+                    loadInventory(rs.getCircuits(), player, Storage.CIRCUIT, versions);
                 }
             }
             default -> {
@@ -175,33 +169,33 @@ public class TARDISStorageListener extends TARDISMenuListener {
         }
         switch (store) {
             case BIOME_1 -> {
-                if (slot == 26) {// switch to biome 2
-                    loadInventory(rs.getBiomesTwo(), player, Storage.BIOME_2);
+                if (slot == 26) { // switch to biome 2
+                    loadInventory(rs.getBiomesTwo(), player, Storage.BIOME_2, versions);
                 }
             }
             case BIOME_2 -> {
-                if (slot == 18) {// switch to biome 1
-                    loadInventory(rs.getBiomesOne(), player, Storage.BIOME_1);
+                if (slot == 18) { // switch to biome 1
+                    loadInventory(rs.getBiomesOne(), player, Storage.BIOME_1, versions);
                 }
             }
             case PRESET_1 -> {
-                if (slot == 26) {// switch to preset 2
-                    loadInventory(rs.getPresetsTwo(), player, Storage.PRESET_2);
+                if (slot == 26) { // switch to preset 2
+                    loadInventory(rs.getPresetsTwo(), player, Storage.PRESET_2, versions);
                 }
             }
             case PRESET_2 -> {
-                if (slot == 18) {// switch to preset 1
-                    loadInventory(rs.getPresetsOne(), player, Storage.PRESET_1);
+                if (slot == 18) { // switch to preset 1
+                    loadInventory(rs.getPresetsOne(), player, Storage.PRESET_1, versions);
                 }
             }
             case SAVE_1 -> {
-                if (slot == 26) {// switch to save 2
-                    loadInventory(rs.getSavesTwo(), player, Storage.SAVE_2);
+                if (slot == 26) { // switch to save 2
+                    loadInventory(rs.getSavesTwo(), player, Storage.SAVE_2, versions);
                 }
             }
             case SAVE_2 -> {
-                if (slot == 18) {// switch to save 1
-                    loadInventory(rs.getSavesOne(), player, Storage.SAVE_1);
+                if (slot == 18) { // switch to save 1
+                    loadInventory(rs.getSavesOne(), player, Storage.SAVE_1, versions);
                 }
             }
             default -> { // no extra pages
@@ -243,43 +237,32 @@ public class TARDISStorageListener extends TARDISMenuListener {
         plugin.getQueryFactory().doUpdate("storage", set, where);
     }
 
-    private void loadInventory(String serialized, Player p, Storage s) {
+    private void loadInventory(String serialized, Player p, Storage s, String[] versions) {
         plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             ItemStack[] stack = null;
             try {
                 if (!serialized.isEmpty()) {
                     if (s.equals(Storage.AREA)) {
-                        stack = TARDISSerializeInventory.itemStacksFromString(new TARDISAreaDisks(plugin).checkDisksForNewAreas(p));
+                        if (versions[0].equals("0")) {
+                            stack = TARDISStorageConverter.updateDisks(new TARDISAreaDisks(plugin).checkDisksForNewAreas(p));
+                            versions[0] = "1";
+                            updateVersions(versions, p.getUniqueId().toString());
+                        } else {
+                            stack = TARDISSerializeInventory.itemStacksFromString(new TARDISAreaDisks(plugin).checkDisksForNewAreas(p));
+                        }
                     } else {
-                        stack = TARDISSerializeInventory.itemStacksFromString(serialized);
+                        if (versions[s.ordinal()].equals("0")) {
+                            stack = s == Storage.CIRCUIT ? TARDISStorageConverter.updateCircuits(serialized) : TARDISStorageConverter.updateDisks(serialized);
+                            versions[s.ordinal()] = "1";
+                            updateVersions(versions, p.getUniqueId().toString());
+                        } else {
+                            stack = TARDISSerializeInventory.itemStacksFromString(serialized);
+                        }
                     }
                 } else if (s.equals(Storage.AREA)) {
                     stack = new TARDISAreaDisks(plugin).makeDisks(p);
                 } else {
                     stack = TARDISSerializeInventory.itemStacksFromString(s.getEmpty());
-                }
-                for (ItemStack is : stack) {
-                    if (is != null && is.hasItemMeta()) {
-                        ItemMeta im = is.getItemMeta();
-                        if (im.hasDisplayName()) {
-                            if (is.getType().equals(Material.FILLED_MAP)) {
-                                GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(im.displayName());
-                                if (glowstone != null) {
-                                    is.setType(Material.GLOWSTONE_DUST);
-                                    is.setItemMeta(im);
-                                }
-                            } else {
-                                if (is.getType().equals(Material.LIME_WOOL)) {
-                                    is.setType(Material.BOWL);
-                                    is.setItemMeta(im);
-                                } else if (is.getType().equals(Material.RED_WOOL)) {
-                                    is.setType(Material.BOWL);
-                                    is.setItemMeta(im);
-                                }
-                                is.setItemMeta(im);
-                            }
-                        }
-                    }
                 }
             } catch (IOException ex) {
                 plugin.debug("Could not get inventory from database! " + ex);
@@ -288,10 +271,16 @@ public class TARDISStorageListener extends TARDISMenuListener {
             p.closeInventory();
             if (stack != null) {
                 // open new inventory
-                Inventory inv = plugin.getServer().createInventory(p, 54, Component.text(s.getTitle()));
-                inv.setContents(stack);
-                p.openInventory(inv);
+                p.openInventory(new TARDISStorageInventory(plugin, s.getTitle(), stack).getInventory());
             }
         }, 1L);
+    }
+
+    private void updateVersions(String[] versions, String uuid) {
+        HashMap<String, Object> set = new HashMap<>();
+        set.put("versions", String.join(",", versions));
+        HashMap<String, Object> where = new HashMap<>();
+        where.put("uuid", uuid);
+        plugin.getQueryFactory().doSyncUpdate("storage", set, where);
     }
 }
