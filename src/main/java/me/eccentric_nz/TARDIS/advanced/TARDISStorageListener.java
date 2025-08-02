@@ -24,6 +24,7 @@ import me.eccentric_nz.TARDIS.enumeration.TardisModule;
 import me.eccentric_nz.TARDIS.handles.TARDISHandlesProgramInventory;
 import me.eccentric_nz.TARDIS.listeners.TARDISMenuListener;
 import me.eccentric_nz.TARDIS.utility.ComponentUtils;
+import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -242,7 +243,7 @@ public class TARDISStorageListener extends TARDISMenuListener {
             ItemStack[] stack = null;
             try {
                 if (!serialized.isEmpty()) {
-                    if (s.equals(Storage.AREA)) {
+                    if (s == Storage.AREA) {
                         if (versions[0].equals("0")) {
                             stack = TARDISStorageConverter.updateDisks(new TARDISAreaDisks(plugin).checkDisksForNewAreas(p));
                             versions[0] = "1";
@@ -250,9 +251,18 @@ public class TARDISStorageListener extends TARDISMenuListener {
                         } else {
                             stack = TARDISSerializeInventory.itemStacksFromString(new TARDISAreaDisks(plugin).checkDisksForNewAreas(p));
                         }
+                    } else if (s == Storage.CIRCUIT) {
+                        int version = TARDISNumberParsers.parseInt(versions[3]);
+                        if (version < 2) {
+                            stack = TARDISStorageConverter.updateCircuits(serialized);
+                            versions[3] = version == 0 ? "1" : "2";
+                            updateVersions(versions, p.getUniqueId().toString());
+                        } else {
+                            stack = TARDISSerializeInventory.itemStacksFromString(serialized);
+                        }
                     } else {
                         if (versions[s.ordinal()].equals("0")) {
-                            stack = s == Storage.CIRCUIT ? TARDISStorageConverter.updateCircuits(serialized) : TARDISStorageConverter.updateDisks(serialized);
+                            stack = TARDISStorageConverter.updateDisks(serialized);
                             versions[s.ordinal()] = "1";
                             updateVersions(versions, p.getUniqueId().toString());
                         } else {

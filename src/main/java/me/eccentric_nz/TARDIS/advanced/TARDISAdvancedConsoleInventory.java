@@ -2,15 +2,12 @@ package me.eccentric_nz.TARDIS.advanced;
 
 import me.eccentric_nz.TARDIS.TARDIS;
 import me.eccentric_nz.TARDIS.database.resultset.ResultSetDiskStorage;
-import me.eccentric_nz.TARDIS.enumeration.GlowstoneCircuit;
-import me.eccentric_nz.TARDIS.utility.ComponentUtils;
+import me.eccentric_nz.TARDIS.utility.TARDISNumberParsers;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -43,20 +40,15 @@ public class TARDISAdvancedConsoleInventory implements InventoryHolder {
         if (storage.resultSet()) {
             String console = storage.getConsole();
             if (!console.isEmpty()) {
+                String[] versions = storage.getVersions().split(",");
+                int version = TARDISNumberParsers.parseInt(versions[3]);
                 try {
-                    stacks = TARDISSerializeInventory.itemStacksFromString(console);
-                    for (ItemStack circuit : stacks) {
-                        if (circuit != null && circuit.hasItemMeta()) {
-                            ItemMeta cm = circuit.getItemMeta();
-                            if (circuit.getType().equals(Material.FILLED_MAP)) {
-                                if (cm.hasDisplayName()) {
-                                    GlowstoneCircuit glowstone = GlowstoneCircuit.getByName().get(ComponentUtils.stripColour(cm.displayName()));
-                                    if (glowstone != null) {
-                                        circuit.setType(Material.GLOWSTONE_DUST);
-                                    }
-                                }
-                            }
-                        }
+                    if (version < 2) {
+                        stacks = TARDISStorageConverter.updateCircuits(console);
+                        versions[3] = version == 0 ? "1" : "2";
+                        updateVersions(versions, uuid);
+                    } else {
+                        stacks = TARDISSerializeInventory.itemStacksFromString(console);
                     }
                 } catch (IOException ex) {
                     plugin.debug("Could not read console from database!");
@@ -79,5 +71,13 @@ public class TARDISAdvancedConsoleInventory implements InventoryHolder {
         set.put("console", "rO0ABXcEAAAAEnBwcHBwcHBwcHBwcHBwcHBwcA==");
         plugin.getQueryFactory().doInsert("storage", set);
         return new ItemStack[18];
+    }
+
+    private void updateVersions(String[] versions, String uuid) {
+        HashMap<String, Object> set = new HashMap<>();
+        set.put("versions", String.join(",", versions));
+        HashMap<String, Object> where = new HashMap<>();
+        where.put("uuid", uuid);
+        plugin.getQueryFactory().doSyncUpdate("storage", set, where);
     }
 }
