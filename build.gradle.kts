@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
     `java-library`
     id("io.papermc.paperweight.userdev") version "2.0.0-SNAPSHOT"
@@ -6,7 +8,8 @@ plugins {
 }
 
 group = "me.eccentric_nz"
-version = "6.2.2"
+val build_number = "-b${System.getenv("BUILD_NUMBER") ?: ".local"}"
+version = "6.2.2${build_number}"
 
 repositories {
     mavenCentral()
@@ -171,6 +174,12 @@ tasks {
     }
     javadoc {
         options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
+    }
+}
+
+tasks.processResources {
+    filesMatching("plugin.yml") {
+        filter<ReplaceTokens>("tokens" to mapOf("buildNumber" to build_number))
     }
 }
 
