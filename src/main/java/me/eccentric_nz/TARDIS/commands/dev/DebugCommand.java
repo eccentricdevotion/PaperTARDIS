@@ -58,6 +58,8 @@ public class DebugCommand {
                         }
                     }
                 }
+            } else {
+                plugin.getMessenger().send(sender, TardisModule.TARDIS, "CMD_IN_WORLD");
             }
         }
         return true;
