@@ -115,7 +115,7 @@ dependencies {
     compileOnly("com.github.retrooper:packetevents-api:2.9.3") {
         isTransitive = false
     }
-    compileOnly("me.libraryaddict.disguises:libsdisguises:11.0.6") {
+    compileOnly("me.libraryaddict.disguises:libsdisguises:11.0.7") {
         isTransitive = false
     }
     compileOnly("net.essentialsx:EssentialsX:2.21.2-SNAPSHOT") {
@@ -135,7 +135,7 @@ dependencies {
     }
     compileOnly(files("libs/dynmap-api-3.7-beta-10.jar"))
     compileOnly(files("libs/DynmapCoreAPI-3.7-beta-10.jar"))
-    compileOnly("de.bluecolored:bluemap-api:2.7.4")
+    compileOnly("de.bluecolored:bluemap-api:2.7.5")
     compileOnly("xyz.jpenilla:squaremap-api:1.3.8") {
         isTransitive = false
     }
